@@ -77,21 +77,21 @@
         return window.localStorage.getItem('lang') == null || window.localStorage.getItem('lang') == 1 ? one : tow;
     }
 
-    var Sprice = function (role) {
+    var Sprice = function (role1,role2,role3,role4) {
 //        alert(role);
         var haha
-        switch (role) {
+        switch ({{Auth::guard("pc")->user()->role}}) {
             case 1 :
-                 haha = "<div class='Price'>${{$items['distributor']['level_four_price']}}</div>";
+                 haha = `<div class='Price'>$${{$items['distributor']['level_four_price']}}</div>`;
                 break;
             case 2 :
-                 haha = "<div class='Price'>${{$items['distributor']['level_two_price']}}</div>";
+                 haha = `<div class='Price'>$${{$items['distributor']['level_two_price']}}</div>`;
                 break;
             case 3 :
-                 haha = "<div class='Price'>${{$items['distributor']['level_one_price']}}</div>";
+                 haha = `<div class='Price'>$${{$items['distributor']['level_one_price']}}</div>`;
                 break;
             default :
-                 haha = "<div class='Price'>${{$items['distributor']['level_three_price']}}</div>";
+                 haha = `<div class='Price'>$${{$items['distributor']['level_three_price']}}</div>`;
         }
 //        alert(haha);
         document.write(haha);

@@ -79,15 +79,15 @@
     var prices = function (role) {
         switch (role) {
             case(1) :
-                var haha = `<div class="Price">${{$items['distributor']['level_four_price']}}</div>`;
+                var haha = "<div class="Price">${{$items['distributor']['level_four_price']}}</div>";
             case(2):
-                var haha = `<div class="Price">${{$items['distributor']['level_two_price']}}</div>`;
+                var haha = "<div class='Price'>${{$items['distributor']['level_two_price']}}</div>";
                 break;
             case(3):
-                var haha = `<div class="Price">${{$items['distributor']['level_one_price']}}</div>`;
+                var haha = "<div class='Price'>${{$items['distributor']['level_one_price']}}</div>";
                 break;
             default:
-                var haha = `<div class="Price">${{$items['distributor']['level_three_price']}}</div>`;
+                var haha = "<div class='Price'>${{$items['distributor']['level_three_price']}}</div>";
         }
         document.write(haha);
     }

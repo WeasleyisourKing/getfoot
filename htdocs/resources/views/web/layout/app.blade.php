@@ -77,6 +77,7 @@
         return window.localStorage.getItem('lang') == null || window.localStorage.getItem('lang') == 1 ? one : tow;
     }
     var prices = function (role) {
+        alert(role);
         switch (role) {
             case(1) :
                 var haha = "<div class="Price">${{$items['distributor']['level_four_price']}}</div>";

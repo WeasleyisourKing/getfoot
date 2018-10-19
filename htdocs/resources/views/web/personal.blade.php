@@ -875,7 +875,7 @@
 											<div class="oderPro-2 float_left" style="width: 35%;">
 													<div class="float_left oderPro_2_img"><img src="${allOrder[i].snap_img}" alt="" /></div>
 													<div class="float_left oderPro_2_text">
-														<p class="towLine">${allOrder[i].snap_name}</p>
+														<p class="towLine">${allOrder[i].snap_name[0]=="{"?LanguageHtml(JSON.parse(allOrder[i].snap_name).zn,JSON.parse(allOrder[i].snap_name).en):allOrder[i].snap_name}</p>
 														<span>${orderState[allOrder[i].status]}</span>
 													</div>
 											</div>

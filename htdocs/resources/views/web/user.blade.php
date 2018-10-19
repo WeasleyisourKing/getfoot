@@ -72,7 +72,7 @@ var LanguageHtml=function(one, tow){
         <!--右侧登录&注册组件-->
         <div class="user float_left">
             <div class=" clearfloat userTop">
-                <div class="float_left pointer">
+                <div class="float_left pointer"style="width: 100%;">
                     <script>
                         Language("用户登录","User Log In")
                     </script>

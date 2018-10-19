@@ -612,7 +612,7 @@
                                 <img src="{{$items['product_image']}}" alt=""/>
                                 @if(!empty(Auth::guard("pc")->user()))
                                     <script>
-                                        $(document).ready(function() {
+                                        $(function(){
                                             Sprice({{Auth::guard("pc")->user()->role}});
                                         })
                                     </script>

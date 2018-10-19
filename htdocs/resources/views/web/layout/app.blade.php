@@ -77,22 +77,22 @@
         return window.localStorage.getItem('lang') == null || window.localStorage.getItem('lang') == 1 ? one : tow;
     }
 
-    var Sprice = function (role1,role2,role3,role4) {
+    var Sprice = function (role1, role2, role3, role4) {
 
         var haha;
         @if(!empty(Auth::guard("pc")->user()->role))
-        switch ({{Auth::guard("pc")->user()->role}}) {
+            switch ({{Auth::guard("pc")->user()->role}}) {
             case 1 :
-                 haha = `<div class='Price'>$${role1}</div>`;
+                haha = `<div class='Price'>$${role1}</div>`;
                 break;
             case 2 :
-                 haha = `<div class='Price'>$${role2}</div>`;
+                haha = `<div class='Price'>$${role2}</div>`;
                 break;
             case 3 :
-                 haha = `<div class='Price'>$${role3}</div>`;
+                haha = `<div class='Price'>$${role3}</div>`;
                 break;
             default :
-                 haha = `<div class='Price'>$${role4}</div>`;
+                haha = `<div class='Price'>$${role4}</div>`;
         }
         document.write(haha);
         @endif
@@ -100,12 +100,13 @@
     }
 
 
-    var Sprice1 = function (role1,role2,role3,role4) {
+    var Sprice1 = function (role1, role2, role3, role4) {
 
         var haha;
-        switch ({{Auth::guard("pc")->user()->role}}) {
+        @if(!empty(Auth::guard("pc")->user()->role))
+            switch ({{Auth::guard("pc")->user()->role}}) {
             case 1 :
-                haha =role1;
+                haha = role1;
                 break;
             case 2 :
                 haha = role2;
@@ -116,7 +117,8 @@
             default :
                 haha = role4;
         }
-return haha;
+        return haha;
+        @endif
     }
 </script>
 <body>

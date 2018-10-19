@@ -49,7 +49,7 @@
                                 @endforeach
                             @endif
                         </ol>
-
+{{dd(!empty(Auth::guard("pc")->user()))}}
                     </div>
                     <div class="classifyPro clearfloat  " style="display: none;">
                         <ol class="float_left am-u-sm-4">
@@ -523,6 +523,7 @@
                                             {{--`<button data-number="1" datas-tock="{{$items['stock']}}" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  data-price="@if(!empty(Auth::guard("pc")->user()))${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})}@endif" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd"> Shopping Cart`)--}}
                                     </script>
                                     </button>
+
                                     @if(!empty(Auth::guard("pc")->user()))
                                         <script>
                                             Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});

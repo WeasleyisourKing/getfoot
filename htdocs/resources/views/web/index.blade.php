@@ -610,10 +610,10 @@
                         <div class="am-u-sm-3 ">
                             <div class="DrinksPro" data-router="/details/{{$items['id']}}">
                                 <img src="{{$items['product_image']}}" alt=""/>
-                                <script>
-                                    Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
-                                </script>
                                 @if(!empty(Auth::guard("pc")->user()))
+                                    <script>
+                                            Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
+                                    </script>
                                     {{--@switch(Auth::guard("pc")->user()->role)--}}
                                     {{--@case(1)--}}
                                     {{--<div class="Price">${{$items['distributor']['level_four_price']}}</div>--}}

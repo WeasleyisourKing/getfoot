@@ -58,77 +58,109 @@
     <script src="{{ asset('/lib/js/sweetalert.min.js') }}"></script>
 </head>
 <script type="text/javascript">
-	
-	if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-	    window.location.href = "/apps";
-	}
+
+    if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+        window.location.href = "/apps";
+    }
     $.get('/api/home/login', {}, function (res) {
         if (res.status) {
-            $('.logo').attr('src',"/"+res.data.logo);
+            $('.logo').attr('src', "/" + res.data.logo);
 
         }
     })
 
-//设置语言
- var Language=function(one, tow){
- 	 document.write(window.localStorage.getItem('lang') == null || window.localStorage.getItem('lang') == 1 ? one : tow); 
-  }
-var LanguageHtml=function(one, tow){
- 	return window.localStorage.getItem('lang') == null || window.localStorage.getItem('lang') == 1 ? one :  tow ;
- }
+    //设置语言
+    var Language = function (one, tow) {
+        document.write(window.localStorage.getItem('lang') == null || window.localStorage.getItem('lang') == 1 ? one : tow);
+    }
+    var LanguageHtml = function (one, tow) {
+        return window.localStorage.getItem('lang') == null || window.localStorage.getItem('lang') == 1 ? one : tow;
+    }
+    var prices = function (role) {
+                @switch(role)
+                @case(1)
+        var haha = `<div class="Price">${{$items['distributor']['level_four_price']}}</div>`;
+                @case(2)
+        var haha = `<div class="Price">${{$items['distributor']['level_two_price']}}</div>`;
+                @break
+                @case(3)
+        var haha = `<div class="Price">${{$items['distributor']['level_one_price']}}</div>`;
+                @break
+                @default
+        var haha = `<div class="Price">${{$items['distributor']['level_three_price']}}</div>`;
+        @endswitch
+document.write(haha);
+    }
 </script>
 <body>
 <div class="topBg">
-    <div  class="maxCentr topBox clearfloat">
-         <div class=" topLanguage float_left"id="LanguageToggle">
-            
+    <div class="maxCentr topBox clearfloat">
+        <div class=" topLanguage float_left" id="LanguageToggle">
+
             <script>
-            	Language("English","Chinese")
+                Language("English", "Chinese")
             </script>
-        </div> 
+        </div>
 
         <ul class="topNav float_right">
-            <li class="float_left"><a href="/categorys"><p>
-            <script>
-            	Language("所有分类","All Categories")
-            </script></p></a></li>
+            <li class="float_left"><a href="/categorys">
+                    <p>
+                        <script>
+                            Language("所有分类", "All Categories")
+                        </script>
+                    </p>
+                </a></li>
             @if (!empty(Auth::guard("pc")->user()->name))
                 <li class="float_left">
                     <a href="/personal"><p class="float_left"> Hi，{{Auth::guard("pc")->user()->name}}</p></a>
-                    <a  class="exit float_left" href="{{ route('logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                        <p> 
-            <script>
-            	Language("&nbsp;退出","&nbsp;Exit")
-            </script></p>
+                    <a class="exit float_left" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                        <p>
+                            <script>
+                                Language("&nbsp;退出", "&nbsp;Exit")
+                            </script>
+                        </p>
                     </a>
 
                 </li>
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                {{ csrf_field() }}
+                    {{ csrf_field() }}
                 </form>
             @else
-                <li class="float_left"><a href="/users"><p>
-            <script>
-            	Language("注册/登录","Registered/Log In")
-            </script></p></a></li>
+                <li class="float_left"><a href="/users">
+                        <p>
+                            <script>
+                                Language("注册/登录", "Registered/Log In")
+                            </script>
+                        </p>
+                    </a></li>
             @endif
-            <li class="navIcon float_left"><a href="##"><p class="navIcon1">
-            <script>
-            	Language("消息通知","Notification")
-            </script></p></a></li>
-            @if (!empty(Auth::guard("pc")->user()->id))
-            <li class=" navIcon float_left"><a href="/shop/cart/{{Auth::guard('pc')->user()->id}}" onclick="shopping();"><p class="navIcon2">
-            <script>
-            	Language("购物车 ","Shopping Cart")
-            </script></p>
+            <li class="navIcon float_left"><a href="##">
+                    <p class="navIcon1">
+                        <script>
+                            Language("消息通知", "Notification")
+                        </script>
+                    </p>
                 </a></li>
-                @else
-                <li class=" navIcon float_left"><a href="/shop/cart/-1" onclick="shopping();"><p class="navIcon2">
-            <script>
-            	Language("购物车 ","Shopping cart")
-            </script></p></a></li>
-                @endif
+            @if (!empty(Auth::guard("pc")->user()->id))
+                <li class=" navIcon float_left"><a href="/shop/cart/{{Auth::guard('pc')->user()->id}}"
+                                                   onclick="shopping();">
+                        <p class="navIcon2">
+                            <script>
+                                Language("购物车 ", "Shopping Cart")
+                            </script>
+                        </p>
+                    </a></li>
+            @else
+                <li class=" navIcon float_left"><a href="/shop/cart/-1" onclick="shopping();">
+                        <p class="navIcon2">
+                            <script>
+                                Language("购物车 ", "Shopping cart")
+                            </script>
+                        </p>
+                    </a></li>
+            @endif
         </ul>
     </div>
 </div>
@@ -137,15 +169,15 @@ var LanguageHtml=function(one, tow){
     <div class="logo float_left">
         <a href="/"><img class="logo" src="" alt=""/></a>
     </div>
-    <form  action="/together" method="get">
-    <div class="search float_right">
-       
+    <form action="/together" method="get">
+        <div class="search float_right">
+
             <script>
-            	Language(` <input name="search"  type="text" class="" placeholder="搜索">`,
-            	` <input name="search"  type="text" class="" placeholder="search">`)
+                Language(` <input name="search"  type="text" class="" placeholder="搜索">`,
+                    ` <input name="search"  type="text" class="" placeholder="search">`)
             </script>
-        <button class=" " type="submit"><img src="/home/img/se.png" alt=""/></button>
-    </div>
+            <button class=" " type="submit"><img src="/home/img/se.png" alt=""/></button>
+        </div>
     </form>
 </div>
 
@@ -156,15 +188,15 @@ var LanguageHtml=function(one, tow){
         <div class="mail_box">
             <div class="am-u-sm-5">
                 <div class="am-input-group mail_but">
-                    
-            <script>
-            	Language(`<input type="text" class="am-form-field" placeholder="邮箱">`,
-            	`<input type="text" class="am-form-field" placeholder="Email">`)
-            </script>
+
+                    <script>
+                        Language(`<input type="text" class="am-form-field" placeholder="邮箱">`,
+                            `<input type="text" class="am-form-field" placeholder="Email">`)
+                    </script>
                     <span class="am-input-group-btn">
 					        <button class="am-btn am-btn-default" type="button">
             <script>
-            	Language("订阅","Subscribe")
+            	Language("订阅", "Subscribe")
             </script></button>
 					      </span>
                 </div>
@@ -186,8 +218,8 @@ var LanguageHtml=function(one, tow){
 <div class="bottonBg">
     <div class="maxCentr clearfloat">
 
-            <script>
-            	Language(`
+        <script>
+            Language(`
         <div class="am-u-sm-2">
             <ul class="bot_nav">
                 <li>关于我们</li>
@@ -216,7 +248,7 @@ var LanguageHtml=function(one, tow){
                 <li>help@12buy.com</li>
             </ul>
         </div>`,
-            		`
+                `
         <div class="am-u-sm-2">
             <ul class="bot_nav">
                 <li>About us</li>
@@ -245,7 +277,7 @@ var LanguageHtml=function(one, tow){
                 <li>help@12buy.com</li>
             </ul>
         </div>`)
-            </script>
+        </script>
     </div>
 </div>
 </body>
@@ -256,7 +288,7 @@ var LanguageHtml=function(one, tow){
 
         if (id == -1) {
             swal({
-                title:LanguageHtml("请先登录","Please Log In"),
+                title: LanguageHtml("请先登录", "Please Log In"),
                 type: 'warning',
                 showConfirmButton: true,
             })
@@ -280,14 +312,14 @@ var LanguageHtml=function(one, tow){
         data = {};
     $(document).ready(function () {
         $(".shopAdd").click(function () {
-			if($(this).attr('datas-tock')<=0){
-	            swal({
-	                title:LanguageHtml("商品库存不足","Sold out"),
-	                type: 'info',
-	                showConfirmButton: true,
-	            })
-	            return false;
-			}
+            if ($(this).attr('datas-tock') <= 0) {
+                swal({
+                    title: LanguageHtml("商品库存不足", "Sold out"),
+                    type: 'info',
+                    showConfirmButton: true,
+                })
+                return false;
+            }
 
             if (check() == -1) {
                 return false;
@@ -334,7 +366,7 @@ var LanguageHtml=function(one, tow){
             localStorage.setItem("myCart", JSON.stringify(shop));
 //          alert("商品已添加");
             swal({
-                title:LanguageHtml("商品已添加","Item(s) Added"),
+                title: LanguageHtml("商品已添加", "Item(s) Added"),
                 type: 'success',
                 showConfirmButton: true,
             })
@@ -342,23 +374,23 @@ var LanguageHtml=function(one, tow){
         });
     });
 
-//  	设置中英文切换
- $("#LanguageToggle").click(function(){
- 	if(window.localStorage.getItem('lang') == null || window.localStorage.getItem('lang') == 1){
- 		 window.localStorage.setItem("lang",2);
- 		 location.reload()
- 	}else{
- 		 window.localStorage.setItem("lang",1);
- 		 location.reload()
- 	}
- })
- //跳转地址
-$(".DrinksPro,.secondBannerPro,.btoNavPro,.snacksPro,.categoryHotPro ,.categoryTitle,.DrinksTitle p,.DrinksMore p,.classify li,#buttonpay").css("cursor","pointer")
-$(".DrinksPro,.secondBannerPro,.btoNavPro,.snacksPro,.categoryHotPro,.categoryTitle,.DrinksTitle p,.DrinksMore p,.classify li,#buttonpay").click(function(){
-	var Router=$(this).attr("data-router");
-	window.location.href = Router;
-})
-$(".Drinks .am-u-sm-3:last-child").addClass("am-u-end")
+    //  	设置中英文切换
+    $("#LanguageToggle").click(function () {
+        if (window.localStorage.getItem('lang') == null || window.localStorage.getItem('lang') == 1) {
+            window.localStorage.setItem("lang", 2);
+            location.reload()
+        } else {
+            window.localStorage.setItem("lang", 1);
+            location.reload()
+        }
+    })
+    //跳转地址
+    $(".DrinksPro,.secondBannerPro,.btoNavPro,.snacksPro,.categoryHotPro ,.categoryTitle,.DrinksTitle p,.DrinksMore p,.classify li,#buttonpay").css("cursor", "pointer")
+    $(".DrinksPro,.secondBannerPro,.btoNavPro,.snacksPro,.categoryHotPro,.categoryTitle,.DrinksTitle p,.DrinksMore p,.classify li,#buttonpay").click(function () {
+        var Router = $(this).attr("data-router");
+        window.location.href = Router;
+    })
+    $(".Drinks .am-u-sm-3:last-child").addClass("am-u-end")
 </script>
 
 </html>

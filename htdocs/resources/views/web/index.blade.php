@@ -586,18 +586,21 @@
                             <div class="DrinksPro" data-router="/details/{{$items['id']}}">
                                 <img  src="{{$items['product_image']}}" alt=""/>
                                 @if(!empty(Auth::guard("pc")->user()))
-                                    @switch(Auth::guard("pc")->user()->role)
-                                    @case(1)
-                                    <div class="Price">${{$items['distributor']['level_four_price']}}</div>
-                                    @case(2)
-                                    <div class="Price">${{$items['distributor']['level_two_price']}}</div>
-                                    @break
-                                    @case(3)
-                                    <div class="Price">${{$items['distributor']['level_one_price']}}</div>
-                                    @break
-                                    @default
-                                    <div class="Price">${{$items['distributor']['level_three_price']}}</div>
-                                    @endswitch
+                                    <script>
+                                        prices(Auth::guard("pc")->user()->role);
+                                    </script>
+                                    {{--@switch(Auth::guard("pc")->user()->role)--}}
+                                    {{--@case(1)--}}
+                                    {{--<div class="Price">${{$items['distributor']['level_four_price']}}</div>--}}
+                                    {{--@case(2)--}}
+                                    {{--<div class="Price">${{$items['distributor']['level_two_price']}}</div>--}}
+                                    {{--@break--}}
+                                    {{--@case(3)--}}
+                                    {{--<div class="Price">${{$items['distributor']['level_one_price']}}</div>--}}
+                                    {{--@break--}}
+                                    {{--@default--}}
+                                    {{--<div class="Price">${{$items['distributor']['level_three_price']}}</div>--}}
+                                    {{--@endswitch--}}
 
                                 @endif
                                 <div class="DrinksShow">

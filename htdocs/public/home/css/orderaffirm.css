@@ -1,0 +1,82 @@
+.addressTop{
+	background: #eaeaea;
+	color: #333333;
+}
+.addressTop p{
+	line-height: 52px;
+	font-size: 1.8rem;
+	margin: 0;
+	font-weight: bold;
+	margin-left: 2%;
+}
+.addressTop a{
+	display: block;
+	background: #fdb3d3;
+	line-height: 36px;
+	margin-top: 8px;
+	margin-right: 2%;
+	border-radius: 3px;
+	padding: 0 1%;
+	color: #FFFFFF;
+}
+.address {
+	padding: 1%;
+}
+.address li .text{
+	height: 64px;
+	line-height: 32px;
+	padding: 0;
+	overflow:hidden; 
+	display: -webkit-box;
+	text-overflow:ellipsis;
+	-webkit-box-orient:vertical;
+	-webkit-line-clamp:2; 
+}
+.address li a{
+	display: none;
+}
+.address .orderShow a{
+	display: block;
+	color: #fdb3d3;
+}
+.address .addressPro{
+	padding: 0 3%;
+	padding-top: 1%;
+	margin: 0 auto;
+	border: 1px solid #EAEAEA;
+	margin-top: 20px;
+}
+.address li{
+	line-height: 40px;
+	color: #666666;
+	font-weight: bold;
+	font-size: 1.8rem;
+	height: 160px;
+}
+.address .orderShow{
+	border: 1px solid #f14067;
+	background: url(../img/orderaff.png)no-repeat bottom right;
+}
+.manage{
+	padding-top: 10px;
+	margin-right: 1.5%;
+	text-align: right;
+}
+.manage a{
+	color:  #fdb3d3;
+}
+.cartTj a{
+	color: #333333;
+}
+.goshopping{
+	padding-left: 1%;
+	padding-top: 8px;
+}
+
+
+
+
+
+
+
+

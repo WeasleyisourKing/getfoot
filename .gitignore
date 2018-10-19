@@ -1,0 +1,9 @@
+# ---> Laravel
+/bootstrap/compiled.php
+.env.*.php
+.env.php
+htdocs/.env
+.idea
+htdocs/public/uploads
+./.DS_Store
+

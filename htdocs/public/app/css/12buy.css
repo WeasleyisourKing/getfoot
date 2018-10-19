@@ -1,0 +1,282 @@
+.mobile-fix {
+    height: 60px;
+}
+
+.mobile-fix-unauth {
+    height: 120px;
+}
+
+.carousel-container {
+    height: 200px;
+}
+
+.top-fix {
+    height: 60px;
+}
+
+.iphonex-save-area {
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+
+/*.CTA-container {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+*/
+
+.main-container {
+    height: 100vh;
+    background-color: #eaeaea;
+}
+
+.bg-gradient,
+.bg-gradient::after {
+    background: linear-gradient(to right, #acddef, #fdb3d3);
+}
+
+.bg-pink,
+.bg-pink::after {
+    background: #fdb3d3;
+}
+
+.bg-blue,
+.bg-blue::after {
+    background: #5fcffc;
+}
+
+.scrolling-wrapper-flexbox {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.scroll-y {
+    height: 100vh;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.card {
+    flex: 0 0 auto;
+}
+
+.w-30 {
+    width: 30%;
+}
+
+.rounded-50 {
+    border-radius: 50px;
+}
+
+.rounded-75 {
+    border-radius: 75px;
+}
+
+.opactity-50 {
+    opacity: .5;
+    color: #3d3d3d;
+}
+
+.hot-sale-img {
+    width: 80%;
+    left: 10%;
+    top: -20px;
+}
+
+.hot-sale-card-body {
+    margin-top: -20px;
+}
+
+.shaddow-dark {
+    box-shadow: 0px 5px 7px rgba(192, 191, 192, .32);
+}
+
+.shaddow-light {
+    box-shadow: 0px 7px 13px rgba(180, 42, 91, .32);
+}
+
+.title-border {
+    border-left: 5px solid;
+    border-color: #fdb3d3;
+}
+
+.text-red {
+    color: #f5538d;
+}
+
+a.bg-color-red {
+    background-color: #f5538d;
+}
+
+a.bg-color-red:hover {
+    background-color: #fdb3d3;
+}
+
+.bg-color-pink,
+.bg-color-1 {
+    background-color: #fdb3d3;
+}
+
+.bg-color-blue,
+.bg-color-2 {
+    background-color: #acddef;
+}
+
+.bg-color-purple,
+.bg-color-3 {
+    background-color: #d7aefd;
+}
+
+.img-bg-red,
+.img-bg-1 {
+    background-color: #fe62d1;
+}
+
+.img-bg-blue,
+.img-bg-2 {
+    background-color: #00b8f4;
+}
+
+.img-bg-purple,
+.img-bg-3 {
+    background-color: #8da5fe;
+}
+
+.top-search-prepend {
+    color: #fdb3d3;
+    background-color: #ffffff;
+    border: none;
+}
+
+.top-search-prepend,
+.top-search-input {
+    border-radius: 50px;
+    border: none;
+}
+
+.btn-circle {
+    border-radius: 50%;
+}
+
+.btn-white {
+    background-color: #ffffff;
+    color: #fdb3d3;
+}
+
+.btn-white:hover {
+    background-color: #fdb3d3;
+    color: #ffffff;
+}
+
+.btn-red {
+    background-color: #f14067;
+    color: #ffffff;
+}
+
+.btn-red:hover {
+    background-color: #df4b6c;
+    color: #ffffff;
+}
+
+.bg-curved {
+    width: 100%;
+    height: 20vh;
+    position: absolute;
+    left: 0;
+    top: -10vh;
+    z-index: -1;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.top-nav-item {
+    color: #666666;
+    padding: 10px;
+}
+
+.checkout-bar {
+    position: fixed;
+    width: 100%;
+    height: 100px;
+    bottom: 58px;
+    background-color: #ffffff;
+}
+
+.btn-check-out {
+    height: 100%;
+}
+
+.border-pink {
+    border-color: #f4aaca !important;
+}
+
+.cart-img {
+    width: 100%;
+    height: auto;
+}
+
+.avatar-img-container {
+    width: 100px;
+    height: 100px;
+    background-color: #eaeaea;
+    border-radius: 50%;
+    border: 2px solid #eaeaea;
+    position: relative;
+    overflow: hidden;
+}
+
+.avatar-img {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+.tow-line {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.one-line {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+input:focus{
+	outline: none;
+	box-shadow: none !important;
+}
+.bg-muted{
+	background-color: #E2E2E2;
+}
+
+body {
+  padding-right: 0px !important
+}
+ 
+.modal-open {
+  overflow-y: auto;
+}
+.text-color-1{
+	color: #fdb3d3 !important;
+}
+.img-center{
+	display: block;
+	margin: 0 auto;
+}
+/*商品详情页,详情信息文字大小*/
+h5 div{
+	font-size: 12px !important;
+}

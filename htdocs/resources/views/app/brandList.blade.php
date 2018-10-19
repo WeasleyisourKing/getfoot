@@ -1,0 +1,45 @@
+@extends('/app/layouts.app')
+
+@section('content')
+
+<div class="mobile-fix"style="height: 72px;"></div>
+<div class="container fixed-top bg-white">
+	<div class="row border-bottom border-pink">
+		<div class="col-2 my-auto">
+			<a href="javascript:history.back(-1);" class="top-nav-item text-mute"><i class="fa fa-angle-left"></i></a>
+		</div>
+		<div class="col-10 py-3 ml-auto">
+			@include('/app/layouts/search')
+	  	</div>
+	</div>
+</div>
+
+<div class="container pt-3">
+	<div class="row">
+		@if (!empty($product))
+
+		@foreach($product as $val)
+		<div class="col-6 col-md-4 col-lg-3 mt-3">
+			<a href="/apps/product/{{$val['id']}}"><img class="w-100" src="{{$val['product_image']}}" alt=""></a>
+			<a href="" class="btn btn-sm bg-pink text-white pt-0 mt-2 ">
+				<script type="text/javascript">
+				Language("{{$brand['zn_name']}}","{{$brand['en_name']}}")
+				</script>
+			</a>
+			<p class="pt-1 tow-line "data-stock="{{$val['stock']}}">
+                	<script type="text/javascript">
+                	Language("{{$val['zn_name']}}","{{$val['en_name']}}")
+                </script></p>
+			<p class="text-red">${{$val['distributor']['level_four_price']}}</p>
+		</div>
+		@endforeach
+        @endif
+
+	</div>
+</div>
+
+@endsection
+
+@section('scripts')
+
+@endsection

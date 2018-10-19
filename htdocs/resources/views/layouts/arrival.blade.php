@@ -1,0 +1,1 @@
+<p></p><p></p><p></p><p></p><p><br>你好:<b>{{$name}}</b><br><br><text><br>商品已经到货！<br>感谢您对12BUY的支持吧。<br><br><br><br><br><br></text><br></p><p><br></p><p></p><p><br></p><p></p><p><br></p><p></p><p><br></p><p></p><p><br></p>

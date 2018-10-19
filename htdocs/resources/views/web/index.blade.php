@@ -116,6 +116,7 @@
             <script>
             	Language("{{$modular[1]['zn_name']}}","{{$modular[1]['en_name']}}")
             </script><br/><span>
+                         {{ !empty(Auth::guard("pc")->user())}}
             <script>
             	Language("本场秒杀商品","Flash Sales Products")
             </script></span></p>

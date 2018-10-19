@@ -2,17 +2,16 @@
 
 @section('content')
 
-    <div class="container py-2 bg-white fixed-top">
-        <div class="d-flex justify-content-between align-items-center text-mute">
-            <a href="javascript:history.back(-1);" class="top-nav-item"><i class="fa fa-angle-left"></i></a>
-            <h6 class="top-nav-title">
-                <script type="text/javascript">
-                    Language("购物车", " Shopping Cart")
-                </script>
-            </h6>
-            <a href="/apps/user/{{ Auth::guard("pc")->user()->id }}" class="top-nav-item"><i class="fa fa-user"></i></a>
-        </div>
-    </div>
+	<div class="container py-2 bg-white fixed-top">
+		<div class="d-flex justify-content-between align-items-center text-mute">
+			<a href="javascript:history.back(-1);"  class="top-nav-item"><i class="fa fa-angle-left"></i></a>
+			<h6 class="top-nav-title">
+                	<script type="text/javascript">
+                	Language("购物车"," Shopping Cart")
+                </script></h6>
+			<a href="/apps/user/{{ Auth::guard("pc")->user()->id }}" class="top-nav-item"><i class="fa fa-user"></i></a>
+		</div>
+	</div>
 
     <div class="top-fix"></div>
     <div class="container main-container cartBox " style="height: auto;">
@@ -23,31 +22,26 @@
         <div class="row checkout-bar align-items-center" style="z-index: ;">
             <div class="col-3">
                 {{-- <button href="" class="btn btn-danger"><i class="fa fa-trash-alt"></i> 清空购物车</button> --}}
-                <button href="" class="btn btn-danger d-block btn-sm btn-red my-2 border-0" id="discount_btn">
-                    <small>
-                        <script type="text/javascript">
-                            Language("使用优惠劵", "Use Promo Code")
-                        </script>
-                    </small>
-                </button>
+                <!--<button href="" class="btn btn-danger d-block btn-sm btn-red my-2 border-0" id="discount_btn"><small>
+                	<script type="text/javascript">
+                	Language("使用优惠劵","Use Promo Code")
+                </script></small></button>-->
             </div>
             <div class="col-5 text-right">
                 <a class="text-dark" id="total_btn" href="##">
                     <i class="fa fa-angle-up"></i>
                     <small>
-                        <script type="text/javascript">
-                            Language("应付金额", "Amounts payable")
-                        </script>
-                    </small>
+                	<script type="text/javascript">
+                	Language("应付金额","Amounts payable")
+                </script></small>
                     <small class="text-red total">$ <span>00.00</span></small>
                 </a>
             </div>
             <div class="col-4 h-100 w-100">
-                <button class="btn btn-red rounded-0 btn-check-out Settlement"></i>
-                    <script type="text/javascript">
-                        Language("结算", "Checkout")
-                    </script>
-                </button>
+                <button class="btn btn-red rounded-0 btn-check-out Settlement"></i> 
+                	<script type="text/javascript">
+                	Language("结算","Checkout")
+                </script></button>
 
 
             </div>
@@ -73,51 +67,40 @@
          aria-labelledby="mySmallModalLabel">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content py-3" id="total_text" style="padding: 2% 5%;">
-                <div class="row pb-4">
-                    <h5 class="text-muted" style="margin: 0 auto ;">
-                        <script type="text/javascript">
-                            Language("优惠卷", " Promo Code")
-                        </script>
-                    </h5>
-                </div>
-                <div class=" row px-2">
+            		<div class="row pb-4">
+			    		<h5 class="text-muted" style="margin: 0 auto ;"> 
+                	<script type="text/javascript">
+                	Language("优惠卷"," Promo Code")
+                </script></h5>
+			    	</div>
+				<div class=" row px-2">
                     <div class="col-md-6  input-group">
-                        <script>
-                            Language(`<input id="cardNumber" name="" type="text"  class="form-control" value="" required="" placeholder="请输入优惠卷码">`,
-                                `<input id="cardNumber" name="" type="text"  class="form-control" value="" required="" placeholder="Please enter the coupon code">`)
-                        </script>
-
-                        <span class="input-group-addon">
+                    	<script>
+                    		Language(`<input id="cardNumber" name="" type="text"  class="form-control" value="" required="" placeholder="请输入优惠卷码">`,
+                    		`<input id="cardNumber" name="" type="text"  class="form-control" value="" required="" placeholder="Please enter the coupon code">`)
+                    	</script>
+                        
+					 	<span class="input-group-addon">
 	                        <button type="button" class="btn btn-block btn-primary px-3" id="query">
                 	<script type="text/javascript">
-                	Language("查询", "Search ")
+                	Language("查询","Search ")
                 </script></button>
 	                    </span>
                     </div>
                 </div>
-                <div class="row py-4 text-muted" id="information">
-                    <div class="col-6 text-right">
-                        <small>
-                            <script type="text/javascript">
-                                Language("优惠名称", "Promotion Name ")
-                            </script>
-                        </small>
-                    </div>
-                    <div class="col-6 text-left">
-                        <small>--</small>
-                    </div>
-                    <div class="col-6 text-right">
-                        <small>
-                            <script type="text/javascript">
-                                Language("优惠类型", "Promotion Description")
-                            </script>
-                        </small>
-                    </div>
-                    <div class="col-6 text-left">
-                        <small>--</small>
-                    </div>
-                </div>
-                <input id="preferential_use" class="btn btn btn-block btn-primary mt-2" value="使用" type="button">
+				<div class="row py-4 text-muted" id="information">
+					<div class="col-6 text-right"><small>
+                	<script type="text/javascript">
+                	Language("优惠名称","Promotion Name ")
+                </script></small></div>
+					<div class="col-6 text-left"><small>--</small></div>
+					<div class="col-6 text-right"><small>
+                	<script type="text/javascript">
+                	Language("优惠类型","Promotion Description")
+                </script></small></div>
+					<div class="col-6 text-left"><small>--</small></div>
+				</div>
+			    	<input id="preferential_use" class="btn btn btn-block btn-primary mt-2" value="使用" type="button">
             </div>
         </div>
     </div>
@@ -158,7 +141,7 @@
              		})
              	}else{
 		            swal({
-		                title:eval(data.message) ,
+		                title: data.message ,
 		                type: 'info',
 		                showConfirmButton: true,
 		
@@ -169,18 +152,20 @@
             	code:$("#cardNumber").val()
 		};
 //		请求优惠卷信息
-            jqAjax('get', '/api/discount/use', datas, concessionFun)
-
-
-        })
-
-
+		jqAjax('get','/api/discount/use',datas,concessionFun)
+        
+			
+		})
+		
+    	
+    	
+    	
         //加载购物车
         var cart = JSON.parse(localStorage.getItem("shopcart"));
         if ($.isEmptyObject(cart)) {
 //		if(cart.length?cart.length:0){
             //购物车为空
-            $(".cartBox").html(LanguageHtml("您还没有选择商品", "No Item Selected "));
+            $(".cartBox").html(  LanguageHtml("您还没有选择商品","No Item Selected "));
         } else {
             var cartText = "";
             //循环购物车
@@ -195,7 +180,7 @@
 				<img class="cart-img" src="${cart[i].image}" alt="">
 			</div>
 			<div class="col-5">
-				<span class="d-block"><small class="p-0 tow-line">${LanguageHtml(cart[i].zn_name, cart[i].en_name)}</small></span>
+				<span class="d-block"><small class="p-0 tow-line">${LanguageHtml(cart[i].zn_name,cart[i].en_name)}</small></span>
 				<span class="d-block"><small class="text-red cartProPrice">$ <span>${cart[i].price}</span></small></span>
 			</div>
 			<div class="col-3 p-0 d-flex align-items-end">
@@ -231,26 +216,18 @@
             var threshold ={{$postage->threshold}};
             var freight ={{$postage->freight}};
             freight = total > threshold ? 0 : freight;
-            if ($(".cartPro").length == 0) {
-                freight = 0;
+            if($(".cartPro").length==0){
+            		freight=0;
             }
-            var totalEnd = function () {
-                if (couponType == 1) {
-                    return parseFloat(total) - parseFloat(concessionalRate) > 0 ? parseFloat(total) - parseFloat(concessionalRate) : 0
-                } else if (couponType == 2) {
-                    return total * (1 - parseFloat(concessionalRate) / 100)
-                } else {
-                    return parseFloat(total)
-                }
-            }()
+            var totalEnd=function(){if(couponType==1){return parseFloat(total)-parseFloat(concessionalRate)>0?parseFloat(total)-parseFloat(concessionalRate):0}else if(couponType==2){return total*(1-parseFloat(concessionalRate)/100)}else{return parseFloat(total)}}()
             $("#total_text").html(`<span>
-            	${LanguageHtml('本次预估总额', ' Est. Total')}：$${total}<br />
-            	${LanguageHtml('运费', 'Shipping')}：$${freight}<br />
-            	${LanguageHtml('税金：待定', 'Tax:undetermined')}<br />
-            	${LanguageHtml('优惠', 'Discount')}：${concessionalName ? concessionalName : LanguageHtml("无", "None")}<br />
-            	${LanguageHtml('应付总金额', 'Total ')}：$${(totalEnd + freight * 1).toFixed(2)}
+            	${LanguageHtml('本次预估总额',' Est. Total')}：$${total}<br />
+            	${LanguageHtml('运费','Shipping')}：$${freight}<br />
+            	${LanguageHtml('税金：待定','Tax:undetermined')}<br />
+            	${LanguageHtml('优惠','Discount')}：${concessionalName?concessionalName:LanguageHtml("无","None")}<br />
+            	${LanguageHtml('应付总金额','Total ')}：$${(totalEnd+ freight * 1).toFixed(2)}
             	</span>`);
-            var summerOver = totalEnd + freight * 1
+            var summerOver = totalEnd  + freight * 1
             $(".total").eq(0).find("span").html(summerOver.toFixed(2));
             return totalEnd
         };
@@ -263,13 +240,13 @@
             var that = $(this).parent().parent(".cartPro");
             var ab = $(".delete").index(this);
             swal({
-                title: LanguageHtml('确认删除该商品?', 'Delete Item?'),
+                title: LanguageHtml('确认删除该商品?','Delete Item?'),
                 type: 'info',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                cancelButtonText: LanguageHtml('取消', 'cancel'),
-                confirmButtonText: LanguageHtml('确定', 'Yes')
+                cancelButtonText: LanguageHtml('取消','cancel'),
+                confirmButtonText:  LanguageHtml('确定','Yes')
             }).then(function (isConfirm) {
                 if (isConfirm.value == true) {
                     that.remove();
@@ -277,7 +254,7 @@
                     localStorage.setItem("shopcart", JSON.stringify(cart));
                     summary();
                     swal(
-                        LanguageHtml('删除成功!', 'Successfully Deleted'),
+                         LanguageHtml('删除成功!','Successfully Deleted'),
                     );
                 }
             })
@@ -316,7 +293,7 @@
 
             if ($.isEmptyObject(cart)) {
                 swal({
-                    title: LanguageHtml("您还没有添加商品", " No Items Added"),
+                    title: LanguageHtml( "您还没有添加商品"," No Items Added"),
                     type: 'info',
                     showConfirmButton: false,
                 });
@@ -332,32 +309,32 @@
                 data.push(shop);
             }
 
-            var sub = {{$postage->threshold}}-summary();
-            //判断总商品价值，并给予提示
-            if (sub > 0) {
+            var sub={{$postage->threshold}}-summary();
+			//判断总商品价值，并给予提示
+            if (sub>0) {
                 swal({
-                    title: LanguageHtml('确认结算?', 'Confirm Check Out?'),
-                    text: LanguageHtml(`您的商品总额未满${{{$postage->threshold}}}元将支付运费,还差 ${sub.toFixed(2)} 元才能免邮,确定继续结算吗?`, `$${sub.toFixed(2)} more for free shipping, continue to check out?`),
+                    title:  LanguageHtml('确认结算?','Confirm Check Out?'),
+                    text:  LanguageHtml(`您的商品总额未满${{{$postage->threshold}}}元将支付运费,还差 ${sub.toFixed(2)} 元才能免邮,确定继续结算吗?`,`$${sub.toFixed(2)} more for free shipping, continue to check out?`),
                     type: 'info',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    cancelButtonText: LanguageHtml('取消', 'Cancel'),
-                    confirmButtonText: LanguageHtml('确定', 'Yes')
+                    cancelButtonText: LanguageHtml('取消','Cancel'),
+                    confirmButtonText: LanguageHtml('确定','Yes')
                 }).then(function (isConfirm) {
-                    if (isConfirm.value) {
-                        checkOut()
+                    if( isConfirm.value){
+                    		checkOut()
                     }
                 })
-            } else {
-                checkOut()
+            }else{
+            		checkOut()
             }
 //          				查询库存 返回true时，跳转到付款页
-            function checkOut() {
-                var stock = function (res) {
+			function checkOut (){
+				var stock=function (res) {
                     if (res.status) {
                         //有库存执行
-                        var orderForm = function (res) {
+                        var orderForm= function (res) {
                             if (res.status) {
                                 localStorage.setItem("order_no", res.data.order_no);
                                 var ppx = localStorage.getItem("order_no")
@@ -368,29 +345,29 @@
                                 localStorage.removeItem("shopcart");
                             } else {
 
-                                if (res.error_code == 6001) {
+                            		if (res.error_code==6001) {
 
-                                    goAddAddress(res.message)
-                                } else {
+                            			goAddAddress(res.message)
+                            		} else{
                                     swal({
-                                        title: eval(res.message),
+                                        title: res.message,
                                         type: 'info',
                                         showConfirmButton: false,
                                     })
-                                }
-
+                            		}
+                                     
                             }
                         };
-                        jqAjax(
-                            "post",
-                            "/api/order",
-                            {
-                                'products': JSON.stringify(data),
-                                'userId':{{Auth()->guard('pc')->user()->id}},
-                                'code': concessionCode
+						jqAjax(
+							"post",
+							"/api/order",
+							{
+                            'products': JSON.stringify(data),
+                            'userId':{{Auth()->guard('pc')->user()->id}},
+                            'code':concessionCode
                             },
-                            orderForm
-                        );
+							orderForm
+						);
 //                      $.post('/api/order', {
 //                          'products': JSON.stringify(data),
 //                          'userId':{{Auth()->guard('pc')->user()->id}},
@@ -419,13 +396,13 @@
 //                      });
                     } else {
                         swal({
-                            title: eval(res.message),
+                            title: res.message,
                             type: 'info',
                             showConfirmButton: false,
                         })
                     }
                 }
-                jqAjax("get", "/api/check/product", {'products': JSON.stringify(data)}, stock)
+				jqAjax("get","/api/check/product",{'products': JSON.stringify(data)},stock)
 //                      $.ajax({
 //                          url: "/api/check/product",
 //                          method: "get",
@@ -474,16 +451,15 @@
 //
 //                          }
 //                      });
-            }
+                    }
 
 
         });
-
+        
         //没有默认地址时，跳转地址管理页
-<<<<<<< HEAD
         function goAddAddress(abc){
                 swal({
-                    title: eval(abc),
+                    title: abc,
                     text: LanguageHtml(`前往地址管理页，设置地址。`,`Go to Manage Address  `),
                     type: 'info',
                     showCancelButton: true,
@@ -496,23 +472,6 @@
                     		window.location.href="/apps/address"
                     }
                 })
-=======
-        function goAddAddress(abc) {
-            swal({
-                title: eval(abc),
-                text: LanguageHtml(`前往地址管理页，设置地址。`, `Go to Manage Address  `),
-                type: 'info',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                cancelButtonText: LanguageHtml('返回', "Back"),
-                confirmButtonText: LanguageHtml('确定', "Yes"),
-            }).then(function (isConfirm) {
-                if (isConfirm.value) {
-                    window.location.href = "/apps/address"
-                }
-            })
->>>>>>> 4585d209926fd8de95aa87d43ef955a8db32635d
         };
 
         //底部填充
@@ -521,7 +480,7 @@
         //底部导航显示当前所在页面样式
         $("#mobile-nav a").eq(2).css({"background": "#fdb3d3", "color": "#ffffff"})
     </script>
-    <style type="text/css">
+    <style type="text/css"> 
         .clearfix:before, .clearfix:after {
             display: table;
             content: " ";

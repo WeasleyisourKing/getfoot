@@ -431,10 +431,10 @@
 								</div>
 								<div class="col-3 bg-white">
 									<div class="line-normal-wrapper clearfloat row bg-white">
-							            <small class="px-2 py-3 text-muted addAddress" ><a>
+							            <!--<small class="px-2 py-3 text-muted addAddress" ><a>
                 	<script type="text/javascript">
                 	Language("修改地址","Edit Address ")
-                </script></a></small>
+                </script></a></small>-->
 									</div>
 								</div>
 							</div>
@@ -1393,7 +1393,7 @@ securitycode.addEventListener('focus', function () {
 											CreditCardPal(aa,bb)
 										}else{
 						                    swal({
-						                        title: eval(data.message),
+						                        title: data.message,
 						                        type: 'info',
 						                        showConfirmButton: true,
 						                    })
@@ -1402,7 +1402,7 @@ securitycode.addEventListener('focus', function () {
 						                error: function (data) {
 						                		onClick=1
 						                    swal({
-						                        title:  eval(data.message) ,
+						                        title:  data.message ,
 						                        type: 'info',
 						                        showConfirmButton: true,
 						
@@ -1456,7 +1456,7 @@ securitycode.addEventListener('focus', function () {
 						                    console.log(456)
 						                		}else{
 							                    swal({
-							                        title: eval(data.message),
+							                        title: data.message,
 							                        type: 'info',
 							                        showConfirmButton: true,
 							                    })

@@ -199,10 +199,7 @@
                                         Language("商品展示", "Product showcase")
                                     </script>
                                 </div>
-                                <script>
-                                    Language(` {!! $product->zn_describe !!}`, ` {!! $product->en_describe !!}`)
-                                </script>
-
+                                {!! $product->zn_describe !!}
                             </div>
                             <div class="detailsTs clearfloat">
                                 <div class="detailsTsTitle">
@@ -330,6 +327,7 @@
         var That = 0;
         var collText = {
             zn_name: "{{$product->zn_name}}",
+            en_name: "{{$product->en_name}}",
             price: "{{$product->distributor->level_four_price}}",
             shopid: "{{$product->id}}",
             image: "{{$product->product_image}}"

@@ -4,11 +4,11 @@
 @section('content')
 
     <!-- 添加 Modal -->
-    <div id="add" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+    <!--<div id="add" class="modal fade" role="dialog">
+        <div class="modal-dialog">-->
 
             <!-- Modal content-->
-            <div class="modal-content">
+            <!--<div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">
@@ -122,7 +122,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
     <!--中间体-->
     <div class="maxCentr addressBox">
         <div class="addressTop clearfloat">
@@ -312,7 +312,7 @@
         },
         error: function () {
             swal({
-                title:LanguageHtml("数据请求失败","DRQ"),
+                title:"数据请求失败",
                 type: 'error',
                 showConfirmButton: true,
 
@@ -348,7 +348,7 @@
                 success: function (json) {
                     if (!json.status) {
 			            swal({
-			                title:eval(json.data),
+			                title:json.data,
 			                type: 'warning',
 			                showConfirmButton: true,
 			            })
@@ -461,7 +461,7 @@
 										       			  $(".addressPro").eq(That).addClass("orderShow");
 							                			}else{
 											            swal({
-											                title:eval(data.message),
+											                title:data.message,
 											                type: 'error',
 											                showConfirmButton: true,
 											
@@ -470,7 +470,7 @@
 							                },
 									        error: function () {
 									            swal({
-									                title: LanguageHtml("数据请求失败","DRQ"),
+									                title:"数据请求失败",
 									                type: 'error',
 									                showConfirmButton: true,
 									

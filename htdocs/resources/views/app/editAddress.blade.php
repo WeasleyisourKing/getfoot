@@ -248,7 +248,7 @@ aa= Href.split('?id=')[1];
                 success: function (json) {
                     if (!json.status) {
                         swal({
-                            title: eval(json.data),
+                            title: json.data,
                             type: 'info',
                             showConfirmButton: true,
 

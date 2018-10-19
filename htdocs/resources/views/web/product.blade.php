@@ -22,14 +22,14 @@ $(function(){
     </script>
     <div class="qualityBox ">
         <div class="maxCentr clearfloat">
-            <div class="qualityTitle oneLine">
+            <!--<div class="qualityTitle oneLine">
                 <script>
 				          Language("{{$fine->zn_name}}","{{$fine->en_name}}")
 				        </script>
-            </div>
+            </div>-->
             @if(!empty($fine))
             @foreach($fine->hot as $items)
-            <div class="am-u-sm-3">
+            <!--<div class="am-u-sm-3">
                 <a href="/details/{{$items->id}}">
                 <img class="qualityPro" src="{{$items->product_image}}" alt=""/>
 
@@ -55,7 +55,7 @@ $(function(){
                     <li class="qualityRight"><span>{{$items->distributor->level_four_price}}</span></li>
                 </ul>
                 </a>
-            </div>
+            </div>-->
 
                 @endforeach
                 @endif

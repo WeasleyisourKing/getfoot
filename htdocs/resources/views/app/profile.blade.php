@@ -175,13 +175,13 @@
                 	Language("浏览记录","Recently Viewed")
                 </script></small>
 		</div>
-		<div class="col-4 mt-2">
+		<!--<div class="col-4 mt-2">
 			<a href="{{route('account')}}" class="btn btn-lg btn-circle btn-white shaddow-dark"><i class="fa fa-cog"></i></a>
         	<small class="d-block py-2">
                 	<script type="text/javascript">
                 	Language("个人资料","Account Information")
                 </script></small>
-		</div>
+		</div>-->
 		<div class="col-4 mt-2">
 			<a href="{{route('password')}}" class="btn btn-lg btn-circle btn-white shaddow-dark"><i class="fa fa-unlock"></i></a>
         	<small class="d-block py-2">
@@ -189,21 +189,21 @@
                 	Language("修改密码","Change Password")
                 </script></small>
 		</div>
-		<div class="col-4 mt-2" style="position: relative;">
+		<!--<div class="col-4 mt-2" style="position: relative;">
 			<a href="/apps/users/message" class="btn btn-lg btn-circle btn-white shaddow-dark"><i class="fa fa-comment-dots"></i></a>
         	<small class="d-block py-2">
                 	<script type="text/javascript">
                 	Language("我的评论","My Reviews")
                 </script></small>
         	<div class="border-0 rounded-50 " id="see" style="position: absolute;top: 5%;right: 30%;width: 10px;height: 10px;background: red; display: none;"></div>
-		</div>
-		<div class="col-4 mt-2">
+		</div>-->
+		<!--<div class="col-4 mt-2">
 			<a href="/apps/cart/{{ Auth::guard("pc")->user()->id }}" class="btn btn-lg btn-circle btn-white shaddow-dark"><i class="fa fa-shopping-cart"></i></a>
         	<small class="d-block py-2">
                 	<script type="text/javascript">
                 	Language("购物车","Shopping Cart")
                 </script></small>
-		</div>
+		</div>-->
 
 		<div class="col-4 mt-2">
 			<!--<a href="{{ route('address') }}" class="btn btn-lg btn-circle btn-white shaddow-dark"><i class="fa fa-map-marker-alt"></i></a>-->
@@ -307,7 +307,7 @@
                 success: function (json) {
                     if (!json.status) {
                         swal({
-                            title: eval(json.data),
+                            title: json.data,
                             type: 'info',
                             showConfirmButton: true,
 
@@ -469,7 +469,7 @@
 			                	success: function(json){
 			                		//console.log(json)
 			                        swal({
-			                            title: eval(json),
+			                            title: json,
 			                            type: 'success',
 			                            showConfirmButton: true
 			                        });

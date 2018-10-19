@@ -1133,7 +1133,7 @@ securitycode.addEventListener('focus', function () {
 			                        }, 2000);
 			                		}else{
 						            swal({
-						                title:eval(data.message),
+						                title:data.message,
 						                type: 'warning',
 						                showConfirmButton: true,
 						

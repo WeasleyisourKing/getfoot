@@ -40,8 +40,8 @@
 	   </script></span>
 	   
 	  </div>
-			<input style="display: none;" type="file" name="img"/>
-	  <input style="display: none;" id="chooseimg" style="display: none" type="file" name="img" onchange="f_change(this);" oninput="imgchange()" />
+			<input type="file" name="img"/>
+	  <input id="chooseimg" style="display: none" type="file" name="img" onchange="f_change(this);" oninput="imgchange()" />
 	  <script>
 
 		var ppi = document.querySelector("#chooseimg")

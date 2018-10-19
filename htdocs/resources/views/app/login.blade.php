@@ -145,7 +145,7 @@
 
             } else {
                 swal({
-                    title: eval(res.message),
+                    title: res.message,
                     type: 'info',
                     showConfirmButton: true,
 

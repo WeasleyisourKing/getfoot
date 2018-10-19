@@ -27,10 +27,10 @@
                         <ol class="">
 
                             @if (!empty($categorys[0]))
-                                @foreach($categorys[0]['pid'] as $itemss)
-                                    <li><a href="/shop/{{$itemss['id']}}">
+                                @foreach($categorys[0]['pid'] as $items)
+                                    <li><a href="/shop/{{$items['id']}}">
                                             <script>
-                                                Language("{{$itemss['zn_name']}}", "{{$itemss['en_name']}}")
+                                                Language("{{$items['zn_name']}}", "{{$items['en_name']}}")
                                             </script>
                                         </a></li>
                                 @endforeach
@@ -40,10 +40,10 @@
                     <div class="classifyPro clearfloat " style="display: none;">
                         <ol class="float_left am-u-sm-4">
                             @if (!empty($categorys[1]))
-                                @foreach($categorys[1]['pid'] as $itemss)
-                                    <li><a href="/shop/{{$itemss['id']}}">
+                                @foreach($categorys[1]['pid'] as $items)
+                                    <li><a href="/shop/{{$items['id']}}">
                                             <script>
-                                                Language("{{$itemss['zn_name']}}", "{{$itemss['en_name']}}")
+                                                Language("{{$items['zn_name']}}", "{{$items['en_name']}}")
                                             </script>
                                         </a></li>
                                 @endforeach
@@ -54,10 +54,10 @@
                     <div class="classifyPro clearfloat  " style="display: none;">
                         <ol class="float_left am-u-sm-4">
                             @if (!empty($categorys[2]))
-                                @foreach($categorys[2]['pid'] as $itemss)
-                                    <li><a href="/shop/{{$itemss['id']}}">
+                                @foreach($categorys[2]['pid'] as $items)
+                                    <li><a href="/shop/{{$items['id']}}">
                                             <script>
-                                                Language("{{$itemss['zn_name']}}", "{{$itemss['en_name']}}")
+                                                Language("{{$items['zn_name']}}", "{{$items['en_name']}}")
                                             </script>
                                         </a></li>
                                 @endforeach
@@ -68,10 +68,10 @@
                     <div class="classifyPro clearfloat" style="display: none;">
                         <ol class="float_left am-u-sm-4">
                             @if (!empty($categorys[3]))
-                                @foreach($categorys[3]['pid'] as $itemss)
-                                    <li><a href="/shop/{{$itemss['id']}}">
+                                @foreach($categorys[3]['pid'] as $items)
+                                    <li><a href="/shop/{{$items['id']}}">
                                             <script>
-                                                Language("{{$itemss['zn_name']}}", "{{$itemss['en_name']}}")
+                                                Language("{{$items['zn_name']}}", "{{$items['en_name']}}")
                                             </script>
                                         </a></li>
                                 @endforeach
@@ -81,10 +81,10 @@
                     <div class="classifyPro clearfloat " style="display: none;">
                         <ol class="float_left am-u-sm-4">
                             @if (!empty($categorys[4]))
-                                @foreach($categorys[4]['pid'] as $itemss)
-                                    <li><a href="/shop/{{$itemss['id']}}">
+                                @foreach($categorys[4]['pid'] as $items)
+                                    <li><a href="/shop/{{$items['id']}}">
                                             <script>
-                                                Language("{{$itemss['zn_name']}}", "{{$itemss['en_name']}}")
+                                                Language("{{$items['zn_name']}}", "{{$items['en_name']}}")
                                             </script>
                                         </a></li>
                                 @endforeach
@@ -371,7 +371,7 @@
                 @endphp
 
                 @foreach($categorys[0]['pid'] as $items)
-                    @foreach($items['product'] as $itemss)
+                    @foreach($items['product'] as $items)
 
                         @if ($j == 8)
                             @php
@@ -380,27 +380,27 @@
                         @endif
 
                         <div class="am-u-sm-3 ">
-                            <div class="DrinksPro" data-router="/details/{{$itemss['id']}}">
-                                <img src="{{$itemss['product_image']}}" alt=""/>
+                            <div class="DrinksPro" data-router="/details/{{$items['id']}}">
+                                <img src="{{$items['product_image']}}" alt=""/>
                                 @if(!empty(Auth::guard("pc")->user()))
                                     <script>
-                                        Sprice({{$itemss['distributor']['level_four_price']}},{{$itemss['distributor']['level_two_price']}},{{$itemss['distributor']['level_one_price']}},{{$itemss['distributor']['level_three_price']}});
+                                        Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
                                     </script>
                                 @endif
                                 <div class="DrinksShow">
                                     <div class="classifyProName towLine">
                                         <script>
-                                            Language("{{$itemss['zn_name']}}", "{{$itemss['en_name']}}")
+                                            Language("{{$items['zn_name']}}", "{{$items['en_name']}}")
                                         </script>
                                     </div>
 
                                     <script>
-                                        Language(`<button data-number="1" datas-tock="{{$itemss['stock']}}" data-zn-name="{{$itemss['zn_name']}}" data-en-name="{{$itemss['en_name']}}"  data-price="{{$itemss['distributor']['level_four_price']}}" data-img="{{$itemss['product_image']}}" data-id="{{$itemss['id']}}" class="shopAdd">加入购物车</button>`,
-                                            `<button data-number="1" datas-tock="{{$itemss['stock']}}" data-zn-name="{{$itemss['zn_name']}}" data-en-name="{{$itemss['en_name']}}" data-price="{{$itemss['distributor']['level_four_price']}}" data-img="{{$itemss['product_image']}}" data-id="{{$itemss['id']}}" class="shopAdd"> Shopping Cart</button>`)
+                                        Language(`<button data-number="1" datas-tock="{{$items['stock']}}" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  data-price="${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})}" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd">加入购物车</button>`,
+                                            `<button data-number="1" datas-tock="{{$items['stock']}}" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}" data-price="${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})}" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd"> Shopping Cart</button>`)
                                     </script>
                                     @if(!empty(Auth::guard("pc")->user()))
                                         <script>
-                                            Sprice({{$itemss['distributor']['level_four_price']}},{{$itemss['distributor']['level_two_price']}},{{$itemss['distributor']['level_one_price']}},{{$itemss['distributor']['level_three_price']}});
+                                            Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
                                         </script>
                                     @endif
                                 </div>
@@ -433,7 +433,7 @@
                 @endphp
 
                 @foreach($categorys[1]['pid'] as $items)
-                    @foreach($items['product'] as $itemss)
+                    @foreach($items['product'] as $items)
 
                         @if ($j == 8)
                             @php
@@ -442,28 +442,28 @@
                         @endif
 
                         <div class="am-u-sm-3 ">
-                            <div class="DrinksPro" data-router="/details/{{$itemss['id']}}">
-                                <img src="{{$itemss['product_image']}}" alt=""/>
+                            <div class="DrinksPro" data-router="/details/{{$items['id']}}">
+                                <img src="{{$items['product_image']}}" alt=""/>
                                 @if(!empty(Auth::guard("pc")->user()))
                                     <script>
-                                        Sprice({{$itemss['distributor']['level_four_price']}},{{$itemss['distributor']['level_two_price']}},{{$itemss['distributor']['level_one_price']}},{{$itemss['distributor']['level_three_price']}});
+                                        Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
                                     </script>
                                 @endif
                                 <div class="DrinksShow">
                                     <div class="classifyProName towLine">
                                         <script>
-                                            Language("{{$itemss['zn_name']}}", "{{$itemss['en_name']}}")
+                                            Language("{{$items['zn_name']}}", "{{$items['en_name']}}")
                                         </script>
                                     </div>
 
                                     <script>
-                                        Language(`<button data-number="1" datas-tock="{{$itemss['stock']}}" data-zn-name="{{$itemss['zn_name']}}" data-en-name="{{$itemss['en_name']}}"  data-price="{{$itemss['distributor']['level_four_price']}}" data-img="{{$itemss['product_image']}}" data-id="{{$itemss['id']}}" class="shopAdd">加入购物车`,
-                                            `<button data-number="1" datas-tock="{{$itemss['stock']}}" data-zn-name="{{$itemss['zn_name']}}" data-en-name="{{$itemss['en_name']}}"  data-price="{{$itemss['distributor']['level_four_price']}}" data-img="{{$itemss['product_image']}}" data-id="{{$itemss['id']}}" class="shopAdd"> Shopping Cart`)
+                                        Language(`<button data-number="1" datas-tock="{{$items['stock']}}" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  data-price="${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})}" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd">加入购物车`,
+                                            `<button data-number="1" datas-tock="{{$items['stock']}}" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  data-price="${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})}" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd"> Shopping Cart`)
                                     </script>
                                     </button>
                                     @if(!empty(Auth::guard("pc")->user()))
                                         <script>
-                                            Sprice({{$itemss['distributor']['level_four_price']}},{{$itemss['distributor']['level_two_price']}},{{$itemss['distributor']['level_one_price']}},{{$itemss['distributor']['level_three_price']}});
+                                            Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
                                         </script>
                                     @endif
                                 </div>
@@ -495,7 +495,7 @@
                 @endphp
 
                 @foreach($categorys[2]['pid'] as $items)
-                    @foreach($items['product'] as $itemss)
+                    @foreach($items['product'] as $items)
 
                         @if ($j == 8)
                             @php
@@ -504,28 +504,28 @@
                         @endif
 
                         <div class="am-u-sm-3 ">
-                            <div class="DrinksPro" data-router="/details/{{$itemss['id']}}">
-                                <img src="{{$itemss['product_image']}}" alt=""/>
+                            <div class="DrinksPro" data-router="/details/{{$items['id']}}">
+                                <img src="{{$items['product_image']}}" alt=""/>
                                 @if(!empty(Auth::guard("pc")->user()))
                                     <script>
-                                        Sprice({{$itemss['distributor']['level_four_price']}},{{$itemss['distributor']['level_two_price']}},{{$itemss['distributor']['level_one_price']}},{{$itemss['distributor']['level_three_price']}});
+                                        Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
                                     </script>
                                 @endif
                                 <div class="DrinksShow">
                                     <div class="classifyProName towLine">
                                         <script>
-                                            Language("{{$itemss['zn_name']}}", "{{$itemss['en_name']}}")
+                                            Language("{{$items['zn_name']}}", "{{$items['en_name']}}")
                                         </script>
                                     </div>
 
                                     <script>
-                                        Language(`<button data-number="1" datas-tock="{{$itemss['stock']}}" data-zn-name="{{$itemss['zn_name']}}" data-en-name="{{$itemss['en_name']}}"  data-price="{{$itemss['distributor']['level_four_price']}}" data-img="{{$itemss['product_image']}}" data-id="{{$itemss['id']}}" class="shopAdd">加入购物车`,
-                                            `<button data-number="1" datas-tock="{{$itemss['stock']}}" data-zn-name="{{$itemss['zn_name']}}" data-en-name="{{$itemss['en_name']}}"  data-price="{{$itemss['distributor']['level_four_price']}}" data-img="{{$itemss['product_image']}}" data-id="{{$itemss['id']}}" class="shopAdd"> Shopping Cart`)
+                                        Language(`<button data-number="1" datas-tock="{{$items['stock']}}" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  data-price="${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})}" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd">加入购物车`,
+                                            `<button data-number="1" datas-tock="{{$items['stock']}}" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  data-price="${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})}" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd"> Shopping Cart`)
                                     </script>
                                     </button>
                                     @if(!empty(Auth::guard("pc")->user()))
                                         <script>
-                                            Sprice({{$itemss['distributor']['level_four_price']}},{{$itemss['distributor']['level_two_price']}},{{$itemss['distributor']['level_one_price']}},{{$itemss['distributor']['level_three_price']}});
+                                            Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
                                         </script>
                                     @endif
                                 </div>
@@ -557,7 +557,7 @@
                 @endphp
 
                 @foreach($categorys[3]['pid'] as $items)
-                    @foreach($items['product'] as $itemss)
+                    @foreach($items['product'] as $items)
 
                         @if ($j == 8)
                             @php
@@ -566,28 +566,28 @@
                         @endif
 
                         <div class="am-u-sm-3 ">
-                            <div class="DrinksPro" data-router="/details/{{$itemss['id']}}">
-                                <img src="{{$itemss['product_image']}}" alt=""/>
+                            <div class="DrinksPro" data-router="/details/{{$items['id']}}">
+                                <img src="{{$items['product_image']}}" alt=""/>
                                 @if(!empty(Auth::guard("pc")->user()))
                                     <script>
-                                        Sprice({{$itemss['distributor']['level_four_price']}},{{$itemss['distributor']['level_two_price']}},{{$itemss['distributor']['level_one_price']}},{{$itemss['distributor']['level_three_price']}});
+                                        Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
                                     </script>
                                 @endif
                                 <div class="DrinksShow">
                                     <div class="classifyProName towLine">
                                         <script>
-                                            Language("{{$itemss['zn_name']}}", "{{$itemss['en_name']}}")
+                                            Language("{{$items['zn_name']}}", "{{$items['en_name']}}")
                                         </script>
                                     </div>
 
                                     <script>
-                                        Language(`<button data-number="1" datas-tock="{{$itemss['stock']}}" data-zn-name="{{$itemss['zn_name']}}" data-en-name="{{$itemss['en_name']}}"  data-price="{{$itemss['distributor']['level_four_price']}}" data-img="{{$itemss['product_image']}}" data-id="{{$itemss['id']}}" class="shopAdd">加入购物车`,
-                                            `<button data-number="1" datas-tock="{{$itemss['stock']}}"data-zn-name="{{$itemss['zn_name']}}" data-en-name="{{$itemss['en_name']}}"  data-price="{{$itemss['distributor']['level_four_price']}}" data-img="{{$itemss['product_image']}}" data-id="{{$itemss['id']}}" class="shopAdd"> Shopping Cart`)
+                                        Language(`<button data-number="1" datas-tock="{{$items['stock']}}" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  data-price="{{$items['distributor']['level_four_price']}}" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd">加入购物车`,
+                                            `<button data-number="1" datas-tock="{{$items['stock']}}"data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  data-price="{{$items['distributor']['level_four_price']}}" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd"> Shopping Cart`)
                                     </script>
                                     </button>
                                     @if(!empty(Auth::guard("pc")->user()))
                                         <script>
-                                            Sprice({{$itemss['distributor']['level_four_price']}},{{$itemss['distributor']['level_two_price']}},{{$itemss['distributor']['level_one_price']}},{{$itemss['distributor']['level_three_price']}});
+                                            Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
                                         </script>
                                     @endif
                                 </div>
@@ -618,7 +618,7 @@
                 @endphp
 
                 @foreach($categorys[4]['pid'] as $items)
-                    @foreach($items['product'] as $itemss)
+                    @foreach($items['product'] as $items)
 
                         @if ($j == 8)
                             @php
@@ -627,28 +627,28 @@
                         @endif
 
                         <div class="am-u-sm-3 ">
-                            <div class="DrinksPro" data-router="/details/{{$itemss['id']}}">
-                                <img src="{{$itemss['product_image']}}" alt=""/>
+                            <div class="DrinksPro" data-router="/details/{{$items['id']}}">
+                                <img src="{{$items['product_image']}}" alt=""/>
                                 @if(!empty(Auth::guard("pc")->user()))
                                     <script>
-                                            Sprice({{$itemss['distributor']['level_four_price']}},{{$itemss['distributor']['level_two_price']}},{{$itemss['distributor']['level_one_price']}},{{$itemss['distributor']['level_three_price']}});
+                                            Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
                                     </script>
                                 @endif
                                 <div class="DrinksShow">
                                     <div class="classifyProName towLine">
                                         <script>
-                                            Language("{{$itemss['zn_name']}}", "{{$itemss['en_name']}}")
+                                            Language("{{$items['zn_name']}}", "{{$items['en_name']}}")
                                         </script>
                                     </div>
 
                                     <script>
-                                        Language(`<button data-number="1" datas-tock="{{$itemss['stock']}}" data-zn-name="{{$itemss['zn_name']}}" data-en-name="{{$itemss['en_name']}}"  data-price="{{$itemss['distributor']['level_four_price']}}" data-img="{{$itemss['product_image']}}" data-id="{{$itemss['id']}}" class="shopAdd">加入购物车`,
-                                            `<button data-number="1" datas-tock="{{$itemss['stock']}}" data-zn-name="{{$itemss['zn_name']}}" data-en-name="{{$itemss['en_name']}}"  data-price="{{$itemss['distributor']['level_four_price']}}" data-img="{{$itemss['product_image']}}" data-id="{{$itemss['id']}}" class="shopAdd"> Shopping Cart`)
+                                        Language(`<button data-number="1" datas-tock="{{$items['stock']}}" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  data-price="{{$items['distributor']['level_four_price']}}" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd">加入购物车`,
+                                            `<button data-number="1" datas-tock="{{$items['stock']}}" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  data-price="{{$items['distributor']['level_four_price']}}" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd"> Shopping Cart`)
                                     </script>
                                     </button>
                                     @if(!empty(Auth::guard("pc")->user()))
                                         <script>
-                                            Sprice({{$itemss['distributor']['level_four_price']}},{{$itemss['distributor']['level_two_price']}},{{$itemss['distributor']['level_one_price']}},{{$itemss['distributor']['level_three_price']}});
+                                            Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
                                         </script>
                                     @endif
                                 </div>

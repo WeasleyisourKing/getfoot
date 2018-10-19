@@ -612,7 +612,7 @@
                                 <img src="{{$items['product_image']}}" alt=""/>
                                 @if(!empty(Auth::guard("pc")->user()))
                                     <script>
-                                        sprices({{Auth::guard("pc")->user()->role}});
+                                        Sprices({{Auth::guard("pc")->user()->role}});
                                     </script>
                                     {{--@switch(Auth::guard("pc")->user()->role)--}}
                                     {{--@case(1)--}}

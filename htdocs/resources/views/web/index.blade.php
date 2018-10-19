@@ -164,7 +164,7 @@
                                     <div class="title clearfloat">
                                         <p class="oneLine">
                                             <script>
-                                                Language("{{$item['zn_name']}}", "{{$item['en_name']}}")
+                                                Language("{{$item['zn_name']}}1", "{{$item['en_name']}}")
                                             </script>
                                         </p>
                                         <img src="home/img/ffffff.png" alt=""/>
@@ -172,11 +172,16 @@
                                     </div>
                                     <div class="searchBut clearfloat">
                                         @if(!empty(Auth::guard("pc")->user()))
-                                            <p>${{$item['distributor']['level_four_price']}}</p>
+                                            <script>
+                                                Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
+                                            </script>
                                         @endif
 
                                         <script>
-                                            Language(`<button data-number="1" data-zn-name="{{$item['zn_name']}}" data-en-name="{{$item['en_name']}}"  datas-tock="{{$item['stock']}}" data-price="{{$item['distributor']['level_four_price']}}" data-img="{{$item['product_image']}}" data-id="{{$item['id']}}" class="shopAdd">加入购物车`,
+                                            Language(`<button data-number="1" data-zn-name="{{$item['zn_name']}}" data-en-name="{{$item['en_name']}}"  datas-tock="{{$item['stock']}}" data-price="
+                                            ${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
+                                                    }
+                                                    " data-img="{{$item['product_image']}}" data-id="{{$item['id']}}" class="shopAdd">加入购物车`,
                                                 `<button data-number="1" data-zn-name="{{$item['zn_name']}}" data-en-name="{{$item['en_name']}}" datas-tock="{{$item['stock']}}" data-price="{{$item['distributor']['level_four_price']}}" data-img="{{$item['product_image']}}" data-id="{{$item['id']}}" class="shopAdd"> Shopping Cart`)
                                         </script>
                                         </button>
@@ -380,7 +385,9 @@
                             <div class="DrinksPro" data-router="/details/{{$items['id']}}">
                                 <img src="{{$items['product_image']}}" alt=""/>
                                 @if(!empty(Auth::guard("pc")->user()))
-                                    <div class="Price">${{$items['distributor']['level_four_price']}}</div>
+                                    <script>
+                                        Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
+                                    </script>
                                 @endif
                                 <div class="DrinksShow">
                                     <div class="classifyProName towLine">
@@ -394,7 +401,9 @@
                                             `<button data-number="1" datas-tock="{{$items['stock']}}" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}" data-price="{{$items['distributor']['level_four_price']}}" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd"> Shopping Cart</button>`)
                                     </script>
                                     @if(!empty(Auth::guard("pc")->user()))
-                                        <div class="Price">${{$items['distributor']['level_four_price']}}</div>
+                                        <script>
+                                            Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
+                                        </script>
                                     @endif
                                 </div>
 
@@ -438,7 +447,9 @@
                             <div class="DrinksPro" data-router="/details/{{$items['id']}}">
                                 <img src="{{$items['product_image']}}" alt=""/>
                                 @if(!empty(Auth::guard("pc")->user()))
-                                    <div class="Price">${{$items['distributor']['level_four_price']}}</div>
+                                    <script>
+                                        Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
+                                    </script>
                                 @endif
                                 <div class="DrinksShow">
                                     <div class="classifyProName towLine">
@@ -453,7 +464,9 @@
                                     </script>
                                     </button>
                                     @if(!empty(Auth::guard("pc")->user()))
-                                        <div class="Price">${{$items['distributor']['level_four_price']}}</div>
+                                        <script>
+                                            Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
+                                        </script>
                                     @endif
                                 </div>
 
@@ -496,7 +509,9 @@
                             <div class="DrinksPro" data-router="/details/{{$items['id']}}">
                                 <img src="{{$items['product_image']}}" alt=""/>
                                 @if(!empty(Auth::guard("pc")->user()))
-                                    <div class="Price">${{$items['distributor']['level_four_price']}}</div>
+                                    <script>
+                                        Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
+                                    </script>
                                 @endif
                                 <div class="DrinksShow">
                                     <div class="classifyProName towLine">
@@ -511,7 +526,9 @@
                                     </script>
                                     </button>
                                     @if(!empty(Auth::guard("pc")->user()))
-                                        <div class="Price">${{$items['distributor']['level_four_price']}}</div>
+                                        <script>
+                                            Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
+                                        </script>
                                     @endif
                                 </div>
 
@@ -554,7 +571,9 @@
                             <div class="DrinksPro" data-router="/details/{{$items['id']}}">
                                 <img src="{{$items['product_image']}}" alt=""/>
                                 @if(!empty(Auth::guard("pc")->user()))
-                                    <div class="Price">${{$items['distributor']['level_four_price']}}</div>
+                                    <script>
+                                        Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
+                                    </script>
                                 @endif
                                 <div class="DrinksShow">
                                     <div class="classifyProName towLine">
@@ -569,7 +588,9 @@
                                     </script>
                                     </button>
                                     @if(!empty(Auth::guard("pc")->user()))
-                                        <div class="Price">${{$items['distributor']['level_four_price']}}</div>
+                                        <script>
+                                            Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
+                                        </script>
                                     @endif
                                 </div>
 
@@ -614,19 +635,6 @@
                                     <script>
                                             Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
                                     </script>
-                                    {{--@switch(Auth::guard("pc")->user()->role)--}}
-                                    {{--@case(1)--}}
-                                    {{--<div class="Price">${{$items['distributor']['level_four_price']}}</div>--}}
-                                    {{--@case(2)--}}
-                                    {{--<div class="Price">${{$items['distributor']['level_two_price']}}</div>--}}
-                                    {{--@break--}}
-                                    {{--@case(3)--}}
-                                    {{--<div class="Price">${{$items['distributor']['level_one_price']}}</div>--}}
-                                    {{--@break--}}
-                                    {{--@default--}}
-                                    {{--<div class="Price">${{$items['distributor']['level_three_price']}}</div>--}}
-                                    {{--@endswitch--}}
-
                                 @endif
                                 <div class="DrinksShow">
                                     <div class="classifyProName towLine">
@@ -641,7 +649,9 @@
                                     </script>
                                     </button>
                                     @if(!empty(Auth::guard("pc")->user()))
-                                        <div class="Price">${{$items['distributor']['level_four_price']}}</div>
+                                        <script>
+                                            Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
+                                        </script>
                                     @endif
                                 </div>
 

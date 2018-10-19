@@ -78,9 +78,8 @@
     }
 
     var Sprice = function (role1,role2,role3,role4) {
-//        alert(role);
-        var haha
-        alert({{Auth::guard("pc")->user()->role}});
+
+        var haha;
         switch ({{Auth::guard("pc")->user()->role}}) {
             case 1 :
                  haha = `<div class='Price'>$${role1}</div>`;
@@ -94,8 +93,28 @@
             default :
                  haha = `<div class='Price'>$${role4}</div>`;
         }
-//        alert(haha);
+
         document.write(haha);
+    }
+
+
+    var Sprice1 = function (role1,role2,role3,role4) {
+
+        var haha;
+        switch ({{Auth::guard("pc")->user()->role}}) {
+            case 1 :
+                haha =role1;
+                break;
+            case 2 :
+                haha = role2;
+                break;
+            case 3 :
+                haha = role3;
+                break;
+            default :
+                haha = role4;
+        }
+return haha;
     }
 </script>
 <body>

@@ -80,6 +80,7 @@
     var Sprice = function (role1,role2,role3,role4) {
 //        alert(role);
         var haha
+        alert({{Auth::guard("pc")->user()->role}});
         switch ({{Auth::guard("pc")->user()->role}}) {
             case 1 :
                  haha = `<div class='Price'>$${role1}</div>`;

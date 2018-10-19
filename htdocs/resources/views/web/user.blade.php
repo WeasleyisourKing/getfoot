@@ -257,7 +257,7 @@ var LanguageHtml=function(one, tow){
                             Language("重置密码","Reset Password ")
                         </script>
                     </button>
-                    <div class="toggleSingIn pointer" onclick="repasswd();" id="showLogin">
+                    <div class="toggleSingIn pointer"id="showLogin">
                         <script>
                             Language("马上登录","Log In ")
                         </script>

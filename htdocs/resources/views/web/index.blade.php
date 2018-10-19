@@ -647,6 +647,11 @@
             </div>
         </div>
     </div>
-
+<script type="text/javascript">
+//	屏蔽热销路由
+	$(".hotPro a").click(function(){
+		return false
+	})
+</script>
 @endsection
 

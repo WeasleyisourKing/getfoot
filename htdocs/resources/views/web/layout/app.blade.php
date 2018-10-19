@@ -82,7 +82,7 @@
         var haha
         switch (role) {
             case 1 :
-                 haha = "<div class="Price">${{$items['distributor']['level_four_price']}}</div>";
+                 haha = "<div class='Price'>${{$items['distributor']['level_four_price']}}</div>";
                 break;
             case 2 :
                  haha = "<div class='Price'>${{$items['distributor']['level_two_price']}}</div>";

@@ -72,16 +72,16 @@ var LanguageHtml=function(one, tow){
         <!--右侧登录&注册组件-->
         <div class="user float_left">
             <div class=" clearfloat userTop">
-                <div class="float_left pointer">
+                <div class="float_left pointer"style="width: 100%;">
                     <script>
                         Language("用户登录","User Log In")
                     </script>
                 </div>
-                <div class="float_left pointer">
+                <!--<div class="float_left pointer">
                     <script>
                         Language("注册","Register")
                     </script>
-                </div>
+                </div>-->
             </div>
             <!--用户登录输入框-->
             <div class="signIn UserTog" >
@@ -139,18 +139,18 @@ var LanguageHtml=function(one, tow){
                                     Language("忘记密码","Forgot Password")
                                 </script>
                             </div>
-                            <div class="float_right pointer">
+                            <!--<div class="float_right pointer">
                                 <script>
                                     Language("点我注册","Register")
                                 </script>    
-                            </div>
+                            </div>-->
                         </div>
                     </fieldset>
                 </form>
 
             </div>
 			<!--用户注册输入框-->
-            <div class="register UserTog" style="display: none;">
+            <!--<div class="register UserTog" style="display: none;">
                 {{--<form action="" class="am-form" id="form-with-tooltip">--}}
                 <fieldset>
                     <div class="am-form-group clearfloat">
@@ -213,7 +213,7 @@ var LanguageHtml=function(one, tow){
                     </div>
                 </fieldset>
                 {{--</form>--}}
-            </div>
+            </div>-->
         </div>
         <!--登录&注册end-->
         
@@ -257,7 +257,7 @@ var LanguageHtml=function(one, tow){
                             Language("重置密码","Reset Password ")
                         </script>
                     </button>
-                    <div class="toggleSingIn pointer" onclick="repasswd();" id="showLogin">
+                    <div class="toggleSingIn pointer"id="showLogin">
                         <script>
                             Language("马上登录","Log In ")
                         </script>
@@ -412,7 +412,7 @@ var LanguageHtml=function(one, tow){
             } else {
 //              alert(res.message);
 	            swal({
-	                title:eval(res.message),
+	                title:res.message,
 	                type: 'warning',
 	                showConfirmButton: true,
 	
@@ -468,7 +468,7 @@ var LanguageHtml=function(one, tow){
 
             } else {
                 swal({
-                    title: eval(res.message),
+                    title: res.message,
                     type: 'info',
                     showConfirmButton: true,
                 })
@@ -488,7 +488,7 @@ var LanguageHtml=function(one, tow){
 
                 if (res.status) {
                     swal({
-                        title: eval(res.data),
+                        title: res.data,
                         type: 'success',
                         showConfirmButton: true,
                     });
@@ -497,7 +497,7 @@ var LanguageHtml=function(one, tow){
                     }, 3000);
                 } else {
                     swal({
-                        title: eval(res.message),
+                        title: res.message,
                         type: 'info',
                         showConfirmButton: true,
                     })

@@ -39,7 +39,7 @@
 				            </script>
 							</p>
 						</li>
-						<li class=" clearfloat">
+						<!--<li class=" clearfloat">
 							<img src="home/img/2personal.png" alt="" />
 							<img src="home/img/22personal.png" alt="" />
 							<p>
@@ -47,7 +47,7 @@
 								Language("账户设置","Account Setting")
 							</script>
 							</p>
-						</li>
+						</li>-->
 						<li class=" clearfloat">
 							<img src="home/img/3personal.png" alt="" />
 							<img src="home/img/33personal.png" alt="" />
@@ -57,7 +57,7 @@
 							</script>
 							</p>
 						</li>
-						<li class=" clearfloat">
+						<!--<li class=" clearfloat">
 							<img src="home/img/4personal.png" alt="" />
 							<img src="home/img/44personal.png" alt="" />
 							<p>
@@ -65,8 +65,8 @@
 								Language("我的评论","My Reviews")
 							</script>
 							</p>
-						</li>
-						<li class=" clearfloat">
+						</li>-->
+						<!--<li class=" clearfloat">
 							<a href="/shop/cart/{{Auth()->guard('pc')->user()->id}}">
 								<img src="home/img/5personal.png" alt="" />
 								<img src="home/img/55personal.png" alt="" />
@@ -76,7 +76,7 @@
 								</script>
 								</p>
 							</a>
-						</li>
+						</li>-->
 						<li class=" clearfloat" onclick="showOrder()">
 							<img src="home/img/6personal.png" alt="" />
 							<img src="home/img/66personal.png" alt="" />
@@ -167,7 +167,7 @@
 					
 						
 					<!--账户设置-->
-					<div class="personalPro">
+					<!--<div class="personalPro">
 						<div class="account">
 							<form action="/UpdatePersonal" method="post" enctype="multipart/form-data"  >
 								<div class="am-form-group am-form-file">
@@ -206,7 +206,7 @@
 							</button>
 							</form>
 						</div>
-					</div>
+					</div>-->
 					<!--密码修改-->
 					<div class="personalPro ">
 						<div class="account">
@@ -255,7 +255,7 @@
 						</div>
 					</div>
 					<!--评论管理-->
-					<div class="personalPro">
+					<!--<div class="personalPro">
 						<div class="comment">
 							<div class="commentTitle">
 								<script>
@@ -323,20 +323,14 @@
 								</ul>
 							</div>
 						</div>
-					</div>
+					</div>-->
 				
-					<div class="personalPro">
+					<!--<div class="personalPro">
 						<!--购物车-->
-					</div>
+					<!--</div>-->
 					<!--我的订单-->
 					<div class="personalPro" >
 						<ul class="oderNav clearfloat" id="oderNav">
-							<!--<li onclick="orderall()">所有订单<span></span></li>
-							<li onclick="orderwaitpay()">待支付<span></span></li>
-							<li onclick="orderwaitdelivery()">待发货<span></span></li>
-							<li onclick="orderwaitcollect()">待收货<span></span></li>
-							<li onclick="ordercollect()">已完成<span></span></li>
-							<li><img src="" alt="" />回收站</li>-->
 							<li>
 								<script>
 									Language("所有订单","All orders")
@@ -446,7 +440,7 @@
 				
 					<!--收货地址-->
 					<div class="personalPro">
-						<div class="personalPro_newAddress">
+						<!--<div class="personalPro_newAddress">
 							<div class="addressTitle clearfloat">
 								<p class="float_left">
 									<script>
@@ -563,9 +557,9 @@
 									</script>
 								</div>
 							</div>
-						</div>
+						</div>-->
 						<!-- 修改地址 -->
-						<div class="Modify" id="Modify">
+						<!--<div class="Modify" id="Modify">
 							<div class="addressTitle clearfloat">
 								<p class="float_left">
 									<script>
@@ -682,7 +676,7 @@
 									</script>
 								</div>
 							</div>
-						</div>
+						</div>-->
 						<div class="personalPro_address">
 							<div class="addressTitle clearfloat">
 								<p class="float_left">
@@ -690,11 +684,11 @@
 										Language("已保存的地址","Saved Address")
 									</script>
 								</p>
-								<div class="but1 float_right">
+								<!--<div class="but1 float_right">
 									<script>
 										Language("新增地址","Add New address")
 									</script>
-								</div>
+								</div>-->
 							</div>
 							<div class="personalPro_address_pro"id="TestHtml">
 								<ul class="am-g">
@@ -824,8 +818,7 @@
 	$("#Modify").hide();
 	@if(session('msg'))	
 	if( "{{ session('msg') }}" == '修改成功'){
-		// 
-		({
+		// swal({
 		// 	title: "{{ session('msg') }}",
 		// 	type: 'success',
 		// 	confirmButton: true
@@ -845,7 +838,7 @@
 		addAddress();
 	}
 	//点击我的订单时，执行点击所有订单
-	$(".personalList li").eq(5).click(function(){
+	$(".personalList li").eq(2).click(function(){
 		$("#oderNav li").eq(0).click();
 	});
 //	订单数据绑定
@@ -882,7 +875,7 @@
 											<div class="oderPro-2 float_left" style="width: 35%;">
 													<div class="float_left oderPro_2_img"><img src="${allOrder[i].snap_img}" alt="" /></div>
 													<div class="float_left oderPro_2_text">
-														<p class="towLine">${allOrder[i].snap_name}</p>
+														<p class="towLine">${allOrder[i].snap_name[0]=="{"?LanguageHtml(JSON.parse(allOrder[i].snap_name).zn,JSON.parse(allOrder[i].snap_name).en):allOrder[i].snap_name}</p>
 														<span>${orderState[allOrder[i].status]}</span>
 													</div>
 											</div>
@@ -944,7 +937,7 @@
 			}else{
 //				alert('删除失败')
 		            swal({
-		                title:LanguageHtml("删除失败","Delete failure"),
+		                title:"删除失败",
 		                type: 'error',
 		                showConfirmButton: true,
 		            })
@@ -1026,7 +1019,7 @@
                         <!--<p class="am-u-sm-4">浏览时间:<span></span></p>-->
                         </div>
                         <div class="text " style="width:100%;">
-                        <p>${LanguageHtml(`您购买的订单<span >待支付</span>，您可以联系卖家了解商品详情。`,`If you purchase orders to be paid, you can contact the seller to find out the details of the products.`)}</p>
+                        <p>${LanguageHtml('您购买的订单<span >待支付</span>，您可以联系卖家了解商品详情。','If you purchase orders to be paid, you can contact the seller to find out the details of the products.')}</p>
                         </div>
                         </div>
 						<div>
@@ -1053,7 +1046,7 @@
                         </p>
                         </div>
                         </div>`;
-					$(".personalPro").eq(5).children().hide();
+					$(".personalPro").eq(2).children().hide();
                     document.querySelector("#oderDetail").style.display = 'block';
                     //五星评论js
                     $(".texti").attr("level","5");
@@ -1192,7 +1185,7 @@
 							if($('.comments').eq(That).val()==''){ 
 //										alert("评论不能为空");
 						            swal({
-						                title:LanguageHtml("评论不能为空","Comment can not be empty"),
+						                title:"评论不能为空",
 						                type: 'warning',
 						                showConfirmButton: true,
 						
@@ -1214,7 +1207,7 @@
 //										alert("评论成功");
 										
 							            swal({
-							                title:LanguageHtml("评论成功","Success"),
+							                title:"评论成功",
 							                type: 'success',
 							                showConfirmButton: true,
 							
@@ -1223,7 +1216,7 @@
 									}else{
 //										alert("评论失败");
 							            swal({
-							                title:LanguageHtml("评论失败","fail"),
+							                title:"评论失败",
 							                type: 'warning',
 							                showConfirmButton: true,
 							
@@ -1233,7 +1226,7 @@
 								error: function () {
 //										alert("请求失败");
 							            swal({
-							                title:LanguageHtml("请求失败","Request failed"),
+							                title:"请求失败",
 							                type: 'warning',
 							                showConfirmButton: true,
 							
@@ -1323,12 +1316,12 @@
 
 				};
 				//州
-	var optiontxt = '';
-	var allplace = ["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"];
-	for(let i = 0; i < allplace.length; i++ ){
-		optiontxt +=`<option>${allplace[i]}</option>`
-	};
-	document.querySelector("#province").innerHTML = optiontxt;
+//	var optiontxt = '';
+//	var allplace = ["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"];
+//	for(let i = 0; i < allplace.length; i++ ){
+//		optiontxt +=`<option>${allplace[i]}</option>`
+//	};
+//	document.querySelector("#province").innerHTML = optiontxt;
 
 	// 地址管理页面1
 	textAddress=function(){
@@ -1357,9 +1350,9 @@
 													<div class="am-u-sm-2">${json.data[i].zip}</div>
 													<div class="am-u-sm-2">${json.data[i].mobile}</div>
 													<div class="am-u-sm-1 but1"style="padding: 0;">
-														<p><a class="address_pro_edit_bnt" href="##" addid="${json.data[i].id}" onclick="edit(${json.data[i].id})">${LanguageHtml('编辑','Edit')}</a></p>
+														<!--<p><a class="address_pro_edit_bnt" href="##" addid="${json.data[i].id}" onclick="edit(${json.data[i].id})">${LanguageHtml('编辑','Edit')}</a></p>
 														<p><button class="Delete am-btn am-btn-primary" data-am-modal="{target: '#my-alert'}" addid="${json.data[i].id}" style="border: 0;background-color: #fff;color: #666666;">${LanguageHtml('删除','Delete')}
-														</button></p>
+														</button></p>-->
 													</div></div>`
 				}
 				

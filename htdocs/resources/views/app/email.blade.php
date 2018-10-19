@@ -84,7 +84,7 @@
 
             } else {
                 swal({
-                    title: eval(res.message),
+                    title: res.message,
                     type: 'info',
                     showConfirmButton: true,
                 })
@@ -106,14 +106,14 @@
 
                     if (res.status) {
                         swal({
-                            title: eval(res.data),
+                            title: res.data,
                             type: 'success',
                             showConfirmButton: true,
                         });
                         setTimeout(gologin,3000)
                     } else {
                         swal({
-                            title: eval(res.message),
+                            title: res.message,
                             type: 'info',
                             showConfirmButton: true,
                         })

@@ -444,7 +444,7 @@
             }
 			if(item.attributes["stock"].value<=0){
 	            swal({
-	                title: LanguageHtml('商品库存不足!',"Sold Out!"),
+	                title:LanguageHtml("商品库存不足","Sold out"),
 	                type: 'info',
 	                showConfirmButton: true,
 	            })

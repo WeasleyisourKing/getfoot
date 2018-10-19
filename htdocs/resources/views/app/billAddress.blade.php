@@ -250,7 +250,7 @@
                 	console.log(json)
                     if (!json.status) {
                         swal({
-                            title: eval(json.data),
+                            title: json.data,
                             type: 'warning',
                             showConfirmButton: true,
 
@@ -306,7 +306,7 @@
                 	console.log(json)
                     if (!json.status) {
                         swal({
-                            title:eval(json.data),
+                            title: json.data,
                             type: 'warning',
                             showConfirmButton: true,
 

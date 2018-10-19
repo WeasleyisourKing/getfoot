@@ -92,7 +92,7 @@
         </div>-->
 
 
-        <div class="am-form-group clearfloat cartText">
+        <!--<div class="am-form-group clearfloat cartText">
 	        <div class="am-u-sm-6" >
 		        <div class="tbsm">
 							<script>
@@ -117,7 +117,7 @@
 			        <div class="clearfloat cartText2But" >
 			       		<input type="text"placeholder="请出入免运费优惠券代码" / class="float_left"><button class="float_left">使用</button>
 			        </div>-->
-			        <p>
+			        <!-- <p>
 								<script>
 									Language("优惠劵","Promo Code")
 								</script>
@@ -135,7 +135,7 @@
 			        </div>
 		        </div>
 	        </div>
-        </div>
+        </div>-->
 
         <div id="end" class="cartTj clearfloat">
             <div>
@@ -222,7 +222,7 @@
 		             		Valuation();
 	             	}else{
 			            swal({
-			                title:eval(data.message),
+			                title:data.message,
 			                type: 'info',
 			                showConfirmButton: true,
 			

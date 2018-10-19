@@ -230,7 +230,7 @@ var LanguageHtml=function(one, tow){
             </ul>
         </div>
         <div class="am-u-sm-2">
-            <ul class="bot_nav">
+            <ul class=" bot_nav">
                 <li>Customer Service</li>
                 <li class="btoNavPro" data-router="/company/9">FAQs</li>
                 <li class="btoNavPro" data-router="/company/10">Payment Method</li>
@@ -240,7 +240,7 @@ var LanguageHtml=function(one, tow){
         </div>
         <div class="am-u-sm-4">
             <ul>
-                <li class="btoNavPro" data-router="/company/1">Contact us</li>
+                <li>Contact us</li>
                 <li>Call us<br/> <span>818-477-8888</span></li>
                 <li>help@12buy.com</li>
             </ul>

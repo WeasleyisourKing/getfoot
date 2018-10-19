@@ -223,7 +223,7 @@
 				console.log(data)
                     if (!data.status) {
                         swal({
-                            title:eval(data.data) ,
+                            title: data.data,
                             type: 'warning',
                             showConfirmButton: true,
 

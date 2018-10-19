@@ -12,7 +12,7 @@
     <!--中间体-->
     <div class="categoryBg">
         <div class=" maxCentr clearfloat">
-            <div class="categoryHot">
+            <!--<div class="categoryHot">
                 <p class="oneLine"> 
             <script>
             	Language("{{$hot->zn_name}}","{{$hot->en_name}}")
@@ -40,7 +40,7 @@
                 			$(this).find(".categoryHotPro_1").hide()
                 		})
                 </script>
-            </div>
+            </div>-->
             <div class="am-u-sm-2 ">
                 <nav class="categoryNav scrollspy-nav" data-am-sticky
                      data-am-scrollspynav="{className: {active: 'categoryNavshow'}}">
@@ -99,7 +99,7 @@
                 </nav>
             </div>
 
-            <div class="am-u-sm-10 categoryBox">
+            <div class="am-u-sm-10 categoryBox" style="padding-top: 100px;">
                 @for($i = 0; $i < 5; $i++)
 
                     @if (!empty($category[$i]))
@@ -109,10 +109,7 @@
             <script>
             	Language("{{$category[$i]['zn_name']}}","{{$category[$i]['en_name']}}")
             </script></div>
-                            <ul class="category clearfloat" style="position: relative;">
-								<div class="DrinksMore" style="position: absolute;top: -42px;right: 17px;font-size: 50px;">
-									<p data-router="/categorys/detail/{{$category[$i]['id']}}" style="cursor: pointer;font-size: 20px;font-weight: bold;color: #666;">MORE</p>
-								</div>
+                            <ul class="category clearfloat">
 
                                 @if (!empty($category[$i]['pid']))
                                     @php $j = 0;  @endphp

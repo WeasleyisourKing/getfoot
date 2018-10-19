@@ -52,6 +52,8 @@ class ProductController extends Controller
 //        dd($res);
 //        CONCAT('【无库存】',zn_name)
 
+        dd(Auth()->guard('pc')->user());
+
         return view('web.index', ['categorys' => $categorys,
             'modular' => $res,
             'banner' => $banner->items,

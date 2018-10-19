@@ -76,8 +76,8 @@
     var LanguageHtml = function (one, tow) {
         return window.localStorage.getItem('lang') == null || window.localStorage.getItem('lang') == 1 ? one : tow;
     }
-    var prices = function (role) {
-                @switch(role)
+    var prices = function () {
+                @switch(Auth::guard("pc")->user()->role)
                 @case(1)
         var haha = `<div class="Price">${{$items['distributor']['level_four_price']}}</div>`;
                 @case(2)

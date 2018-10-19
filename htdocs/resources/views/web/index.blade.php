@@ -116,7 +116,6 @@
             <script>
             	Language("{{$modular[1]['zn_name']}}","{{$modular[1]['en_name']}}")
             </script><br/><span>
-                         {{ !empty(Auth::guard("pc")->user())}}
             <script>
             	Language("本场秒杀商品","Flash Sales Products")
             </script></span></p>
@@ -587,7 +586,17 @@
                             <div class="DrinksPro" data-router="/details/{{$items['id']}}">
                                 <img  src="{{$items['product_image']}}" alt=""/>
                                 @if(!empty(Auth::guard("pc")->user()))
-                                <div class="Price">${{$items['distributor']['level_four_price']}}</div>
+                                    @switch(Auth::guard("pc")->user()->role)
+                                    @case(2)
+                                    <div class="Price">${{$items['distributor']['level_two_price']}}</div>
+                                    @break
+                                    @case(3)
+                                    <div class="Price">${{$items['distributor']['level_one_price']}}</div>
+                                    @break
+                                    @default
+                                    <div class="Price">${{$items['distributor']['level_three_price']}}</div>
+                                    @endswitch
+
                                 @endif
                                 <div class="DrinksShow">
                                     <div class="classifyProName towLine">

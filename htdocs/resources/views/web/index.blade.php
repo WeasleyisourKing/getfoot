@@ -179,8 +179,8 @@
                                         @endif
 
                                         <script>
-                                            Language(`<button data-number="1" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  datas-tock="{{$items['stock']}}" data-price="${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})}"
- data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd">加入购物车`, `<button data-number="1" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}" datas-tock="{{$items['stock']}}" data-price="${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})}" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd"> Shopping Cart`)
+                                            Language(`<button data-number="1" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  datas-tock="{{$items['stock']}}" data-price="${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})}"data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd">加入购物车`,
+                                                `<button data-number="1" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}" datas-tock="{{$items['stock']}}" data-price="${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})}" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd"> Shopping Cart`)
                                         </script>
                                         </button>
                                     </div>
@@ -395,8 +395,8 @@
                                     </div>
 
                                     <script>
-                                        Language(`<button data-number="1" datas-tock="{{$itemss['stock']}}" data-zn-name="{{$itemss['zn_name']}}" data-en-name="{{$itemss['en_name']}}"  data-price="${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})}" data-img="{{$itemss['product_image']}}" data-id="{{$itemss['id']}}" class="shopAdd">加入购物车</button>`,
-                                            `<button data-number="1" datas-tock="{{$itemss['stock']}}" data-zn-name="{{$itemss['zn_name']}}" data-en-name="{{$itemss['en_name']}}" data-price="${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})}" data-img="{{$itemss['product_image']}}" data-id="{{$itemss['id']}}" class="shopAdd"> Shopping Cart</button>`)
+                                        Language(`<button data-number="1" datas-tock="{{$itemss['stock']}}" data-zn-name="{{$itemss['zn_name']}}" data-en-name="{{$itemss['en_name']}}"  data-price="{{$itemss['distributor']['level_four_price']}}" data-img="{{$itemss['product_image']}}" data-id="{{$itemss['id']}}" class="shopAdd">加入购物车</button>`,
+                                            `<button data-number="1" datas-tock="{{$itemss['stock']}}" data-zn-name="{{$itemss['zn_name']}}" data-en-name="{{$itemss['en_name']}}" data-price="{{$itemss['distributor']['level_four_price']}}" data-img="{{$itemss['product_image']}}" data-id="{{$itemss['id']}}" class="shopAdd"> Shopping Cart</button>`)
                                     </script>
                                     @if(!empty(Auth::guard("pc")->user()))
                                         <script>
@@ -457,8 +457,8 @@
                                     </div>
 
                                     <script>
-                                        Language(`<button data-number="1" datas-tock="{{$itemss['stock']}}" data-zn-name="{{$itemss['zn_name']}}" data-en-name="{{$itemss['en_name']}}"  data-price="${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})}" data-img="{{$itemss['product_image']}}" data-id="{{$itemss['id']}}" class="shopAdd">加入购物车`,
-                                            `<button data-number="1" datas-tock="{{$itemss['stock']}}" data-zn-name="{{$itemss['zn_name']}}" data-en-name="{{$itemss['en_name']}}"  data-price="${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})}" data-img="{{$itemss['product_image']}}" data-id="{{$itemss['id']}}" class="shopAdd"> Shopping Cart`)
+                                        Language(`<button data-number="1" datas-tock="{{$itemss['stock']}}" data-zn-name="{{$itemss['zn_name']}}" data-en-name="{{$itemss['en_name']}}"  data-price="{{$itemss['distributor']['level_four_price']}}" data-img="{{$itemss['product_image']}}" data-id="{{$itemss['id']}}" class="shopAdd">加入购物车`,
+                                            `<button data-number="1" datas-tock="{{$itemss['stock']}}" data-zn-name="{{$itemss['zn_name']}}" data-en-name="{{$itemss['en_name']}}"  data-price="{{$itemss['distributor']['level_four_price']}}" data-img="{{$itemss['product_image']}}" data-id="{{$itemss['id']}}" class="shopAdd"> Shopping Cart`)
                                     </script>
                                     </button>
                                     @if(!empty(Auth::guard("pc")->user()))

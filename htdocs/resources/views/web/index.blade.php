@@ -49,7 +49,7 @@
                                 @endforeach
                             @endif
                         </ol>
-{{dd(Auth::guard("pc")->user())}}
+
                     </div>
                     <div class="classifyPro clearfloat  " style="display: none;">
                         <ol class="float_left am-u-sm-4">

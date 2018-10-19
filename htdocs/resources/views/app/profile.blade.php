@@ -374,7 +374,7 @@
 														    <div class="row "style="padding:0 8%; margin:0;">
 															    <div class="col-3" w-100 h-100><img class="img-responsive w-100 " src="${myOder[i].snap_img}" /></div>
 															     <div class="col-6 "style="padding-bottom: 5%;">
-																     <small class="col-12 py-1 d-block">${myOder[i].snap_name}</small>
+																     <small class="col-12 py-1 d-block">${myOder[i].snap_name[0]=="{"?LanguageHtml(JSON.parse(myOder[i].snap_name).zn,JSON.parse(myOder[i].snap_name).en):myOder[i].snap_name}</small>
 																      <small style="color: #adadad" class="col-12">共${myOder[i].total_count}件商品</small>
 															      </div>
 															      <div style="font-size: 13px;color: #f14067;" class="col-3">
@@ -401,7 +401,7 @@
 														    <div class="row "style="padding:0 8%; margin:0;">
 															    <div class="col-3" w-100 h-100><img class="img-responsive w-100 " src="${myOder[i].snap_img}" /></div>
 															     <div class="col-6 "style="padding-bottom: 5%;">
-																     <small class="col-12 py-1 d-block">${myOder[i].snap_name}</small>
+																     <small class="col-12 py-1 d-block">${myOder[i].snap_name[0]=="{"?LanguageHtml(JSON.parse(myOder[i].snap_name).zn,JSON.parse(myOder[i].snap_name).en):myOder[i].snap_name}</small>
 																      <small style="color: #adadad" class="col-12">共${myOder[i].total_count}件商品</small>
 															      </div>
 															      <div style="font-size: 13px;color: #f14067;" class="col-3">

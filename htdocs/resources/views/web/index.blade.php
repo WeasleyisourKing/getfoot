@@ -163,7 +163,9 @@
                                         <img src="home/img/hhh.png" alt=""/>
                                     </div>
                                     <div class="searchBut clearfloat">
+                                        @if(!empty(Auth::guard("pc")->user()))
                                         <p>${{$item['distributor']['level_four_price']}}</p>
+                                        @endif
                                         
             <script>
             	Language(`<button data-number="1" data-zn-name="{{$item['zn_name']}}" data-en-name="{{$item['en_name']}}"  datas-tock="{{$item['stock']}}" data-price="{{$item['distributor']['level_four_price']}}" data-img="{{$item['product_image']}}" data-id="{{$item['id']}}" class="shopAdd">加入购物车`,
@@ -366,7 +368,9 @@
                         <div class="am-u-sm-3 ">
                             <div class="DrinksPro" data-router="/details/{{$items['id']}}">
                                 <img  src="{{$items['product_image']}}" alt=""/>
-                                <div class="Price">${{$items['distributor']['level_four_price']}}</div>
+                               @if(!empty(Auth::guard("pc")->user()))
+                                    <div class="Price">${{$items['distributor']['level_four_price']}}</div>
+                                @endif
                                 <div class="DrinksShow">
                                     <div class="classifyProName towLine">
             <script>
@@ -377,7 +381,9 @@
             	Language(`<button data-number="1" datas-tock="{{$items['stock']}}" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  data-price="{{$items['distributor']['level_four_price']}}" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd">加入购物车</button>`,
             		`<button data-number="1" datas-tock="{{$items['stock']}}" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}" data-price="{{$items['distributor']['level_four_price']}}" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd"> Shopping Cart</button>`)
             </script>
+                                    @if(!empty(Auth::guard("pc")->user()))
                                     <div class="Price">${{$items['distributor']['level_four_price']}}</div>
+                                        @endif
                                 </div>
 
                             </div>
@@ -417,7 +423,9 @@
                         <div class="am-u-sm-3 ">
                             <div class="DrinksPro" data-router="/details/{{$items['id']}}">
                                 <img src="{{$items['product_image']}}" alt=""/>
+                                @if(!empty(Auth::guard("pc")->user()))
                                 <div class="Price">${{$items['distributor']['level_four_price']}}</div>
+                                @endif
                                 <div class="DrinksShow">
                                     <div class="classifyProName towLine">
             <script>
@@ -428,7 +436,9 @@
             	Language(`<button data-number="1" datas-tock="{{$items['stock']}}" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  data-price="{{$items['distributor']['level_four_price']}}" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd">加入购物车`,
             		`<button data-number="1" datas-tock="{{$items['stock']}}" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  data-price="{{$items['distributor']['level_four_price']}}" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd"> Shopping Cart`)
             </script></button>
+                                    @if(!empty(Auth::guard("pc")->user()))
                                     <div class="Price">${{$items['distributor']['level_four_price']}}</div>
+                                        @endif
                                 </div>
 
                             </div>
@@ -467,7 +477,9 @@
                         <div class="am-u-sm-3 ">
                             <div class="DrinksPro" data-router="/details/{{$items['id']}}">
                                 <img  src="{{$items['product_image']}}" alt=""/>
+                                @if(!empty(Auth::guard("pc")->user()))
                                 <div class="Price">${{$items['distributor']['level_four_price']}}</div>
+                                @endif
                                 <div class="DrinksShow">
                                     <div class="classifyProName towLine">
             <script>
@@ -478,7 +490,9 @@
             	Language(`<button data-number="1" datas-tock="{{$items['stock']}}" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  data-price="{{$items['distributor']['level_four_price']}}" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd">加入购物车`,
             		`<button data-number="1" datas-tock="{{$items['stock']}}" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  data-price="{{$items['distributor']['level_four_price']}}" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd"> Shopping Cart`)
             </script></button>
+                                    @if(!empty(Auth::guard("pc")->user()))
                                     <div class="Price">${{$items['distributor']['level_four_price']}}</div>
+                                        @endif
                                 </div>
 
                             </div>
@@ -517,7 +531,9 @@
                         <div class="am-u-sm-3 ">
                             <div class="DrinksPro" data-router="/details/{{$items['id']}}">
                                 <img  src="{{$items['product_image']}}" alt=""/>
+                                @if(!empty(Auth::guard("pc")->user()))
                                 <div class="Price">${{$items['distributor']['level_four_price']}}</div>
+                                @endif
                                 <div class="DrinksShow">
                                     <div class="classifyProName towLine">
             <script>
@@ -529,7 +545,9 @@
             		`<button data-number="1" datas-tock="{{$items['stock']}}"data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  data-price="{{$items['distributor']['level_four_price']}}" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd"> Shopping Cart`)
             </script>
             </button>
+                                    @if(!empty(Auth::guard("pc")->user()))
                                     <div class="Price">${{$items['distributor']['level_four_price']}}</div>
+                                        @endif
                                 </div>
 
                             </div>
@@ -567,7 +585,9 @@
                         <div class="am-u-sm-3 ">
                             <div class="DrinksPro" data-router="/details/{{$items['id']}}">
                                 <img  src="{{$items['product_image']}}" alt=""/>
+                                @if(!empty(Auth::guard("pc")->user()))
                                 <div class="Price">${{$items['distributor']['level_four_price']}}</div>
+                                @endif
                                 <div class="DrinksShow">
                                     <div class="classifyProName towLine">
             <script>
@@ -578,7 +598,9 @@
             	Language(`<button data-number="1" datas-tock="{{$items['stock']}}" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  data-price="{{$items['distributor']['level_four_price']}}" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd">加入购物车`,
             		`<button data-number="1" datas-tock="{{$items['stock']}}" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  data-price="{{$items['distributor']['level_four_price']}}" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd"> Shopping Cart`)
             </script></button>
+                                    @if(!empty(Auth::guard("pc")->user()))
                                     <div class="Price">${{$items['distributor']['level_four_price']}}</div>
+                                @endif
                                 </div>
 
                             </div>

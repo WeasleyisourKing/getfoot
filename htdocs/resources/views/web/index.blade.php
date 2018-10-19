@@ -180,7 +180,7 @@
 
                                         <script>
                                             Language(`<button data-number="1" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  datas-tock="{{$items['stock']}}" data-price="
-${                                                Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
+${                                                Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})
                                                     }"
  data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd">加入购物车`,
                                                 `<button data-number="1" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}" datas-tock="{{$items['stock']}}" data-price="{{$items['distributor']['level_four_price']}}" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd"> Shopping Cart`)

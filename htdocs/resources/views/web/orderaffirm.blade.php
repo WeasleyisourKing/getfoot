@@ -207,7 +207,7 @@
                     	<!--<p class="float_left"style="margin-left: 10px;"> 返回购物车</p>-->
                     </a>
                 </a>
-                <button onclick="OrderDown();" class="float_right" type="submit" class="am-btn am-btn-primary">
+                <button class="float_right" type="submit" class="am-btn am-btn-primary">
             <script>
             	Language("下订单","Place an order")
             </script></button>

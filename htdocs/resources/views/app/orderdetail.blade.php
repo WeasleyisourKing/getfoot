@@ -1217,6 +1217,7 @@ securitycode.addEventListener('focus', function () {
                 	$("#orderId span").html(OrderId.order_no);
                 	$("#totalPrice span").html(data.details.total_price);
                 	$(".Settlement").click(function(){
+                		retur false
                 	//加载paypal支付按钮组件
                 		$("#pp").html(`
 															<form action="https://www.paypal.com/cgi-bin/webscr" method="post" name="paypal">

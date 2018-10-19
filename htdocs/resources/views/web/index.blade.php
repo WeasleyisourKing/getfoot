@@ -384,7 +384,7 @@
                                 <img src="{{$items['product_image']}}" alt=""/>
                                 @if(!empty(Auth::guard("pc")->user()))
                                     <script>
-                                        alert(Auth::guard("pc")->user()->role);
+
                                         Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
                                     </script>
                                 @endif

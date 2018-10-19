@@ -80,6 +80,7 @@
     var Sprice = function (role1,role2,role3,role4) {
 
         var haha;
+        @if(!empty(Auth::guard("pc")->user()->role))
         switch ({{Auth::guard("pc")->user()->role}}) {
             case 1 :
                  haha = `<div class='Price'>$${role1}</div>`;
@@ -93,8 +94,9 @@
             default :
                  haha = `<div class='Price'>$${role4}</div>`;
         }
-
         document.write(haha);
+        @endif
+
     }
 
 

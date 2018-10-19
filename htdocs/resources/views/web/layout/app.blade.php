@@ -76,7 +76,8 @@
     var LanguageHtml = function (one, tow) {
         return window.localStorage.getItem('lang') == null || window.localStorage.getItem('lang') == 1 ? one : tow;
     }
-    var Sprices = function (role) {
+    alert(3434);
+    var Sprice = function (role) {
         alert(role);
         switch (role) {
             case(1) :

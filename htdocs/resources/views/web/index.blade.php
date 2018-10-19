@@ -587,6 +587,8 @@
                                 <img  src="{{$items['product_image']}}" alt=""/>
                                 @if(!empty(Auth::guard("pc")->user()))
                                     @switch(Auth::guard("pc")->user()->role)
+                                    @case(1)
+                                    <div class="Price">${{$items['distributor']['level_four_price']}}</div>
                                     @case(2)
                                     <div class="Price">${{$items['distributor']['level_two_price']}}</div>
                                     @break

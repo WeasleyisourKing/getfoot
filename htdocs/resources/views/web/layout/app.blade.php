@@ -82,16 +82,16 @@
         var haha
         switch ({{Auth::guard("pc")->user()->role}}) {
             case 1 :
-                 haha = `<div class='Price'>$${{$items['distributor']['level_four_price']}}</div>`;
+                 haha = `<div class='Price'>$${role1}</div>`;
                 break;
             case 2 :
-                 haha = `<div class='Price'>$${{$items['distributor']['level_two_price']}}</div>`;
+                 haha = `<div class='Price'>$${role2}</div>`;
                 break;
             case 3 :
-                 haha = `<div class='Price'>$${{$items['distributor']['level_one_price']}}</div>`;
+                 haha = `<div class='Price'>$${role3}</div>`;
                 break;
             default :
-                 haha = `<div class='Price'>$${{$items['distributor']['level_three_price']}}</div>`;
+                 haha = `<div class='Price'>$${role4}</div>`;
         }
 //        alert(haha);
         document.write(haha);

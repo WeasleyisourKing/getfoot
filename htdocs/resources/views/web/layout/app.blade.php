@@ -81,18 +81,21 @@
         alert(role);
         switch (role) {
             case 1 :
-                var haha = "<div class="Price">${{$items['distributor']['level_four_price']}}</div>";
+                var haha = 12323;
+                {{--var haha = "<div class="Price">${{$items['distributor']['level_four_price']}}</div>";--}}
                 break;
-            case 2 :
-                var haha = "<div class='Price'>${{$items['distributor']['level_two_price']}}</div>";
-                break;
-            case 3 :
-                var haha = "<div class='Price'>${{$items['distributor']['level_one_price']}}</div>";
-                break;
+            {{--case 2 :--}}
+                {{--var haha = "<div class='Price'>${{$items['distributor']['level_two_price']}}</div>";--}}
+                {{--break;--}}
+            {{--case 3 :--}}
+                {{--var haha = "<div class='Price'>${{$items['distributor']['level_one_price']}}</div>";--}}
+                {{--break;--}}
             default :
-                var haha = "<div class='Price'>${{$items['distributor']['level_three_price']}}</div>";
+                var haha = 23;
+                {{--var haha = "<div class='Price'>${{$items['distributor']['level_three_price']}}</div>";--}}
         }
-        document.write(haha);
+        alert(haha);
+//        document.write(haha);
     }
 </script>
 <body>

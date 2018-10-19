@@ -587,7 +587,7 @@
                                 <img  src="{{$items['product_image']}}" alt=""/>
                                 @if(!empty(Auth::guard("pc")->user()))
                                     <script>
-                                        prices();
+                                        prices(Auth::guard("pc")->user()->role);
                                     </script>
                                     {{--@switch(Auth::guard("pc")->user()->role)--}}
                                     {{--@case(1)--}}

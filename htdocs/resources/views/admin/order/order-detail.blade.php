@@ -306,9 +306,42 @@
 					<th></th>
 				</tr>
 			</thead>
+			<tbody>
+                <tr style="border-bottom: 2px solid #666;">
+                    <th>#</th>
+                    <th>Item</th>
+                    <th>Description</th>
+                    <th>Unit Cost</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            @foreach ($product as $key => $item)
+                <tr>
+                    <td>{{ $key + 1 }}</td>
+                    <td><img height="30px; align=" middle" src="{{ $item['image'] }}"
+                        alt="没有上传"/></td>
+                    <td>{{ !empty($item['znName']) ? $item['znName'] : $item['name'] }}</td>
+                    <td>{{ $item['singlePrice'] }}</td>
+                    <td>{{ $item['count'] }}</td>
+                    <td>{{ $item['totalPrice'] }}</td>
+                </tr>
+            @endforeach
+			</tbody>
+			<tfoot>
+				<tr>
+					<td><b>Shipping fee:</b> {{ $data['freight'] }}</td>
+				</tr>
+				<tr>
+					<td><b>Tax:</b> {{ round(round(($data['total_price'] - $data['freight']) / (1 + $data['tax']), 2) * $data['tax'],2) }}</td>
+				</tr>
+				<tr>
+					<td>Sub-total: {{$data['total_price']}}</td>
+				</tr>
+				<tr>
+					<td>USD {{$data['total_price']}}</td>
+				</tr>
+			</tfoot>
 		</table>
 	</div>
-
-
 
 @endsection

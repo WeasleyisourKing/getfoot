@@ -6,6 +6,10 @@
             outline: none;
             text-decoration: none;
         }
+        .secondBannerPro{
+        	margin-bottom: 0;
+        	padding-bottom: 3%;
+        }
     </style>
     <div class="maxCentr classifyBox clearfloat">
         <div class="classify float_left">

@@ -246,13 +246,17 @@
                 <a href="##" class="text-muted btn Collection"><i class=" ">收藏</i></a>
             </div> -->
             <div class="col-12">
+            	<script>
+            		document.write(`
                 <button id="add" type="button" class="btn btn-block btn-red btn-collection"
                         product_image="{{$product->product_image}}"
                         zn_name="{{$product->zn_name}}"
                         price="@if(!empty(Auth::guard("pc")->user()))${Sprice1({{$product->distributor->level_four_price}},{{$product->distributor->level_two_price}},{{$product->distributor->level_one_price}},{{$product->distributor->level_three_price}})}@endif"
                         onclick=""
                         shop_id="{{$product->id}}"
-                ><i class="fa fa-shopping-cart"> 
+                >`)
+            	</script>
+            		<i class="fa fa-shopping-cart"> 
                 	<script type="text/javascript">
                 	Language("加入购物车","Add to Cart")
                 </script></i></button>
@@ -324,15 +328,19 @@
                 <div class="row">
 
                     <div class="col-12 py-2">
-                        <button id="add-to-cart-btn" type="button" class="btn btn-block btn-red btn-collection py-2"
+                    	<script>
+                    		document.write(`<button id="add-to-cart-btn" type="button" class="btn btn-block btn-red btn-collection py-2"
                                 product_image="{{$product->product_image}}"
                                 zn_name="{{$product->zn_name}}"
                                 en_name="{{$product->en_name}}"
-                                price="{{$product->distributor->level_four_price}}"
+                                price="@if(!empty(Auth::guard("pc")->user()))${Sprice1({{$product->distributor->level_four_price}},{{$product->distributor->level_two_price}},{{$product->distributor->level_one_price}},{{$product->distributor->level_three_price}})}@endif"
                                 onclick="addShopCart(this) "
                                 shop_id="{{$product->id}}"
                                 stock="{{$product->stock}}"
-                        ><i class="fa fa-shopping-cart"> 
+                        >
+                    			`)
+                    	</script>
+                        <i class="fa fa-shopping-cart"> 
                 	<script type="text/javascript">
                 	Language("确认加入购物车","Confirm Add to Cart")
                 </script></i></button>

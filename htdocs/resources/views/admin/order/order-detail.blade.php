@@ -278,8 +278,8 @@
     
 	<div class="row" style="background: white;margin: 0 50px;padding: 20px;">
 		<table width="90%" border="0" cellspacing="0" cellpadding="0" style="background: white;margin: 0 5%;">
-			<thead >
-				<tr style="font-size: 18px;border-bottom: 1px solid #eee;" >
+			<thead style="margin-bottom: 50px;">
+				<tr style="font-size: 18px;border-bottom: 1px solid #eee;margin-bottom: 30px;" >
 					<th colspan="3"><img width="80px" src="/uploads/logo5.png" alt="12buy"></th>
 					<th colspan="3" align="right">
                         Order # <br>
@@ -302,6 +302,9 @@
                         
 					</th>
 				</tr>
+				<tr></tr>
+				<tr></tr>
+				<tr></tr>
 			</thead>
 			<tbody>
                 <tr style="border-bottom: 2px solid #666;">
@@ -325,6 +328,9 @@
             @endforeach
 			</tbody>
 			<tfoot>
+				<tr></tr>
+				<tr></tr>
+				<tr></tr>
 				<tr>
 					<td><b>Shipping fee:</b> {{ $data['freight'] }}</td>
 				</tr>

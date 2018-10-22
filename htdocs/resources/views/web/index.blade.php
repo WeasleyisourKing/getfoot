@@ -96,7 +96,7 @@
                      data-am-slider='{&quot;directionNav&quot;:false}'>
                     <ul class="am-slides">
                         @for( $i = 0; $i < count($banner); $i++ )
-                            <li class="col-12 p-0">
+                            <li class="col-12 p-0" style="width: 250px;">
                                 <a href="{{$banner[$i]->url}}">
                                     <img class="w-100 h-100" src="{{$banner[$i]->img->url}}" alt=""></a>
                             </li>

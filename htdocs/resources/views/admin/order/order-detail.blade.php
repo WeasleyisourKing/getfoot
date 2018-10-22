@@ -305,7 +305,7 @@
 					</th>
 				</tr>
 				<tr>
-					<th></th>
+					<th colspan="6"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -330,18 +330,18 @@
             @endforeach
 			</tbody>
 			<tfoot>
-				<tr><td></td></tr>
+				<tr><td  colspan="6" align="right"></td></tr>
 				<tr>
-					<td><b>Shipping fee:</b> {{ $data['freight'] }}</td>
+					<td  colspan="6" align="right"><b>Shipping fee:</b> {{ $data['freight'] }}</td>
 				</tr>
 				<tr>
-					<td><b>Tax:</b> {{ round(round(($data['total_price'] - $data['freight']) / (1 + $data['tax']), 2) * $data['tax'],2) }}</td>
+					<td  colspan="6" align="right"><b>Tax:</b> {{ round(round(($data['total_price'] - $data['freight']) / (1 + $data['tax']), 2) * $data['tax'],2) }}</td>
 				</tr>
 				<tr>
-					<td>Sub-total: {{$data['total_price']}}</td>
+					<td  colspan="6" align="right">Sub-total: {{$data['total_price']}}</td>
 				</tr>
 				<tr>
-					<td>USD {{$data['total_price']}}</td>
+					<td  colspan="6" align="right">USD {{$data['total_price']}}</td>
 				</tr>
 			</tfoot>
 		</table>

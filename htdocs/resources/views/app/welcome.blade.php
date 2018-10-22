@@ -345,7 +345,7 @@ overflow: hidden;">-->
                                         </small>
                                         <h6 class="card-title d-inline text-red">
 		                                    <script>
-		                                    	Spricedetails({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}},)
+		                                    	Spricedetails({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})
 		                                    </script>
                                     </h6>
 

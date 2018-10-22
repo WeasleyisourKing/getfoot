@@ -83,7 +83,11 @@
                 	<script type="text/javascript">
                 	Language("价格","Price")
                 </script></span>
-        <h5 class="d-inline pl-2 text-red">${{$product->distributor->level_four_price}}</h5>
+        <h5 class="d-inline pl-2 text-red">${{$product->distributor->level_four_price}}
+            <script>
+            	Spricedetails({{$product->distributor->level_four_price}},{{$product->distributor->level_two_price}},{{$product->distributor->level_one_price}},{{$product->distributor->level_three_price}})
+            </script>
+        </h5>
     </div>
     <div class="container">
         <div class="d-flex justify-content-between mt-4">
@@ -243,7 +247,7 @@
                 <button id="add" type="button" class="btn btn-block btn-red btn-collection"
                         product_image="{{$product->product_image}}"
                         zn_name="{{$product->zn_name}}"
-                        price="{{$product->distributor->level_four_price}}"
+                        price="@if(!empty(Auth::guard("pc")->user()))${Sprice1({{$product->distributor->level_four_price}},{{$product->distributor->level_two_price}},{{$product->distributor->level_one_price}},{{$product->distributor->level_three_price}})}@endif"
                         onclick=""
                         shop_id="{{$product->id}}"
                 ><i class="fa fa-shopping-cart"> 
@@ -252,9 +256,6 @@
                 </script></i></button>
 
             </div>
-            {{--<div class="col-6">--}}
-            {{--<button id="buy-now-btn" type="button" class="btn btn-block btn-red"><i class="fa fa-credit-card"> 立即购买</i></button>--}}
-            {{--</div>--}}
         </div>
 
     </div><!-- End 购物按钮 Container -->

@@ -277,22 +277,35 @@
     </div>
     
 	<div class="row">
-		<table width="100%" border="0" cellspacing="0" cellpadding="0" style="background: white;margin: 0 50px;">
-			<thead>
-				<tr>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" style="background: white;margin: 0 50px;padding: 20px;">
+			<thead >
+				<tr style="font-size: 18px;text-align: right;border-bottom: 1px solid #eee;">
 					<th><img width="80px" src="/uploads/logo5.png" alt="12buy"></th>
-					<th>
-                        <h4>Order # <br>
+					<th >
+                        Order # <br>
                             <strong>{{$data['order_no']}}</strong>
-                        </h4>
+                        
+					</th>
+				</tr>
+				<tr >
+					<th>
+                        <strong>{{$address['name']}}</strong><br>
+                        {{$address['country']}}<br>
+                        {{$address['detail']}}<br>
+                        {{$address['city']}}, {{$address['province']}} {{$address['zip']}}<br>
+                        {{$address['mobile']}}
+					</th>
+					<th >
+                        <strong>Order Date: </strong> {{$data['created_at']}} <br />
+                        <strong>User: </strong>{{$address['user']}}
+                            <strong>Email:</strong> {{$address['email']}}
+                        
 					</th>
 				</tr>
 				<tr>
 					<th></th>
 				</tr>
 			</thead>
-			<tr><th>Header</th></tr>
-			<tr><td>Data</td></tr>
 		</table>
 	</div>
 

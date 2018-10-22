@@ -290,7 +290,7 @@
 				</tr>
 					
 				<tr >
-					<th colspan="3">
+					<th colspan="3" align="left">
                         <strong>{{$address['name']}}</strong><br>
                         {{$address['country']}}<br>
                         {{$address['detail']}}<br>
@@ -319,13 +319,13 @@
                 </tr>
             @foreach ($product as $key => $item)
                 <tr>
-                    <td>{{ $key + 1 }}</td>
-                    <td><img height="30px; align=" middle" src="{{ $item['image'] }}"
+                    <td align="center">{{ $key + 1 }}</td>
+                    <td align="center"><img height="30px; align=" middle" src="{{ $item['image'] }}"
                         alt="没有上传"/></td>
-                    <td>{{ !empty($item['znName']) ? $item['znName'] : $item['name'] }}</td>
-                    <td>{{ $item['singlePrice'] }}</td>
-                    <td>{{ $item['count'] }}</td>
-                    <td>{{ $item['totalPrice'] }}</td>
+                    <td align="center">{{ !empty($item['znName']) ? $item['znName'] : $item['name'] }}</td>
+                    <td align="center">{{ $item['singlePrice'] }}</td>
+                    <td align="center">{{ $item['count'] }}</td>
+                    <td align="center">{{ $item['totalPrice'] }}</td>
                 </tr>
             @endforeach
 			</tbody>

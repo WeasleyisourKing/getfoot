@@ -92,11 +92,17 @@ $(function(){
                             <!--<li class="float_right title"><img src="/home/img/wx.png" alt=""/><img src="/home/img/wxx.png" alt=""/></li>-->
                         </ul>
                         <ul class="clearfloat">
-                            <li class="float_left">${{$item->distributor->level_four_price}}</li>
+                            <li class="float_left">
+                                        @if(!empty(Auth::guard("pc")->user()))
+                            	<script type="text/javascript">
+                            		Spricedetails({{$item->distributor->level_four_price}},{{$item->distributor->level_two_price}},{{$item->distributor->level_one_price}},{{$item->distributor->level_three_price}})
+                            	</script>
+                                        @endif
+                            </li>
                             <li class="float_right snacksBut">
                               <script>
-                                Language(`<button data-number="1" data-name="{{$item->zn_name}}" data-price="{{$item->distributor->level_four_price}}" data-img="{{$item->product_image}}" data-id="{{$item->id}}" class="shopAdd" >加入购物车`,
-                                `<button data-number="1" data-name="{{$item->en_name}}" data-price="{{$item->distributor->level_four_price}}" data-img="{{$item->product_image}}" data-id="{{$item->id}}" class="shopAdd" >Shopping Cart`)
+                                Language(`<button data-number="1" data-name="{{$item->zn_name}}" data-price="@if(!empty(Auth::guard("pc")->user()))${Sprice1({{$item->distributor->level_four_price}},{{$item->distributor->level_two_price}},{{$item->distributor->level_one_price}},{{$item->distributor->level_three_price}})}@endif" data-img="{{$item->product_image}}" data-id="{{$item->id}}" class="shopAdd" >加入购物车`,
+                                `<button data-number="1" data-name="{{$item->en_name}}" data-price="@if(!empty(Auth::guard("pc")->user()))${Sprice1({{$item->distributor->level_four_price}},{{$item->distributor->level_two_price}},{{$item->distributor->level_one_price}},{{$item->distributor->level_three_price}})}@endif" data-img="{{$item->product_image}}" data-id="{{$item->id}}" class="shopAdd" >Shopping Cart`)
                               </script>
                               </button>
                             </li>

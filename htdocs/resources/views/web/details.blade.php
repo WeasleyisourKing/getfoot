@@ -140,7 +140,7 @@
                                         Language("{{$items->zn_name}}","{{$items->en_name}}")
                                     </script>
                                 </p>
-                                <span>${{$items->distributor->level_four_price}}</span>
+                                <!--<span>${{$items->distributor->level_four_price}}</span>-->
                             </div>
                         </li>
                     @endforeach
@@ -228,7 +228,7 @@
                                                             Language("{{$items->brand->zn_name}}","{{$items->brand->en_name}}")
                                                         </script>
                                                     </p>
-                                                    <span class="float_right">${{$items->distributor->level_four_price}}</span>
+                                                    <!--<span class="float_right">${{$items->distributor->level_four_price}}</span>-->
                                                 </li>
                                                 <li class="clearfloat">
                                                     <p class="float_left oneLine">

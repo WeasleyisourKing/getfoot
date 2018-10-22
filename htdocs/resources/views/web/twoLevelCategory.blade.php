@@ -28,7 +28,12 @@
                                 <div class="am-u-sm-3 ">
                                     <div class="DrinksPro" data-router="/details/{{$items->id}}">
                                         <img src="{{$items->product_image}}" alt=""/>
-                                        <div class="Price">${{$items->distributor->level_four_price}}</div>
+                                        <div class="Price">
+                                        @if(!empty(Auth::guard("pc")->user()))
+                            	<script type="text/javascript">
+                            		Spricedetails({{$items->distributor->level_four_price}},{{$items->distributor->level_two_price}},{{$items->distributor->level_one_price}},{{$items->distributor->level_three_price}})
+                            	</script>
+                                        @endif</div>
                                         <div class="DrinksShow">
                                             <div class="classifyProName towLine">
                                                 <script>

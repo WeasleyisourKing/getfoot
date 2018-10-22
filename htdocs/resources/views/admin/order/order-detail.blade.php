@@ -277,7 +277,6 @@
     </div>
     
     
-	
 	<div class="row" style="background: white;margin: 0 50px;padding: 20px;">
 		<table id="biaoge" width="90%" border="0" cellspacing="0" cellpadding="0" style="background: white;margin: 0 5%;">
 			<thead style="margin-bottom: 50px;">
@@ -346,10 +345,10 @@
 
 	<script>
 		
-        var html = "<html><head><meta charset='utf-8' /></head><body>" + $("#biaoge").outerHTML + "</body></html>";
+        var html = "<html><head><meta charset='utf-8' /></head><body>" + document.getElementById("biaoge").outerHTML + "</body></html>";
         // 实例化一个Blob对象，其构造函数的第一个参数是包含文件内容的数组，第二个参数是包含文件类型属性的对象
         var blob = new Blob([html], { type: "application/vnd.ms-excel" });
-        var a = $("#daochu");
+        var a = document.getElementById("daochu");
         // 利用URL.createObjectURL()方法为a元素生成blob URL
         a.href = URL.createObjectURL(blob);
         // 设置文件名

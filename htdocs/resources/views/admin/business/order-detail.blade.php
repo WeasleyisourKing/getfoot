@@ -120,6 +120,7 @@
                         
 					</th>
 				</tr>
+					
 				<tr >
 					<th colspan="3">
                         <strong>{{$address['name']}}</strong><br>
@@ -134,6 +135,9 @@
                             <strong>Email:</strong> {{$address['email']}}
                         
 					</th>
+				</tr>
+				<tr>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -158,6 +162,7 @@
             @endforeach
 			</tbody>
 			<tfoot>
+				<tr><td></td></tr>
 				<tr>
 					<td><b>Shipping fee:</b> {{ $data['freight'] }}</td>
 				</tr>

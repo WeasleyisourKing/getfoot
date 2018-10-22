@@ -39,7 +39,13 @@
                     <script>
                         Language("价格", "Price")
                     </script>
-                    <span>${{$product->distributor->level_four_price}}</span></p>
+                    <span>
+                        @if(!empty(Auth::guard("pc")->user()))
+                            <script>
+                                Sprice(${{$product->distributor->level_four_price}},${{$product->distributor->level_two_price}},${{$product->distributor->level_one_price}},${{$product->distributor->level_three_price}});
+                            </script>
+                        @endif
+                    </span></p>
                 <div class="float_right">
                     <script>
                         Language("品牌：", "Brand:")
@@ -80,8 +86,8 @@
                 {{--<button>立即购买</button>--}}
 
                 <script>
-                    Language(`<button id="addCart" class="shopAdd" data-number="1" datas-tock="{{$product->stock}}" data-zn-name="{{$product->zn_name}}"data-en-name="{{$product->en_name}}" data-price="{{$product->distributor->level_four_price}}" data-img="{{$product->product_image}}" data-id="{{$product->id}}" style="background: #f14067;"><img src="/home/img/nav-1.png" alt=""/>&nbsp;加入购物车</button>`,
-                        `<button id="addCart" class="shopAdd"  data-number="1" datas-tock="{{$product->stock}}" data-zn-name="{{$product->zn_name}}"data-en-name="{{$product->en_name}}" data-price="{{$product->distributor->level_four_price}}" data-img="{{$product->product_image}}" data-id="{{$product->id}}" style="background: #f14067;"><img src="/home/img/nav-1.png" alt=""/>&nbsp;Check Out </button>`)
+                    Language(`<button id="addCart" class="shopAdd" data-number="1" datas-tock="{{$product->stock}}" data-zn-name="{{$product->zn_name}}"data-en-name="{{$product->en_name}}" data-price="@if(!empty(Auth::guard("pc")->user()))${Sprice1(${{$product->distributor->level_four_price}},${{$product->distributor->level_two_price}},${{$product->distributor->level_one_price}},${{$product->distributor->level_three_price}})}@endif" data-img="{{$product->product_image}}" data-id="{{$product->id}}" style="background: #f14067;"><img src="/home/img/nav-1.png" alt=""/>&nbsp;加入购物车</button>`,
+                        `<button id="addCart" class="shopAdd"  data-number="1" datas-tock="{{$product->stock}}" data-zn-name="{{$product->zn_name}}"data-en-name="{{$product->en_name}}" data-price="@if(!empty(Auth::guard("pc")->user()))${Sprice1(${{$product->distributor->level_four_price}},${{$product->distributor->level_two_price}},${{$product->distributor->level_one_price}},${{$product->distributor->level_three_price}})}@endif" data-img="{{$product->product_image}}" data-id="{{$product->id}}" style="background: #f14067;"><img src="/home/img/nav-1.png" alt=""/>&nbsp;Check Out </button>`)
                 </script>
             </div>
             {{--<div class="detailsIco">--}}

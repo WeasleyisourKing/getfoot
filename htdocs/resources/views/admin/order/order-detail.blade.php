@@ -280,30 +280,27 @@
 		<table width="90%" border="0" cellspacing="0" cellpadding="0" style="background: white;margin: 0 5%;">
 			<thead >
 				<tr style="font-size: 18px;border-bottom: 1px solid #eee;" >
-					<th><img width="80px" src="/uploads/logo5.png" alt="12buy"></th>
-					<th align="right">
+					<th colspan="3"><img width="80px" src="/uploads/logo5.png" alt="12buy"></th>
+					<th colspan="3" align="right">
                         Order # <br>
                             <strong>{{$data['order_no']}}</strong>
                         
 					</th>
 				</tr>
 				<tr >
-					<th>
+					<th colspan="3">
                         <strong>{{$address['name']}}</strong><br>
                         {{$address['country']}}<br>
                         {{$address['detail']}}<br>
                         {{$address['city']}}, {{$address['province']}} {{$address['zip']}}<br>
                         {{$address['mobile']}}
-					</th>
-					<th align="right">
+					</th >
+					<th align="right" colspan="3">
                         <strong>Order Date: </strong> {{$data['created_at']}} <br />
                         <strong>User: </strong>{{$address['user']}}
                             <strong>Email:</strong> {{$address['email']}}
                         
 					</th>
-				</tr>
-				<tr>
-					<th></th>
 				</tr>
 			</thead>
 			<tbody>

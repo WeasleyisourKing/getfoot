@@ -153,8 +153,7 @@
                 </div>-->
             </div>
             <div class="secondBanner">
-                <div data-am-widget="slider" class="am-slider am-slider-default"
-                     data-am-slider='{"animation":"slide","animationLoop":false,"itemsWidth":250,"itemsMargin":2, "directionNav": true}'>
+                <div data-am-widget="slider" class="am-slider am-slider-default"data-am-slider='{"animation":"slide","animationLoop":false,"itemsWidth":250,"itemsMargin":2, "directionNav": true}'>
                     <ul class="am-slides">
                         {{--                    @if ($modular->id == 1)--}}
                         @foreach($modular[0]['products'] as $items)

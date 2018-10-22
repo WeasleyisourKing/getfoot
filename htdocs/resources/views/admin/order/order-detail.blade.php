@@ -277,7 +277,7 @@
     </div>
     
 	<div class="row">
-		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" style="background: white;margin: 0 50px;">
 			<thead>
 				<tr>
 					<th><img width="80px" src="/uploads/logo5.png" alt="12buy"></th>

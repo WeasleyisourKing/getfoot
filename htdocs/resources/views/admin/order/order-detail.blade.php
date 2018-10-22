@@ -276,12 +276,12 @@
     </div>
     </div>
     
-	<div class="row">
-		<table width="100%" border="0" cellspacing="0" cellpadding="0" style="background: white;margin: 0 50px;padding: 20px;">
+	<div class="row" style="background: white;margin: 0 50px;padding: 20px;">
+		<table width="90%" border="0" cellspacing="0" cellpadding="0" style="background: white;margin: 0 5%;">
 			<thead >
-				<tr style="font-size: 18px;border-bottom: 1px solid #eee;" align="right">
+				<tr style="font-size: 18px;border-bottom: 1px solid #eee;" >
 					<th><img width="80px" src="/uploads/logo5.png" alt="12buy"></th>
-					<th >
+					<th align="right">
                         Order # <br>
                             <strong>{{$data['order_no']}}</strong>
                         

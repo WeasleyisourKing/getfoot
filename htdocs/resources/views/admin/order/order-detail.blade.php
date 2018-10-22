@@ -279,7 +279,7 @@
 	<div class="row">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" style="background: white;margin: 0 50px;padding: 20px;">
 			<thead >
-				<tr style="font-size: 18px;text-align: right;border-bottom: 1px solid #eee;">
+				<tr style="font-size: 18px;border-bottom: 1px solid #eee;" align="right">
 					<th><img width="80px" src="/uploads/logo5.png" alt="12buy"></th>
 					<th >
                         Order # <br>
@@ -295,7 +295,7 @@
                         {{$address['city']}}, {{$address['province']}} {{$address['zip']}}<br>
                         {{$address['mobile']}}
 					</th>
-					<th >
+					<th align="right">
                         <strong>Order Date: </strong> {{$data['created_at']}} <br />
                         <strong>User: </strong>{{$address['user']}}
                             <strong>Email:</strong> {{$address['email']}}

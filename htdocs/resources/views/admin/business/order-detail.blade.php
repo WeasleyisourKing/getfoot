@@ -110,7 +110,7 @@
 	
 	
 	<div class="row" style="background: white;margin: 0 50px;padding: 20px;">
-		<table id="biaoge" width="90%" border="0" cellspacing="0" cellpadding="0" style="background: white;margin: 0 5%;">
+		<table id="biaoge" width="90%" border="1" cellspacing="0" cellpadding="0" style="background: white;margin: 0 5%;">
 			<thead style="margin-bottom: 50px;">
 				<tr style="font-size: 18px;border-bottom: 1px solid #eee;margin-bottom: 30px;" >
 					<th colspan="3"><img width="80px" src="/uploads/logo5.png" alt="12buy"></th>

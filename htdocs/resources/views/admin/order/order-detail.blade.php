@@ -278,7 +278,7 @@
     
     
 	<div class="row" style="background: white;margin: 0 50px;padding: 20px;">
-		<table id="biaoge" width="90%" border="0" cellspacing="0" cellpadding="0" style="background: white;margin: 0 5%;">
+		<table id="biaoge" width="90%" border="1" cellspacing="0" cellpadding="0" style="background: white;margin: 0 5%;">
 			<thead style="margin-bottom: 50px;">
 				<tr style="font-size: 18px;border-bottom: 1px solid #eee;margin-bottom: 30px;" >
 					<th colspan="3"><img width="80px" src="/uploads/logo5.png" alt="12buy"></th>
@@ -288,6 +288,7 @@
                         
 					</th>
 				</tr>
+					
 				<tr >
 					<th colspan="3">
                         <strong>{{$address['name']}}</strong><br>
@@ -302,6 +303,9 @@
                             <strong>Email:</strong> {{$address['email']}}
                         
 					</th>
+				</tr>
+				<tr>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -326,6 +330,7 @@
             @endforeach
 			</tbody>
 			<tfoot>
+				<tr><td></td></tr>
 				<tr>
 					<td><b>Shipping fee:</b> {{ $data['freight'] }}</td>
 				</tr>
@@ -345,10 +350,10 @@
 
 	<script>
 		
-        var html = "<html><head><meta charset='utf-8' /></head><body>" + document.getElementById("biaoge").outerHTML + "</body></html>";
+        var html = "<html><head><meta charset='utf-8' /></head><body>" + document.getElementsById("biaoge").outerHTML + "</body></html>";
         // 实例化一个Blob对象，其构造函数的第一个参数是包含文件内容的数组，第二个参数是包含文件类型属性的对象
         var blob = new Blob([html], { type: "application/vnd.ms-excel" });
-        var a = document.getElementById("daochu");
+        var a = document.getElementsById("daochu");
         // 利用URL.createObjectURL()方法为a元素生成blob URL
         a.href = URL.createObjectURL(blob);
         // 设置文件名

@@ -274,6 +274,27 @@
         </div>
 
     </div>
+    </div>
+    
+	<div class="row">
+		<table border="1" cellspacing="0" cellpadding="0">
+			<thead>
+				<tr>
+					<th><img width="80px" src="/uploads/logo5.png" alt="12buy"></th>
+					<th>
+                        <h4>Order # <br>
+                            <strong>{{$data['order_no']}}</strong>
+                        </h4>
+					</th>
+				</tr>
+				<tr>
+					<th></th>
+				</tr>
+			</thead>
+			<tr><th>Header</th></tr>
+			<tr><td>Data</td></tr>
+		</table>
+	</div>
 
 
 

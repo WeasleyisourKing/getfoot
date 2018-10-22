@@ -172,6 +172,16 @@
                                         <img src="home/img/hhh.png" alt=""/>
                                     </div>
                                     <div class="searchBut clearfloat">
+                                        @if(!empty(Auth::guard("pc")->user()))
+                                            <script>
+                                                Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
+                                            </script>
+                                        @endif
+
+                                        <script>
+                                            Language(`<button data-number="1" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  datas-tock="{{$items['stock']}}" data-price="@if(!empty(Auth::guard("pc")->user()))${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})}@endif"data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd">加入购物车`,
+                                                `<button data-number="1" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}" datas-tock="{{$items['stock']}}" data-price="@if(!empty(Auth::guard("pc")->user()))${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})}@endif" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd"> Shopping Cart`)
+                                        </script>
                                         </button>
                                     </div>
                                 </div>

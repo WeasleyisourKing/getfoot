@@ -57,9 +57,10 @@
                             @if (!empty($categorys[2]))
                                 @foreach($categorys[2]['pid'] as $items)
                                     <li><a href="/shop/{{$items['id']}}">
-            <script>
-            	Language("{{$items['zn_name']}}","{{$items['en_name']}}")
-            </script></a></li>
+							            <script>
+							            	Language("{{$items['zn_name']}}","{{$items['en_name']}}")
+							            </script>
+							           </a></li>
                                 @endforeach
                             @endif
                         </ol>
@@ -70,9 +71,10 @@
                             @if (!empty($categorys[3]))
                                 @foreach($categorys[3]['pid'] as $items)
                                     <li><a href="/shop/{{$items['id']}}">
-            <script>
-            	Language("{{$items['zn_name']}}","{{$items['en_name']}}")
-            </script></a></li>
+							            <script>
+							            	Language("{{$items['zn_name']}}","{{$items['en_name']}}")
+							            </script>
+						            </a></li>
                                 @endforeach
                             @endif
                         </ol>
@@ -167,12 +169,17 @@
                                         <img src="home/img/hhh.png" alt=""/>
                                     </div>
                                     <div class="searchBut clearfloat">
-                                        <p>${{$item['distributor']['level_four_price']}}</p>
+                                        @if(!empty(Auth::guard("pc")->user()))
+                                            <script>
+                                                Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
+                                            </script>
+                                        @endif
                                         
-            <script>
-            	Language(`<button data-number="1" data-zn-name="{{$item['zn_name']}}" data-en-name="{{$item['en_name']}}"  datas-tock="{{$item['stock']}}" data-price="{{$item['distributor']['level_four_price']}}" data-img="{{$item['product_image']}}" data-id="{{$item['id']}}" class="shopAdd">加入购物车`,
-            		`<button data-number="1" data-zn-name="{{$item['zn_name']}}" data-en-name="{{$item['en_name']}}" datas-tock="{{$item['stock']}}" data-price="{{$item['distributor']['level_four_price']}}" data-img="{{$item['product_image']}}" data-id="{{$item['id']}}" class="shopAdd"> Shopping Cart`)
-            </script></button>
+                                        <script>
+                                            Language(`<button data-number="1" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  datas-tock="{{$items['stock']}}" data-price="@if(!empty(Auth::guard("pc")->user()))${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})}@endif"data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd">加入购物车`,
+                                                `<button data-number="1" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}" datas-tock="{{$items['stock']}}" data-price="@if(!empty(Auth::guard("pc")->user()))${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})}@endif" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd"> Shopping Cart`)
+                                        </script>
+            </button>
                                     </div>
                                 </div>
                             </li>

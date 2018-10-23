@@ -294,8 +294,8 @@
         <div class="am-u-sm-4">
             <ul>
                 <li class="btoNavPro" data-router="/company/1">联系我们</li>
-                <li>给我们电话<br/> <span>818-477-8888</span></li>
-                <li>help@12buy.com</li>
+                <li>给我们电话<br/> <span>650-690-6666</span></li>
+                <li>info@snacktalk.com</li>
             </ul>
         </div>`,
                 `
@@ -323,8 +323,8 @@
         <div class="am-u-sm-4">
             <ul>
                 <li>Contact us</li>
-                <li>Call us<br/> <span>818-477-8888</span></li>
-                <li>help@12buy.com</li>
+                <li>Call us<br/> <span>650-690-6666</span></li>
+                <li>info@snacktalk.com</li>
             </ul>
         </div>`)
         </script>

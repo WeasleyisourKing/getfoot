@@ -30,12 +30,12 @@
   </div>
   <div class="d-flex justify-content-center  ">
     <div class="p-1 ">
-    		<p class="text-muted m-0"><i class="fa fa-phone text-color-1 px-2"></i>818-477-8888</p>
+    		<p class="text-muted m-0"><i class="fa fa-phone text-color-1 px-2"></i>650-690-6666</p>
     </div>
   </div>
   <div class="d-flex justify-content-center  ">
     <div class="p-1">
-    		<p class="text-muted m-0"><i class="fa fa-envelope text-color-1 px-2"></i>help@12buy.com</p>
+    		<p class="text-muted m-0"><i class="fa fa-envelope text-color-1 px-2"></i>info@snacktalk.com</p>
     </div>
   </div>
 </div>

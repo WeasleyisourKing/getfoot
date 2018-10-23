@@ -46,7 +46,13 @@
                                             	</script>
                                             	
                                             	</button>
-                                            <div class="Price">${{$items->distributor->level_four_price}}</div>
+                                            <div class="Price">
+				                                        @if(!empty(Auth::guard("pc")->user()))
+							                            	<script type="text/javascript">
+							                            		Spricedetails({{$items->distributor->level_four_price}},{{$items->distributor->level_two_price}},{{$items->distributor->level_one_price}},{{$items->distributor->level_three_price}})
+							                            	</script>
+				                                        @endif
+				                            </div>
                                         </div>
 
                                     </div>

@@ -306,12 +306,12 @@
                 data.push(shop);
             }
 
-            var sub={{$postage->threshold}}-summary();
+            var sub=0-summary();
 			//判断总商品价值，并给予提示
             if (sub>0) {
                 swal({
                     title:  LanguageHtml('确认结算?','Confirm Check Out?'),
-                    text:  LanguageHtml(`您的商品总额未满${{{$postage->threshold}}}元将支付运费,还差 ${sub.toFixed(2)} 元才能免邮,确定继续结算吗?`,`$${sub.toFixed(2)} more for free shipping, continue to check out?`),
+                    text:  LanguageHtml(`您的商品总额未满$0元将支付运费,还差 ${sub.toFixed(2)} 元才能免邮,确定继续结算吗?`,`$${sub.toFixed(2)} more for free shipping, continue to check out?`),
                     type: 'info',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',

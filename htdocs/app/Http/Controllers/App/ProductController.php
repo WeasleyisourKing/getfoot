@@ -203,9 +203,9 @@ class ProductController extends Controller
         $data = ThemeModel::with(['products' => function ($query) {
             $query->with('distributor')
                 ->select(DB::raw("CASE stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name'"),
-                    'id','en_name','product_image','stock');
+                    'id','en_name','product_image','stock')
+                ->where('status', '=', 1);
         }])->where('id', '=', $id)
-            ->where('status', '=', 1)
             ->first();
 
 

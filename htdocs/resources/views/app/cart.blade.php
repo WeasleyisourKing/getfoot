@@ -213,8 +213,8 @@
                 summer += price * num
             }
             total = summer.toFixed(2);
-            var threshold ={{$postage->threshold}};
-            var freight ={{$postage->freight}};
+            var threshold =0;
+            var freight =0;
             freight = total > threshold ? 0 : freight;
             if($(".cartPro").length==0){
             		freight=0;
@@ -222,9 +222,6 @@
             var totalEnd=function(){if(couponType==1){return parseFloat(total)-parseFloat(concessionalRate)>0?parseFloat(total)-parseFloat(concessionalRate):0}else if(couponType==2){return total*(1-parseFloat(concessionalRate)/100)}else{return parseFloat(total)}}()
             $("#total_text").html(`<span>
             	${LanguageHtml('本次预估总额',' Est. Total')}：$${total}<br />
-            	${LanguageHtml('运费','Shipping')}：$${freight}<br />
-            	${LanguageHtml('税金：待定','Tax:undetermined')}<br />
-            	${LanguageHtml('优惠','Discount')}：${concessionalName?concessionalName:LanguageHtml("无","None")}<br />
             	${LanguageHtml('应付总金额','Total ')}：$${(totalEnd+ freight * 1).toFixed(2)}
             	</span>`);
             var summerOver = totalEnd  + freight * 1

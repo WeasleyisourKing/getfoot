@@ -163,12 +163,12 @@
 							</script>
 							$<span>0.00</span>
 						</p>
-            <p class="float_right ">
+            <!--<p class="float_right ">
 							<script>
 								Language("税金：<span>待定</span>","Tax：<span>undetermined</span>")
 							</script>
 							
-						</p>
+						</p>-->
             <p class="float_right totalAmount">
 							<script>
 								Language("商品总额","Total")
@@ -249,8 +249,8 @@
 		})
     	
 //  	获取邮费和包邮额度
-    var threshold ={{$postage->threshold}};
-    var freight ={{$postage->freight}};
+    var threshold =0;
+    var freight =0;
 //  计算总金额函数
     	function Valuation() {
     var total = 0;

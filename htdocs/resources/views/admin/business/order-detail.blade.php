@@ -140,9 +140,11 @@
                             <tr style="font-size: 18px;" >
                                 <th colspan="3"><img class="text-right" width="80px" src="/uploads/logo5.png" alt="12buy"></th>
 
-                                <th colspan="3" class="pull-right" align="right">
+                                <th colspan="3"  align="right">
+                                	<p style="text-align: right;">
                                     Order # <br>
                                     <strong>{{$data['order_no']}}</strong>
+                                	</p>
 
                                 </th>
                             </tr>
@@ -168,9 +170,9 @@
                             </div>
                             <div class="pull-right m-t-20">
                                 <th colspan="3" align="right">
-                                <p><strong>Order Date: </strong> {{$data['created_at']}}</p>
+                                <p style="text-align: right;"><strong>Order Date: </strong> {{$data['created_at']}}</p>
                                 {{-- <p class="m-t-10"><strong>订单状态: </strong> <span class="label label-pink">Pending</span></p> --}}
-                                <p class="m-t-10"><strong>User: </strong>{{$address['user']}}
+                                <p style="text-align: right;" class="m-t-10"><strong>User: </strong>{{$address['user']}}
                                     <strong>Email:</strong> {{$address['email']}}</p>
                                 </th>
                             </div>
@@ -219,7 +221,8 @@
                     </div>
                     <tfoot>
                     		<tr>
-                    			<td colspan="6" align="right " style="font-weight: bold; font-size: 24px; line-height: 100px;">USD {{$data['total_price']}}</td>
+                    			<td colspan="6" align="right " style="font-weight: bold; font-size: 24px; line-height: 100px;">
+                    				<p style="text-align: right;">USD {{$data['total_price']}}</p></td>
                     		</tr>
                     <!--<div class="row" style="border-radius: 0px">-->
                         <!--<div class="col-md-3 col-md-offset-9">

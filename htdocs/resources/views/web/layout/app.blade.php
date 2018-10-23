@@ -217,7 +217,7 @@
 
 <div class="logoBox clearfloat maxCentr	">
     <div class="logo float_left">
-        <a href="/"><img class="logo" src="" alt=""/></a>
+        <a href="/"><img class="logo" src="/uploads/snackicon.png" alt=""/></a>
     </div>
     <form action="/together" method="get">
         <div class="search float_right">

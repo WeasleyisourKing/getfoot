@@ -8,7 +8,7 @@
         }
         .secondBannerPro{
         	margin-bottom: 1%;
-        	padding-bottom: 1%%;
+        	padding-bottom: 1%;
         }
     </style>
     <div class="maxCentr classifyBox clearfloat">

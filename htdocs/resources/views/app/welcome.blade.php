@@ -111,7 +111,7 @@ overflow: hidden;">-->
 
             @for( $i = 0; $i < count($banner); $i++ )
                 <div class="col-12 p-0 bannerNum">
-                    <a href="{{$banner[$i]->url}}">
+                    <a href="https://snacktalk.com/{{$banner[$i]->url}}">
                         <img class="w-100 h-100" src="{{$banner[$i]->img->url}}" alt=""></a>
                 </div>
             @endfor

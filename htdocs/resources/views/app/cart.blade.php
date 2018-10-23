@@ -213,8 +213,8 @@
                 summer += price * num
             }
             total = summer.toFixed(2);
-            var threshold ={{$postage->threshold}};
-            var freight ={{$postage->freight}};
+            var threshold =0;
+            var freight =0;
             freight = total > threshold ? 0 : freight;
             if($(".cartPro").length==0){
             		freight=0;
@@ -222,9 +222,6 @@
             var totalEnd=function(){if(couponType==1){return parseFloat(total)-parseFloat(concessionalRate)>0?parseFloat(total)-parseFloat(concessionalRate):0}else if(couponType==2){return total*(1-parseFloat(concessionalRate)/100)}else{return parseFloat(total)}}()
             $("#total_text").html(`<span>
             	${LanguageHtml('本次预估总额',' Est. Total')}：$${total}<br />
-            	${LanguageHtml('运费','Shipping')}：$${freight}<br />
-            	${LanguageHtml('税金：待定','Tax:undetermined')}<br />
-            	${LanguageHtml('优惠','Discount')}：${concessionalName?concessionalName:LanguageHtml("无","None")}<br />
             	${LanguageHtml('应付总金额','Total ')}：$${(totalEnd+ freight * 1).toFixed(2)}
             	</span>`);
             var summerOver = totalEnd  + freight * 1
@@ -309,12 +306,12 @@
                 data.push(shop);
             }
 
-            var sub={{$postage->threshold}}-summary();
+            var sub=0-summary();
 			//判断总商品价值，并给予提示
             if (sub>0) {
                 swal({
                     title:  LanguageHtml('确认结算?','Confirm Check Out?'),
-                    text:  LanguageHtml(`您的商品总额未满${{{$postage->threshold}}}元将支付运费,还差 ${sub.toFixed(2)} 元才能免邮,确定继续结算吗?`,`$${sub.toFixed(2)} more for free shipping, continue to check out?`),
+                    text:  LanguageHtml(`您的商品总额未满$0元将支付运费,还差 ${sub.toFixed(2)} 元才能免邮,确定继续结算吗?`,`$${sub.toFixed(2)} more for free shipping, continue to check out?`),
                     type: 'info',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -360,7 +357,7 @@
                         };
 						jqAjax(
 							"post",
-							"/api/order",
+							"/api/business/order",
 							{
                             'products': JSON.stringify(data),
                             'userId':{{Auth()->guard('pc')->user()->id}},

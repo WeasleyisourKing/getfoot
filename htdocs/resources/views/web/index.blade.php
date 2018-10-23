@@ -7,8 +7,8 @@
             text-decoration: none;
         }
         .secondBannerPro{
-        	margin-bottom: 0;
-        	padding-bottom: 3%;
+        	margin-bottom: 1%;
+        	padding-bottom: 1%%;
         }
     </style>
     <div class="maxCentr classifyBox clearfloat">

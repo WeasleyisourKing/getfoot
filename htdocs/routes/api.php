@@ -21,6 +21,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //商品下订单
 Route::post('/order', 'Api\NewOrderController@placeOrder');
 
+//商家商品下订单
+Route::post('/business/order', 'Api\BusinessOrderController@placeOrder');
 
 //TODO 商品类
 

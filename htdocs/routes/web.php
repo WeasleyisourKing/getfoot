@@ -475,6 +475,8 @@ Route::post('/order/freight', 'Admin\OrderController@orderFreight');
 Route::get('/order/del', 'Admin\OrderController@orderDel');
 //创建订单接口
 Route::post('/order/add', 'Admin\OrderController@placeOrder');
+//创建商家订单接口
+Route::post('/business/order/add', 'Admin\BusinessController@placeOrder');
 
 //TODO 商品管理接口
 //修改分类接口*

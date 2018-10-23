@@ -10,7 +10,7 @@ use App\Http\Model\BusinessOrderModel;
 use App\Http\Model\GeneralModel;
 use App\Http\Model\ProductModel;
 use App\Http\Controllers\Common;
-use App\Rules\FreightRule;
+
 use App\Rules\AddressRule;
 use App\Rules\OrderRule;
 use App\Exceptions\ParamsException;
@@ -91,7 +91,7 @@ class BusinessController extends Controller
         unset($res['snap_items']);
         unset($res['snap_address']);
 
-        $originPrice = round(($res['total_price'] - $res['freight']) / (1 + $res['tax']), 2) * $res['tax'];
+//        $originPrice = round(($res['total_price'] - $res['freight']) / (1 + $res['tax']), 2) * $res['tax'];
 
 
         return view('admin.business.order-detail', ['data' => $res,  'product' => $product, 'address' => $address]);
@@ -154,7 +154,7 @@ class BusinessController extends Controller
             $text = '';
             foreach ($status['pStatusArray'] as $item) {
                 if ($item['haveStock'] != true) {
-                    $text .= '商品' . $item['name'] . '库存不足；';
+                    $text .= '商品' . $item['znName'] . '库存不足；';
                 }
 
             }
@@ -167,15 +167,15 @@ class BusinessController extends Controller
         //有存货 创建订单
         $snapshootOrder = $this->snapshootOrder($status);
 
-        $freight = GeneralModel::select('threshold', 'freight')->where('id', '=', 1)->first()->toarray();
+//        $freight = GeneralModel::select('threshold', 'freight')->where('id', '=', 1)->first()->toarray();
 
         //运费
-        if ($snapshootOrder['orderPrice'] <= $freight['threshold']) {
-            $snapshootOrder['freight'] = $freight['freight'];
-            $snapshootOrder['orderPrice'] = $snapshootOrder['orderPrice'] + $freight['freight'];
-        } else {
-            $snapshootOrder['freight'] = 0;
-        }
+//        if ($snapshootOrder['orderPrice'] <= $freight['threshold']) {
+//            $snapshootOrder['freight'] = $freight['freight'];
+//            $snapshootOrder['orderPrice'] = $snapshootOrder['orderPrice'] + $freight['freight'];
+//        } else {
+//            $snapshootOrder['freight'] = 0;
+//        }
 
         //写入数据库 订单号 购买商品
         //订单和商品关系 多对多
@@ -202,7 +202,7 @@ class BusinessController extends Controller
         foreach ($Products as $item) {
             if ($item['status'] != 1) {
                 throw new ParamsException([
-                    'message' => $item['name'] . '商品已经下架',
+                    'message' => $item['zn_name'] . '商品已经下架',
                     'errorCode' => 7001
                 ]);
             }
@@ -278,7 +278,8 @@ class BusinessController extends Controller
 
             $product = $products[$pIdex];
             $pStatus['id'] = $product['id'];
-            $pStatus['name'] = $product['zn_name'];
+            $pStatus['znName'] = $product['zn_name'];
+            $pStatus['enName'] = $product['en_name'];
             $pStatus['sku'] = $product['sku'];
             $pStatus['count'] = $uCount;
             $pStatus['singlePrice'] = $product['distributor']['level_four_price'];
@@ -315,7 +316,8 @@ class BusinessController extends Controller
         $snapshoot['snapshootAddress'] = json_encode($this->getUserAddress());
         //商品大于1显示第一件商品加等
         $snapshoot['snapshootName'] = count($this->products) > 1 ?
-            $this->products[0]['zn_name'] . '等' : $this->products[0]['zn_name'];
+            json_encode(['zn' => $this->products[0]['zn_name'] . '等', 'en' => $this->products[0]['en_name'] . ', etc']) :
+            json_encode(['zn' => $this->products[0]['zn_name'], 'en' => $this->products[0]['en_name']]);
         //快照显示第一件商品
         $snapshoot['snapImg'] = $this->products[0]['product_image'];
 
@@ -327,9 +329,10 @@ class BusinessController extends Controller
     {
 
         //添加邮箱
-        $this->addressInfo['email'] = '暂未填写';
+//        $this->addressInfo['email'] = '暂未填写';
         //添加下单
         $this->addressInfo['user'] = Auth::user()->username;
+
         return $this->addressInfo;
     }
 
@@ -338,7 +341,9 @@ class BusinessController extends Controller
     //因为插入2张表 使用事务
     private function createOrder ($orderSnap)
     {
-        $orderNo = Common::makeOrderNo();
+        $num = BusinessOrderModel::orderBy('created_at', 'desc')->first(['order_no']);
+
+        $orderNo = Common::makeOrderNo(is_null($num) ? 'A2018101800001' : $num->order_no);
         //构造数据
         $data = [];
         $data = [
@@ -349,12 +354,12 @@ class BusinessController extends Controller
             'snap_img' => $orderSnap['snapImg'],
             'snap_name' => $orderSnap['snapshootName'],
             'snap_address' => $orderSnap['snapshootAddress'],
-            'freight' => $orderSnap['freight'],
+//            'freight' => $orderSnap['freight'],
             //一次下单的详细信息
             'snap_items' => json_encode($orderSnap['pStatus'])
         ];
 
-        $res = OrderModel::insertOrder($data, $this->uProducts);
+        $res = BusinessOrderModel::insertOrder($data, $this->uProducts);
 
         return [
             //订单号
@@ -367,6 +372,14 @@ class BusinessController extends Controller
 
     }
 
+//    public function exportExcel ()
+//    {
+//        $data = Db::name('use')->select();
+//        $col = ['id', 'test', 'qq', 'name', 'sex', 'age', 'number'];
+//        $tableName = '用户表';
+//        $excelName = '用户记录';
+//        return (new Excel())->exportExcel($data, $col, $tableName, $excelName);
+//    }
 
     /**
      * 导出xlsx xls文件

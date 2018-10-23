@@ -32,6 +32,7 @@ class OrderController extends Controller
     //数据库商品信息
     protected $addressInfo;
 
+    protected $zax;
     /**
      * 订单列表页面
      * @param Request $request
@@ -208,7 +209,7 @@ class OrderController extends Controller
             $text = '';
             foreach ($status['pStatusArray'] as $item) {
                 if ($item['haveStock'] != true) {
-                    $text .= '商品'.$item['name'] .'库存不足；';
+                    $text .= '商品'.$item['zn_name'] .'库存不足；';
                 }
 
             }
@@ -222,7 +223,7 @@ class OrderController extends Controller
         $snapshootOrder = $this->snapshootOrder($status);
 
         $freight = GeneralModel::select('threshold', 'freight')->where('id', '=', 1)->first()->toarray();
-
+        $backup = $snapshootOrder['orderPrice'];
         //运费
         if ($snapshootOrder['orderPrice'] <= $freight['threshold']) {
             $snapshootOrder['freight'] = $freight['freight'];
@@ -230,6 +231,7 @@ class OrderController extends Controller
         } else {
             $snapshootOrder['freight'] = 0;
         }
+        $snapshootOrder['orderPrice'] += $backup * $this->zax;
 
         //写入数据库 订单号 购买商品
         //订单和商品关系 多对多
@@ -256,7 +258,7 @@ class OrderController extends Controller
         foreach ($Products as $item) {
             if ($item['status'] != 1) {
                 throw new ParamsException([
-                    'message' => $item['name'] . '商品已经下架',
+                    'message' => $item['zn_name'] . '商品已经下架',
                     'errorCode' => 7001
                 ]);
             }
@@ -332,7 +334,8 @@ class OrderController extends Controller
 
             $product = $products[$pIdex];
             $pStatus['id'] = $product['id'];
-            $pStatus['name'] = $product['zn_name'];
+            $pStatus['znName'] = $product['zn_name'];
+            $pStatus['enName'] = $product['en_name'];
             $pStatus['sku'] = $product['sku'];
             $pStatus['count'] = $uCount;
             $pStatus['singlePrice'] = $product['distributor']['level_four_price'];
@@ -369,7 +372,8 @@ class OrderController extends Controller
         $snapshoot['snapshootAddress'] = json_encode($this->getUserAddress());
         //商品大于1显示第一件商品加等
         $snapshoot['snapshootName'] = count($this->products) > 1 ?
-            $this->products[0]['zn_name'] . '等' : $this->products[0]['zn_name'];
+            json_encode(['zn' => $this->products[0]['zn_name'] . '等', 'en' => $this->products[0]['en_name'] . ', etc']) :
+            json_encode(['zn' => $this->products[0]['zn_name'], 'en' => $this->products[0]['en_name']]);
         //快照显示第一件商品
         $snapshoot['snapImg'] = $this->products[0]['product_image'];
 
@@ -381,9 +385,12 @@ class OrderController extends Controller
     {
 
         //添加邮箱
-        $this->addressInfo['email'] = '暂未填写';
+//        $this->addressInfo['email'] = '暂未填写';
         //添加下单
         $this->addressInfo['user'] = Auth::user()->username;
+
+        $this->getZax($this->addressInfo['zip'], $this->addressInfo['city']);
+
         return $this->addressInfo;
     }
 
@@ -392,7 +399,9 @@ class OrderController extends Controller
     //因为插入2张表 使用事务
     private function createOrder ($orderSnap)
     {
-        $orderNo = Common::makeOrderNo();
+        $num = OrderModel::orderBy('created_at', 'desc')->first(['order_no']);
+
+        $orderNo = Common::makeOrderNo(is_null($num) ? 'A2018101800001' : $num->order_no);
         //构造数据
         $data = [];
         $data = [
@@ -404,6 +413,7 @@ class OrderController extends Controller
             'snap_name' => $orderSnap['snapshootName'],
             'snap_address' => $orderSnap['snapshootAddress'],
             'freight' => $orderSnap['freight'],
+            'tax' => $this->zax,
             //一次下单的详细信息
             'snap_items' => json_encode($orderSnap['pStatus'])
         ];
@@ -419,6 +429,37 @@ class OrderController extends Controller
             'create_time' => $res['created_at']
         ];
 
+    }
+
+    //获取税金
+    public function getZax ($zip, $city)
+    {
+        $city = str_replace(' ', '', $city);
+        $city = htmlspecialchars(strip_tags(trim($city)));
+        $url = sprintf(config('custom.tax_url'),
+            config('custom.tax_key'),
+            $zip, $city
+        );
+
+        $res = Common::curlInfo($url);
+
+        if ($res['rCode'] == 100) {
+
+            $this->zax = $res['results'][0]['taxSales'];
+//            return Common::successData(['tax' => $res['results'][0]['taxSales']]);
+
+        } else if ($res['rCode'] == 104) {
+
+            throw new ParamsException([
+                'code' => 200,
+                'message' => '邮政编码格式无效'
+            ]);
+        } else {
+            throw new ParamsException([
+                'code' => 200,
+                'message' => '获取税金接口失败'
+            ]);
+        }
     }
 
 }

@@ -204,7 +204,9 @@ class ProductController extends Controller
             $query->with('distributor')
                 ->select(DB::raw("CASE stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name'"),
                     'id','en_name','product_image','stock');
-        }])->where('id', '=', $id)->first();
+        }])->where('id', '=', $id)
+            ->where('status', '=', 1)
+            ->first();
 
 
 //        dd($data->toArray());

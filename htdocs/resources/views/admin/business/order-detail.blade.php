@@ -136,7 +136,7 @@
                             {{--<h4>Order # <br>--}}
                                 {{--<strong>{{$data['order_no']}}</strong>--}}
                             {{--</h4>--}}
-
+                            /uploads/snackicon.png
                             <tr style="font-size: 18px;" >
                                 <th colspan="3"><img class="text-right" width="80px" src="/uploads/snackicon.png" alt="12buy"></th>
 

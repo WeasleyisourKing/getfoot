@@ -453,7 +453,7 @@
 //					    	localStorage.setItem("shopCart", JSON.stringify(shopCart));
 
 						//下单
-			            $.post('/api/order', 
+			            $.post('/api/business/order', 
 				            {
 					            	'products': JSON.stringify(shopCart),
 					            'userId':{{Auth()->guard('pc')->user()->id}},

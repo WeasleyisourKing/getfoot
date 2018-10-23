@@ -98,6 +98,27 @@
         @endif
 
     }
+    var Spricedetails = function (role1, role2, role3, role4) {
+
+        var haha;
+        @if(!empty(Auth::guard("pc")->user()->role))
+            switch ({{Auth::guard("pc")->user()->role}}) {
+            case 1 :
+                haha = `$${role1}`;
+                break;
+            case 2 :
+                haha = `$${role2}`;
+                break;
+            case 3 :
+                haha = `$${role3}`;
+                break;
+            default :
+                haha = `$${role4}`;
+        }
+        document.write(haha);
+        @endif
+
+    }
 
 
     var Sprice1 = function (role1, role2, role3, role4) {
@@ -273,8 +294,8 @@
         <div class="am-u-sm-4">
             <ul>
                 <li class="btoNavPro" data-router="/company/1">联系我们</li>
-                <li>给我们电话<br/> <span>818-477-8888</span></li>
-                <li>help@12buy.com</li>
+                <li>给我们电话<br/> <span>650-690-6666</span></li>
+                <li>info@snacktalk.com</li>
             </ul>
         </div>`,
                 `
@@ -302,8 +323,8 @@
         <div class="am-u-sm-4">
             <ul>
                 <li>Contact us</li>
-                <li>Call us<br/> <span>818-477-8888</span></li>
-                <li>help@12buy.com</li>
+                <li>Call us<br/> <span>650-690-6666</span></li>
+                <li>info@snacktalk.com</li>
             </ul>
         </div>`)
         </script>

@@ -133,7 +133,12 @@
 									            </p>
 									            <div class="categoryBtn">
 									            		<p>
-									            			${{$item['distributor']['level_four_price']}}
+									            			
+											            @if(!empty(Auth::guard("pc")->user()))
+											            <script>
+											            	Spricedetails({{$item['distributor']['level_four_price']}},{{$item['distributor']['level_two_price']}},{{$item['distributor']['level_one_price']}},{{$item['distributor']['level_three_price']}})
+											            </script>
+											            @endif
 									            		</p>
 	                                                <a href="/details/{{$item['id']}}">
 										            		<button>                           

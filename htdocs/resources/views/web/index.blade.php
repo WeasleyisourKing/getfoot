@@ -6,6 +6,10 @@
             outline: none;
             text-decoration: none;
         }
+        .secondBannerPro{
+        	margin-bottom: 0;
+        	padding-bottom: 3%;
+        }
     </style>
     <div class="maxCentr classifyBox clearfloat">
         <div class="classify float_left">
@@ -96,7 +100,7 @@
                      data-am-slider='{&quot;directionNav&quot;:false}'>
                     <ul class="am-slides">
                         @for( $i = 0; $i < count($banner); $i++ )
-                            <li class="col-12 p-0">
+                            <li class="col-12 p-0" >
                                 <a href="{{$banner[$i]->url}}">
                                     <img class="w-100 h-100" src="{{$banner[$i]->img->url}}" alt=""></a>
                             </li>
@@ -153,12 +157,11 @@
                 </div>-->
             </div>
             <div class="secondBanner">
-                <div data-am-widget="slider" class="am-slider am-slider-default"
-                     data-am-slider='{"animation":"slide","animationLoop":false,"itemsWidth":250,"itemsMargin":2, "directionNav": true}'>
+                <div data-am-widget="slider" class="am-slider am-slider-default"data-am-slider='{"animation":"slide","animationLoop":false,"itemsWidth":250,"itemsMargin":2, "directionNav": true}'>
                     <ul class="am-slides">
                         {{--                    @if ($modular->id == 1)--}}
                         @foreach($modular[0]['products'] as $items)
-                            <li>
+                            <li style="width: 250px;">
                                 <div class="secondBannerPro" data-router="/details/{{$items['id']}}">
                                     <img class="secondImg" src="{{$items['product_image']}}" alt=""/>
                                     <div class="title clearfloat">

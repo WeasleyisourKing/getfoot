@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -105,8 +105,91 @@
 
         </div>
 
-    </div>
+    		</div>
+	</div> --}}
+	
+	
+	<div class="row" style="background: white;margin: 0 50px;padding: 20px;">
+		<table id="biaoge" width="90%" border="1" cellspacing="0" cellpadding="0" style="background: white;margin: 0 5%;">
+			<thead style="margin-bottom: 50px;">
+				<tr style="font-size: 18px;border-bottom: 1px solid #eee;margin-bottom: 30px;" >
+					<th colspan="3"><img width="80px" src="/uploads/logo5.png" alt="12buy"></th>
+					<th colspan="3" align="right">
+                        Order # <br>
+                            <strong>{{$data['order_no']}}</strong>
+                        
+					</th>
+				</tr>
+					
+				<tr >
+					<th colspan="3">
+                        <strong>{{$address['name']}}</strong><br>
+                        {{$address['country']}}<br>
+                        {{$address['detail']}}<br>
+                        {{$address['city']}}, {{$address['province']}} {{$address['zip']}}<br>
+                        {{$address['mobile']}}
+					</th >
+					<th align="right" colspan="3">
+                        <strong>Order Date: </strong> {{$data['created_at']}} <br />
+                        <strong>User: </strong>{{$address['user']}}
+                            <strong>Email:</strong> {{$address['email']}}
+                        
+					</th>
+				</tr>
+				<tr>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+                <tr style="border-bottom: 2px solid #666;">
+                    <th>#</th>
+                    <th>Item</th>
+                    <th>Description</th>
+                    <th>Unit Cost</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            @foreach ($product as $key => $item)
+                <tr>
+                    <td>{{ $key + 1 }}</td>
+                    <td><img height="30px; align=" middle" src="{{ $item['image'] }}"
+                        alt="没有上传"/></td>
+                    <td>{{ !empty($item['znName']) ? $item['znName'] : $item['name'] }}</td>
+                    <td>{{ $item['singlePrice'] }}</td>
+                    <td>{{ $item['count'] }}</td>
+                    <td>{{ $item['totalPrice'] }}</td>
+                </tr>
+            @endforeach
+			</tbody>
+			<tfoot>
+				<tr><td></td></tr>
+				<tr>
+					<td><b>Shipping fee:</b> {{ $data['freight'] }}</td>
+				</tr>
+				<tr>
+					<td><b>Tax:</b> {{ round(round(($data['total_price'] - $data['freight']) / (1 + $data['tax']), 2) * $data['tax'],2) }}</td>
+				</tr>
+				<tr>
+					<td>Sub-total: {{$data['total_price']}}</td>
+				</tr>
+				<tr>
+					<td>USD {{$data['total_price']}}</td>
+				</tr>
+			</tfoot>
+		</table>
+		<a id="daochu">导出</a>
+	</div>
 
-
+	<script>
+		
+        var html = "<html><head><meta charset='utf-8' /></head><body>" + document.getElementById("biaoge").outerHTML + "</body></html>";
+        // 实例化一个Blob对象，其构造函数的第一个参数是包含文件内容的数组，第二个参数是包含文件类型属性的对象
+        var blob = new Blob([html], { type: "application/vnd.ms-excel" });
+        var a = document.getElementById("daochu");
+        // 利用URL.createObjectURL()方法为a元素生成blob URL
+        a.href = URL.createObjectURL(blob);
+        // 设置文件名
+        a.download = "学生成绩表.xls";
+	</script>
 
 @endsection

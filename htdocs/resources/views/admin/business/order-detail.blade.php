@@ -138,7 +138,7 @@
                             {{--</h4>--}}
 
                             <tr style="font-size: 18px;" >
-                                <th colspan="3"><img class="text-right" width="80px" src="/uploads/logo5.png" alt="12buy"></th>
+                                <th colspan="3"><img class="text-right" width="80px" src="/uploads/snackicon.png" alt="12buy"></th>
 
                                 <th colspan="3"  align="right">
                                 	<p style="text-align: right;">

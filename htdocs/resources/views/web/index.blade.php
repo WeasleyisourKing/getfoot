@@ -16,10 +16,9 @@
             <ul>
                 @for($i = 0;$i < 5; $i++)
                     <li data-router="/categorys/detail/{{$categorys[$i]['id']}}">
-                        <script>
-                            Language("{{$categorys[$i]['zn_name']}}", "{{$categorys[$i]['en_name']}}")
-                        </script>
-                    </li>
+            <script>
+            	Language("{{$categorys[$i]['zn_name']}}","{{$categorys[$i]['en_name']}}")
+            </script></li>
                 @endfor
             </ul>
         </div>
@@ -33,10 +32,9 @@
                             @if (!empty($categorys[0]))
                                 @foreach($categorys[0]['pid'] as $items)
                                     <li><a href="/shop/{{$items['id']}}">
-                                            <script>
-                                                Language("{{$items['zn_name']}}", "{{$items['en_name']}}")
-                                            </script>
-                                        </a></li>
+            <script>
+            	Language("{{$items['zn_name']}}","{{$items['en_name']}}")
+            </script></a></li>
                                 @endforeach
                             @endif
                         </ol>
@@ -46,24 +44,22 @@
                             @if (!empty($categorys[1]))
                                 @foreach($categorys[1]['pid'] as $items)
                                     <li><a href="/shop/{{$items['id']}}">
-                                            <script>
-                                                Language("{{$items['zn_name']}}", "{{$items['en_name']}}")
-                                            </script>
-                                        </a></li>
+            <script>
+            	Language("{{$items['zn_name']}}","{{$items['en_name']}}")
+            </script></a></li>
                                 @endforeach
                             @endif
                         </ol>
 
                     </div>
-                    <div class="classifyPro clearfloat  " style="display: none;">
+                    <div class="classifyPro clearfloat  "style="display: none;">
                         <ol class="float_left am-u-sm-4">
                             @if (!empty($categorys[2]))
                                 @foreach($categorys[2]['pid'] as $items)
                                     <li><a href="/shop/{{$items['id']}}">
-                                            <script>
-                                                Language("{{$items['zn_name']}}", "{{$items['en_name']}}")
-                                            </script>
-                                        </a></li>
+            <script>
+            	Language("{{$items['zn_name']}}","{{$items['en_name']}}")
+            </script></a></li>
                                 @endforeach
                             @endif
                         </ol>
@@ -74,10 +70,9 @@
                             @if (!empty($categorys[3]))
                                 @foreach($categorys[3]['pid'] as $items)
                                     <li><a href="/shop/{{$items['id']}}">
-                                            <script>
-                                                Language("{{$items['zn_name']}}", "{{$items['en_name']}}")
-                                            </script>
-                                        </a></li>
+            <script>
+            	Language("{{$items['zn_name']}}","{{$items['en_name']}}")
+            </script></a></li>
                                 @endforeach
                             @endif
                         </ol>
@@ -87,10 +82,9 @@
                             @if (!empty($categorys[4]))
                                 @foreach($categorys[4]['pid'] as $items)
                                     <li><a href="/shop/{{$items['id']}}">
-                                            <script>
-                                                Language("{{$items['zn_name']}}", "{{$items['en_name']}}")
-                                            </script>
-                                        </a></li>
+            <script>
+            	Language("{{$items['zn_name']}}","{{$items['en_name']}}")
+            </script></a></li>
                                 @endforeach
                             @endif
                         </ol>
@@ -100,7 +94,7 @@
                      data-am-slider='{&quot;directionNav&quot;:false}'>
                     <ul class="am-slides">
                         @for( $i = 0; $i < count($banner); $i++ )
-                            <li class="col-12 p-0" >
+                            <li class="col-12 p-0">
                                 <a href="{{$banner[$i]->url}}">
                                     <img class="w-100 h-100" src="{{$banner[$i]->img->url}}" alt=""></a>
                             </li>
@@ -123,12 +117,11 @@
             </div>
             <div class="countDown clearfloat">
                 <p class="float_left">
-                    <script>
-                        Language("{{$modular[1]['zn_name']}}", "{{$modular[1]['en_name']}}")
-                    </script>
-                    <br/><span>
             <script>
-            	Language("本场秒杀商品", "Flash Sales Products")
+            	Language("{{$modular[1]['zn_name']}}","{{$modular[1]['en_name']}}")
+            </script><br/><span>
+            <script>
+            	Language("本场秒杀商品","Flash Sales Products")
             </script></span></p>
                 <!--<p class="float_left">秒杀<br/><span>距离本场结束还有</span></p>-->
                 <!--<div class="count float_left">
@@ -157,35 +150,29 @@
                 </div>-->
             </div>
             <div class="secondBanner">
-                <div data-am-widget="slider" class="am-slider am-slider-default"data-am-slider='{"animation":"slide","animationLoop":false,"itemsWidth":250,"itemsMargin":2, "directionNav": true}'>
+                <div data-am-widget="slider" class="am-slider am-slider-default"
+                     data-am-slider='{"animation":"slide","animationLoop":false,"itemWidth":250,"itemMargin":2, "directionNav": true}'>
                     <ul class="am-slides">
                         {{--                    @if ($modular->id == 1)--}}
-                        @foreach($modular[0]['products'] as $items)
-                            <li style="width: 250px;">
-                                <div class="secondBannerPro" data-router="/details/{{$items['id']}}">
-                                    <img class="secondImg" src="{{$items['product_image']}}" alt=""/>
+                        @foreach($modular[0]['products'] as $item)
+                            <li>
+                                <div class="secondBannerPro" data-router="/details/{{$item['id']}}">
+                                    <img class="secondImg" src="{{$item['product_image']}}" alt=""/>
                                     <div class="title clearfloat">
                                         <p class="oneLine">
-                                            12313
-                                            <script>
-                                                Language("{{$items['zn_name']}}", "{{$items['en_name']}}")
-                                            </script>
-                                        </p>
+																				<script>
+																					Language("{{$item['zn_name']}}","{{$item['en_name']}}")
+																				</script></p>
                                         <img src="home/img/ffffff.png" alt=""/>
                                         <img src="home/img/hhh.png" alt=""/>
                                     </div>
                                     <div class="searchBut clearfloat">
-                                        @if(!empty(Auth::guard("pc")->user()))
-                                            <script>
-                                                Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
-                                            </script>
-                                        @endif
-
-                                        <script>
-                                            Language(`<button data-number="1" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  datas-tock="{{$items['stock']}}" data-price="@if(!empty(Auth::guard("pc")->user()))${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})}@endif"data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd">加入购物车`,
-                                                `<button data-number="1" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}" datas-tock="{{$items['stock']}}" data-price="@if(!empty(Auth::guard("pc")->user()))${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})}@endif" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd"> Shopping Cart`)
-                                        </script>
-                                        </button>
+                                        <p>${{$item['distributor']['level_four_price']}}</p>
+                                        
+            <script>
+            	Language(`<button data-number="1" data-zn-name="{{$item['zn_name']}}" data-en-name="{{$item['en_name']}}"  datas-tock="{{$item['stock']}}" data-price="{{$item['distributor']['level_four_price']}}" data-img="{{$item['product_image']}}" data-id="{{$item['id']}}" class="shopAdd">加入购物车`,
+            		`<button data-number="1" data-zn-name="{{$item['zn_name']}}" data-en-name="{{$item['en_name']}}" datas-tock="{{$item['stock']}}" data-price="{{$item['distributor']['level_four_price']}}" data-img="{{$item['product_image']}}" data-id="{{$item['id']}}" class="shopAdd"> Shopping Cart`)
+            </script></button>
                                     </div>
                                 </div>
                             </li>
@@ -196,6 +183,7 @@
             </div>
         </div>
     </div>
+
 
     <div class="iocBg">
         <div class="maxCentr clearfloat">

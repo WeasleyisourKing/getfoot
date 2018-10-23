@@ -62,12 +62,12 @@
     if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
         window.location.href = "/apps";
     }
-    $.get('/api/home/login', {}, function (res) {
-        if (res.status) {
-            $('.logo').attr('src', "/" + res.data.logo);
-
-        }
-    })
+//    $.get('/api/home/login', {}, function (res) {
+//        if (res.status) {
+//            $('.logo').attr('src', "/" + res.data.logo);
+//
+//        }
+//    })
 
     //设置语言
     var Language = function (one, tow) {

@@ -17,6 +17,7 @@ class AddressRule extends BaseRule
         'province' => 'required',
         'city' => 'required',
         'country' => 'required',
+        'email' => 'required|email',
         'zip' => 'required|positive_integer'
 
     ];
@@ -29,6 +30,8 @@ class AddressRule extends BaseRule
         'city.required' => '城市不能为空',
         'country.required' => '地址1不能为空',
         'zip.required' => '邮编不能为空',
+        'email.required' => '邮箱不能为空',
+        'email.email' => '邮箱格式不对',
         'zip.positive_integer' => '邮编格式不对'
     ];
 

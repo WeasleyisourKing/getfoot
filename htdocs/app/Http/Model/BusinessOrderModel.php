@@ -99,7 +99,7 @@ class BusinessOrderModel extends Model
                 $p['created_at'] = date('Y-m-d H:i:s', time());
                 $p['updated_at'] = date('Y-m-d H:i:s', time());
             }
-            (new OrderProductModel)->insert($arr);
+            (new BusinessOrderProductModel)->insert($arr);
 
             DB::commit();
 

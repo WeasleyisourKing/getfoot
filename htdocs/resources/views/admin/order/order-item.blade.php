@@ -70,6 +70,15 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="control-label" for="email">email<span
+                                            style="color:red;">＊</span></label>
+                                <div class="controls">
+                                    <input type="text" name="email" id="email"
+                                           class="form-control"
+                                           value="" required="required"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="control-label" for="country">地址1<span
                                             style="color:red;">＊</span></label>
                                 <div class="controls">
@@ -497,6 +506,7 @@
                 'country': $('#country').val(),
                 'detail': $('#detail').val(),
                 'zip': $('#zip').val(),
+                'email':$('#email').val(),
                 '_token': '{{csrf_token()}}'
 
             }

@@ -70,6 +70,15 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="control-label" for="email">email<span
+                                            style="color:red;">＊</span></label>
+                                <div class="controls">
+                                    <input type="text" name="email" id="email"
+                                           class="form-control"
+                                           value="" required="required"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="control-label" for="country">地址1<span
                                             style="color:red;">＊</span></label>
                                 <div class="controls">
@@ -447,7 +456,7 @@
                     $('#content').append(` <div id="content" class="form-group">
                         <div class="input-group">
                             <text style="line-height: 34px;">${$(event).attr('data-name')}</text>
-                            <span style="width: 80%;" class="input-group-btn">
+                            <span style="width: 30%;" class="input-group-btn">
                                            <input name="productNumber" data-id="${$(event).attr('data-id')}"  class="form-control"
                                                   placeholder="请输入数量"  type="text">
                                                     </span>
@@ -497,11 +506,12 @@
                 'country': $('#country').val(),
                 'detail': $('#detail').val(),
                 'zip': $('#zip').val(),
+                'email':$('#email').val(),
                 '_token': '{{csrf_token()}}'
 
             }
 
-            $.post('/order/add', datas, function (res) {
+            $.post('/business/order/add', datas, function (res) {
                 if (res.status) {
                     alertify.success('创建订单成功');
                     setTimeout(function () {

@@ -113,7 +113,7 @@
         </div>
     </div>
 
-    {{--<div class="maxCentr ">
+    <!--{{--<div class="maxCentr ">
         <div class="second ">
             <div class="secondBg clearfloat">
                 <div class="secondBg1 float_left">
@@ -129,31 +129,6 @@
             <script>
             	Language("本场秒杀商品","Flash Sales Products")
             </script></span></p>
-                <!--<p class="float_left">秒杀<br/><span>距离本场结束还有</span></p>-->
-                <!--<div class="count float_left">
-                    <div class="time">
-                        <div class="data-show-box clearfloat" id="dateShow1">
-                            <span class="date-tiem-span d">00</span>
-                            <span class="date-tiem-span h">00</span>
-                            <span class="date-tiem-span m">00</span>
-                            <span class="date-s-span s">00</span>
-                        </div>
-                        <script type="text/javascript">
-                            $(function () {
-                                $.leftTime("2018/08/22 23:45:24", function (d) {
-                                    if (d.status) {
-                                        var $dateShow1 = $("#dateShow1");
-                                        $dateShow1.find(".d").html(d.d);
-                                        $dateShow1.find(".h").html(d.h);
-                                        $dateShow1.find(".m").html(d.m);
-                                        $dateShow1.find(".s").html(d.s);
-                                    }
-                                });
-                            });
-                        </script>
-                    </div>
-                    <div class="text">The end of the field</div>
-                </div>-->
             </div>
             <div class="secondBanner">
                 <div data-am-widget="slider" class="am-slider am-slider-default"
@@ -193,7 +168,7 @@
 
             </div>
         </div>
-    </div>--}}
+    </div>--}}-->
 
 
     <div class="iocBg">

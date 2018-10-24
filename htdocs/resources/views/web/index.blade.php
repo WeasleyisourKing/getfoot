@@ -113,7 +113,7 @@
         </div>
     </div>
 
-    <div class="maxCentr ">
+    {{--<div class="maxCentr ">
         <div class="second ">
             <div class="secondBg clearfloat">
                 <div class="secondBg1 float_left">
@@ -193,7 +193,7 @@
 
             </div>
         </div>
-    </div>
+    </div>--}}
 
 
     <div class="iocBg">
@@ -672,7 +672,7 @@
             </div>
         </div>
     </div>
-    <div class="maxCentr ToShowBox">
+    <!--<div class="maxCentr ToShowBox">
         <div class="ToShowTitle">
             <p>晒单<br/><span>■&nbsp;SUN INGLE</span></p>
         </div>
@@ -698,8 +698,8 @@
                 <p>happy <br/>06/06/2018</p>
             </div>
         </div>
-    </div>
-    <div class="ButBannerBg">
+    </div>-->
+    <!--<div class="ButBannerBg">
         <div class="maxCentr">
             <div class="ButBannerBtn">
                 <div>HOW IT WORKS</div>
@@ -723,7 +723,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
     <script type="text/javascript">
         //	屏蔽热销路由
         $(".hotPro a").click(function () {

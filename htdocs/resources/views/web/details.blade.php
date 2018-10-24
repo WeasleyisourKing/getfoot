@@ -155,11 +155,11 @@
                                 Language("商品描述", "Product Description")
                             </script>
                         </a></li>
-                    <li class="" id="commentList"><a href="[data-tab-panel-1]">
+                    <!--<li class="" id="commentList"><a href="[data-tab-panel-1]">
                             <script>
                                 Language("商品评论", "Reviews")
                             </script>
-                            <span>(0)</span></a></li>
+                            <span>(0)</span></a></li>-->
                 </ul>
 
                 <div class="am-tabs-bd">
@@ -272,7 +272,7 @@
                         </div>
                     </div>
                     <!--评论-->
-                    <div data-tab-panel-1 class="am-tab-panel commentListBox">
+                    {{--<div data-tab-panel-1 class="am-tab-panel commentListBox">
                         <div class="commentListPro">
                             <div class="am-g clearfloat">
                                 <div class="am-u-sm-2 ">
@@ -321,7 +321,7 @@
                             </div>
                             <!--end次级评论-->
                         </div>
-                    </div>
+                    </div>--}}
                     <!--end评论-->
                 </div>
             </div>

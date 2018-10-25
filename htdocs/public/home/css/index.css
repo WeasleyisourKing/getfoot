@@ -166,7 +166,7 @@ a:link , a:visited , a:hover , a:active {
 .classify ul li:hover{
 	width: 100%;
 	background: #d2e4ee url(../img/nav-ico2.png) no-repeat center right;
-	color: #ef93c3;
+	color: #4982a3;
 	padding-left: 15%;
 	font-size:2rem;
 	border-bottom: 1px solid #fff;
@@ -447,7 +447,7 @@ a:link , a:visited , a:hover , a:active {
 	width: 80%;
 	margin: 0 auto;
 	color: white;
-	background: #f5538e;
+	background: #4982a3;
 	border: none;
 	border-radius: 5px;
 	line-height: 300%;

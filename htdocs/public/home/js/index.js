@@ -76,9 +76,9 @@ $(document).ready(function () {
     }).mouseleave(function () {
         $(".snacksShow").hide()
     });
-    $(".categoryTitle:odd").css("background", "#acddef");
-    $(".category:odd li,.category:odd").css("border-color", "#acddef");
-    $(".categoryNav a:odd").css("background", "#acddef");
+    $(".categoryTitle:odd").css("background", "#82b7d7");
+    $(".category:odd li,.category:odd").css("border-color", "#82b7d7");
+    $(".categoryNav a:odd").css("background", "#82b7d7");
     $(".labelbox:odd").css("background", "#ffffff");
     //商品详情页加减按钮
     $(".increase").click(function () {

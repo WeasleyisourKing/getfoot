@@ -64,9 +64,9 @@ var LanguageHtml=function(one, tow){
 <div class="userBg">
     <div class="maxCentr clearfloat">
         <div class="indexLogo float_left">
-            <img src="/uploads/snackicon.png" alt=""/>
+            <img src="home/img/IndexLogo.png" alt=""/>
             <a href="/">
-            	<img class="businessLogo" src="" alt="" />
+            	<img class="businessLogo" src="/uploads/snackicon.png" alt="" />
             </a>
         </div>
         <!--右侧登录&注册组件-->
@@ -441,16 +441,16 @@ var LanguageHtml=function(one, tow){
             }
         })
     })
-
-			        //获取商家logo
-			          $.ajax({
-								url:'/api/home/login',
-								method: 'get',
-								success: function(logo){      
-									$('.businessLogo').attr('src',"/"+logo.data.logo);
-
-								}
-							});
+//
+//			        //获取商家logo
+//			          $.ajax({
+//								url:'/api/home/login',
+//								method: 'get',
+//								success: function(logo){      
+//									$('.businessLogo').attr('src',"/"+logo.data.logo);
+//
+//								}
+//							});
 </script>
 
 <script>

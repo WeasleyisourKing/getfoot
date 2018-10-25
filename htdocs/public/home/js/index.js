@@ -54,7 +54,7 @@ $(document).ready(function () {
         $(".DrinksShow").css("height", $(".Drinks .am-u-sm-3").height() + "px");
     });
     //商品列表标题单双行换色
-    $(".DrinksTitle:even").css("background", "#fdb3d4");
+    $(".DrinksTitle:even").css("background", "#82b7d7");
     //收藏安心点击效果
     $(" .title img:odd").hide();
     $(" .title ").find("img").click(function () {

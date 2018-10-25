@@ -385,7 +385,7 @@ a:link , a:visited , a:hover , a:active {
 }
 .DrinksTitle{
 	width: 23%;
-	background: #acdcf0;
+	background: #82b7d7;
 	font-size: 2.8rem;
 	line-height: 120%;
 	color: #fff;
@@ -747,13 +747,13 @@ a:link , a:visited , a:hover , a:active {
 	height: 40px;
 }
 .allClassIfy .am-dropdown.am-active .am-btn-primary.am-dropdown-toggle{
-	background: #E376AF;
+	background: #1e506e;
 }
 .am-icon-caret-down:before{
 	display: none;
 }
 .allClassIfy .am-dropdown ul {
-	background: #fdb3d3;
+	background: #4a82a3;
 	border: 0;
 }
 .allClassIfy .am-dropdown-content:after{

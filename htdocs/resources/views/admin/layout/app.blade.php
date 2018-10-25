@@ -43,7 +43,8 @@
     <link href="{{ asset('/css/responsive.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/core.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/icons.css') }}" rel="stylesheet">
-
+    <link href="{{ asset('lib/assets/plugins/datatables/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('lib/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
 
     <!-- Javascript Lib -->
     <script src="{{ asset('lib/js/jquery.min.js') }}" type="text/javascript"></script>
@@ -55,6 +56,7 @@
     <script src="{{ asset('lib/js/jquery.jedate.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('lib/js/check.js') }}" type="text/javascript"></script>
     <script src="{{ asset('lib/js/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('lib/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
 
 {{--<script src="{{ asset('/js/detect.js') }}"></script>--}}
 {{--<script src="{{ asset('/js/fastclick.js') }}"></script>--}}
@@ -298,9 +300,14 @@
                         <a href="#" id="select6" class="waves-effect waves-light"><i class="md md-storage"></i><span>库存管理</span><span
                                     class="pull-right"><i id="select6i" class="md md-add"></i></span></a>
                         <ul id="select6ul" class="list-unstyled">
-                            <li><a href="/stock/list/limit/20">入库</a></li>
-                            <li><a href="/stock/out/limit/20">出库</a></li>
-                            <li><a href="/stock/shelves/limit/20">货架管理</a></li>
+                            <li><a href="/stock/shelves">货架管理</a></li>
+                            <li><a href="/stock/list">库存列表</a></li>
+                            <li><a href="/stock/in">入库</a></li>
+                            <li><a href="/stock/out">出库</a></li>
+                            <li><a href="/stock/purchase">采购</a></li>
+                            {{--<li><a href="/stock/list/limit/20">入库</a></li>--}}
+                            {{--<li><a href="/stock/out/limit/20">出库</a></li>--}}
+                            {{--<li><a href="/stock/shelves/limit/20">货架管理</a></li>--}}
                         </ul>
                     </li>
 
@@ -324,6 +331,19 @@
                             <span>商家订单管理</span>
                         </a>
                     </li>
+                    {{--<li class="has_sub">--}}
+                        {{--<a href="#" id="select6" class="waves-effect waves-light"><i class="md md-storage"></i><span>库存管理1</span><span--}}
+                                    {{--class="pull-right"><i id="select6i" class="md md-add"></i></span></a>--}}
+                        {{--<ul id="select6ul" class="list-unstyled">--}}
+                            {{--<li><a href="/stock/list/limit/20">入库</a></li>--}}
+                            {{--<li><a href="/stock/1">货架管理</a></li>--}}
+                            {{--<li><a href="/stock/2">库存列表</a></li>--}}
+                            {{--<li><a href="/stock/3">入库</a></li>--}}
+                            {{--<li><a href="/stock/4">出库</a></li>--}}
+                            {{--<li><a href="/stock/5">采购</a></li>--}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
+
                     {{--<li>--}}
                         {{--<a id="select1" href="/catch/show" class="waves-effect waves-light "><i class="md md-home"></i>--}}
                             {{--<span>支付测试</span>--}}
@@ -374,7 +394,42 @@
 <script src="{{ asset('/js/jquery.app.js') }}"></script>
 {{--<script src="{{ asset('lib/js/bootstrap.min.js') }}" type="text/javascript"></script>--}}
 
+<!-- Datatable init js -->
+<script src="{{ asset('lib/assets/pages/datatables.init.js') }}"></script>
+<!-- Datatables-->
+<script src="{{ asset('lib/assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('lib/assets/plugins/datatables/dataTables.bootstrap.js') }}"></script>
+<script src="{{ asset('lib/assets/plugins/datatables/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('lib/assets/plugins/datatables/buttons.bootstrap.min.js') }}"></script>
+<script src="{{ asset('lib/assets/plugins/datatables/jszip.min.js') }}"></script>
+<script src="{{ asset('lib/assets/plugins/datatables/pdfmake.min.js') }}"></script>
+<script src="{{ asset('lib/assets/plugins/datatables/vfs_fonts.js') }}"></script>
+<script src="{{ asset('lib/assets/plugins/datatables/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('lib/assets/plugins/datatables/buttons.print.min.js') }}"></script>
+
 <script>
+    TableManageButtons.init();
+</script>
+<script>
+    $("#bulk-btn").click(function(){
+        if($('.item-checkbox').is(':checked')){
+            $('.item-checkbox').prop('checked', false);
+        } else{
+            $('.item-checkbox').prop('checked', true);
+        }
+    });
+</script>
+
+<script>
+    // Date Picker
+    jQuery('.datepicker').datepicker({
+        numberOfMonths: 3,
+        showButtonPanel: true,
+    });
+</script>
+<script>
+
+
 
     var url = window.location.pathname;
     strs = url.split("/");

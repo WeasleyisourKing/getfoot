@@ -312,6 +312,18 @@ Route::group(['middleware' => 'role'], function () {
         Route::get('/out/limit/{limit?}', 'Admin\StockController@stockOut');
         //出库页面
         Route::get('/shelves/limit/{limit?}', 'Admin\StockController@stockShelves');
+
+        //货架页面
+        Route::get('/shelves', 'Admin\StockController@Stock1');
+        //库存列表
+        Route::get('/list', 'Admin\StockController@Stock2');
+        //入库页面
+        Route::get('/in', 'Admin\StockController@Stock3');
+        //出库页面
+        Route::get('/out', 'Admin\StockController@Stock4');
+        //采购页面
+        Route::get('/purchase', 'Admin\StockController@Stock5');
+
     });
 
     //TODO 订单管理页面
@@ -543,6 +555,41 @@ Route::get('/stock/search', 'Admin\StockController@searchStock');
 //修改商品货架接口*
 Route::post('/edit/shelves', 'Admin\StockController@editShelves');
 
+//修改库存接口*
+Route::post('/shelves/editor', 'Admin\StockController@shelveEditor');
+//创建库存接口*
+Route::post('/shelves/insert', 'Admin\StockController@shelveInsert');
+//删除库存接口*
+Route::get('/shelves/del', 'Admin\StockController@shelveDel');
+
+//下订单接口
+Route::post('/shelves/deal/order', 'Admin\StockController@placeOrder');
+//删除订单接口*
+Route::get('/shelves/order/del', 'Admin\StockController@orderDel');
+//删除订单接口*
+Route::get('/shelves/Batch/del', 'Admin\StockController@orderBatchDel');
+//获取某订单详情接口*
+Route::get('/shelves/order/deal', 'Admin\StockController@orderDeal');
+//采购订单入库接口*
+Route::get('/stock/put', 'Admin\StockController@stockPut');
+
+//入库下订单接口
+Route::post('/enter/stock/deal/order', 'Admin\StockController@enterPlaceOrder');
+//删除入库订单接口*
+Route::get('/enter/stock/order/del', 'Admin\StockController@enterOrderDel');
+//批量删除入库订单接口*
+Route::get('/enter/stock/Batch/del', 'Admin\StockController@enterOrderBatchDel');
+//获取入库某订单详情接口*
+Route::get('/enter/stock/order/deal', 'Admin\StockController@enterOrderDeal');
+
+//入库下订单接口
+Route::post('/out/stock/deal/order', 'Admin\StockController@outPlaceOrder');
+////删除入库订单接口*
+//Route::get('/out/stock/order/del', 'Admin\StockController@outOrderDel');
+////批量删除入库订单接口*
+//Route::get('/out/stock/Batch/del', 'Admin\StockController@outOrderBatchDel');
+//获取入库某订单详情接口*
+Route::get('/out/stock/order/deal', 'Admin\StockController@outOrderDeal');
 //TODO 抓货打包接口
 //随机获取订单接口*
 Route::get('/catch/order', 'Admin\CatchController@catchOrder');

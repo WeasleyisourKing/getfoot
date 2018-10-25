@@ -136,7 +136,7 @@
                             {{--<h4>Order # <br>--}}
                                 {{--<strong>{{$data['order_no']}}</strong>--}}
                             {{--</h4>--}}
-                            /uploads/snackicon.png
+
                             <tr style="font-size: 18px;" >
                                 <th colspan="3"><img class="text-right" width="80px" src="/uploads/snackicon.png" alt="12buy"></th>
 
@@ -329,6 +329,6 @@
         // 利用URL.createObjectURL()方法为a元素生成blob URL
         a.href = URL.createObjectURL(blob);
         // 设置文件名
-        a.download = "学生成绩表.xls";
+        a.download = "商家订单表.xls";
     </script>
 @endsection

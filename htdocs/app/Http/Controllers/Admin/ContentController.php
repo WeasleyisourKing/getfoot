@@ -133,8 +133,11 @@ class ContentController extends Controller
         $res = BannerModel::getbannerById(1);
 
         //获取活动列表
-        $theme = ThemeModel::getThemeList();
+        $theme = ThemeModel::getThemeList(1);
+        //获取ST活动列表
+//        $STtheme = ThemeModel::getThemeList(2);
 
+//        dump($theme->toArray());
 
         $hot = ThemeImageModel::get();
 //        dump($hot);
@@ -147,6 +150,7 @@ class ContentController extends Controller
         return view('admin.content.content-content',
             [
                 'theme' => $theme,
+//                'sttheme' => $STtheme,
                 'product' => $datas,
                 'data' => ($res->toArray())['items'],
                 'pc' => (BannerModel::getbannerById(2)->toArray())['items'],
@@ -587,6 +591,8 @@ class ContentController extends Controller
 
         return Common::successData($res);
     }
+
+
 
 
 }

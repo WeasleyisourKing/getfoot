@@ -48,7 +48,7 @@
 
 <!-- main content
 ================================================== -->
-<main id="main-404-content" class="main-content-particle-js">
+<main id="main-404-content" class="main-content-particle-js" style="background: #253841;">
 
 	<div class="content-wrap">
 

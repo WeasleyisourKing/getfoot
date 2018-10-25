@@ -52,10 +52,11 @@ class ThemeModel extends Model
     }
 
     //获取活动列表
-    public static function getThemeList ()
+    public static function getThemeList ($type)
     {
 
         return self::orderBy('created_at', 'desc')
+            ->where('type', '=', $type)
             ->get();
     }
 
@@ -103,7 +104,7 @@ class ThemeModel extends Model
     }
 
     //添加商品活动,添加一新参数，判断theme是否为空即theme_id=0
-    public static function addArticleproduct ($id, $data,$theme_null,$status)
+    public static function addArticleproduct ($id, $data, $theme_null, $status)
     {
 
         DB::beginTransaction();
@@ -111,7 +112,7 @@ class ThemeModel extends Model
 
             ThemeProductModel::where('product_id', '=', $id)->delete();
 //            FineProductModel::where('product_id', '=', $id)->delete();
-            if ($theme_null != ['0']){
+            if ($theme_null != ['0']) {
 
                 ThemeProductModel::insert($data);
                 //如果精品推荐
@@ -130,9 +131,9 @@ class ThemeModel extends Model
 
 
             }
-            
-            DB::commit(); 
-            
+
+            DB::commit();
+
         } catch (\Exception $ex) {
             DB::rollBack();
             //记录日志
@@ -150,8 +151,8 @@ class ThemeModel extends Model
             $query->select(
                 DB::raw("CASE stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name',
                 CASE stock WHEN 0 THEN CONCAT('【Sold out】',en_name) ELSE en_name END as 'en_name'"),
-                'id','product_image','stock')
-                ->where('status','=',1)
+                'id', 'product_image', 'stock')
+                ->where('status', '=', 1)
                 ->with('distributor');
         }])
             ->whereIn('id', [1, 2])

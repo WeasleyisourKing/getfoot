@@ -450,6 +450,15 @@
                         <li>
                             <a href="#theme" data-toggle="tab">活动列表</a>
                         </li>
+                        {{--<li>--}}
+                            {{--<a href="#STactivite" data-toggle="tab">ST-活动列表</a>--}}
+                        {{--</li>--}}
+                        {{--<li>--}}
+                            {{--<a href="#STappSowing" data-toggle="tab">STapp-首页轮播图</a>--}}
+                        {{--</li>--}}
+                        {{--<li>--}}
+                            {{--<a href="#STwebSowing" data-toggle="tab">STweb-首页轮播图</a>--}}
+                        {{--</li>--}}
                     </ul>
                     <div id="myTabContent" class="tab-content">
                         <div class="tab-pane fade " id="Sowing">
@@ -848,6 +857,185 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="tab-pane fade " id="STactivite">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <button type="button" class="btn waves-effect waves-light btn-primary"
+                                            data-toggle="modal"
+                                            data-target="#add-active">
+                                        <i class="fa fa-plus"></i> Add
+                                    </button>
+
+
+                                </div>
+
+                            </div>
+                            <div class="row m-t-30">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">ST-活动列表</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+
+                                            <div class="btn-group col-md-2">
+                                            </div>
+                                        </div>
+                                        <div class="row m-t-10">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th class="col-md-3 col-lg-3 exce"> 活动名称</th>
+                                                        <th class="col-md-3 col-lg-3 exce"> 活动头图</th>
+                                                        <th class="col-md-3 col-lg-3 exce"> 创建时间</th>
+                                                        <th class="col-md-3 col-lg-3 exce" class="td-actions"> 操作</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="postContainer">
+                                                    @foreach ($theme as $item)
+                                                        <tr>
+                                                            <?php
+                                                            if($item->id == 6)
+                                                                continue;
+                                                            ?>
+
+                                                            <td class="exce">{{ $item->zn_name }}</br>{{ $item->en_name }} </td>
+                                                            <td class="exce"><img height="100px; align=" middle"
+                                                                src="{{ $item->head_image_id }}"
+                                                                alt="没有上传"/>
+                                                            </td>
+                                                            <td class="exce">{{ $item->created_at }} </td>
+                                                            <td class="exce">
+                                                                <a title="查看" class="btn btn-small btn-success"
+                                                                   href="javascript:void(0);" data-id="{{$item->id}}"
+                                                                   data-name="{{ $item->zn_name }}"
+                                                                   onclick="see(this);">
+                                                                    <i class="icon fa fa-bars"> </i>
+                                                                </a>
+                                                                <a title="修改信息" onclick="actionedit(this);"
+                                                                   class="btn btn-small btn-info"
+                                                                   data-id="{{$item->id}}"
+                                                                   data-zname="{{$item->zn_name}}"
+                                                                   data-ename="{{$item->en_name}}"
+                                                                   data-img="{{$item->head_image_id}}"
+                                                                   href="javascript:void(0);">
+                                                                    <i class="icon fa fa-pencil"> </i>
+                                                                </a>
+                                                                @if($item->id == 2)
+                                                                    <a title="上传" class="btn btn-small btn-success"
+                                                                       data-toggle="modal" data-target="#uploadImg"
+                                                                       href="javascript:void(0);"
+                                                                       data-id="{{$item->id}}"
+                                                                    >
+                                                                        <i class="icon fa fa-television"> </i>
+                                                                    </a>
+                                                                @endif
+                                                                @if($item->status != 1)
+                                                                    {{--<a title="删除" class="btn btn-small btn-danger" disabled="disabled"--}}
+                                                                    {{--href="javascript:return false;" data-id="{{$item->id}}"--}}
+                                                                    {{--onclick="return false;" style="cursor: not-allowed;">--}}
+                                                                    {{--<i class="icon fa fa-trash-o"> </i>--}}
+                                                                    {{--</a>--}}
+                                                                    <a title="删除" class="btn btn-small btn-danger"
+                                                                       href="javascript:void(0);"
+                                                                       data-id="{{$item->id}}"
+                                                                       onclick="del(this);">
+                                                                        <i class="icon fa fa-trash-o"> </i>
+                                                                    </a>
+                                                                @endif
+
+                                                            </td>
+
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade " id="STappSowing">
+                            <div class="panel-footer">
+                                <a style="background-color: #dd514c;" href="javascript:void(0);" id="delete_btn1"
+                                   class="btn btn-danger radius"><i class="icon fa fa-trash"></i> 批量删除</a>
+                            </div>
+                            <div class="form-group" style="overflow: hidden;">
+                                <ul class="cl portfolio-area">
+
+                                    @foreach ($pc as $item)
+                                        <li class="item">
+                                            <div class="portfoliobox">
+                                                <input id="{{ $item["id"] }}" class="checkbox" name="image_input1"
+                                                       type="checkbox"
+                                                       value="{{ $item["id"] }}">
+                                                <div class="picbox" style="line-height:0">
+                                                    <label for="{{ $item["id"] }}"> <img style="padding: 20px 0;"
+                                                                                         src='{{$item["img"]["url"]}}'>
+                                                        <button data-toggle="modal" data-id="{{ $item["id"] }}"
+                                                                data-url="{{ $item["url"] }}"
+                                                                onclick="edit(this);"
+                                                                class="btn btn-info dropdown-toggle">STapp-首页轮播图
+                                                        </button>
+                                                    </label>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" style="padding-left: 0;padding-top:8px; ">添加轮播图（最多5张图片）</label>
+                                <div class="controls">
+                                    <input type="file" name="img" id="uploadfile1" multiple class="file-loading"/>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane fade " id="STwebSowing">
+                            <div class="panel-footer">
+                                <a style="background-color: #dd514c;" href="javascript:void(0);" id="delete_btn1"
+                                   class="btn btn-danger radius"><i class="icon fa fa-trash"></i> 批量删除</a>
+                            </div>
+                            <div class="form-group" style="overflow: hidden;">
+                                <ul class="cl portfolio-area">
+
+                                    @foreach ($pc as $item)
+                                        <li class="item">
+                                            <div class="portfoliobox">
+                                                <input id="{{ $item["id"] }}" class="checkbox" name="image_input1"
+                                                       type="checkbox"
+                                                       value="{{ $item["id"] }}">
+                                                <div class="picbox" style="line-height:0">
+                                                    <label for="{{ $item["id"] }}"> <img style="padding: 20px 0;"
+                                                                                         src='{{$item["img"]["url"]}}'>
+                                                        <button data-toggle="modal" data-id="{{ $item["id"] }}"
+                                                                data-url="{{ $item["url"] }}"
+                                                                onclick="edit(this);"
+                                                                class="btn btn-info dropdown-toggle">STweb-首页轮播图
+                                                        </button>
+                                                    </label>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" style="padding-left: 0;padding-top:8px; ">添加轮播图（最多5张图片）</label>
+                                <div class="controls">
+                                    <input type="file" name="img" id="uploadfile1" multiple class="file-loading"/>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
@@ -1071,6 +1259,7 @@
 
             if (arr.length == 0) {
                 alertify.alert('没有选择任何一张图片');
+                return;
             }
             $.get('/content/del', {'arr': arr}, function (res) {
 
@@ -1097,6 +1286,7 @@
 
             if (arr.length == 0) {
                 alertify.alert('没有选择任何一张图片');
+                return;
             }
             $.get('/content/del', {'arr': arr}, function (res) {
 
@@ -1272,6 +1462,36 @@
                 'en_name': $('#en_name').val(),
                 'status': $('#del').val(),
                 'img': cimgAddress,
+                '_token': '{{csrf_token()}}'
+            };
+
+            $.post('/article/add', datas, function (res) {
+                if (res.status) {
+                    alertify.success('创建活动成功');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1500);
+                } else {
+                    alertify.alert(res.message);
+                }
+            })
+
+        })
+
+        $('#sa-stsave').click(function () {
+
+            if (!cimgAddress) {
+                alertify.alert('图片没有上传');
+                return;
+            }
+
+            var datas = {
+                'id': 1,
+                'zn_name': $('#zn_name').val(),
+                'en_name': $('#en_name').val(),
+                'status': $('#del').val(),
+                'img': cimgAddress,
+                'type':2,
                 '_token': '{{csrf_token()}}'
             };
 

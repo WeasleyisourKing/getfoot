@@ -16,6 +16,7 @@ use App\Http\Model\DistributorModel;
 use App\Http\Model\AttrProductModel;
 use App\Http\Model\DiscountModel;
 use App\Http\Model\UsersDiscountModel;
+use App\Http\Model\ShelvesModel;
 use App\Http\Controllers\Common;
 use App\Rules\CategoryRule;
 use App\Rules\BrandRule;
@@ -221,10 +222,12 @@ class ProductController extends Controller
                 $brandVal = $item['zn_name'] . '（' . $item['en_name'] . '）';
             }
         }
-
+        //获取货架名称
+        $shelves = ShelvesModel::get();
 //dd($category);
         return view('admin.product.product-item', [
             'data' => $res,
+            'shelves' => $shelves,
             'status' => $status == -1 ? '全部状态' : ($status == 1 ? '上架' : '下架'),
             'statusId' => $status,
             'categoryId' => $category,
@@ -288,12 +291,15 @@ class ProductController extends Controller
 
         $image = ImageProductModel::getProductImage($id);
 
+        $shelves = ShelvesModel::get();
+
         return Common::successData([
             'res' => $res,
             'category' => $categorys,
             'brand' => $brands,
             'number' => $number,
             'weight' => $weight,
+            'shelves' => $shelves,
             'distributor' => $distributor,
             'image' => $image
         ]);
@@ -598,6 +604,7 @@ class ProductController extends Controller
             'number' => $params['number'],
             'weight' => $params['weight'],
             'status' => $params['status'],
+            'shelves' => $params['shelves'],
 //            'net_weight' => $params['net_weight'],
 //            'zn_net_weight' => '克',
 //            'en_net_weight' => 'g',
@@ -683,6 +690,7 @@ class ProductController extends Controller
             'number' => $params['number'],
             'weight' => $params['weight'],
             'status' => $params['status'],
+            'shelves' => $params['shelves'],
 //            'net_weight' => $params['net_weight'],
 //            'zn_net_weight' => '克',
 //            'en_net_weight' => 'g',

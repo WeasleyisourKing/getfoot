@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Http\Model\StockOrderModel;
 use App\Http\Model\UsersModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -76,7 +77,7 @@ class CatchController extends Controller
         $params = $request->all();
 
         //避免重复点击
-       $val = OrderModel::where('id', '=', $params['id'])->first(['handle_status','order_no']);
+       $val = OrderModel::where('id', '=', $params['id'])->first(['handle_status','order_no','total_count']);
 
          if ($val->handle_status != 2 && $val->handle_status != 1) {
 
@@ -99,6 +100,9 @@ class CatchController extends Controller
             $uid = OrderModel::where('id', '=', $params['id'])->first(['users_id', 'order_no', 'snap_name']);
 
             $model = UsersModel::where('id', '=', $uid->users_id)->first(['email', 'name']);
+
+            //生成出库记录
+            StockController::stockOut($params['id'],$val->order_no,$val->total_count);
 
             $this->sendEmail($model->email, $model->name, $uid->order_no, $uid->snap_name);
         } else {

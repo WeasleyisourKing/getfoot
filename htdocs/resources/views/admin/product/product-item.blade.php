@@ -193,6 +193,23 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label class="control-label">商品所属货架<span class="red">＊</span></label>
+                                <select class="form-control" id="shelves">
+                                    <option selected="selected" id="shelves1" value="">请选择商品所属货架</option>
+                                    @foreach ($shelves as $items)
+                                        @if ($items->status == 1)
+                                            <option style="color: red;" value="{{$items->id}}">{{$items->name}}
+                                                （{{ $items->number }}）【已满】
+                                            </option>
+                                        @else
+                                            <option value="{{$items->id}}">{{$items->name}}
+                                                （{{ $items->number }}）
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label class="control-label">商品是否上架<span class="red">＊</span></label>
                                 <select class="form-control" id="stat">
                                     <option selected="selected" value="1">是</option>
@@ -491,6 +508,12 @@
                             <div class="form-group">
                                 <label class="control-label">商品是否上架<span class="red">＊</span></label>
                                 <select class="form-control" id="estat">
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">商品所属货架<span class="red">＊</span></label>
+                                <select class="form-control" id="eshelves">
 
                                 </select>
                             </div>
@@ -1134,12 +1157,12 @@
         //图片名
         ezn_editor.customConfig.uploadFileName = 'img';
         ezn_editor.customConfig.fontNames = [
-        '宋体',
-        '微软雅黑',
-        'Arial',
-        'Tahoma',
-        'Verdana'
-    		]
+            '宋体',
+            '微软雅黑',
+            'Arial',
+            'Tahoma',
+            'Verdana'
+        ]
         //接口
         ezn_editor.customConfig.uploadImgServer = "/imgHandle";  // 上传图片
         //传递参数 POST
@@ -1268,7 +1291,12 @@
         $('#weightUnit').click(function () {
             $("#weightUnit1").attr('disabled', 'disabled');
         })
-
+        $('#shelves').click(function () {
+            $("#shelves1").attr('disabled', 'disabled');
+        })
+        $('#eshelves').click(function () {
+            $("#shelves11").attr('disabled', 'disabled');
+        })
         //        $('#net_weightUnit').click(function () {
         //            $("#net_weightUnit1").attr('disabled', 'disabled');
         //        })
@@ -1335,6 +1363,7 @@
                 'four_price': $('#four_price').val(),
                 'category': $('#category').val(),
                 'brand': $('#brand').val(),
+                'shelves': $('#shelves').val(),
                 'number': $('#number').val(),
                 'weight': $('#weight').val(),
                 'numberUnit': $('#numberUnit').val(),
@@ -1546,82 +1575,115 @@
             $('#efour_price').val('0.00');
 
             $.get('/modify', {'id': $(event).attr('data-id')}, function (res) {
-                data = []
-                if (res.status) {
-                    for (let i in res.data.res) {
-                        if (res.data.res[i] != null) {
-                            $('#e' + i).val(res.data.res[i]);
+                    data = []
+                    if (res.status) {
+                        for (let i in res.data.res) {
+                            if (res.data.res[i] != null) {
+                                $('#e' + i).val(res.data.res[i]);
+                            } else {
+                                $('#e' + i).val('空');
+                            }
+                        }
+                        if (res.data.distributor != null) {
+                            for (let i in res.data.distributor) {
+                                $('#e' + i).val(res.data.distributor[i]);
+                            }
+                        }
+                        $('#ezn_describe p').html(res.data.res.zn_describe);
+                        $('#een_describe p').html(res.data.res.en_describe);
+
+
+                        if (res.data.res.status != 1) {
+                            $('#estat').html('<option value="1">是</option> <option selected="selected"  value="2">否</option>');
                         } else {
-                            $('#e' + i).val('空');
+
+                            $('#estat').html('<option selected="selected" value="1">是</option> <option  value="2">否</option>');
                         }
-                    }
-                    if (res.data.distributor != null) {
-                        for (let i in res.data.distributor) {
-                            $('#e' + i).val(res.data.distributor[i]);
-                        }
-                    }
-                    $('#ezn_describe p').html(res.data.res.zn_describe);
-                    $('#een_describe p').html(res.data.res.en_describe);
 
+                        var data1 = '';
+                        for (let i in res.data.category) {
+                            if (res.data.category[i].pid.length > 0) {
+                                data1 += `<option disabled="disabled" value="${res.data.category[i].id}">${res.data.category[i].zn_name}（${res.data.category[i].en_name}）</option>`;
 
-                    if (res.data.res.status != 1) {
-                        $('#estat').html('<option value="1">是</option> <option selected="selected"  value="2">否</option>');
-                    } else {
-
-                        $('#estat').html('<option selected="selected" value="1">是</option> <option  value="2">否</option>');
-                    }
-
-                    var data1 = '';
-                    for (let i in res.data.category) {
-                        if (res.data.category[i].pid.length > 0) {
-                            data1 += `<option disabled="disabled" value="${res.data.category[i].id}">${res.data.category[i].zn_name}（${res.data.category[i].en_name}）</option>`;
-
-                            for (let j in res.data.category[i].pid) {
-                                if (res.data.category[i].pid[j].id != res.data.res.category_id) {
+                                for (let j in res.data.category[i].pid) {
+                                    if (res.data.category[i].pid[j].id != res.data.res.category_id) {
 //
-                                    data1 += `<option value="${res.data.category[i].pid[j].id}">${res.data.category[i].pid[j].html}${res.data.category[i].pid[j].zn_name}（${res.data.category[i].pid[j].en_name}）</option>`;
+                                        data1 += `<option value="${res.data.category[i].pid[j].id}">${res.data.category[i].pid[j].html}${res.data.category[i].pid[j].zn_name}（${res.data.category[i].pid[j].en_name}）</option>`;
+                                    } else {
+                                        data1 += `<option selected="selected"  value="${res.data.category[i].pid[j].id}">${res.data.category[i].pid[j].html}${res.data.category[i].pid[j].zn_name}（${res.data.category[i].pid[j].en_name}）</option>`;
+                                    }
+                                }
+
+                            } else {
+                                data1 += `<option disabled="disabled" value="${res.data.category[i].id}">${res.data.category[i].zn_name}（${res.data.category[i].en_name}）</option>`;
+                            }
+                        }
+                        $('#ecategory').html(data1);
+
+                        var data2 = '';
+                        for (let i in res.data.brand) {
+                            if (res.data.brand[i].id != res.data.res.brand_id) {
+                                data2 += `<option  value="${res.data.brand[i].id}">${res.data.brand[i].zn_name}（${res.data.brand[i].en_name}）</option>`;
+                            } else {
+                                data2 += `<option selected="selected" value="${res.data.brand[i].id}">${res.data.brand[i].zn_name}（${res.data.brand[i].en_name}）</option>`;
+                            }
+                        }
+                        $('#ebrand').html(data2);
+
+
+                        var data3 = '';
+                        for (let i in res.data.number) {
+                            if (res.data.number[i].unit != res.data.res.en_number) {
+                                data3 += `<option  value="${res.data.number[i].name}|${res.data.number[i].unit}">${res.data.number[i].name}（${res.data.number[i].unit}）</option>`;
+                            } else {
+                                data3 += `<option selected="selected" value="${res.data.number[i].name}|${res.data.number[i].unit}">${res.data.number[i].name}（${res.data.number[i].unit}）</option>`;
+                            }
+                        }
+                        $('#enumberUnit').html(data3);
+
+                        var data4 = '';
+                        for (let i in res.data.weight) {
+                            if (res.data.weight[i].unit != res.data.res.en_weight) {
+                                data4 += `<option  value="${res.data.weight[i].name}|${res.data.weight[i].unit}">${res.data.weight[i].name}（${res.data.weight[i].unit}）</option>`;
+                            } else {
+                                data4 += `<option selected="selected" value="${res.data.weight[i].name}|${res.data.weight[i].unit}">${res.data.weight[i].name}（${res.data.weight[i].unit}）</option>`;
+                            }
+                        }
+
+                        $('#eweightUnit').html(data4);
+
+                        var data5 = '';
+                        if (res.data.res.shelves == null) {
+                            data5 = '<option selected="selected" id="shelves11" value="">请选择商品所属货架</option>';
+                            for (let i in res.data.shelves) {
+                                if (res.data.shelves[i].status == 1) {
+                                    data5 += `<option style="color: red;" value="${res.data.shelves[i].id}">${res.data.shelves[i].name}（${res.data.shelves[i].number}）【已满】</option>`;
                                 } else {
-                                    data1 += `<option selected="selected"  value="${res.data.category[i].pid[j].id}">${res.data.category[i].pid[j].html}${res.data.category[i].pid[j].zn_name}（${res.data.category[i].pid[j].en_name}）</option>`;
+                                    data5 += `<option  value="${res.data.shelves[i].id}">${res.data.shelves[i].name}（${res.data.shelves[i].number}）</option>`;
                                 }
                             }
-
-                        } else {
-                            data1 += `<option disabled="disabled" value="${res.data.category[i].id}">${res.data.category[i].zn_name}（${res.data.category[i].en_name}）</option>`;
                         }
-                    }
-                    $('#ecategory').html(data1);
+                        else {
+                            for (let i in res.data.shelves) {
+                                if (res.data.shelves[i].id != res.data.res.shelves) {
+                                    if (res.data.shelves[i].status == 1) {
+                                        data5 += `<option style="color: red;" value="${res.data.shelves[i].id}">${res.data.shelves[i].name}（${res.data.shelves[i].number}）【已满】</option>`;
+                                    } else {
+                                        data5 += `<option  value="${res.data.shelves[i].id}">${res.data.shelves[i].name}（${res.data.shelves[i].number}）</option>`;
+                                    }
 
-                    var data2 = '';
-                    for (let i in res.data.brand) {
-                        if (res.data.brand[i].id != res.data.res.brand_id) {
-                            data2 += `<option  value="${res.data.brand[i].id}">${res.data.brand[i].zn_name}（${res.data.brand[i].en_name}）</option>`;
-                        } else {
-                            data2 += `<option selected="selected" value="${res.data.brand[i].id}">${res.data.brand[i].zn_name}（${res.data.brand[i].en_name}）</option>`;
+                                } else {
+                                    if (res.data.shelves[i].status == 1) {
+                                        data5 += `<option style="color: red;" selected="selected" value="${res.data.shelves[i].id}">${res.data.shelves[i].name}（${res.data.shelves[i].number}）【已满】</option>`;
+
+                                    } else {
+                                        data5 += `<option selected="selected" value="${res.data.shelves[i].id}">${res.data.shelves[i].name}（${res.data.shelves[i].number}）</option>`;
+
+                                    }
+                                }
+                            }
                         }
-                    }
-                    $('#ebrand').html(data2);
-
-                    var data3 = '';
-                    for (let i in res.data.number) {
-                        if (res.data.number[i].unit != res.data.res.en_number) {
-                            data3 += `<option  value="${res.data.number[i].name}|${res.data.number[i].unit}">${res.data.number[i].name}（${res.data.number[i].unit}）</option>`;
-                        } else {
-                            data3 += `<option selected="selected" value="${res.data.number[i].name}|${res.data.number[i].unit}">${res.data.number[i].name}（${res.data.number[i].unit}）</option>`;
-                        }
-                    }
-                    $('#enumberUnit').html(data3);
-
-                    var data4 = '';
-                    for (let i in res.data.weight) {
-                        if (res.data.weight[i].unit != res.data.res.en_weight) {
-                            data4 += `<option  value="${res.data.weight[i].name}|${res.data.weight[i].unit}">${res.data.weight[i].name}（${res.data.weight[i].unit}）</option>`;
-                        } else {
-                            data4 += `<option selected="selected" value="${res.data.weight[i].name}|${res.data.weight[i].unit}">${res.data.weight[i].name}（${res.data.weight[i].unit}）</option>`;
-                        }
-                    }
-
-                    $('#eweightUnit').html(data4);
-
+                        $('#eshelves').html(data5);
 //                    var data5 = '';
 //
 //                    for (let i in res.data.weight) {
@@ -1634,25 +1696,25 @@
 //
 //                    $('#enet_weightUnit').html(data5);
 
-                    var datas = [];
-                    var datas = `<input type="file"  name="img"  id="euploadfile" multiple class="file-loading"/>`;
+                        var datas = [];
+                        var datas = `<input type="file"  name="img"  id="euploadfile" multiple class="file-loading"/>`;
 
 
-                    $('#control').html(datas);
+                        $('#control').html(datas);
 
-                    var data = [];
-                    for (let i in  res.data.image) {
-                        data.push(`<img class='file-preview-frame' data-fileindex='0' data-template='image' src='${res.data.image[i].link}'/>`);
-                    }
+                        var data = [];
+                        for (let i in  res.data.image) {
+                            data.push(`<img class='file-preview-frame' data-fileindex='0' data-template='image' src='${res.data.image[i].link}'/>`);
+                        }
 
-                    showImage(res.data.res.id, data);
+                        showImage(res.data.res.id, data);
 
-                    $('#sa-save').attr('data-id', res.data.res.id);
+                        $('#sa-save').attr('data-id', res.data.res.id);
 
-                    //属性
-                    window.enum = 0;
-                    for (let i in res.data.res.attr) {
-                        $('#eaddProductId').append(`<div class="form-group col-md-12" style="margin-top: 20px" id = "edd${window.enum}"><div class="controls col-md-1">
+                        //属性
+                        window.enum = 0;
+                        for (let i in res.data.res.attr) {
+                            $('#eaddProductId').append(`<div class="form-group col-md-12" style="margin-top: 20px" id = "edd${window.enum}"><div class="controls col-md-1">
                                     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
                                             style="display: inline-block;margin-top: 10px" >操作
                                         <span class="caret"></span>
@@ -1670,23 +1732,25 @@
                                     <div id="einputWrapper${window.enum}" class="col-md-1"  style="display: inline-block;padding-top: 18px">
                                     ===>
                                     </div></div>`);
-                        ++window.enum;
-                    }
-                    for (let j = 0; j < window.enum; j++) {
-                        for (let i in res.data.res.attr[j].attr_value) {
-
-                            $('#einputWrapper' + j).after(`<div class="col-md-2" style="display: inline-block;margin-top: 10px"><input type="text" name="eattribute${j}"  class="form-control" value="${res.data.res.attr[j].attr_value[i].name}" required="required"/>  </div>`);
+                            ++window.enum;
                         }
+                        for (let j = 0; j < window.enum; j++) {
+                            for (let i in res.data.res.attr[j].attr_value) {
+
+                                $('#einputWrapper' + j).after(`<div class="col-md-2" style="display: inline-block;margin-top: 10px"><input type="text" name="eattribute${j}"  class="form-control" value="${res.data.res.attr[j].attr_value[i].name}" required="required"/>  </div>`);
+                            }
+                        }
+
+
+                        $('#edit-product').modal('toggle');
+
+                    }
+                    else {
+                        alertify.alert('获取信息失败');
                     }
 
-
-                    $('#edit-product').modal('toggle');
-
-                } else {
-                    alertify.alert('获取信息失败');
                 }
-
-            })
+            )
 
         }
 
@@ -1699,7 +1763,7 @@
             //添加编辑器
             window.eimgAddress = [];
             window.eimgId = '';
-            $('#euploadfile').fileinput('refresh',{
+            $('#euploadfile').fileinput('refresh', {
                 language: 'zh', //设置语言
                 uploadUrl: "/imgHandle", //上传的地址
                 allowedFileExtensions: ['jpg', 'gif', 'png'],//接收的文件后缀
@@ -1802,6 +1866,7 @@
                 'four_price': $('#efour_price').val(),
                 'category': $('#ecategory').val(),
                 'brand': $('#ebrand').val(),
+                'shelves': $('#eshelves').val(),
                 'number': $('#enumber').val(),
                 'weight': $('#eweight').val(),
                 'status': $('#estat').val(),

@@ -314,7 +314,7 @@
     <!---- 查看 ---->
     <div id="view-item-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="viewModal" aria-hidden="true">
         <div class="modal-dialog" style="width: 80%"> 
-            <div class="modal-content"> 
+            <div class="modal-content"> <!--startprint-->
                 <div class="modal-header"> 
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> 
                     <h3 class="modal-title"><i class="fa fa-eye"></i> 查看记录</h3> 
@@ -323,15 +323,17 @@
                     <div class="row"> 
                         @yield('view-item-modal-content')
                     </div> 
-                </div> 
+                </div> <!--endprint-->
                 <div class="modal-footer"> 
-                    <a href="" class="btn btn-inverse waves-effect waves-light"><i class="fa fa-print"></i></a> 
+                    <a href="##"id="Print" class="btn btn-inverse waves-effect waves-light"><i class="fa fa-print"></i></a> 
                     <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button> 
                 </div> 
             </div> 
         </div>
     </div><!---- End 查看 ---->
 
+    <script type="text/javascript">
+    </script>
 
 
 <!---- End 弹窗 ---->
@@ -468,14 +470,26 @@
                     {{--<td>已过期</td>--}}
                 }
 
-                $('#eoperator').val(`${res.data.operator}`);
-                $('#eorderId').val(`${res.data.pruchase_order_no}`);
-                $('#date').val(`${res.data.create}`);
-                $('#eremark').val(`${res.data.remark}`);
+                $('#eoperator').attr("value",`${res.data.operator}`);
+                $('#eorderId').attr("value",`${res.data.pruchase_order_no}`);
+                $('#date').attr("value",`${res.data.create}`);
+                $('#eremark').attr("value",`${res.data.remark}`);
 
                 alertify.success('获取成功');
 
                 $('#orderDeal').html(datas);
+		        $("#Print").click(
+					function () {   
+					    bdhtml=window.document.body.innerHTML;   
+					    bdhtmll=window.document.body.innerHTML;   
+					    sprnstr="<!--startprint-->";   
+					    eprnstr="<!--endprint-->";   
+					    prnhtml=bdhtml.substr(bdhtml.indexOf(sprnstr)+17);   
+					    prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr));   
+					    window.document.body.innerHTML=prnhtml;  
+					    window.print();   
+					    window.location.reload()
+					})
             } else {
                 alertify.alert(res.message);
             }

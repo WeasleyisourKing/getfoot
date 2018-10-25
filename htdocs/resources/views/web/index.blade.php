@@ -8,7 +8,7 @@
         }
         .secondBannerPro{
         	margin-bottom: 1%;
-        	padding-bottom: 1%%;
+        	padding-bottom: 1%;
         }
     </style>
     <div class="maxCentr classifyBox clearfloat">
@@ -113,7 +113,7 @@
         </div>
     </div>
 
-    <div class="maxCentr ">
+    <!--{{--<div class="maxCentr ">
         <div class="second ">
             <div class="secondBg clearfloat">
                 <div class="secondBg1 float_left">
@@ -123,69 +123,42 @@
             </div>
             <div class="countDown clearfloat">
                 <p class="float_left">
-                    <script>
-                        Language("{{$modular[1]['zn_name']}}", "{{$modular[1]['en_name']}}")
-                    </script>
-                    <br/><span>
             <script>
-            	Language("本场秒杀商品", "Flash Sales Products")
+            	Language("{{$modular[1]['zn_name']}}","{{$modular[1]['en_name']}}")
+            </script><br/><span>
+            <script>
+            	Language("本场秒杀商品","Flash Sales Products")
             </script></span></p>
-                <!--<p class="float_left">秒杀<br/><span>距离本场结束还有</span></p>-->
-                <!--<div class="count float_left">
-                    <div class="time">
-                        <div class="data-show-box clearfloat" id="dateShow1">
-                            <span class="date-tiem-span d">00</span>
-                            <span class="date-tiem-span h">00</span>
-                            <span class="date-tiem-span m">00</span>
-                            <span class="date-s-span s">00</span>
-                        </div>
-                        <script type="text/javascript">
-                            $(function () {
-                                $.leftTime("2018/08/22 23:45:24", function (d) {
-                                    if (d.status) {
-                                        var $dateShow1 = $("#dateShow1");
-                                        $dateShow1.find(".d").html(d.d);
-                                        $dateShow1.find(".h").html(d.h);
-                                        $dateShow1.find(".m").html(d.m);
-                                        $dateShow1.find(".s").html(d.s);
-                                    }
-                                });
-                            });
-                        </script>
-                    </div>
-                    <div class="text">The end of the field</div>
-                </div>-->
             </div>
             <div class="secondBanner">
-                <div data-am-widget="slider" class="am-slider am-slider-default"data-am-slider='{"animation":"slide","animationLoop":false,"itemsWidth":250,"itemsMargin":2, "directionNav": true}'>
+                <div data-am-widget="slider" class="am-slider am-slider-default"
+                     data-am-slider='{"animation":"slide","animationLoop":false,"itemWidth":250,"itemMargin":2, "directionNav": true}'>
                     <ul class="am-slides">
                         {{--                    @if ($modular->id == 1)--}}
-                        @foreach($modular[0]['products'] as $items)
-                            <li style="width: 250px;">
-                                <div class="secondBannerPro" data-router="/details/{{$items['id']}}">
-                                    <img class="secondImg" src="{{$items['product_image']}}" alt=""/>
+                        @foreach($modular[0]['products'] as $item)
+                            <li>
+                                <div class="secondBannerPro" data-router="/details/{{$item['id']}}">
+                                    <img class="secondImg" src="{{$item['product_image']}}" alt=""/>
                                     <div class="title clearfloat">
                                         <p class="oneLine">
-                                            12313
-                                            <script>
-                                                Language("{{$items['zn_name']}}", "{{$items['en_name']}}")
-                                            </script>
-                                        </p>
+																				<script>
+																					Language("{{$item['zn_name']}}","{{$item['en_name']}}")
+																				</script></p>
                                         <img src="home/img/ffffff.png" alt=""/>
                                         <img src="home/img/hhh.png" alt=""/>
                                     </div>
                                     <div class="searchBut clearfloat">
                                         @if(!empty(Auth::guard("pc")->user()))
                                             <script>
-                                                Sprice({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}});
+                                                Sprice({{$item['distributor']['level_four_price']}},{{$item['distributor']['level_two_price']}},{{$item['distributor']['level_one_price']}},{{$item['distributor']['level_three_price']}});
                                             </script>
                                         @endif
-
+                                        
                                         <script>
-                                            Language(`<button data-number="1" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}"  datas-tock="{{$items['stock']}}" data-price="@if(!empty(Auth::guard("pc")->user()))${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})}@endif"data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd">加入购物车`,
-                                                `<button data-number="1" data-zn-name="{{$items['zn_name']}}" data-en-name="{{$items['en_name']}}" datas-tock="{{$items['stock']}}" data-price="@if(!empty(Auth::guard("pc")->user()))${Sprice1({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})}@endif" data-img="{{$items['product_image']}}" data-id="{{$items['id']}}" class="shopAdd"> Shopping Cart`)
+                                            Language(`<button data-number="1" data-zn-name="{{$item['zn_name']}}" data-en-name="{{$item['en_name']}}"  datas-tock="{{$item['stock']}}" data-price="@if(!empty(Auth::guard("pc")->user()))${Sprice1({{$item['distributor']['level_four_price']}},{{$item['distributor']['level_two_price']}},{{$item['distributor']['level_one_price']}},{{$item['distributor']['level_three_price']}})}@endif"data-img="{{$item['product_image']}}" data-id="{{$item['id']}}" class="shopAdd">加入购物车`,
+                                                `<button data-number="1" data-zn-name="{{$item['zn_name']}}" data-en-name="{{$item['en_name']}}" datas-tock="{{$item['stock']}}" data-price="@if(!empty(Auth::guard("pc")->user()))${Sprice1({{$item['distributor']['level_four_price']}},{{$item['distributor']['level_two_price']}},{{$item['distributor']['level_one_price']}},{{$item['distributor']['level_three_price']}})}@endif" data-img="{{$item['product_image']}}" data-id="{{$item['id']}}" class="shopAdd"> Shopping Cart`)
                                         </script>
-                                        </button>
+           								 </button>
                                     </div>
                                 </div>
                             </li>
@@ -195,7 +168,8 @@
 
             </div>
         </div>
-    </div>
+    </div>--}}-->
+
 
     <div class="iocBg">
         <div class="maxCentr clearfloat">
@@ -673,7 +647,7 @@
             </div>
         </div>
     </div>
-    <div class="maxCentr ToShowBox">
+    <!--<div class="maxCentr ToShowBox">
         <div class="ToShowTitle">
             <p>晒单<br/><span>■&nbsp;SUN INGLE</span></p>
         </div>
@@ -699,8 +673,8 @@
                 <p>happy <br/>06/06/2018</p>
             </div>
         </div>
-    </div>
-    <div class="ButBannerBg">
+    </div>-->
+    <!--<div class="ButBannerBg">
         <div class="maxCentr">
             <div class="ButBannerBtn">
                 <div>HOW IT WORKS</div>
@@ -724,7 +698,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
     <script type="text/javascript">
         //	屏蔽热销路由
         $(".hotPro a").click(function () {

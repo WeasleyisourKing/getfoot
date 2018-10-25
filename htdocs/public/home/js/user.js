@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$(".userTop div").eq(0).css("border-color","#fdb3d3");
+	$(".userTop div").eq(0).css("border-color","#4982a3");
 	$(".userTop div").click(function(){
 		$(".userTop div").css("border-color","rgba(0,0,0,0)");
 		$(".userTop div").eq($(".userTop div").index(this)).css("border-color","#fdb3d3");
@@ -8,13 +8,13 @@ $(document).ready(function(){
 	});
 	$(".toggleSingIn").click(function(){
 		$(".userTop div").css("border-color","rgba(0,0,0,0)");
-		$(".userTop div").eq(0).css("border-color","#fdb3d3");
+		$(".userTop div").eq(0).css("border-color","#4982a3");
 		$(".UserTog").hide();
 		$(".UserTog").eq(0).show();
 	});
 	$(".sigInBot div").eq(1).click(function(){
 		$(".userTop div").css("border-color","rgba(0,0,0,0)");
-		$(".userTop div").eq(1).css("border-color","#fdb3d3");
+		$(".userTop div").eq(1).css("border-color","#4982a3");
 		$(".UserTog").hide();
 		$(".UserTog").eq(1).show();
 	})

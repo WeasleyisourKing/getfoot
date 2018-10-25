@@ -1,6 +1,6 @@
 .categoryBg{
 	width: 100%;
-	background: #f1e6e6;
+	background: #e6ebf0;
 }
 .categoryHot{
 	margin-bottom: 10%;
@@ -32,7 +32,7 @@
 .categoryBox{
 }
 .categoryTitle{
-	background: #fdb3d3;
+	background: rgb(130, 183, 215);
 	border-top-right-radius: 5px;
 	border-top-left-radius: 5px;
 	width: 20%;
@@ -43,14 +43,14 @@
 }
 .category{
 	widows: 100%;
-	border: 1px solid #fdb3d3;
+	border: 1px solid rgb(130, 183, 215);
 	border-bottom: 0;
     box-shadow: 0px 9px 30.72px 1.28px rgba(153, 153, 153, 0.45);
 }
 
 .category li{
-	border-bottom: 1px solid #fdb3d3;
-	border-right: 1px solid #fdb3d3;
+	border-bottom: 1px solid rgb(130, 183, 215);
+	border-right: 1px solid rgb(130, 183, 215);
 	width: 20%;
 	background: #FFFFFF;
 	float: left;
@@ -81,7 +81,7 @@
 	width: auto;
 	width: 48px;
 	height: 48px;
-	background: #fdb3d3;
+	background: rgb(130, 183, 215);
 	border-radius: 24px;
 }
 .categoryNav .categoryNavshow p:hover{
@@ -99,7 +99,7 @@
 	width: auto;
 	width: 148px;
 	height: 48px;
-	background: #fdb3d3;
+	background:rgb(130, 183, 215);
 	border-radius: 24px;
 }
 .categoryNav a p{
@@ -141,7 +141,7 @@
     width: 80%;
     margin: 0 auto;
     color: white;
-    background: #f5538e;
+    background: #4a82a3;
     border: none;
     border-radius: 5px;
     line-height: 300%;

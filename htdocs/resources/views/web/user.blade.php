@@ -64,7 +64,7 @@ var LanguageHtml=function(one, tow){
 <div class="userBg">
     <div class="maxCentr clearfloat">
         <div class="indexLogo float_left">
-            <img src="home/img/IndexLogo.png" alt=""/>
+            <img src="/uploads/snackicon.png" alt=""/>
             <a href="/">
             	<img class="businessLogo" src="" alt="" />
             </a>
@@ -272,13 +272,13 @@ var LanguageHtml=function(one, tow){
 <div class="bottonBg">
     <div class="maxCentr clearfloat">
 
-            <script>
-            	Language(`
+        <script>
+            Language(`
         <div class="am-u-sm-2">
             <ul class="bot_nav">
                 <li>关于我们</li>
-                <li class="btoNavPro" data-router="/company/5">关于我们</li>
-                <li class="btoNavPro" data-router="/company/6">联系我们</li>
+                <li class="btoNavPro" data-router="/company/6">关于我们</li>
+                <li class="btoNavPro" data-router="/company/5">联系我们</li>
             </ul>
             <ul class="bot_nav">
                 <li>使用条款</li>
@@ -298,28 +298,28 @@ var LanguageHtml=function(one, tow){
         <div class="am-u-sm-4">
             <ul>
                 <li class="btoNavPro" data-router="/company/1">联系我们</li>
-                <li>给我们电话<br/> <span>818-477-8888</span></li>
-                <li>help@12buy.com</li>
+                <li>给我们电话<br/> <span>650-690-6666</span></li>
+                <li>info@snacktalk.com</li>
             </ul>
         </div>`,
-            		`
+                `
         <div class="am-u-sm-2">
             <ul class="bot_nav">
                 <li>About us</li>
-                <li  class="btoNavPro" data-router="/company/5">About us</li>
-                <li class="btoNavPro" data-router="/company/6">Contact us</li>
+                <li  class="btoNavPro" data-router="/company/6">About us</li>
+                <li class="btoNavPro" data-router="/company/5">Contact us</li>
             </ul>
             <ul class="bot_nav">
                 <li>Terms of Use</li>
                 <li class="btoNavPro" data-router="/company/7">Privacy Policy</li>
-                <li class="btoNavPro" data-router="/company8">Terms of use</li>
+                <li class="btoNavPro" data-router="/company/8">Terms of use</li>
             </ul>
         </div>
         <div class="am-u-sm-2">
             <ul class=" bot_nav">
                 <li>Customer Service</li>
                 <li class="btoNavPro" data-router="/company/9">FAQs</li>
-                <li class="btoNavPro" data-router="/company10">Payment Method</li>
+                <li class="btoNavPro" data-router="/company/10">Payment Method</li>
                 <li class="btoNavPro" data-router="/company/11">Shipping Rates</li>
                 <li class="btoNavPro" data-router="/company/12">Returns & Exchanges</li>
             </ul>
@@ -327,11 +327,11 @@ var LanguageHtml=function(one, tow){
         <div class="am-u-sm-4">
             <ul>
                 <li>Contact us</li>
-                <li>Call us<br/> <span>818-477-8888</span></li>
-                <li>help@12buy.com</li>
+                <li>Call us<br/> <span>650-690-6666</span></li>
+                <li>info@snacktalk.com</li>
             </ul>
         </div>`)
-            </script>
+        </script>
     </div>
 </div>
 </body>

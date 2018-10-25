@@ -49,8 +49,8 @@
 }
 
 .category li{
-	border-bottom: 1px solid #fdb3d3;
-	border-right: 1px solid #fdb3d3;
+	border-bottom: 1px solid rgb(130, 183, 215);
+	border-right: 1px solid rgb(130, 183, 215);
 	width: 20%;
 	background: #FFFFFF;
 	float: left;
@@ -81,7 +81,7 @@
 	width: auto;
 	width: 48px;
 	height: 48px;
-	background: #fdb3d3;
+	background: rgb(130, 183, 215);
 	border-radius: 24px;
 }
 .categoryNav .categoryNavshow p:hover{

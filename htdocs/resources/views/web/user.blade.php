@@ -32,8 +32,8 @@
 
     <link rel="stylesheet" href="{{ asset('home/assets/css/amazeui.min.css') }}">
     <link rel="stylesheet" href="{{ asset('home/assets/css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/user.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/index.css') }}">
+    <link rel="stylesheet" href="{{ asset('home/css/user.css') }}">
     <script type="text/javascript" src="{{ asset('home/js/jquery-3.3.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('home/js/user.js') }}"></script>
     <script src="{{ asset('lib/js/check.js') }}" type="text/javascript"></script>

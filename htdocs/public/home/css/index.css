@@ -76,7 +76,7 @@ a:link , a:visited , a:hover , a:active {
 }
 
 .topBg{
-	background: #fdb3d3;
+	background: #4982a3;
 	width: 100%;
 	height: 80px;
 }
@@ -291,7 +291,7 @@ a:link , a:visited , a:hover , a:active {
   text-shadow: 0px 9px 12.48px rgba(78, 82, 96, 0.25);
 }
 .icoPro:hover  p{
-	color: #f5538d;
+	color: #4982a3;
 }
 .icoPro:hover  img{
   /*box-shadow: 0px 9px 12.48px rgba(78, 82, 96, 0.25);*/
@@ -570,7 +570,7 @@ a:link , a:visited , a:hover , a:active {
 	 border-radius: 8px !important;
 }
 .mail_but button:hover{
-	background: #e376b0;
+	background: #4982a3;
 	color: white;
 }
 .mail_box input{

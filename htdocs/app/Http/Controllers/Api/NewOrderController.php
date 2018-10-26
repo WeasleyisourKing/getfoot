@@ -11,6 +11,8 @@ use App\Http\Model\ProductModel;
 use App\Http\Model\GeneralModel;
 use App\Http\Model\UsersAddressModel;
 use App\Http\Model\OrderProductModel;
+use App\Http\Model\BusinessOrderProductModel;
+use App\Http\Model\BusinessOrderModel;
 use App\Http\Model\UsersInvoiceModel;
 use App\Http\Model\UsersDiscountModel;
 use App\Http\Model\OrderModel;
@@ -425,8 +427,9 @@ class NewOrderController extends Controller
     {
 
         $id = $request->input('id');
-        $data['products'] = OrderProductModel::orderProduct($id);
-        $data['details'] = OrderModel::select('order_no', 'tax', 'snap_address', 'freight', 'total_price', 'status')->where('id', '=', $id)->first();
+
+        $data['products'] = BusinessOrderProductModel::orderProduct($id);
+        $data['details'] = BusinessOrderModel::select('order_no', 'tax', 'snap_address', 'freight', 'total_price', 'status')->where('id', '=', $id)->first();
 
         return $data;
 

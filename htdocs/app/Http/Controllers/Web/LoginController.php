@@ -40,8 +40,13 @@ class LoginController extends Controller
 
 
         //查询不到
-        if (!Auth()->guard("pc")->attempt(['email' => $email, 'password' => $password])) {
+        if (!Auth()->guard("pc")->attempt(['email' => $email, 'password' => $password ])) {
             //跳转 获取旧数据（除了密码）
+            Auth()->guard("pc")->logout();
+            return redirect('users')->withInput($request->except('password'))->with('msg', '用户名或者密码错误');
+        }
+
+        if (Auth()->guard('pc')->user()->role == 1) {
             Auth()->guard("pc")->logout();
             return redirect('users')->withInput($request->except('password'))->with('msg', '用户名或者密码错误');
         }

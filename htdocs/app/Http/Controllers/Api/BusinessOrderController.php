@@ -489,6 +489,7 @@ class BusinessOrderController extends Controller
             $pStatus['enName'] = $product['en_name'];
             $pStatus['sku'] = $product['sku'];
             $pStatus['count'] = $uCount;
+            dd($product['distributor']);
             $pStatus['singlePrice'] = $product['distributor'][$middle];
             $pStatus['image'] = $product['product_image'];
             $pStatus['totalPrice'] = $uCount * $product['distributor'][$middle];

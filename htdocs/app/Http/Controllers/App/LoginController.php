@@ -48,9 +48,9 @@ class LoginController extends Controller
 
         if (Auth()->guard('pc')->user()->role == 1) {
             Auth()->guard("pc")->logout();
-            return redirect('users')->withInput($request->except('password'))->with('msg', '用户名或者密码错误');
+            return redirect('/apps/login')->withInput($request->except('password'))->with('msg', '用户名或者密码错误');
         }
-        
+
         if (Auth()->guard('pc')->user()->status != 1) {
             Auth()->guard("pc")->logout();
             return redirect('/apps/login')->withInput($request->except('password'))->with('email', $email);

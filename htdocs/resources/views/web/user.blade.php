@@ -112,7 +112,7 @@ var LanguageHtml=function(one, tow){
                         <div class="form-group " style="text-align: center;">
                             @if (session('msg'))
                                 <span class="help-block">
-                                <strong style="color: #fdb3d3;">{{session('msg')}}</strong>
+                                <strong style="color: #4982a3;">{{session('msg')}}</strong>
                                 </span>
                             @endif
 

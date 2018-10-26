@@ -709,7 +709,7 @@ class StockController extends Controller
             'pruchase_order_no' => $orderID,
             'remark' => '此出库记录由系统根据用户订单正常生成',
             'status' => 2,
-            'type' => 2,
+            'type' => 1,
             'create' => date('Y-m-d')
         ];
 

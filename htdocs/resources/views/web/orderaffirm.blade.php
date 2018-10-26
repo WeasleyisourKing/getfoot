@@ -291,7 +291,7 @@
                 <p class="cartName float_left towLine">${LanguageHtml(product[i].products[0].zn_name,product[i].products[0].en_name)}</p>
                 </label>
                 <div class="am-u-sm-4">
-                <p class="price unitPrice">$ <span>${product[i].products[0].distributor.level_four_price}</span></p>
+                <p class="price unitPrice">$ <span>${Sprice1(product[i].products[0].distributor.level_four_price,product[i].products[0].distributor.level_two_price,product[i].products[0].distributor.level_one_price,product[i].products[0].distributor.level_three_price)}</span></p>
                 </div>
                 <div class="am-u-sm-4 cartBut clearfloat">
                   <p class="price unitPrice"><span>${product[i].count}</span></p>

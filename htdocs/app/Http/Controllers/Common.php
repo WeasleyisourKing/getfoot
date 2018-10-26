@@ -288,7 +288,7 @@ class Common
     {
 //        $num = 'A2018091711118';
 //        dump($num);
-        $yCode = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J');
+        $yCode = array('A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J');
 
         if (($date = date('Ymd')) != substr($num, 1, 8)) {
             //不是同一天 重新计算

@@ -283,22 +283,6 @@ class BusinessOrderController extends Controller
         //添加收件人
         $this->addressee = $userAddress->name;
 
-        //添加角色
-        $this->role = $userIfo->role;
-
-        switch ($this->role) {
-            case 1 :
-                $this->Plevel = 'level_four_price';
-                break;
-            case 2 :
-                $this->Plevel = 'level_two_price';
-                break;
-            case 3 :
-                $this->Plevel = 'level_one_price';
-                break;
-            default :
-                $this->Plevel = 'level_three_price';
-        }
         //添加收件人电话
         $this->mobile = $userAddress->mobile;
         //添加名字
@@ -438,6 +422,26 @@ class BusinessOrderController extends Controller
             }
         }
 
+
+        //判断用户是否注册
+        $userIfo = UsersModel::getUserInfo($this->uid);
+
+        //添加角色
+        $this->role = $userIfo->role;
+
+        switch ($this->role) {
+            case 1 :
+                $this->Plevel = 'level_four_price';
+                break;
+            case 2 :
+                $this->Plevel = 'level_two_price';
+                break;
+            case 3 :
+                $this->Plevel = 'level_one_price';
+                break;
+            default :
+                $this->Plevel = 'level_three_price';
+        }
         return $Products;
     }
 
@@ -458,9 +462,7 @@ class BusinessOrderController extends Controller
     private function getProductStatus ($uPID, $uCount, $products)
     {
 
-        $middle = $this->Plevel;
-        dump($middle);
-        dd($this->Plevel);
+
         //某商品详细信息
         $pStatus = [
             'id' => '',
@@ -491,9 +493,9 @@ class BusinessOrderController extends Controller
             $pStatus['enName'] = $product['en_name'];
             $pStatus['sku'] = $product['sku'];
             $pStatus['count'] = $uCount;
-            $pStatus['singlePrice'] = $product['distributor'][$middle];
+            $pStatus['singlePrice'] = $product['distributor'][$this->Plevel];
             $pStatus['image'] = $product['product_image'];
-            $pStatus['totalPrice'] = $uCount * $product['distributor'][$middle];
+            $pStatus['totalPrice'] = $uCount * $product['distributor'][$this->Plevel];
             $pStatus['shelves'] = $product['shelves'];
             $pStatus['haveStock'] = $product['stock'] >= $uCount ? true : false;
 

@@ -280,6 +280,7 @@ class NewOrderController extends Controller
         //添加收件人
         $this->addressee = $userAddress->name;
 
+
         //添加收件人电话
         $this->mobile = $userAddress->mobile;
         //添加名字
@@ -430,7 +431,7 @@ class NewOrderController extends Controller
 
         $data['products'] = BusinessOrderProductModel::orderProduct($id);
         $data['details'] = BusinessOrderModel::select('order_no', 'tax', 'snap_address', 'freight', 'total_price', 'status')->where('id', '=', $id)->first();
-        
+
         return $data;
 
     }
@@ -439,6 +440,7 @@ class NewOrderController extends Controller
     //用户某件商品id 用户某件商品总数 数据库数据
     private function getProductStatus ($uPID, $uCount, $products)
     {
+
 
         //某商品详细信息
         $pStatus = [

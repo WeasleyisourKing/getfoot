@@ -44,11 +44,7 @@ class NewOrderController extends Controller
 
     //用户name
     protected $name;
-
-    //用户角色
-    protected $role;
-
-    protected $Plevel;
+    
     //收件人name
     protected $addressee;
 
@@ -284,22 +280,7 @@ class NewOrderController extends Controller
         //添加收件人
         $this->addressee = $userAddress->name;
 
-        //添加角色
-        $this->role = $userIfo->role;
 
-        switch ($this->role) {
-            case 1 :
-                $this->Plevel = 'level_four_price';
-                break;
-            case 2 :
-                $this->Plevel = 'level_two_price';
-                break;
-            case 3 :
-                $this->Plevel = 'level_one_price';
-                break;
-            default :
-                $this->Plevel = 'level_three_price';
-        }
         //添加收件人电话
         $this->mobile = $userAddress->mobile;
         //添加名字
@@ -492,9 +473,9 @@ class NewOrderController extends Controller
             $pStatus['enName'] = $product['en_name'];
             $pStatus['sku'] = $product['sku'];
             $pStatus['count'] = $uCount;
-            $pStatus['singlePrice'] = $product['distributor'][$this->Plevel];
+            $pStatus['singlePrice'] = $product['distributor']['level_four_price'];
             $pStatus['image'] = $product['product_image'];
-            $pStatus['totalPrice'] = $uCount * $product['distributor'][$this->Plevel];
+            $pStatus['totalPrice'] = $uCount * $product['distributor']['level_four_price'];
             $pStatus['shelves'] = $product['shelves'];
             $pStatus['haveStock'] = $product['stock'] >= $uCount ? true : false;
 

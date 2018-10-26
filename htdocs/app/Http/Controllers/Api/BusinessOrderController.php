@@ -458,6 +458,7 @@ class BusinessOrderController extends Controller
     private function getProductStatus ($uPID, $uCount, $products)
     {
 
+        $middle = $this->Plevel;
         //某商品详细信息
         $pStatus = [
             'id' => '',
@@ -488,9 +489,9 @@ class BusinessOrderController extends Controller
             $pStatus['enName'] = $product['en_name'];
             $pStatus['sku'] = $product['sku'];
             $pStatus['count'] = $uCount;
-            $pStatus['singlePrice'] = $product['distributor']["$this->Plevel"];
+            $pStatus['singlePrice'] = $product['distributor'][$middle];
             $pStatus['image'] = $product['product_image'];
-            $pStatus['totalPrice'] = $uCount * $product['distributor']["$this->Plevel"];
+            $pStatus['totalPrice'] = $uCount * $product['distributor'][$middle];
             $pStatus['shelves'] = $product['shelves'];
             $pStatus['haveStock'] = $product['stock'] >= $uCount ? true : false;
 

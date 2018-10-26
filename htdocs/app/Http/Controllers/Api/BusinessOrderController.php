@@ -492,7 +492,7 @@ class BusinessOrderController extends Controller
         //构造数据
         $data = [];
         $data = [
-            'order_no' => $orderNo,
+            'order_no' =>  'B' . substr($orderNo, 1),
             'users_id' => $this->uid,
             'total_price' => $orderSnap['orderPrice'],
             'total_count' => $orderSnap['allCount'],

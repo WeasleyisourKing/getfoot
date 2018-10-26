@@ -430,7 +430,7 @@ class NewOrderController extends Controller
 
         $data['products'] = BusinessOrderProductModel::orderProduct($id);
         $data['details'] = BusinessOrderModel::select('order_no', 'tax', 'snap_address', 'freight', 'total_price', 'status')->where('id', '=', $id)->first();
-
+        
         return $data;
 
     }

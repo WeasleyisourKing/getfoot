@@ -2,7 +2,7 @@
 
 @section('content')
 <!--信用卡验证插件-->
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/imask/3.4.0/imask.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudfla.com/ajax/libs/imask/3.4.0/imask.min.js"></script>-->
 <script src="{{ asset('/js/jquery.mask.js') }}"></script>
         <style type="text/css">
             .float_left{
@@ -1217,7 +1217,7 @@ securitycode.addEventListener('focus', function () {
                 	$("#orderId span").html(OrderId.order_no);
                 	$("#totalPrice span").html(data.details.total_price);
                 	$(".Settlement").click(function(){
-                		retur false
+                		return false
                 	//加载paypal支付按钮组件
                 		$("#pp").html(`
 															<form action="https://www.paypal.com/cgi-bin/webscr" method="post" name="paypal">

@@ -44,7 +44,7 @@ class NewOrderController extends Controller
 
     //用户name
     protected $name;
-    
+
     //收件人name
     protected $addressee;
 

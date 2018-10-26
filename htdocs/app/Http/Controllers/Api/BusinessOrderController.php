@@ -488,9 +488,9 @@ class BusinessOrderController extends Controller
             $pStatus['enName'] = $product['en_name'];
             $pStatus['sku'] = $product['sku'];
             $pStatus['count'] = $uCount;
-            $pStatus['singlePrice'] = $product['distributor'][{$this->Plevel}];
+            $pStatus['singlePrice'] = $product['distributor']["$this->Plevel"];
             $pStatus['image'] = $product['product_image'];
-            $pStatus['totalPrice'] = $uCount * $product['distributor'][{$this->Plevel}];
+            $pStatus['totalPrice'] = $uCount * $product['distributor']["$this->Plevel"];
             $pStatus['shelves'] = $product['shelves'];
             $pStatus['haveStock'] = $product['stock'] >= $uCount ? true : false;
 

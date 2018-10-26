@@ -459,6 +459,8 @@ class BusinessOrderController extends Controller
     {
 
         $middle = $this->Plevel;
+        dump($middle);
+        dd($this->Plevel);
         //某商品详细信息
         $pStatus = [
             'id' => '',
@@ -489,7 +491,6 @@ class BusinessOrderController extends Controller
             $pStatus['enName'] = $product['en_name'];
             $pStatus['sku'] = $product['sku'];
             $pStatus['count'] = $uCount;
-            dd($product['distributor']);
             $pStatus['singlePrice'] = $product['distributor'][$middle];
             $pStatus['image'] = $product['product_image'];
             $pStatus['totalPrice'] = $uCount * $product['distributor'][$middle];

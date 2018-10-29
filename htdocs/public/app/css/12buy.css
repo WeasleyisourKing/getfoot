@@ -31,7 +31,8 @@
 
 .bg-gradient,
 .bg-gradient::after {
-    background: linear-gradient(to right, #acddef, #fdb3d3);
+    /*background: linear-gradient(to right, #acddef, #fdb3d3);*/
+   background-color: #83b7d7;
 }
 
 .bg-pink,
@@ -115,12 +116,13 @@ a.bg-color-red:hover {
 
 .bg-color-pink,
 .bg-color-1 {
-    background-color: #fdb3d3;
+    /*background-color: #fdb3d3;*/
+   background-color: #4982A3;
 }
 
 .bg-color-blue,
 .bg-color-2 {
-    background-color: #acddef;
+    background-color: #6daacd;
 }
 
 .bg-color-purple,

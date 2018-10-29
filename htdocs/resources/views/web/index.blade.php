@@ -263,14 +263,14 @@
                                 src="{{!empty($hotImg[0]['img']) ? $hotImg[0]['img'] : '' }}"
                                 alt=""/></a></li>
                 <li class="hotPro3"><a
-                            href="{{!empty($hotImg[2]['url']) ? $hotImg[2]['url'] : ''}}"><img
-                                src="{{!empty($hotImg[2]['img']) ? $hotImg[2]['img'] : '' }}"
+                            href="{{!empty($hotImg[1]['url']) ? $hotImg[1]['url'] : ''}}"><img
+                                src="{{!empty($hotImg[1]['img']) ? $hotImg[1]['img'] : '' }}"
                                 alt=""/></a></li>
             </ul>
             <ul>
                 <li class="hotPro2" style="margin-bottom: 2%;"><a
-                            href="{{!empty($hotImg[1]['url']) ? $hotImg[1]['url'] : ''}}"><img
-                                src="{{!empty($hotImg[1]['img']) ? $hotImg[1]['img'] : '' }}"
+                            href="{{!empty($hotImg[2]['url']) ? $hotImg[2]['url'] : ''}}"><img
+                                src="{{!empty($hotImg[2]['img']) ? $hotImg[2]['img'] : '' }}"
                                 alt=""/></a></li>
                 <li class="hotPro2" style="margin-bottom: 1%;"><a
                             href="{{!empty($hotImg[3]['url']) ? $hotImg[3]['url'] : ''}}"><img

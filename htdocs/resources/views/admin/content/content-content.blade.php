@@ -1015,7 +1015,7 @@
                                                                    href="javascript:void(0);">
                                                                     <i class="icon fa fa-pencil"> </i>
                                                                 </a>
-                                                                @if($item->id == 8)
+                                                                @if($item->id == 7)
                                                                     <a title="上传" class="btn btn-small btn-success"
                                                                        data-toggle="modal" data-target="#stuploadImg"
                                                                        href="javascript:void(0);"

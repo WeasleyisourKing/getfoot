@@ -95,8 +95,8 @@ var Sprice1 = function (role1, role2, role3, role4) {
           <a href="{{ route('appsLogin') }}" class="btn btn-block btn-white shaddow-dark"><i class="fa fa-user-circle"></i> 
           	<script>Language("登录","log in")</script>
           </a>
-          <a href="{{ route('appsRegister') }}" class="btn btn-block btn-white shaddow-dark"><i class="fa fa-user-plus"></i> 
-          	<script>Language("注册","registered")  </script></a>
+          <!--<a href="{{ route('appsRegister') }}" class="btn btn-block btn-white shaddow-dark"><i class="fa fa-user-plus"></i> 
+          	<script>Language("注册","registered")  </script></a>-->
       </div><!-- End 移动导航 Container -->
     @else
       <div class="mobile-fix"></div>

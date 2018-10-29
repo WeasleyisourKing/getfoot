@@ -11,10 +11,19 @@ class AdminRoleModel extends Model
     //黑名单
     protected $guarded = [];
 
+
+    //关联主题和商品关系 多对多
+    public function auth ()
+    {
+
+        return $this->belongsToMany('App\Http\Model\PrivilegeModel', 'privilege_role',
+            'role_id','privilege_id' );
+
+    }
     //获取管理员角色
     public static function getRole($limit) {
 
-        return self::orderBy('created_at', 'desc')
+        return self::with('auth')->orderBy('created_at', 'desc')
             ->paginate($limit);
     }
 

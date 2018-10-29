@@ -285,6 +285,7 @@ Route::group(['middleware' => 'role'], function () {
 //        Route::get('/insert', 'Admin\UserController@userInsert');
         //用户角色列表页面*
         Route::get('/role/limit/{limit?}', 'Admin\UserController@userRole');
+
 //        //添加用户角色页面
 //        Route::get('/append', 'Admin\UserController@userAppend');
     });
@@ -370,7 +371,7 @@ Route::group(['middleware' => 'role'], function () {
     //通用设置页面
     Route::get('/general', 'Admin\GeneralController@general');
        //邮件设置页面
-    Route::get('/mail/{status}', 'Admin\GeneralController@mail');
+    Route::get('/mail/status/{status}', 'Admin\GeneralController@mail');
     //邮递设置页面
     Route::get('/deliver', 'Admin\GeneralController@deliver');
     });
@@ -446,7 +447,8 @@ Route::get('/Administrators', 'Admin\UserController@Administrators');
 
 //搜索用户信息
 Route::get('/search', 'Admin\MyController@search');
-
+//管理员权限
+Route::post('/manager/auth', 'Admin\UserController@managerAuth');
 //TODO 内容管理接口
 //删除banner接口*
 Route::get('/content/del', 'Admin\ContentController@sowDel');
@@ -590,6 +592,10 @@ Route::post('/out/stock/deal/order', 'Admin\StockController@outPlaceOrder');
 //Route::get('/out/stock/Batch/del', 'Admin\StockController@outOrderBatchDel');
 //获取入库某订单详情接口*
 Route::get('/out/stock/order/deal', 'Admin\StockController@outOrderDeal');
+
+//入库下订单接口
+Route::post('/stock/product/deal', 'Admin\StockController@productStockDeal');
+
 //TODO 抓货打包接口
 //随机获取订单接口*
 Route::get('/catch/order', 'Admin\CatchController@catchOrder');
@@ -674,3 +680,5 @@ Route::get('error', 'Admin\MyController@error');
 
 //404页面
 Route::get('/404', 'Admin\MyController@notFound');
+
+Route::get('/auth', 'Admin\MyController@jurisdiction');

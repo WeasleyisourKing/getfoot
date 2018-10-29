@@ -414,7 +414,7 @@
                                     aria-expanded="true">全部分类 <span class="caret"></span>
                             </button>
                             @if (count($category) > 9)
-                                <ul id="ccategory" class="dropdown-menu" role="menu"
+                                <ul id="ccategory1" class="dropdown-menu" role="menu"
                                     style="height:300px; overflow-y:scroll;">
                                     @else
                                         <ul id="ccategory1" class="dropdown-menu" role="menu">
@@ -645,16 +645,16 @@
                                 <div class="col-sm-3">
                                     <div class="input-group ">
                                         <div class="btn-group">
-                                            <button id="fcategory1" type="button"
+                                            <button id="fcategory" type="button"
                                                     class="btn btn-primary dropdown-toggle"
                                                     data-toggle="dropdown"
                                                     aria-expanded="true">{{$categoryVal}} <span class="caret"></span>
                                             </button>
                                             @if (count($category) > 9)
-                                                <ul id="ccategory1" class="dropdown-menu" role="menu"
+                                                <ul id="ccategory" class="dropdown-menu" role="menu"
                                                     style="height:300px; overflow-y:scroll;">
                                                     @else
-                                                        <ul id="ccategory1" class="dropdown-menu" role="menu">
+                                                        <ul id="ccategory" class="dropdown-menu" role="menu">
                                                             @endif
                                                             <li><a data-data="-1" data-name="全部分类"
                                                                    href="javascript:void(0);">全部分类</a></li>
@@ -812,12 +812,11 @@
                                                             </td>
 
                                                             @if ($item->status == 1)
-                                                                <td class="exce"><i
-                                                                            class="icon fa fa-2x fa-check-circle"> </i>
+
+                                                                <td class="exce"><i class=" icon fa fa-2x fa-check-circle"> </i>
                                                                 </td>
                                                             @else
-                                                                <td class="exce"><i
-                                                                            class="icon fa fa-2x fa-times-circle"> </i>
+                                                                <td class="exce">下架<i class=" icon fa fa-2x fa-times-circle"> </i>
                                                                 </td>
                                                             @endif
                                                             <td class="exce">
@@ -1582,9 +1581,10 @@
 
         //点击分类
         $('#fcategory').on("click", function () {
-            var event = $(this);
+
+            var event1 = $(this);
             $('#ccategory li a').on("click", function () {
-                event.text($(this).attr('data-name'));
+                event1.text($(this).attr('data-name'));
                 arr.category = $(this).attr('data-data');
             })
         })
@@ -1592,8 +1592,10 @@
         window.status = -1;
 
         $('#fcategory1').on("click", function () {
+
             var event = $(this);
             $('#ccategory1 li a').on("click", function () {
+
                 event.text($(this).attr('data-name'));
                 window.status = $(this).attr('data-data');
             })

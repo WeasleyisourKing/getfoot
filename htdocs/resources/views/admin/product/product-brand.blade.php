@@ -123,18 +123,18 @@
 
                         </div>
 
-                        <div class="col-sm-3 col-md-offset-6">
-                            <div class="input-group">
-                                <input id="example-input2-group2" name="example-input2-group2" class="form-control"
-                                       placeholder="Search" type="email">
-                                <span class="input-group-btn">
-                                                    <button type="button"
-                                                            class="btn waves-effect waves-light btn-primary">
-                                                        <i class="fa fa-search"></i>
-                                                    </button>
-                                                    </span>
-                            </div>
-                        </div>
+                        {{--<div class="col-sm-3 col-md-offset-6">--}}
+                            {{--<div class="input-group">--}}
+                                {{--<input id="example-input2-group2" name="example-input2-group2" class="form-control"--}}
+                                       {{--placeholder="Search" type="email">--}}
+                                {{--<span class="input-group-btn">--}}
+                                                    {{--<button type="button"--}}
+                                                            {{--class="btn waves-effect waves-light btn-primary">--}}
+                                                        {{--<i class="fa fa-search"></i>--}}
+                                                    {{--</button>--}}
+                                                    {{--</span>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                     </div>
                     <!-- 搜索 -->
 

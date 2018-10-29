@@ -94,7 +94,7 @@ class AppServiceProvider extends ServiceProvider
                 return false;
             }
 
-            $comple = ['id', 'stock'];
+            $comple = ['product_id', 'count'];
             foreach ($value as $k => $v) {
                 foreach ($v as $key => $val) {
                     //是否是指定字段
@@ -102,8 +102,8 @@ class AppServiceProvider extends ServiceProvider
                         return false;
                     }
 
-                    //是否是正整数
-                    if (!is_numeric($val) || !is_int($val + 0) || !($val + 0 > 0)) {
+                    //是否是整数
+                    if (!is_numeric($val) ) {
                         return false;
                     }
                     if ($val > 999999) {

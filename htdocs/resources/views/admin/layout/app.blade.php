@@ -43,8 +43,10 @@
     <link href="{{ asset('/css/responsive.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/core.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/icons.css') }}" rel="stylesheet">
-    <link href="{{ asset('lib/assets/plugins/datatables/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('lib/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('lib/assets/plugins/datatables/jquery.dataTables.min.css') }}" rel="stylesheet"
+          type="text/css">
+    <link href="{{ asset('lib/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}"
+          rel="stylesheet">
 
     <!-- Javascript Lib -->
     <script src="{{ asset('lib/js/jquery.min.js') }}" type="text/javascript"></script>
@@ -218,24 +220,25 @@
                 </div>
                 <div class="user-info">
                     <div class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">{{Auth::user()->username}}
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                           aria-expanded="false">{{Auth::user()->username}}
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="javascript:void(0)"><i class="md md-face-unlock"></i> 个人资料
-                                    <div class="ripple-wrapper"></div>
-                                </a></li>
-                            <li><a href="javascript:void(0)"><i class="md md-settings"></i> 设置</a></li>
+                            {{--<li><a href="javascript:void(0)"><i class="md md-face-unlock"></i> 个人资料--}}
+                            {{--<div class="ripple-wrapper"></div>--}}
+                            {{--</a></li>--}}
+                            {{--<li><a href="javascript:void(0)"><i class="md md-settings"></i> 设置</a></li>--}}
                             {{--<li><a href="javascript:void(0)"><i class="md md-lock"></i> 锁屏</a></li>--}}
-                            <li>
-                                <a href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
+                            {{--<li>--}}
+                            <a href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    <i class="md md-settings-power"></i>   注销
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
+                                <i class="md md-settings-power"></i> 注销
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
                             </li>
                             {{--<li><a href="javascript:void(0)"><i class="md md-settings-power"></i> 注销</a></li>--}}
                         </ul>
@@ -245,110 +248,135 @@
                 </div>
             </div>
             <!--- Divider -->
+            <?php
+            use App\Http\Model\AdminRoleModel;
+            use App\Http\Controllers\Common;
+            use App\Http\Model\PrivilegeModel;
+
+            $role = AdminRoleModel::with('auth')->where('id', '=', Auth::user()->role)->first()->toArray();
+            $all = PrivilegeModel::whereBetween('id',[1,6])->get()->toArray();
+
+
+            $role = Common::getTree(array_merge($all,$role['auth']), 0);
+//            dump($role);
+
+            ?>
             <div id="sidebar-menu">
                 <ul>
-                    <li>
-                        <a id="select1" href="/dashboard" class="waves-effect waves-light "><i class="md md-home"></i>
-                            <span>仪表盘</span>
-                        </a>
-                    </li>
+                    @foreach($role as $key => $item)
+                        @if (!empty($item['pid']))
+                            <li class="has_sub">
+                                <a id="select{{$item['id']}}" href="#" class="waves-effect waves-light "><i class="{{$item['icon']}}"></i>
+                                    <span>{{$item['name']}}</span>
+                                    <span class="pull-right"><i id="select{{$item['id']}}i" class="md md-add"></i></span></a>
+                                <ul id="select{{$item['id']}}ul" class="list-unstyled">
+                                    @foreach($item['pid'] as $items)
+                                        <li><a href="{{$items['origin_route']}}">{{$items['name']}}</a></li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                            @else
+                            <li>
+                                <a id="select{{$item['id']}}" href="{{$item['origin_route']}}" class="waves-effect waves-light "><i class="md md-home"></i>
+                                    <span>{{$item['name']}}</span>
+                                </a>
+                            </li>
+                            @endif
 
-                    <li class="has_sub" >
-                        <a id="select2" href="#" class="waves-effect waves-light "><i class="md md-settings"></i>
-                            <span>设置</span>
-                            <span class="pull-right"><i id="select2i" class="md md-add"></i></span></a>
-                        <ul id="select2ul" class="list-unstyled" >
-                            <li><a href="/set/general">通用设置</a></li>
-                            <li><a href="/set/mail/1">邮件设置</a></li>
-                            <li><a href="/set/deliver">邮递设置</a></li>
-                        </ul>
-                    </li>
 
-                    <li class="has_sub">
-                        <a href="#" id="select3" class="waves-effect waves-light"><i class="md md-palette"></i><span>内容管理</span>
-                            <span class="pull-right"><i id="select3i" class="md md-add"></i></span></a>
-                        <ul id="select3ul" class="list-unstyled">
-                            <li><a href="/content/home/status/-1/category/-1/brand/-1/limit/5">首页内容</a></li>
-                            <li><a href="/content/list">页面管理</a></li>
-                        </ul>
-                    </li>
+                     @endforeach
 
-                    <li class="has_sub">
-                        <a href="#" id="select4" class="waves-effect waves-light"><i class="md md-group"></i><span>用户管理</span><span
-                                    class="pull-right"><i id="select4i" class="md md-add"></i></span></a>
-                        <ul id="select4ul" class="list-unstyled">
-                            <li><a href="/user/role/limit/5">用户角色</a></li>
-                            <li><a href="/user/list/status/-1/limit/5">用户管理</a></li>
-                            <li><a href="/user/manager/limit/5">管理员角色</a></li>
-                            <li><a href="/user/manager/type/-1/status/-1/limit/5">管理员管理</a></li>
-                        </ul>
-                    </li>
+                        {{--<li>--}}
+                            {{--<a id="select9" href="/business/list/status/-1/limit/20" class="waves-effect waves-light "><i--}}
+                                        {{--class="md md-home"></i>--}}
+                                {{--<span>商家订单管理</span>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
 
-                    <li class="has_sub">
-                        <a href="#" id="select5" class="waves-effect waves-light"><i class="md md-redeem"></i><span>产品管理</span> <span
-                                    class="pull-right"><i id="select5i" class="md md-add"></i></span></a>
-                        <ul id="select5ul" class="list-unstyled">
-                            <li><a href="/product/category/status/-1/limit/20">分类管理</a></li>
-                            <li><a href="/product/brand/status/-1/limit/20">品牌管理</a></li>
-                            <li><a href="/product/list/status/-1/category/-1/brand/-1/limit/20">商品管理</a></li>
-                            <li><a href="/product/message/status/-1/limit/5">商品评论</a></li>
-                            <li><a href="/product/discount/status/-1/limit/5">优惠券管理</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="has_sub">
-                        <a href="#" id="select6" class="waves-effect waves-light"><i class="md md-storage"></i><span>库存管理</span><span
-                                    class="pull-right"><i id="select6i" class="md md-add"></i></span></a>
-                        <ul id="select6ul" class="list-unstyled">
-                            <li><a href="/stock/shelves">货架管理</a></li>
-                            <li><a href="/stock/list">库存列表</a></li>
-                            <li><a href="/stock/in">入库</a></li>
-                            <li><a href="/stock/out">出库</a></li>
-                            <li><a href="/stock/purchase">采购</a></li>
-                            {{--<li><a href="/stock/list/limit/20">列表</a></li>--}}
-                            {{--<li><a href="/stock/list/limit/20">入库</a></li>--}}
-                            {{--<li><a href="/stock/out/limit/20">出库</a></li>--}}
-                            {{--<li><a href="/stock/shelves/limit/20">货架管理</a></li>--}}
-                        </ul>
-                    </li>
-
-                    <li class="has_sub">
-                        <a href="#" id="select7" class="waves-effect waves-light"><i
-                                    class="md md-view-list"></i><span>订单管理</span><span class="pull-right"><i
-                                        id="select7i" class="md md-add"></i></span></a>
-                        <ul id="select7ul" class="list-unstyled">
-                            <li><a href="/order/list/status/-1/limit/20">订单列表</a></li>
-                            <li><a href="/order/mail">邮寄列表</a></li>
-                            <li><a href="/order/freight">邮费设置</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a id="select8" href="/catch/list" class="waves-effect waves-light "><i  class="md md-home"></i>
-                            <span>抓货打包</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a id="select9" href="/business/list/status/-1/limit/20" class="waves-effect waves-light "><i class="md md-home"></i>
-                            <span>商家订单管理</span>
-                        </a>
-                    </li>
                     {{--<li class="has_sub">--}}
-                        {{--<a href="#" id="select6" class="waves-effect waves-light"><i class="md md-storage"></i><span>库存管理1</span><span--}}
-                                    {{--class="pull-right"><i id="select6i" class="md md-add"></i></span></a>--}}
-                        {{--<ul id="select6ul" class="list-unstyled">--}}
-                            {{--<li><a href="/stock/list/limit/20">入库</a></li>--}}
-                            {{--<li><a href="/stock/1">货架管理</a></li>--}}
-                            {{--<li><a href="/stock/2">库存列表</a></li>--}}
-                            {{--<li><a href="/stock/3">入库</a></li>--}}
-                            {{--<li><a href="/stock/4">出库</a></li>--}}
-                            {{--<li><a href="/stock/5">采购</a></li>--}}
+                        {{--<a id="select2" href="#" class="waves-effect waves-light "><i class="md md-settings"></i>--}}
+                            {{--<span>设置</span>--}}
+                            {{--<span class="pull-right"><i id="select2i" class="md md-add"></i></span></a>--}}
+                        {{--<ul id="select2ul" class="list-unstyled">--}}
+                            {{--<li><a href="/set/general">通用设置</a></li>--}}
+                            {{--<li><a href="/set/mail/status/1">邮件设置</a></li>--}}
+                            {{--<li><a href="/set/deliver">邮递设置</a></li>--}}
                         {{--</ul>--}}
                     {{--</li>--}}
 
+                    {{--<li class="has_sub">--}}
+                        {{--<a href="#" id="select3" class="waves-effect waves-light"><i class="md md-palette"></i><span>内容管理</span>--}}
+                            {{--<span class="pull-right"><i id="select3i" class="md md-add"></i></span></a>--}}
+                        {{--<ul id="select3ul" class="list-unstyled">--}}
+                            {{--<li><a href="/content/home/status/-1/category/-1/brand/-1/limit/5">首页内容</a></li>--}}
+                            {{--<li><a href="/content/list">页面管理</a></li>--}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
+
+                    {{--<li class="has_sub">--}}
+                        {{--<a href="#" id="select4" class="waves-effect waves-light"><i--}}
+                                    {{--class="md md-group"></i><span>用户管理</span><span--}}
+                                    {{--class="pull-right"><i id="select4i" class="md md-add"></i></span></a>--}}
+                        {{--<ul id="select4ul" class="list-unstyled">--}}
+                            {{--<li><a href="/user/role/limit/5">用户角色</a></li>--}}
+                            {{--<li><a href="/user/list/status/-1/limit/5">用户管理</a></li>--}}
+                            {{--<li><a href="/user/manager/limit/5">管理员角色</a></li>--}}
+                            {{--<li><a href="/user/manager/type/-1/status/-1/limit/5">管理员管理</a></li>--}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
+
+                    {{--<li class="has_sub">--}}
+                        {{--<a href="#" id="select5" class="waves-effect waves-light"><i--}}
+                                    {{--class="md md-redeem"></i><span>产品管理</span> <span--}}
+                                    {{--class="pull-right"><i id="select5i" class="md md-add"></i></span></a>--}}
+                        {{--<ul id="select5ul" class="list-unstyled">--}}
+                            {{--<li><a href="/product/category/status/-1/limit/20">分类管理</a></li>--}}
+                            {{--<li><a href="/product/brand/status/-1/limit/20">品牌管理</a></li>--}}
+                            {{--<li><a href="/product/list/status/-1/category/-1/brand/-1/limit/20">商品管理</a></li>--}}
+                            {{--<li><a href="/product/message/status/-1/limit/5">商品评论</a></li>--}}
+                            {{--<li><a href="/product/discount/status/-1/limit/5">优惠券管理</a></li>--}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
+
+                    {{--<li class="has_sub">--}}
+                        {{--<a href="#" id="select6" class="waves-effect waves-light"><i class="md md-storage"></i><span>库存管理</span><span--}}
+                                    {{--class="pull-right"><i id="select6i" class="md md-add"></i></span></a>--}}
+                        {{--<ul id="select6ul" class="list-unstyled">--}}
+                            {{--<li><a href="/stock/shelves">货架管理</a></li>--}}
+                            {{--<li><a href="/stock/list">库存列表</a></li>--}}
+                            {{--<li><a href="/stock/in">入库</a></li>--}}
+                            {{--<li><a href="/stock/out">出库</a></li>--}}
+                            {{--<li><a href="/stock/purchase">采购</a></li>--}}
+
+                        {{--</ul>--}}
+                    {{--</li>--}}
+
+                    {{--<li class="has_sub">--}}
+                        {{--<a href="#" id="select7" class="waves-effect waves-light"><i--}}
+                                    {{--class="md md-view-list"></i><span>订单管理</span><span class="pull-right"><i--}}
+                                        {{--id="select7i" class="md md-add"></i></span></a>--}}
+                        {{--<ul id="select7ul" class="list-unstyled">--}}
+                            {{--<li><a href="/order/list/status/-1/limit/20">订单列表</a></li>--}}
+                            {{--<li><a href="/order/mail">邮寄列表</a></li>--}}
+                            {{--<li><a href="/order/freight">邮费设置</a></li>--}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
                     {{--<li>--}}
-                        {{--<a id="select1" href="/catch/show" class="waves-effect waves-light "><i class="md md-home"></i>--}}
-                            {{--<span>支付测试</span>--}}
+                        {{--<a id="select8" href="/catch/list" class="waves-effect waves-light "><i class="md md-home"></i>--}}
+                            {{--<span>抓货打包</span>--}}
                         {{--</a>--}}
+                    {{--</li>--}}
+                    {{--<li>--}}
+                        {{--<a id="select9" href="/business/list/status/-1/limit/20" class="waves-effect waves-light "><i--}}
+                                    {{--class="md md-home"></i>--}}
+                            {{--<span>商家订单管理</span>--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
+
+                    {{--<li>--}}
+                    {{--<a id="select1" href="/catch/show" class="waves-effect waves-light "><i class="md md-home"></i>--}}
+                    {{--<span>支付测试</span>--}}
+                    {{--</a>--}}
                     {{--</li>--}}
                 </ul>
                 <div class="clearfix"></div>
@@ -412,10 +440,10 @@
     TableManageButtons.init();
 </script>
 <script>
-    $("#bulk-btn").click(function(){
-        if($('.item-checkbox').is(':checked')){
+    $("#bulk-btn").click(function () {
+        if ($('.item-checkbox').is(':checked')) {
             $('.item-checkbox').prop('checked', false);
-        } else{
+        } else {
             $('.item-checkbox').prop('checked', true);
         }
     });
@@ -431,19 +459,18 @@
 <script>
 
 
-
     var url = window.location.pathname;
     strs = url.split("/");
     var obj = {
-        select1: ['dashboard'],
-        select2: ['set'],
-        select3: ['content'],
-        select4: ['user'],
-        select5: ['product'],
-        select6: ['stock'],
-        select7: ['order'],
-        select8: ['catch'],
-        select9: ['business']
+//        select1: ['dashboard'],
+        select1: ['set'],
+        select2: ['content'],
+        select3: ['user'],
+        select4: ['product'],
+        select5: ['stock'],
+        select6: ['order'],
+        select7: ['catch'],
+        select8: ['business']
 
     };
 
@@ -451,8 +478,8 @@
         //匹配成功
         if ((obj['select' + i]).indexOf(strs[1]) != -1) {
             $('#select' + i).addClass('subdrop').siblings().removeClass('subdrop');
-            $('#select' + i +'i').addClass('md-remove').removeClass('md-add').siblings().removeClass('md-remove');
-            $('#select' + i +'ul').css('display','block');
+            $('#select' + i + 'i').addClass('md-remove').removeClass('md-add').siblings().removeClass('md-remove');
+            $('#select' + i + 'ul').css('display', 'block');
         }
     }
 </script>

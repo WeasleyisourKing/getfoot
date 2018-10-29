@@ -64,6 +64,7 @@
             margin-bottom: 10px;
             padding: 5px 10px;
             margin-left: 1rem;
+            display: inline-block;
         }
     </style>
     <div id="bannerAdd" class="modal fade" role="dialog">
@@ -1768,7 +1769,7 @@
 
     <script>
         var theme = '';
-        @foreach ($theme as $item)
+        @foreach ($themeData as $item)
             theme += '<span class="check"><input type="checkbox" checked ="false" id="productCheckBox{{ $item->id }}"  name="radio" value="{{ $item->id }}" /><label for="productCheckBox{{ $item->id }}">{{ $item->zn_name }}</label></span>';
         @endforeach
         $('#checkBox').html(theme);

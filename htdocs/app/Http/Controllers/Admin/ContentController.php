@@ -151,6 +151,7 @@ class ContentController extends Controller
             }
         }
 
+        $themeData = ThemeModel::get();
         //获取活动列表
         $theme = ThemeModel::getThemeList(1);
         //获取ST活动列表
@@ -169,6 +170,7 @@ class ContentController extends Controller
 //dd($datas->toArray());
         return view('admin.content.content-content',
             [
+                'themeData' => $themeData,
                 'theme' => $theme,
                 'stapp' => $arr3,
                 'stpc' => $arr4,

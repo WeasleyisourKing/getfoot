@@ -275,16 +275,22 @@
                                     @endforeach
                                 </ul>
                             </li>
+                        @else
+                            @if (is_null($item['origin_route']))
+
+                                <?php continue; ?>
                             @else
-                            <li>
-                                <a id="select{{$item['id']}}" href="{{$item['origin_route']}}" class="waves-effect waves-light "><i class="md md-home"></i>
-                                    <span>{{$item['name']}}</span>
-                                </a>
-                            </li>
+                                <li>
+                                    <a id="select{{$item['id']}}" href="{{$item['origin_route']}}" class="waves-effect waves-light "><i class="md md-home"></i>
+                                        <span>{{$item['name']}}</span>
+                                    </a>
+                                </li>
                             @endif
 
+                        @endif
 
-                     @endforeach
+
+                    @endforeach
 
                         {{--<li>--}}
                             {{--<a id="select9" href="/business/list/status/-1/limit/20" class="waves-effect waves-light "><i--}}

@@ -681,4 +681,8 @@ Route::get('error', 'Admin\MyController@error');
 //404页面
 Route::get('/404', 'Admin\MyController@notFound');
 
-Route::get('/auth', 'Admin\MyController@jurisdiction');
+Route::get('auth', function () {
+
+    return view('admin/jurisdiction');
+
+});

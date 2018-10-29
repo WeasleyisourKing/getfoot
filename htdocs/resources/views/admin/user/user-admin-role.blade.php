@@ -391,7 +391,7 @@
 
             $.post('/manager/add', datas, function (res) {
                 if (res.status) {
-                    alertify.success('创建管理员角色成功');
+                    alertify.success('更改管理员权限成功');
                     $('#name').val('');
                     setTimeout(function () {
                         location.reload();

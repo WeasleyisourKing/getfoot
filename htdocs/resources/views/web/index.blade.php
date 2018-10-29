@@ -136,7 +136,7 @@
                      data-am-slider='{"animation":"slide","animationLoop":false,"itemWidth":250,"itemMargin":2, "directionNav": true}'>
                     <ul class="am-slides">
                         {{--                    @if ($modular->id == 1)--}}
-                        @foreach($modular[0]['products'] as $item)
+                        @foreach($modular[1]['products'] as $item)
                             <li>
                                 <div class="secondBannerPro" data-router="/details/{{$item['id']}}">
                                     <img class="secondImg" src="{{$item['product_image']}}" alt=""/>

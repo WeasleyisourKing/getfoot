@@ -269,7 +269,7 @@ class Common
         ];
 
         //涉及banner多表 添加轮播图
-        if ($request->input('status') == 1 || $request->input('status') == 2) {
+        if ($request->input('status') == 1 || $request->input('status') == 2 || $request->input('status') == 3 || $request->input('status') == 4) {
 
             (new \App\Http\Model\BannerItemModel)->insertBannerItem(['url' => config('custom.DIRECTORY_SEPARATOR') . 'uploads' . config('custom.DIRECTORY_SEPARATOR') . $imgName], $request->input('status'));
         } else {

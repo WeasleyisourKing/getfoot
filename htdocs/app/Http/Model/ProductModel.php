@@ -32,6 +32,11 @@ class ProductModel extends Model
         return $this->belongsTo('App\Http\Model\CategoryModel', 'category_id', 'id');
     }
 
+    //关联商品和分类关系 一对一
+    public function info ()
+    {
+        return $this->belongsTo('App\Http\Model\StockOrderProductModel', 'id', 'product_id');
+    }
     //关联商品和分类关系 一对多
     public function image ()
     {

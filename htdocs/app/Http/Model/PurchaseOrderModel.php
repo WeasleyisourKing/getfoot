@@ -200,11 +200,41 @@ class PurchaseOrderModel extends Model
     }
 
     //修改状态
-    public static function updateStatus ($id, $data)
+    public static function updateStatus ($id, $data, $arr)
     {
 
-        return self::where('id', '=', $id)
-            ->update($data);
+        //涉及多表 使用事务控制
+        DB::beginTransaction();
+        try {
+
+           $info = self::find($id);
+            $info->total_price = $data['total_price'];
+            $info->total_count =$data['total_count'];
+            $info->save();
+
+//            dd($info);
+            (new PurchaseOrderProductModel)->where('order_id', '=', $id)->delete();
+
+            foreach ($arr as &$p) {
+
+                $p['order_id'] = $info->id;
+                $p['created_at'] = date('Y-m-d H:i:s', time());
+                $p['updated_at'] = date('Y-m-d H:i:s', time());
+
+            }
+
+            (new PurchaseOrderProductModel)->insert($arr);
+
+            DB::commit();
+
+            return $info;
+
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            //记录日志
+            throw $ex;
+        }
+
     }
 
     //生成预定单

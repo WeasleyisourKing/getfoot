@@ -97,19 +97,20 @@ class StockOrderModel extends Model
             //插入order表
             $orderId = self::newOrder($data);
             if (!is_null($id))
-                PurchaseOrderModel::updateStatus($id, ['status' => 2]);
+                PurchaseOrderModel::where('id', '=', $id)->update(['status' => 2]);
+
             //插入order_product表
             foreach ($arr as &$p) {
 
                 $p['order_id'] = $orderId->id;
                 $p['created_at'] = date('Y-m-d H:i:s', time());
                 $p['updated_at'] = date('Y-m-d H:i:s', time());
+                $p['status'] = $orderId->status;
 
                 $flight = ProductModel::find($p['product_id']);
                 $flight->stock = $flight->stock + $p['count'];
                 $flight->save();
             }
-
 
             (new StockOrderProductModel)->insert($arr);
 
@@ -137,13 +138,14 @@ class StockOrderModel extends Model
             //插入order表
             $orderId = self::newOrder($data);
             if (!is_null($id))
-                PurchaseOrderModel::updateStatus($id, ['status' => 2]);
+                PurchaseOrderModel::where('id', '=', $id)->update(['status' => 2]);
             //插入order_product表
             foreach ($arr as &$p) {
 
                 $p['order_id'] = $orderId->id;
                 $p['created_at'] = date('Y-m-d H:i:s', time());
                 $p['updated_at'] = date('Y-m-d H:i:s', time());
+                $p['status'] = $orderId->status;
 
                 $flight = ProductModel::find($p['product_id']);
                 $flight->stock = $flight->stock - $p['count'];
@@ -183,7 +185,7 @@ class StockOrderModel extends Model
                 $p['order_id'] = $orderId->id;
                 $p['created_at'] = date('Y-m-d H:i:s', time());
                 $p['updated_at'] = date('Y-m-d H:i:s', time());
-
+                $p['status'] = $orderId->status;
             }
 
 

@@ -28,7 +28,7 @@
         <label for="" class="control-label">
             订单金额
         </label>
-        <small class="text-muted">必填</small>
+        <small class="text-muted">选填</small>
 
         <div class="input-group">
             <span class="input-group-addon">
@@ -53,6 +53,9 @@
             <div class="panel-heading">
                 <h4 class="panel-title">添加商品</h4>
             </div>
+            <div id="content" class="form-group"style="
+   			 padding: 10px;">
+            </div>
             <div class="panel-body">
                 <!---- 搜索并添加商品 ---->
                 <div class="form-group col-lg-4">
@@ -67,22 +70,13 @@
 
                 <!---- 添加的商品 ---->
                 <div>
-                    <table class="table table-bordered table-striped display">
-                        <thead>
-                        <tr>
-                            <th>商品图片</th>
-                            <th>SKU</th>
-                            <th>商品名称</th>
-                            <th>采购数量</th>
-                        </tr>
-                        </thead>
-
-                        <tbody id="place">
+                    <table id="table" class="table table-bordered table-striped display">
+                    </table>
                         {{--<td><img class="" height="60px; align=" middle" src="https://12buy.com/uploads/安慕希正面101118.jpg" alt=""></td>--}}
                         {{--<td><a href="" target="_blank">6907992512570</a></td>--}}
                         {{--<td><a href="" target="_blank">安慕希 希腊风味酸奶 原味 205g Ambrosial Greek Flavored Yoghurt 205g</a></td>--}}
                         {{--<td><input class="form-control" type="number" min="1" value="1"></td>--}}
-                        </tbody>
+                        {{--</tbody>--}}
                     </table>
                 </div><!---- End 添加的商品 ---->
 
@@ -127,6 +121,7 @@
                         <th>数量</th>
                         <th>单价</th>
                         <th>总价</th>
+                        <th>过期时间</th>
                     </tr>
                     </thead>
                     <tbody id="orderDeal">
@@ -226,8 +221,8 @@
                             <th>操作</th>
                         </tr>
                         </thead>
+                        <tbody>
                         @foreach($res as $item)
-                            <tbody>
                             <tr>
                                 <!---- 选择框及编号 ---->
                                 <td>
@@ -246,7 +241,7 @@
                                 @if($item->status == 1)
                                     <td class="text-info">已下单</td>
                                 @elseif($item->status == 2)
-                                    <td class="text-info">待入库</td>
+                                    <td class="text-info">已入库</td>
                                 @else
                                     <td class="text-info">已取消</td>
                             @endif
@@ -324,13 +319,31 @@
                             class="btn btn-success waves-effect pull-left">确认入库
                     </button>
                     <button type="button" id="not" onclick="dealStock(this);" data-status="2"
-                            class="btn btn-danger waves-effect pull-left">取消订单
+                            class="btn btn-danger waves-effect pull-left">修改入库信息
+                    </button>
+                    <button type="button" id="start" data-status="1"
+                            class="btn btn-small btn-info waves-effect pull-left"><i class="fa fa-unlock-alt"></i>
                     </button>
                 </div>
             </div>
         </div>
     </div><!---- End 查看 ---->
     <script type="text/javascript">
+
+        $('#start').click(function() {
+            if ($(this).attr('data-status') != 2) {
+                $(this).find('i').removeClass('fa fa-unlock-alt').addClass('fa fa-unlock');
+                $(this).attr('data-status',2);
+                $('input[name=editcount]').removeAttr('readonly');
+                $('input[name=editdate]').removeAttr('readonly');
+            } else {
+                $(this).find('i').removeClass('fa fa-unlock').addClass('fa fa-unlock-alt');
+                $(this).attr('data-status',1);
+                $('input[name=editcount]').attr('readonly','readonly');
+                $('input[name=editdate]').attr('readonly','');
+            }
+
+        })
         $("#Print").click(
 			function () {   
 			    bdhtml=window.document.body.innerHTML;   
@@ -355,12 +368,22 @@
 
             $('#save-item-btn').removeAttr('disabled');
             window.obj = [];
+            window.objs = [];
             var i = 0;
             $("input[name='productNumber']").each(function () {
 
+
                 if ($(this).val() != 0) {
-                    window.obj.push({'product_id': $(this).attr('data-id'), "count": $(this).val()});
-                    i += $(this).val();
+                    window.obj.push({
+                        'product_id': $(this).attr('data-id'),
+                        "count": $(this).val()
+                    });
+                    window.objs.push({
+                        'product_id': $(this).attr('data-id'),
+                        'overdue' : $(this).parent().next().find('input').val(),
+                        "count": $(this).val()
+                    });
+                    i += Number($(this).val());
                 }
 
 
@@ -369,13 +392,17 @@
             var datas = {
                 'products': window.obj,
                 'name': $('#name').val(),
+                'uproducts':window.objs,
                 'supplier': $('#supplier').val(),
                 'num': i,
-                'price': $('#price').val(),
+//                'price': $('#price').val(),
                 'remark': $('#remark').val(),
                 '_token': '{{csrf_token()}}'
             };
 
+            if ($('#price').val().length > 0) {
+                datas.price = $('#price').val();
+            }
             $.post('/shelves/deal/order', datas, function (res) {
                 if (res.status) {
                     alertify.success('创建采购订单成功');
@@ -395,7 +422,7 @@
         //删除
         var del = function (event) {
 
-            alertify.confirm("确认框", function (e) {
+            alertify.confirm("确认删除吗？", function (e) {
                 if (e) {
 
                     $.get('/shelves/order/del', {'id': $(event).attr('data-id')}, function (res) {
@@ -417,38 +444,6 @@
     </script>
 
     <script>
-
-        //搜索库存
-        function doPostSearch() {
-
-            $.get('/stock/search', {'value': $('#searchString').val()}, function (res) {
-
-                if (res.status) {
-                    if (res.data.length == 0) {
-                        alertify.alert('搜索不到数据');
-                        return;
-                    } else {
-                        var datas = '';
-                        for (let i in res.data) {
-
-                            datas += `<tr>
-                                <td><img height="60px; align=" middle" src="${res.data[i].product_image}" alt="没有上传"></td>
-                                <td >${res.data[i].sku}</td>
-                                <td>${res.data[i].zn_name}${res.data[i].en_name}</td>
-                                <td><input class="form-control" data-id="${res.data[i].id}"  name='productNumber'  type="text" min="0" value="0"></td>
-                            </tr>`;
-
-                        }
-
-                    }
-                    alertify.success('获取成功');
-
-                    $('#place').append(datas);
-                } else {
-                    alertify.alert(res.message);
-                }
-            })
-        }
 
         $('#delete_btn').click(function () {
 
@@ -479,6 +474,7 @@
         });
 
         var sse = function (event) {
+
             $.get('/shelves/order/deal', {'id': $(event).attr('data-id')}, function (res) {
 
                 if (res.status) {
@@ -491,16 +487,22 @@
 
                             var middle = (res.data.purchase[i].products.price * res.data.purchase[i].count).toFixed(2);
                             totalPrice += Number(middle);
+                            var dates = res.data.purchase[i].overdue == null ? `<input class="form-control datepicker" data-date-format="yyyy-mm-dd"
+                                placeholder="批次过期时间 选填" value="" name="editdate" readonly="readonly" type="text">`: `<input class="form-control datepicker" data-date-format="yyyy-mm-dd"
+                              name="editdate" value="${res.data.purchase[i].overdue}" readonly="readonly" type="text">`;
+
                             datas += `<tr>
                                 <td><img height="60px; align=" middle" src="${res.data.purchase[i].products.product_image}" alt="没有上传"></td>
                                 <td >${res.data.purchase[i].products.sku}</td>
                                 <td>${res.data.purchase[i].products.zn_name}${res.data.purchase[i].products.en_name}</td>
-                               <td>${res.data.purchase[i].count}</td>
-    <td><i class="fa fa-dollar"></i>${res.data.purchase[i].products.price}</td>
-     <td><i class="fa fa-dollar"></i>${middle}</td>
+                               <td><input type="text" data-id="${res.data.purchase[i].products.id}" name="editcount" class="form-control" readonly="readonly" value="${res.data.purchase[i].count}"></td>
+                                <td>$${res.data.purchase[i].products.price}</td>
+                                 <td>$${middle}</td>
+                                  <td>${dates}</td>
                             </tr>`;
 
                         }
+
                     }
 
                     switch (res.data.status) {
@@ -517,7 +519,7 @@
                     $('#create').html(`<strong>创建时间: </strong> ${res.data.created_at}`);
                     $('#puser').html(`<strong>采购人: </strong> ${res.data.name}`);
                     $('#orderStatus').html(`<strong>订单状态: </strong><span class="label label-pink">${word}</span>`);
-                    $('#totalPrice').html(`<i class="fa fa-dollar"></i> ${totalPrice}`);
+                    $('#totalPrice').html(`$${totalPrice}`);
                     $('#sure').attr('data-id', res.data.id);
                     $('#not').attr('data-id', res.data.id);
                     alertify.success('获取成功');
@@ -533,10 +535,38 @@
     <script>
         //处理订单
         var dealStock = function (event) {
+
             var datas = {
                 'id': $(event).attr('data-id'),
                 'status': $(event).attr('data-status')
             };
+            //update in stock
+            if ($(event).attr('data-status') != 1) {
+                window.obj = [];
+                window.objs = [];
+                var i = 0;
+                $("input[name='editcount']").each(function () {
+
+                    if ($(this).val() != 0) {
+                        window.obj.push({
+                            'product_id': $(this).attr('data-id'),
+                            "count": $(this).val()
+                        });
+                        window.objs.push({
+                            'product_id': $(this).attr('data-id'),
+                            'overdue' : $(this).parent().nextAll().find('input.datepicker').val(),
+                            "count": $(this).val()
+                        });
+                        i += Number($(this).val());
+                    }
+
+
+                });
+                datas.products = window.obj;
+                datas.uproducts = window.objs;
+                datas.num = i;
+            }
+
             $.get('/stock/put', datas, function (res) {
                 if (res.status) {
                     alertify.success('处理成功');
@@ -551,4 +581,120 @@
         }
     </script>
 
+    <script>
+
+        //搜索库存
+        function doPostSearch() {
+
+            $.get('/stock/search', {'value': $('#searchString').val()}, function (res) {
+
+                if (res.status) {
+                    if (res.data.length == 0) {
+                        alertify.alert('搜索不到数据');
+                        return;
+                    } else {
+                        var datas = '<thead>' +
+                            ' <tr>' +
+                            ' <th class="col-md-2 col-lg-2 exce"> 商品名称</th>' +
+                            ' <th class="col-md-2 col-lg-2 exce">  SKU</th>' +
+                            '<th class="col-md-2 col-lg-2 exce"> 商品图片</th> ' +
+                            '<th class="col-md-2 col-lg-2 exce">零售价（$）</th>' +
+                            '<th class="col-md-2 col-lg-2 exce">操作</th>' +
+                            ' </tr>' +
+                            ' </thead><tbody id="postContainer">';
+
+                        for (let i in res.data) {
+
+                            datas += `<tr>
+                                     <td class="exce">${res.data[i].zn_name}<br/>${res.data[i].en_name}</td>
+                                   <td class="exce">${res.data[i].sku}</td>
+                                        <td class="exce"><img height="100px; align=" middle"
+                                                    src="${res.data[i].product_image}"
+                                                    alt="没有上传"/>
+                                                </td>
+                                         <td class="exce">${res.data[i].distributor.level_four_price}
+                                                </td>
+                                           <td class="exce">
+                        <a title="添加商品" data-id="${res.data[i].id}" data-name="${res.data[i].zn_name}（${res.data[i].en_name}）"
+                                                       class="btn btn-small btn-success"
+                                                       href="javascript:void (0);"
+                                                       onclick="funOrder(this)">
+                                                        <i class="icon fa fa-shopping-basket"> </i>
+                                                    </a>
+                                                </td>
+                                  </tr>`;
+                        }
+                        datas += ' </tbody>';
+                    }
+                    alertify.success('获取成功');
+//                    $('#link').hide();
+                    $('#table').html(datas);
+                    jQuery('.datepicker').datepicker({
+                        numberOfMonths: 3,
+                        showButtonPanel: true,
+                    });
+                } else {
+                    alertify.alert(res.message);
+                }
+            })
+        }
+
+        window.arr = [];
+        var funOrder = function (event) {
+
+            if ($("input[name='productNumber']").length > 0) {
+                //重复添加
+
+                if (arr.indexOf($(event).attr('data-id')) == -1) {
+
+                    $('#content').append(` <div id="content" class="form-group">
+                              <div class="input-group">
+                            <text style="line-height: 34px; width: 69%;">${$(event).attr('data-name')}</text>
+                            <span style="width: 30%; padding: 10px; " class="input-group-btn">
+                                           <input name="productNumber" data-id="${$(event).attr('data-id')}"  class="form-control"
+                                                  placeholder="采购数量"  type="text">
+                                                    </span>
+                                                        <span style="width: 30%;" class="input-group-btn">
+                                           <input class="form-control datepicker" data-date-format="yyyy-mm-dd"
+                                                  placeholder="批次过期时间 选填"  type="text">
+                                                    </span>
+
+                        </div>
+
+                    </div>`);
+                    window.arr.push($(event).attr('data-id'));
+                } else {
+                    return;
+                }
+
+
+            } else {
+                $('#content').append(` <div id="content" class="form-group">
+                        <div class="input-group">
+                            <text style="line-height: 34px; width: 69%;">${$(event).attr('data-name')}</text>
+                            <span style="width: 30%; padding: 10px; " class="input-group-btn">
+                                           <input name="productNumber" data-id="${$(event).attr('data-id')}"  class="form-control"
+                                                  placeholder="采购数量"  type="text">
+                                                    </span>
+                                                        <span style="width: 30%;" class="input-group-btn">
+                                           <input class="form-control datepicker" data-date-format="yyyy-mm-dd"
+                                                  placeholder="批次过期时间 选填"  type="text">
+                                                    </span>
+
+                        </div>
+
+                    </div>`);
+
+                window.arr.push($(event).attr('data-id'));
+
+
+            }
+            jQuery('.datepicker').datepicker({
+                numberOfMonths: 3,
+                showButtonPanel: true,
+            });
+
+        }
+
+    </script>
 @endsection

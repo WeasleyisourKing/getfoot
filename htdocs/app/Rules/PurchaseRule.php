@@ -14,7 +14,7 @@ class PurchaseRule extends BaseRule
     protected $rule = [
         'name' => 'required|max:100',
         'supplier' => 'required|max:100',
-         'price' => 'required|price_value',
+         'price' => 'price_value',
         'remark' => 'required|max:500'
     ];
     //失败信息
@@ -23,7 +23,6 @@ class PurchaseRule extends BaseRule
         'name.max' => '采购人不能超过100个字符',
         'supplier.required' => '供货商不能为空',
         'supplier.max' => '供货商不能超过100个字符',
-        'price.required' => '价格不能为空',
         'price.price_value' => '价格格式不对',
         'remark.required' => '备注不能为空',
         'remark.max' => '备注不能超过500个字符'

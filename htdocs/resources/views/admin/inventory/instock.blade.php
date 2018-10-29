@@ -57,6 +57,9 @@
             <div class="panel-heading">
                 <h4 class="panel-title">添加商品</h4>
             </div>
+            <div id="content" class="form-group"style="
+   			 padding: 10px;">
+            </div>
             <div class="panel-body">
                 <!---- 搜索并添加商品 ---->
                 <div class="form-group col-lg-4">
@@ -71,27 +74,27 @@
 
                 <!---- 添加的商品 ---->
                 <div>
-                    <table class="table table-bordered table-striped display">
-                        <thead>
-                        <tr>
-                            <th>商品图片</th>
-                            <th>SKU</th>
-                            <th>商品名称</th>
-                            <th>入库数量</th>
-                            <th>批次过期时间
-                                <small class="text-muted">选填</small>
-                            </th>
-                        </tr>
-                        </thead>
 
-                        <tbody id="place">
-                        {{--<td><img class="" height="60px; align=" middle" src="https://12buy.com/uploads/安慕希正面101118.jpg" alt=""></td>--}}
-                        {{--<td><a href="" target="_blank">6907992512570</a></td>--}}
-                        {{--<td><a href="" target="_blank">安慕希 希腊风味酸奶 原味 205g Ambrosial Greek Flavored Yoghurt 205g</a></td>--}}
-                        {{--<td><input class="form-control" type="number" min="1" value="1"></td>--}}
-                        {{--<td><input class="datepicker" class="form-control" type="text" data-date-format="yyyy-mm-dd"></td>--}}
-                        </tbody>
+                    <table id="table" class="table table-bordered table-striped display">
                     </table>
+
+                    {{--<table class="table table-bordered table-striped display">--}}
+                        {{--<thead>--}}
+                        {{--<tr>--}}
+                            {{--<th>商品图片</th>--}}
+                            {{--<th>SKU</th>--}}
+                            {{--<th>商品名称</th>--}}
+                            {{--<th>入库数量</th>--}}
+                            {{--<th>批次过期时间--}}
+                                {{--<small class="text-muted">选填</small>--}}
+                            {{--</th>--}}
+                        {{--</tr>--}}
+                        {{--</thead>--}}
+
+                        {{--<tbody id="place">--}}
+                    {{----}}
+                        {{--</tbody>--}}
+                    {{--</table>--}}
                 </div><!---- End 添加的商品 ---->
 
             </div><!---- end panel-body ---->
@@ -111,7 +114,7 @@
             操作人
         </label>
 
-        <input type="text" id="eoperator" class="form-control" readonly="readonly" value="陈宝">
+        <input type="text" id="eoperator" class="form-control" readonly="readonly" value="">
     </div>
 
     <div class="form-group col-lg-4">
@@ -119,7 +122,7 @@
             创建时间
         </label>
 
-        <input type="text" id="date" class="form-control" readonly="readonly" value="2018-10-23 9:30:21">
+        <input type="text" id="date" class="form-control" readonly="readonly" value="">
     </div>
 
     <div class="form-group col-lg-4">
@@ -127,7 +130,7 @@
             入库类型
         </label>
 
-        <input type="text" class="form-control" readonly="readonly" value="手动入库">
+        <input type="text" id="etype" class="form-control" readonly="readonly" value="">
         {{-- <select class="form-control" name="" id="">
             <option value="">入库</option>
             <option value="">出库</option>
@@ -276,7 +279,7 @@
                                     <td>自动</td>
                                 @endif
                                 <td> {{$item->operator}}</td>
-                                <td>{{$item->create}}</td>
+                                <td>{{$item->created_at}}</td>
                                 <td>{{$item->pruchase_order_no}}
                                 </td>
                                 <!-- 操作按钮 -->
@@ -348,8 +351,6 @@
         </div>
     </div><!---- End 查看 ---->
 
-    <script type="text/javascript">
-    </script>
 
     <!---- End 弹窗 ---->
 
@@ -408,7 +409,7 @@
         //删除
         var del = function (event) {
 
-            alertify.confirm("确认框", function (e) {
+            alertify.confirm("确认删除吗？", function (e) {
                 if (e) {
 
                     $.get('/enter/stock/order/del', {'id': $(event).attr('data-id')}, function (res) {
@@ -482,8 +483,14 @@
 
                     $('#eoperator').attr("value",`${res.data.operator}`);
                     $('#eorderId').attr("value",`${res.data.pruchase_order_no}`);
-                    $('#date').attr("value",`${res.data.create}`);
-                    $('#eremark').attr("value",`${res.data.remark}`);
+                    $('#date').attr("value",`${res.data.created_at}`);
+                    $('#eremark').text(`${res.data.remark}`);
+                    if (res.data.type == 1) {
+                        $('#etype').attr("value",`自动出库`);
+                    } else {
+                        $('#etype').attr("value",`手动出库`);
+                    }
+
 
                     alertify.success('获取成功');
 
@@ -504,9 +511,14 @@
                 }
             })
         }
+        var mydate = new Date();
+        $('#NowDate').val(`${myDate.getFullYear()}-${myDate.getMonth()+1}-${myDate.getDate()} ${myDate.getHours()}:${myDate.getMinutes()}:${myDate.getSeconds()}`);
+
+        //        $("#NowDate").val(`${mydate.getFullYear()}-${mydate.getMonth() + 1}-${mydate.getDate()}`)
     </script>
 
     <script>
+
         //搜索库存
         function doPostSearch() {
 
@@ -517,33 +529,107 @@
                         alertify.alert('搜索不到数据');
                         return;
                     } else {
-                        var datas = '';
+                        var datas = '<thead>' +
+                            ' <tr>' +
+                            ' <th class="col-md-2 col-lg-2 exce"> 商品名称</th>' +
+                            ' <th class="col-md-2 col-lg-2 exce">  SKU</th>' +
+                            '<th class="col-md-2 col-lg-2 exce"> 商品图片</th> ' +
+                            '<th class="col-md-2 col-lg-2 exce">零售价（$）</th>' +
+                            '<th class="col-md-2 col-lg-2 exce">操作</th>' +
+                            ' </tr>' +
+                            ' </thead><tbody id="postContainer">';
+
                         for (let i in res.data) {
 
                             datas += `<tr>
-                                <td><img height="60px; align=" middle" src="${res.data[i].product_image}" alt="没有上传"></td>
-                                <td >${res.data[i].sku}</td>
-                                <td>${res.data[i].zn_name}${res.data[i].en_name}</td>
-                                <td><input class="form-control" data-id="${res.data[i].id}"  name='productNumber'  type="text" min="0" value="0"></td>
-                                <td><input class="datepicker" class="form-control" type="text" data-date-format="yyyy-mm-dd"></td>
-                            </tr>`;
-
+                                     <td class="exce">${res.data[i].zn_name}<br/>${res.data[i].en_name}</td>
+                                   <td class="exce">${res.data[i].sku}</td>
+                                        <td class="exce"><img height="100px; align=" middle"
+                                                    src="${res.data[i].product_image}"
+                                                    alt="没有上传"/>
+                                                </td>
+                                         <td class="exce">${res.data[i].distributor.level_four_price}
+                                                </td>
+                                           <td class="exce">
+                        <a title="添加商品" data-id="${res.data[i].id}" data-name="${res.data[i].zn_name}（${res.data[i].en_name}）"
+                                                       class="btn btn-small btn-success"
+                                                       href="javascript:void (0);"
+                                                       onclick="funOrder(this)">
+                                                        <i class="icon fa fa-shopping-basket"> </i>
+                                                    </a>
+                                                </td>
+                                  </tr>`;
                         }
+                        datas += ' </tbody>';
                     }
-
                     alertify.success('获取成功');
-
-                    $('#place').append(datas);
-                    $('.datepicker').datepicker()
+//                    $('#link').hide();
+                    $('#table').html(datas);
+                jQuery('.datepicker').datepicker({
+                    numberOfMonths: 3,
+                    showButtonPanel: true,
+                });
                 } else {
                     alertify.alert(res.message);
                 }
             })
         }
 
+        window.arr = [];
+        var funOrder = function (event) {
 
-        var mydate = new Date();
-        $("#NowDate").val(`${mydate.getFullYear()}-${mydate.getMonth() + 1}-${mydate.getDate()}`)
+            if ($("input[name='productNumber']").length > 0) {
+                //重复添加
+
+                if (arr.indexOf($(event).attr('data-id')) == -1) {
+
+                    $('#content').append(` <div id="content" class="form-group">
+                              <div class="input-group">
+                            <text style="line-height: 34px; width: 69%;">${$(event).attr('data-name')}</text>
+                            <span style="width: 30%; padding: 10px;" class="input-group-btn">
+                                           <input name="productNumber" data-id="${$(event).attr('data-id')}"  class="form-control"
+                                                  placeholder="入库数量"  type="text">
+                                                    </span>
+                                                    <span style="width: 30%;" class="input-group-btn">
+                                           <input class="form-control datepicker" data-date-format="yyyy-mm-dd"
+                                                  placeholder="批次过期时间 选填"  type="text">
+                                                    </span>
+                        </div>
+
+                    </div>`);
+                    window.arr.push($(event).attr('data-id'));
+                } else {
+                    return;
+                }
+
+
+            } else {
+                $('#content').append(` <div id="content" class="form-group">
+                        <div class="input-group">
+                            <text style="line-height: 34px; width: 69%;">${$(event).attr('data-name')}</text>
+                            <span style="width: 30%; padding: 10px; " class="input-group-btn">
+                                           <input name="productNumber" data-id="${$(event).attr('data-id')}"  class="form-control"
+                                                  placeholder="入库数量"  type="text">
+                                                    </span>
+                                                    <span style="width: 30%;" class="input-group-btn">
+                                           <input class="form-control datepicker" data-date-format="yyyy-mm-dd"
+                                                  placeholder="批次过期时间 选填"  type="text">
+                                                    </span>
+
+                        </div>
+
+                    </div>`);
+
+                window.arr.push($(event).attr('data-id'));
+
+
+            }
+                jQuery('.datepicker').datepicker({
+                    numberOfMonths: 3,
+                    showButtonPanel: true,
+                });
+
+        }
 
     </script>
 

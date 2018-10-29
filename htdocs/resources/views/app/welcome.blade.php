@@ -22,7 +22,7 @@
     <div class="container bg-gradient pb-2">
         <div class="d-flex justify-content-between pt-3 align-items-center">
             <div class="col-3 px-2">
-                <img class="w-100" src="uploads/logo5.png" alt="logo">
+                <img class="w-100" src="/uploads/snackicon.png" alt="logo">
             </div>
             <div class="col-7 pl-2 pr-0" id="seach">
                 <form action="/apps/productList" method="get">

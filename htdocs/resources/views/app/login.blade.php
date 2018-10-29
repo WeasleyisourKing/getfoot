@@ -18,7 +18,7 @@
 
 		<!-- logo -->
 		<div class="d-flex justify-content-center pb-4">
-			<img class="w-100 h-100" src="/{{$logo}}" alt="logo">
+			<img class="w-100 h-100" src="/uploads/snackicon.png" alt="logo">
 		</div><!-- logo -->
 
 		<form action="/appLogin" class="am-form" id="form-with-tooltip" method="post">
@@ -103,10 +103,10 @@
                 </script></a>
 			</div>
 			<div class="d-flex">
-				<a href="{{ route('appsRegister') }}" class="text-muted">
+				<!--<a href="{{ route('appsRegister') }}" class="text-muted">
                 	<script type="text/javascript">
                 	Language("点我注册","Register")
-                </script></a>
+                </script></a>-->
 			</div>
 		</div><!-- 链接 -->
 

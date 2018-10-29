@@ -17,7 +17,7 @@
 <div class="container p-5 mt-5">
   <div class="d-flex justify-content-center  mb-3">
     <div class="p-2 mt-5 pt-3">
-			<img class="w-50 logo img-center" src="" alt="" />
+			<img class="w-50 logo img-center" src="/uploads/snackicon.png" alt="" />
     </div>
   </div>
   <div class="d-flex justify-content-center  ">
@@ -53,12 +53,12 @@
 		$('#mobile-nav').hide();
 	});
 //	获取logo
-    $.get('/api/home/login', {}, function (res) {
-        if (res.status) {
-            $('.logo').attr('src',"/"+res.data.logo);
-
-        }
-    })
+//  $.get('/api/home/login', {}, function (res) {
+//      if (res.status) {
+//          $('.logo').attr('src',"/"+res.data.logo);
+//
+//      }
+//  })
 </script>
 
 @endsection

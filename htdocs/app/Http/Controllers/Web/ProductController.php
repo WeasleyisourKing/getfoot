@@ -49,7 +49,7 @@ class ProductController extends Controller
                 ->where('status', '=', 1)
                 ->with('distributor');
         }])
-            ->whereIn('id', [7, 8])
+            ->whereIn('id', [8, 7])
             ->orderBy('created_at', 'desc')
             ->get()
             ->toArray();

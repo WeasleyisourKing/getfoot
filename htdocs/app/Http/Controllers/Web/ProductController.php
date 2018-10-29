@@ -58,6 +58,7 @@ class ProductController extends Controller
         //获取热销
         $hotImg = ThemeImageModel::where('type',2)->get()->toArray();
   dump($res);
+  dump($banner->toArray());
         dump($hotImg);
 //        dump($categorys);
 //        dd($banner->toArray());

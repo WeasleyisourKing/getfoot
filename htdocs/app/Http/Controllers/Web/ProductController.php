@@ -39,13 +39,26 @@ class ProductController extends Controller
         $categorys = Common::getTree(CategoryModel::getHomePage()->toArray(), 0);
 //        dd($categorys);
         //获取热销和秒杀
-        $res = ThemeModel::getPcHomePage()->toArray();
+//        $res = ThemeModel::getPcHomePage()->toArray();
+        $res = ThemeModel::with(['products' => function ($query) {
+
+            $query->select(
+                DB::raw("CASE stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name',
+                CASE stock WHEN 0 THEN CONCAT('【Sold out】',en_name) ELSE en_name END as 'en_name'"),
+                'id', 'product_image', 'stock')
+                ->where('status', '=', 1)
+                ->with('distributor');
+        }])
+            ->whereIn('id', [7, 8])
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->toArray();
         //获取轮播图
-        $banner = BannerModel::getbannerById(2);
+        $banner = BannerModel::getbannerById(4);
         //获取热销
-        $hotImg = ThemeImageModel::get()->toArray();
-//        dump($hotImg);
-//        dump($hotImg);
+        $hotImg = ThemeImageModel::where('type',2)->get()->toArray();
+  dump($res);
+        dump($hotImg);
 //        dump($categorys);
 //        dd($banner->toArray());
 //        dump($categorys);

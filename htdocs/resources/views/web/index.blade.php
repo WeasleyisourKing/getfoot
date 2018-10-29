@@ -113,7 +113,7 @@
         </div>
     </div>
 
-    <!--{{--<div class="maxCentr ">
+    <div class="maxCentr ">
         <div class="second ">
             <div class="secondBg clearfloat">
                 <div class="secondBg1 float_left">
@@ -126,16 +126,17 @@
             <script>
             	Language("{{$modular[1]['zn_name']}}","{{$modular[1]['en_name']}}")
             </script><br/><span>
-            <script>
-            	Language("本场秒杀商品","Flash Sales Products")
-            </script></span></p>
+            {{--<script>--}}
+            	{{--Language("本场秒杀商品","Flash Sales Products")--}}
+            {{--</script>--}}
+                    </span></p>
             </div>
             <div class="secondBanner">
                 <div data-am-widget="slider" class="am-slider am-slider-default"
                      data-am-slider='{"animation":"slide","animationLoop":false,"itemWidth":250,"itemMargin":2, "directionNav": true}'>
                     <ul class="am-slides">
                         {{--                    @if ($modular->id == 1)--}}
-                        @foreach($modular[0]['products'] as $item)
+                        @foreach($modular[1]['products'] as $item)
                             <li>
                                 <div class="secondBannerPro" data-router="/details/{{$item['id']}}">
                                     <img class="secondImg" src="{{$item['product_image']}}" alt=""/>
@@ -153,7 +154,7 @@
                                                 Sprice({{$item['distributor']['level_four_price']}},{{$item['distributor']['level_two_price']}},{{$item['distributor']['level_one_price']}},{{$item['distributor']['level_three_price']}});
                                             </script>
                                         @endif
-                                        
+
                                         <script>
                                             Language(`<button data-number="1" data-zn-name="{{$item['zn_name']}}" data-en-name="{{$item['en_name']}}"  datas-tock="{{$item['stock']}}" data-price="@if(!empty(Auth::guard("pc")->user()))${Sprice1({{$item['distributor']['level_four_price']}},{{$item['distributor']['level_two_price']}},{{$item['distributor']['level_one_price']}},{{$item['distributor']['level_three_price']}})}@endif"data-img="{{$item['product_image']}}" data-id="{{$item['id']}}" class="shopAdd">加入购物车`,
                                                 `<button data-number="1" data-zn-name="{{$item['zn_name']}}" data-en-name="{{$item['en_name']}}" datas-tock="{{$item['stock']}}" data-price="@if(!empty(Auth::guard("pc")->user()))${Sprice1({{$item['distributor']['level_four_price']}},{{$item['distributor']['level_two_price']}},{{$item['distributor']['level_one_price']}},{{$item['distributor']['level_three_price']}})}@endif" data-img="{{$item['product_image']}}" data-id="{{$item['id']}}" class="shopAdd"> Shopping Cart`)
@@ -168,7 +169,7 @@
 
             </div>
         </div>
-    </div>--}}-->
+    </div>
 
 
     <div class="iocBg">
@@ -259,35 +260,35 @@
         <div class="hotPro clearfloat">
             <ul>
                 <li class="hotPro1"><a
-                            href="{{!empty($hotImg[0]['url']) ? 'https://snacktalk.com'.$hotImg[0]['url'] : ''}}"><img
+                            href="{{!empty($hotImg[0]['url']) ? $hotImg[0]['url'] : ''}}"><img
                                 src="{{!empty($hotImg[0]['img']) ? $hotImg[0]['img'] : '' }}"
                                 alt=""/></a></li>
                 <li class="hotPro3"><a
-                            href="{{!empty($hotImg[2]['url']) ? 'https://snacktalk.com'.$hotImg[2]['url'] : ''}}"><img
-                                src="{{!empty($hotImg[2]['img']) ? $hotImg[2]['img'] : '' }}"
+                            href="{{!empty($hotImg[1]['url']) ? $hotImg[1]['url'] : ''}}"><img
+                                src="{{!empty($hotImg[1]['img']) ? $hotImg[1]['img'] : '' }}"
                                 alt=""/></a></li>
             </ul>
             <ul>
                 <li class="hotPro2" style="margin-bottom: 2%;"><a
-                            href="{{!empty($hotImg[1]['url']) ? 'https://snacktalk.com'.$hotImg[1]['url'] : ''}}"><img
-                                src="{{!empty($hotImg[1]['img']) ? $hotImg[1]['img'] : '' }}"
+                            href="{{!empty($hotImg[2]['url']) ? $hotImg[2]['url'] : ''}}"><img
+                                src="{{!empty($hotImg[2]['img']) ? $hotImg[2]['img'] : '' }}"
                                 alt=""/></a></li>
                 <li class="hotPro2" style="margin-bottom: 1%;"><a
-                            href="{{!empty($hotImg[3]['url']) ? 'https://snacktalk.com'.$hotImg[3]['url'] : ''}}"><img
+                            href="{{!empty($hotImg[3]['url']) ? $hotImg[3]['url'] : ''}}"><img
                                 src="{{!empty($hotImg[3]['img']) ? $hotImg[3]['img'] : '' }}"
                                 alt=""/></a></li>
                 <li class="hotPro2"><a
-                            href="{{!empty($hotImg[4]['url']) ? 'https://snacktalk.com'.$hotImg[4]['url'] : ''}}"><img
+                            href="{{!empty($hotImg[4]['url']) ? $hotImg[4]['url'] : ''}}"><img
                                 src="{{!empty($hotImg[4]['img']) ? $hotImg[4]['img'] : '' }}"
                                 alt=""/></a></li>
             </ul>
             <ul>
                 <li class="hotPro3"><a
-                            href="{{!empty($hotImg[5]['url']) ? 'https://snacktalk.com'.$hotImg[5]['url'] : ''}}"><img
+                            href="{{!empty($hotImg[5]['url']) ? $hotImg[5]['url'] : ''}}"><img
                                 src="{{!empty($hotImg[5]['img']) ? $hotImg[5]['img'] : '' }}"
                                 alt=""/></a></li>
                 <li class="hotPro1"><a
-                            href="{{!empty($hotImg[6]['url']) ? 'https://snacktalk.com'.$hotImg[6]['url'] : ''}}"><img
+                            href="{{!empty($hotImg[6]['url']) ? $hotImg[6]['url'] : ''}}"><img
                                 src="{{!empty($hotImg[6]['img']) ? $hotImg[6]['img'] : '' }}"
                                 alt=""/></a></li>
             </ul>

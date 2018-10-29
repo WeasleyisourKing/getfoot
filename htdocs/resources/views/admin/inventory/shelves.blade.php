@@ -270,7 +270,7 @@
     //删除
     var del = function (event) {
 
-        alertify.confirm("确认框", function (e) {
+        alertify.confirm("确认删除吗？", function (e) {
             if (e) {
 
                 $.get('/shelves/del', {'id': $(event).attr('data-id')}, function (res) {

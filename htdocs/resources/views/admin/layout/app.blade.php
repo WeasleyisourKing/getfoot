@@ -305,6 +305,7 @@
                             <li><a href="/stock/in">入库</a></li>
                             <li><a href="/stock/out">出库</a></li>
                             <li><a href="/stock/purchase">采购</a></li>
+                            {{--<li><a href="/stock/list/limit/20">列表</a></li>--}}
                             {{--<li><a href="/stock/list/limit/20">入库</a></li>--}}
                             {{--<li><a href="/stock/out/limit/20">出库</a></li>--}}
                             {{--<li><a href="/stock/shelves/limit/20">货架管理</a></li>--}}

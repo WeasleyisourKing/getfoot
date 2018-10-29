@@ -155,8 +155,9 @@ class StockController extends Controller
      */
     public function searchStock (Request $request)
     {
+        $data = str_replace(' ', '', $request->input('value'));
 
-        $data = htmlspecialchars(strip_tags(trim($request->input('value'))));
+        $data = htmlspecialchars(strip_tags(trim($data)));
 
         if (empty($data)) {
             throw new ParamsException([
@@ -190,7 +191,13 @@ class StockController extends Controller
     //库存列表
     public function Stock2 ()
     {
-        $res = StockOrderModel::get();
+        $res = ProductModel::with('info')
+            ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+
+//        $res = StockOrderModel::get();
         return view('admin.inventory.inventories', ['res' => $res]);
     }
 
@@ -318,7 +325,23 @@ class StockController extends Controller
 
         $params = $request->all();
 
-        return $this->createOrder($params, $params['products']);
+
+        if (empty($params['price'])) {
+
+            $price = 0;
+            $set = ProductModel::whereIn('id', array_column($params['products'], 'product_id'))->get(['id', 'price'])->toArray();
+            foreach ($set as $items) {
+                foreach ($params['products'] as $val) {
+                    if ($items['id'] == $val['product_id']) {
+                        $price += $val['count'] * $items['price'];
+                    }
+                }
+            }
+            $params['price'] = $price;
+        }
+
+//        dd($params['products']);
+        return $this->createOrder($params, $params['uproducts']);
     }
 
     // 创建订单时没有预扣除库存量，简化处理
@@ -419,19 +442,46 @@ class StockController extends Controller
         $params = $request->all();
 
         if (PurchaseOrderModel::where('id', $params['id'])->first(['status'])->status != 1) {
+
             throw new ParamsException([
                 'code' => 200,
                 'message' => '此订单已经处理 不能重复处理'
             ]);
         }
         if ($params['status'] != 1) {
-            $purchase = PurchaseOrderModel::updateStatus($params['id'], ['status' => 3]);
 
-            if (!$purchase) {
-                throw new \Exception('服务器内部错误');
+            //update in stock
+            (new OrderRule)->goCheck(200);
+
+            $price = 0;
+            $set = ProductModel::whereIn('id', array_column($params['products'], 'product_id'))->get(['id', 'price', 'stock'])->toArray();
+
+            $copy = $params['uproducts'];
+            foreach ($set as $items) {
+                foreach ($params['uproducts'] as &$val) {
+                    if ($items['id'] == $val['product_id']) {
+                        $price += $val['count'] * $items['price'];
+                        $val['origin_stock'] = $items['stock'];
+                    }
+                }
             }
+
+
+            $data = [
+                'total_price' => $price,
+                'total_count' => $params['num']
+            ];
+
+
+            $info = PurchaseOrderModel::updateStatus($params['id'], $data, $copy);
+
+            //stock表需要origin_stock
+            $this->createStockOrder($info->id, $info->order_no, $params['uproducts'], $params['num'] ,true);
+
+
         } else {
 
+            //入库
             $purchase = PurchaseOrderModel::with(['purchase' => function ($query) {
 
                 $query->with(['products' => function ($querys) {
@@ -442,17 +492,20 @@ class StockController extends Controller
                 ->first();
 
             $Products = [];
+            $num = 0;
             foreach ($purchase->purchase as $items) {
 
                 $data = [
                     'product_id' => $items['product_id'],
                     'origin_stock' => $items['products']['stock'],
                     'count' => $items['count'],
+                    'overdue' => $items['overdue'],
+
                 ];
                 array_push($Products, $data);
-
+                $num += $items['count'];
             }
-            $this->createStockOrder($params['id'], $purchase->order_no, $Products);
+            $this->createStockOrder($params['id'], $purchase->order_no, $Products, $num);
 
 
         }
@@ -461,7 +514,7 @@ class StockController extends Controller
     }
 
     //写入数据库
-    private function createStockOrder ($id, $orderId, $uProducts)
+    private function createStockOrder ($id, $orderId, $uProducts, $number, $state = null)
     {
 
         $num = StockOrderModel::where('status', '=', 1)->orderBy('created_at', 'desc')->first(['order_no']);
@@ -476,10 +529,13 @@ class StockController extends Controller
             'operator' => '系统自动',
             'pruchase_order_no' => $orderId,
             'remark' => '自动入库',
-            'status' => 1,
-            'create' => date('Y-m-d')
+            'total_count' => $number,
+            'status' => 1
         ];
 
+        if (!is_null($state)) {
+            $data['remark'] = '非直接入库确认，入库数量与订单数量存在误差';
+        }
         $res = StockOrderModel::insertOrder($id, $data, $uProducts);
 
         if (!$res) {
@@ -529,8 +585,7 @@ class StockController extends Controller
             'pruchase_order_no' => htmlspecialchars(strip_tags(trim($orderSnap['orderId']))),
             'remark' => htmlspecialchars(strip_tags(trim($orderSnap['remark']))),
             'status' => 1,
-            'type' => 2,
-            'create' => date('Y-m-d')
+            'type' => 2
         ];
 
         $res = StockOrderModel::insertOrder(null, $data, $uProducts);
@@ -620,11 +675,18 @@ class StockController extends Controller
 
         $num = StockOrderModel::where('status', '=', 2)->orderBy('created_at', 'desc')->first(['order_no']);
 
-        $Product = ProductModel::whereIn('id', array_column($uProducts, 'product_id'))->get(['id', 'stock'])->toArray();
+        $Product = ProductModel::whereIn('id', array_column($uProducts, 'product_id'))->get(['id', 'zn_name', 'stock'])->toArray();
         foreach ($Product as $val) {
             foreach ($uProducts as &$items) {
+
                 if ($val['id'] == $items['product_id']) {
 
+                    if ($val['stock'] == 0 || $val['stock'] - $items['count'] < 0) {
+                        throw new ParamsException([
+                            'code' => 200,
+                            'message' => '商品' . $val['zn_name'] . '库存不足'
+                        ]);
+                    }
                     $items['origin_stock'] = $val['stock'];
 
                 }
@@ -641,8 +703,7 @@ class StockController extends Controller
             'pruchase_order_no' => htmlspecialchars(strip_tags(trim($orderSnap['orderId']))),
             'remark' => htmlspecialchars(strip_tags(trim($orderSnap['remark']))),
             'status' => 2,
-            'type' => 2,
-            'create' => date('Y-m-d')
+            'type' => 2
         ];
 
         $res = StockOrderModel::reduceOrder(null, $data, $uProducts);
@@ -692,11 +753,14 @@ class StockController extends Controller
             foreach ($productId as &$items) {
                 if ($val['id'] == $items['product_id']) {
 
-                    $items['origin_stock'] = $val['stock'];
+                    //支付成功 已经减库存 现在加入
+                    $items['origin_stock'] = $val['stock'] + $items['count'];
+
 
                 }
             }
         }
+
 
         $orderNo = Common::makeOrderNo(is_null($num) ? 'A2018101800001' : $num->order_no);
 
@@ -709,12 +773,59 @@ class StockController extends Controller
             'pruchase_order_no' => $orderID,
             'remark' => '此出库记录由系统根据用户订单正常生成',
             'status' => 2,
-            'type' => 1,
-            'create' => date('Y-m-d')
+            'type' => 1
         ];
 
         $res = StockOrderModel::automaticOrder($data, $productId);
 
+    }
+
+    /**
+     * 修改商品添加库存信息接口
+     * @param Request $request
+     * @return null
+     */
+    public function productStockDeal (Request $request)
+    {
+
+        (new StockRule)->goCheck(200);
+
+        $data = $request->all();
+
+
+        if ($data['data'][0]['count'] > 0) {
+            //入库
+            $params = [
+                'operator' => 'Admin',
+                'num' => $data['count'],
+                'orderId' => '无',
+                'remark' => '库存清点',
+                'status' => 1,
+                'type' => 2
+            ];
+
+            $this->entercreateOrder($params, $data['data']);
+        } else {
+            //出库 修改信息
+
+            foreach ($data['data'] as &$items) {
+                $items['count'] = abs($items['count']);
+
+            }
+
+            $params = [
+                'operator' => 'Admin',
+                'num' => $data['count'],
+                'orderId' => '无',
+                'remark' => '库存清点',
+                'status' => 2,
+                'type' => 2
+            ];
+            $this->outcreateOrder($params, $data['data']);
+
+        }
+
+        return Common::successData();
     }
 }
 

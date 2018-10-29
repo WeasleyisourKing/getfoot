@@ -130,16 +130,37 @@ class ContentController extends Controller
             }
         }
         //根据bannerID 获取bannner信息 默认选择首页
-        $res = BannerModel::getbannerById(1);
+//        $res = BannerModel::getbannerById(1);
 
+        $res = BannerItemModel::with('img')->get()->toArray();
+
+        $arr1 = $arr2 = $arr3 = $arr4 = [];
+        foreach ($res as $items) {
+            if ($items['banner_id'] == 1) {
+                array_push($arr1, $items);
+
+            } elseif ($items['banner_id'] == 2) {
+                array_push($arr2, $items);
+
+            } elseif ($items['banner_id'] == 3) {
+                array_push($arr3, $items);
+
+            } elseif ($items['banner_id'] == 4) {
+                array_push($arr4, $items);
+
+            }
+        }
+
+        $themeData = ThemeModel::get();
         //获取活动列表
         $theme = ThemeModel::getThemeList(1);
         //获取ST活动列表
-//        $STtheme = ThemeModel::getThemeList(2);
+        $STtheme = ThemeModel::getThemeList(2);
 
 //        dump($theme->toArray());
 
-        $hot = ThemeImageModel::get();
+        $hot = ThemeImageModel::where('type', 1)->get();
+        $sthot = ThemeImageModel::where('type', 2)->get();
 //        dump($hot);
 //        foreach (ThemeImageModel::get()->toArray() as $items) {
 //            array_push($hot,$items['img']);
@@ -149,11 +170,14 @@ class ContentController extends Controller
 //dd($datas->toArray());
         return view('admin.content.content-content',
             [
+                'themeData' => $themeData,
                 'theme' => $theme,
-//                'sttheme' => $STtheme,
+                'stapp' => $arr3,
+                'stpc' => $arr4,
+                'sttheme' => $STtheme,
                 'product' => $datas,
-                'data' => ($res->toArray())['items'],
-                'pc' => (BannerModel::getbannerById(2)->toArray())['items'],
+                'data' => $arr1,
+                'pc' => $arr2,
                 'status' => $status == -1 ? '全部状态' : ($status == 1 ? '上架' : '下架'),
                 'statusId' => $status,
                 'categoryId' => $category,
@@ -163,6 +187,7 @@ class ContentController extends Controller
                 'limit' => '显示' . $limit . '条',
                 'limitId' => $limit,
                 'hot' => $hot,
+                'sthot' => $sthot,
                 'categoryVal' => empty($categoryVal) ? '全部分类' : $categoryVal,
 //                'categoryVals' => empty($categoryVals) ? '全部分类' : $categoryVals,
                 'brandVal' => empty($brandVal) ? '全部品牌' : $brandVal
@@ -484,21 +509,22 @@ class ContentController extends Controller
 
         if (is_null($status)) {
             $res = ThemeModel::with(['products' => function ($query) {
-                $query->select('id', 'en_name', 'zn_name', 'product_image');
+                $query->select('id','status', 'en_name', 'zn_name', 'product_image');
             }])->where('id', '=', $id)->first();
         } else {
             $res = ThemeModel::with(['products' => function ($query) {
-                $query->with(['hot' => function($query) {
+                $query->with(['hot' => function ($query) {
                     $query->with('cat');
                 }])
-                ->select('id', 'en_name', 'zn_name', 'product_image');
+                    ->select('id','status','en_name', 'zn_name', 'product_image');
             }])->where('id', '=', $id)->first();
+
 
             $res = $res->toArray();
             $res['val'] = 1;
 
         }
-
+//        dd($res->toArray());
         if (!$res) {
             throw new \Exception('服务器内部错误');
         }
@@ -556,12 +582,23 @@ class ContentController extends Controller
         // 移动到框架应用根目录/uploads/目录下 文件名不变 同名覆盖
         $img->move($filePath . config('custom.DIRECTORY_SEPARATOR'), $imgName);
 
+
         if (is_null(ThemeImageModel::where('id', '=', $id)->first())) {
             //插入
-            ThemeImageModel::insert([
-                'id' => $id,
-                'img' => config('custom.DIRECTORY_SEPARATOR') . 'uploads' . config('custom.DIRECTORY_SEPARATOR') . $imgName
-            ]);
+            if ($request->input('status') == 2) {
+
+                ThemeImageModel::insert([
+                    'id' => $id,
+                    'type' => 2,
+                    'img' => config('custom.DIRECTORY_SEPARATOR') . 'uploads' . config('custom.DIRECTORY_SEPARATOR') . $imgName
+                ]);
+            } else {
+                ThemeImageModel::insert([
+                    'id' => $id,
+                    'img' => config('custom.DIRECTORY_SEPARATOR') . 'uploads' . config('custom.DIRECTORY_SEPARATOR') . $imgName
+                ]);
+            }
+
         } else {
             //修改
             ThemeImageModel::where('id', '=', $id)->update([
@@ -591,8 +628,6 @@ class ContentController extends Controller
 
         return Common::successData($res);
     }
-
-
 
 
 }

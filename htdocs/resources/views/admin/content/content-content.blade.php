@@ -64,6 +64,7 @@
             margin-bottom: 10px;
             padding: 5px 10px;
             margin-left: 1rem;
+            display: inline-block;
         }
     </style>
     <div id="bannerAdd" class="modal fade" role="dialog">
@@ -193,7 +194,102 @@
             </div>
         </div>
     </div>
+    <div id="stuploadImg" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">热销产品上传图片</h4>
+                </div>
+                <div class="modal-body" id="pppxxx">
+
+                    <!--<input type="file" name="img" id="uploadfileC" multiple class="file-loading"/>-->
+
+                    <div>
+                        <input type="file" data-id="8" data-width="999" data-height="999" name="img" id="stuploadFileImg8"
+                               multiple class="file-loading"/>
+                        <div class="input-group" style="margin-top: 10px;margin-bottom: 20px;">
+                            <input type="text" class="form-control" id="stti8" placeholder="链接">
+                            <span class="input-group-btn">
+					        <button class="btn btn-default" data-id="8" onclick="sttijiao(this)" type="button">提交</button>
+					      </span>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="file" data-id="9" data-width="999" data-height="999" name="img" id="stuploadFileImg9"
+                               multiple class="file-loading"/>
+                        <div class="input-group" style="margin-top: 10px;margin-bottom: 20px;">
+                            <input type="text" class="form-control" id="stti9" placeholder="链接">
+                            <span class="input-group-btn">
+					        <button class="btn btn-default" data-id="9" onclick="sttijiao(this)" type="button">提交</button>
+					      </span>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="file" data-id="10" data-width="999" data-height="999" name="img" id="stuploadFileImg10"
+                               multiple class="file-loading"/>
+                        <div class="input-group" style="margin-top: 10px;margin-bottom: 20px;">
+                            <input type="text" class="form-control" id="stti10" placeholder="链接">
+                            <span class="input-group-btn">
+					        <button class="btn btn-default" data-id="10" onclick="sttijiao(this)" type="button">提交</button>
+					      </span>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="file" data-id="11" data-width="999" data-height="999" name="img" id="stuploadFileImg11"
+                               multiple class="file-loading"/>
+                        <div class="input-group" style="margin-top: 10px;margin-bottom: 20px;">
+                            <input type="text" class="form-control" id="stti11" placeholder="链接">
+                            <span class="input-group-btn">
+					        <button class="btn btn-default" data-id="11" onclick="sttijiao(this)" type="button">提交</button>
+					      </span>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="file" data-id="12" data-width="999" data-height="999" name="img" id="stuploadFileImg12"
+                               multiple class="file-loading"/>
+                        <div class="input-group" style="margin-top: 10px;margin-bottom: 20px;">
+                            <input type="text" class="form-control" id="stti12" placeholder="链接">
+                            <span class="input-group-btn">
+					        <button class="btn btn-default" data-id="12" onclick="sttijiao(this)" type="button">提交</button>
+					      </span>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="file" data-id="13" data-width="999" data-height="999" name="img" id="stuploadFileImg13"
+                               multiple class="file-loading"/>
+                        <div class="input-group" style="padding-top: 10px;padding-bottom: 20px;">
+                            <input type="text" class="form-control" id="stti13" placeholder="链接">
+                            <span class="input-group-btn">
+					        <button class="btn btn-default" data-id="13" onclick="sttijiao(this)" type="button">提交</button>
+					      </span>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="file" data-id="14" data-width="999" data-height="999" name="img" id="stuploadFileImg14"
+                               multiple class="file-loading"/>
+                        <div class="input-group" style="margin-top: 10px;margin-bottom: 20px;">
+                            <input type="text" class="form-control" id="stti7" placeholder="链接">
+                            <span class="input-group-btn">
+					        <button class="btn btn-default" data-id="14" onclick="sttijiao(this)" type="button">提交</button>
+					      </span>
+                        </div>
+                    </div>
+                    {{--<div class="modal-footer">--}}
+                    {{--<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>--}}
+                    {{--<button type="button" id="up-save" data-id=""--}}
+                    {{--class="btn btn-primary waves-effect waves-light"><i class="fa fa-save"></i> Save--}}
+                    {{--</button>--}}
+                    {{--</div>--}}
+                </div>
+                <script type="text/javascript">
+                    $("#pppxxx").children("div").css("padding", "10px 0")
+                </script>
+            </div>
+        </div>
+    </div>
     <!-- 添加 Modal -->
     <div id="add-active" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -265,9 +361,9 @@
                         <table class="table table-striped table-bordered" id="address">
                             {{--<thead>--}}
                             {{--<tr>--}}
-                                {{--<th class=" col-md-2 col-lg-2 exce"> 序号</th>--}}
-                                {{--<th class=" col-md-4 col-lg-4 exce"> 商品名称</th>--}}
-                                {{--<th class="col-md-6 col-lg-6 exce"> 商品图片</th>--}}
+                            {{--<th class=" col-md-2 col-lg-2 exce"> 序号</th>--}}
+                            {{--<th class=" col-md-4 col-lg-4 exce"> 商品名称</th>--}}
+                            {{--<th class="col-md-6 col-lg-6 exce"> 商品图片</th>--}}
                             {{--</tr>--}}
                             {{--</thead>--}}
                             {{--<tbody id="address">--}}
@@ -442,7 +538,7 @@
                             <a href="#activite" data-toggle="tab">添加活动</a>
                         </li>
                         <li>
-                            <a href="#Sowing" data-toggle="tab">apps首页轮播图</a>
+                            <a href="#Sowing" data-toggle="tab">app首页轮播图</a>
                         </li>
                         <li>
                             <a href="#pcSowing" data-toggle="tab">pc首页轮播图</a>
@@ -450,15 +546,15 @@
                         <li>
                             <a href="#theme" data-toggle="tab">活动列表</a>
                         </li>
-                        {{--<li>--}}
-                            {{--<a href="#STactivite" data-toggle="tab">ST-活动列表</a>--}}
-                        {{--</li>--}}
-                        {{--<li>--}}
-                            {{--<a href="#STappSowing" data-toggle="tab">STapp-首页轮播图</a>--}}
-                        {{--</li>--}}
-                        {{--<li>--}}
-                            {{--<a href="#STwebSowing" data-toggle="tab">STweb-首页轮播图</a>--}}
-                        {{--</li>--}}
+                        <li>
+                            <a href="#STactivite" data-toggle="tab">ST-活动列表</a>
+                        </li>
+                        <li>
+                            <a href="#STappSowing" data-toggle="tab">STapp-首页轮播图</a>
+                        </li>
+                        <li>
+                            <a href="#STwebSowing" data-toggle="tab">STweb-首页轮播图</a>
+                        </li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
                         <div class="tab-pane fade " id="Sowing">
@@ -795,8 +891,8 @@
                                                     @foreach ($theme as $item)
                                                         <tr>
                                                             <?php
-                                                            if($item->id == 6)
-                                                            continue;
+                                                            if ($item->id == 6)
+                                                                continue;
                                                             ?>
 
                                                             <td class="exce">{{ $item->zn_name }}</br>{{ $item->en_name }} </td>
@@ -893,12 +989,9 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody id="postContainer">
-                                                    @foreach ($theme as $item)
+                                                    @foreach ($sttheme as $item)
                                                         <tr>
-                                                            <?php
-                                                            if($item->id == 6)
-                                                                continue;
-                                                            ?>
+
 
                                                             <td class="exce">{{ $item->zn_name }}</br>{{ $item->en_name }} </td>
                                                             <td class="exce"><img height="100px; align=" middle"
@@ -922,28 +1015,28 @@
                                                                    href="javascript:void(0);">
                                                                     <i class="icon fa fa-pencil"> </i>
                                                                 </a>
-                                                                @if($item->id == 2)
+                                                                @if($item->id == 7)
                                                                     <a title="上传" class="btn btn-small btn-success"
-                                                                       data-toggle="modal" data-target="#uploadImg"
+                                                                       data-toggle="modal" data-target="#stuploadImg"
                                                                        href="javascript:void(0);"
                                                                        data-id="{{$item->id}}"
                                                                     >
                                                                         <i class="icon fa fa-television"> </i>
                                                                     </a>
                                                                 @endif
-                                                                @if($item->status != 1)
+                                                                {{--@if($item->status != 1)--}}
                                                                     {{--<a title="删除" class="btn btn-small btn-danger" disabled="disabled"--}}
                                                                     {{--href="javascript:return false;" data-id="{{$item->id}}"--}}
                                                                     {{--onclick="return false;" style="cursor: not-allowed;">--}}
                                                                     {{--<i class="icon fa fa-trash-o"> </i>--}}
                                                                     {{--</a>--}}
-                                                                    <a title="删除" class="btn btn-small btn-danger"
-                                                                       href="javascript:void(0);"
-                                                                       data-id="{{$item->id}}"
-                                                                       onclick="del(this);">
-                                                                        <i class="icon fa fa-trash-o"> </i>
-                                                                    </a>
-                                                                @endif
+                                                                    {{--<a title="删除" class="btn btn-small btn-danger"--}}
+                                                                       {{--href="javascript:void(0);"--}}
+                                                                       {{--data-id="{{$item->id}}"--}}
+                                                                       {{--onclick="del(this);">--}}
+                                                                        {{--<i class="icon fa fa-trash-o"> </i>--}}
+                                                                    {{--</a>--}}
+                                                                {{--@endif--}}
 
                                                             </td>
 
@@ -960,16 +1053,16 @@
                         </div>
                         <div class="tab-pane fade " id="STappSowing">
                             <div class="panel-footer">
-                                <a style="background-color: #dd514c;" href="javascript:void(0);" id="delete_btn1"
+                                <a style="background-color: #dd514c;" href="javascript:void(0);" id="delete_btn2"
                                    class="btn btn-danger radius"><i class="icon fa fa-trash"></i> 批量删除</a>
                             </div>
                             <div class="form-group" style="overflow: hidden;">
                                 <ul class="cl portfolio-area">
 
-                                    @foreach ($pc as $item)
+                                    @foreach ($stapp as $item)
                                         <li class="item">
                                             <div class="portfoliobox">
-                                                <input id="{{ $item["id"] }}" class="checkbox" name="image_input1"
+                                                <input id="{{ $item["id"] }}" class="checkbox" name="image_input2"
                                                        type="checkbox"
                                                        value="{{ $item["id"] }}">
                                                 <div class="picbox" style="line-height:0">
@@ -992,23 +1085,23 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" style="padding-left: 0;padding-top:8px; ">添加轮播图（最多5张图片）</label>
                                 <div class="controls">
-                                    <input type="file" name="img" id="uploadfile1" multiple class="file-loading"/>
+                                    <input type="file" name="img" id="uploadfile2" multiple class="file-loading"/>
                                 </div>
                             </div>
 
                         </div>
                         <div class="tab-pane fade " id="STwebSowing">
                             <div class="panel-footer">
-                                <a style="background-color: #dd514c;" href="javascript:void(0);" id="delete_btn1"
+                                <a style="background-color: #dd514c;" href="javascript:void(0);" id="delete_btn3"
                                    class="btn btn-danger radius"><i class="icon fa fa-trash"></i> 批量删除</a>
                             </div>
                             <div class="form-group" style="overflow: hidden;">
                                 <ul class="cl portfolio-area">
 
-                                    @foreach ($pc as $item)
+                                    @foreach ($stpc as $item)
                                         <li class="item">
                                             <div class="portfoliobox">
-                                                <input id="{{ $item["id"] }}" class="checkbox" name="image_input1"
+                                                <input id="{{ $item["id"] }}" class="checkbox" name="image_input3"
                                                        type="checkbox"
                                                        value="{{ $item["id"] }}">
                                                 <div class="picbox" style="line-height:0">
@@ -1031,7 +1124,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" style="padding-left: 0;padding-top:8px; ">添加轮播图（最多5张图片）</label>
                                 <div class="controls">
-                                    <input type="file" name="img" id="uploadfile1" multiple class="file-loading"/>
+                                    <input type="file" name="img" id="uploadfile3" multiple class="file-loading"/>
                                 </div>
                             </div>
 
@@ -1144,7 +1237,107 @@
                 }, 1500);
             }
         });
+
+        $("#uploadfile2").fileinput({
+            language: 'zh', //设置语言
+            uploadUrl: "/imgHandle", //上传的地址
+            allowedFileExtensions: ['jpg', 'gif', 'png'],//接收的文件后缀
+            initialPreview: [ //预览图片的设置
+            ],
+            uploadAsync: true, //默认异步上传
+            showUpload: true, //是否显示上传按钮
+            showRemove: true, //显示移除按钮
+            showPreview: true, //是否显示预览+
+            showCaption: false,//是否显示标题
+            browseClass: "btn btn-primary", //按钮样式
+            dropZoneEnabled: false,//是否显示拖拽区域
+            //minImageWidth: 50, //图片的最小宽度
+            //minImageHeight: 50,//图片的最小高度
+            maxImageWidth: 1600,//图片的最大宽度
+            maxImageHeight: 900,//图片的最大高度
+            //maxFileSize: 0,//单位为kb，如果为0表示不限制文件大小
+            //minFileCount: 0,
+            maxFileCount: 5, //表示允许同时上传的最大文件个数
+            enctype: 'multipart/form-data',
+            validateInitialCount: true,
+            previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+            msgFilesTooMany: "选择上传的文件数量{n} 超过允许的最大数值{m}！",
+            //传递参数
+            uploadExtraData: function (previewId, index) {   //额外参数的关键点
+                var data = {
+                    '_token': '{{csrf_token()}}',
+                    'status': 3
+                };
+                return data;
+            }
+        });
+        //异步上传返回结果处理
+        $("#uploadfile2").on("fileuploaded", function (event, data) {
+            var obj = data.response;
+
+            if (obj.errno == 1) {
+                alertify.alert(obj.data[0]);
+                return;
+            } else {
+                imgAddress = obj.data;
+                alertify.alert('上传成功');
+                setTimeout(function () {
+                    location.reload();
+                }, 1500);
+            }
+        });
+
+        $("#uploadfile3").fileinput({
+            language: 'zh', //设置语言
+            uploadUrl: "/imgHandle", //上传的地址
+            allowedFileExtensions: ['jpg', 'gif', 'png'],//接收的文件后缀
+            initialPreview: [ //预览图片的设置
+            ],
+            uploadAsync: true, //默认异步上传
+            showUpload: true, //是否显示上传按钮
+            showRemove: true, //显示移除按钮
+            showPreview: true, //是否显示预览+
+            showCaption: false,//是否显示标题
+            browseClass: "btn btn-primary", //按钮样式
+            dropZoneEnabled: false,//是否显示拖拽区域
+            //minImageWidth: 50, //图片的最小宽度
+            //minImageHeight: 50,//图片的最小高度
+            maxImageWidth: 1600,//图片的最大宽度
+            maxImageHeight: 900,//图片的最大高度
+            //maxFileSize: 0,//单位为kb，如果为0表示不限制文件大小
+            //minFileCount: 0,
+            maxFileCount: 5, //表示允许同时上传的最大文件个数
+            enctype: 'multipart/form-data',
+            validateInitialCount: true,
+            previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+            msgFilesTooMany: "选择上传的文件数量{n} 超过允许的最大数值{m}！",
+            //传递参数
+            uploadExtraData: function (previewId, index) {   //额外参数的关键点
+                var data = {
+                    '_token': '{{csrf_token()}}',
+                    'status': 4
+                };
+                return data;
+            }
+        });
+        //异步上传返回结果处理
+        $("#uploadfile3").on("fileuploaded", function (event, data) {
+            var obj = data.response;
+
+            if (obj.errno == 1) {
+                alertify.alert(obj.data[0]);
+                return;
+            } else {
+                imgAddress = obj.data;
+                alertify.alert('上传成功');
+                setTimeout(function () {
+                    location.reload();
+                }, 1500);
+            }
+        });
     </script>
+
+
     <script>
 
         //添加编辑器
@@ -1250,58 +1443,123 @@
     </script>
     <script>
         $('#delete_btn').click(function () {
+            alertify.confirm("确认删除吗？", function (e) {
+                if (e) {
+                    var arr = [];
+                    $('input[name=image_input]:checked').each(function () {
 
-            var arr = [];
-            $('input[name=image_input]:checked').each(function () {
+                        arr.push($(this).val());
+                    });
 
-                arr.push($(this).val());
-            });
+                    if (arr.length == 0) {
+                        alertify.alert('没有选择任何一张图片');
+                        return;
+                    }
+                    $.get('/content/del', {'arr': arr}, function (res) {
 
-            if (arr.length == 0) {
-                alertify.alert('没有选择任何一张图片');
-                return;
-            }
-            $.get('/content/del', {'arr': arr}, function (res) {
+                        if (res.status) {
+                            alertify.success('删除成功');
+                            $("input[name='image_input']").removeAttr("checked", false);
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1500);
+                        } else {
+                            alertify.alert(res.message);
+                        }
 
-                if (res.status) {
-                    alertify.success('删除成功');
-                    $("input[name='image_input']").removeAttr("checked", false);
-                    setTimeout(function () {
-                        location.reload();
-                    }, 1500);
-                } else {
-                    alertify.alert(res.message);
+                    });
                 }
-
             });
         });
 
         $('#delete_btn1').click(function () {
+            alertify.confirm("确认删除吗？", function (e) {
+                if (e) {
+                    var arr = [];
+                    $('input[name=image_input1]:checked').each(function () {
 
-            var arr = [];
-            $('input[name=image_input1]:checked').each(function () {
+                        arr.push($(this).val());
+                    });
 
-                arr.push($(this).val());
-            });
+                    if (arr.length == 0) {
+                        alertify.alert('没有选择任何一张图片');
+                        return;
+                    }
+                    $.get('/content/del', {'arr': arr}, function (res) {
 
-            if (arr.length == 0) {
-                alertify.alert('没有选择任何一张图片');
-                return;
-            }
-            $.get('/content/del', {'arr': arr}, function (res) {
+                        if (res.status) {
+                            alertify.success('删除成功');
+                            $("input[name='image_input1']").removeAttr("checked", false);
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1500);
+                        } else {
+                            alertify.alert(res.message);
+                        }
 
-                if (res.status) {
-                    alertify.success('删除成功');
-                    $("input[name='image_input']").removeAttr("checked", false);
-                    setTimeout(function () {
-                        location.reload();
-                    }, 1500);
-                } else {
-                    alertify.alert(res.message);
+                    });
                 }
-
             });
         });
+        $('#delete_btn2').click(function () {
+            alertify.confirm("确认删除吗？", function (e) {
+                if (e) {
+                    var arr = [];
+                    $('input[name=image_input2]:checked').each(function () {
+
+                        arr.push($(this).val());
+                    });
+
+                    if (arr.length == 0) {
+                        alertify.alert('没有选择任何一张图片');
+                        return;
+                    }
+                    $.get('/content/del', {'arr': arr}, function (res) {
+
+                        if (res.status) {
+                            alertify.success('删除成功');
+                            $("input[name='image_input2']").removeAttr("checked", false);
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1500);
+                        } else {
+                            alertify.alert(res.message);
+                        }
+
+                    });
+                }
+            });
+        });
+        $('#delete_btn3').click(function () {
+            alertify.confirm("确认删除吗？", function (e) {
+                if (e) {
+                    var arr = [];
+                    $('input[name=image_input3]:checked').each(function () {
+
+                        arr.push($(this).val());
+                    });
+
+                    if (arr.length == 0) {
+                        alertify.alert('没有选择任何一张图片');
+                        return;
+                    }
+                    $.get('/content/del', {'arr': arr}, function (res) {
+
+                        if (res.status) {
+                            alertify.success('删除成功');
+                            $("input[name='image_input3']").removeAttr("checked", false);
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1500);
+                        } else {
+                            alertify.alert(res.message);
+                        }
+
+                    });
+                }
+            });
+        });
+
     </script>
 
     <script>
@@ -1491,7 +1749,7 @@
                 'en_name': $('#en_name').val(),
                 'status': $('#del').val(),
                 'img': cimgAddress,
-                'type':2,
+                'type': 2,
                 '_token': '{{csrf_token()}}'
             };
 
@@ -1511,7 +1769,7 @@
 
     <script>
         var theme = '';
-        @foreach ($theme as $item)
+        @foreach ($themeData as $item)
             theme += '<span class="check"><input type="checkbox" checked ="false" id="productCheckBox{{ $item->id }}"  name="radio" value="{{ $item->id }}" /><label for="productCheckBox{{ $item->id }}">{{ $item->zn_name }}</label></span>';
         @endforeach
         $('#checkBox').html(theme);
@@ -1553,7 +1811,7 @@
 
         var activeAdd = function (event) {
 
-            var data = [],sta = -1 ;
+            var data = [], sta = -1;
 
             $("input[name='radio']:checked").each(function () {
                 //精品推荐
@@ -1574,7 +1832,7 @@
                 '_token': '{{csrf_token()}}'
             };
             //加入精品推荐
-            if ( window.status != -1) {
+            if (window.status != -1) {
                 datas.hot = window.status;
             }
             // 如果没有选择任何活动，设置datas{'theme'==['0']}
@@ -1669,12 +1927,12 @@
                     if (res.data.products.length == 0) {
 
                         var datas = `<thead> <tr><th class=" col-md-2 col-lg-2 exce"> 序号</th>
-                            <th class=" col-md-4 col-lg-4 exce"> 商品名称</th>
-                            <th class=" col-md-4 col-lg-4 exce"> 商品名称</th>
-                            <th class="col-md-6 col-lg-6 exce"> 商品图片</th>
+                            <th class=" col-md-3 col-lg-3 exce"> 商品名称</th>
+                             <th class=" col-md-3 col-lg-3 exce"> 商品是否上架</th>
+                            <th class="col-md-4 col-lg-4 exce"> 商品图片</th>
                             </tr>
                             </thead>
-                            <tbody><div style="width:100px;text-align: center"><h5 style="color: red;">活动下暂时没有商品</h5></div>`;
+                            <tbody><div style="width:100px;text-align: center"><h5 style="color: red;">活动下暂时没有商品</h5></div></tbody>`;
 
                     } else {
 
@@ -1684,16 +1942,19 @@
                                 datas = `<thead> <tr><th class=" col-md-2 col-lg-2 exce"> 序号</th>
                                 <th class=" col-md-3 col-lg-3 exce"> 商品名称</th>
                                       <th class=" col-md-3 col-lg-3 exce"> 商品精品分类</th>
-                                <th class="col-md-4 col-lg-4 exce"> 商品图片</th>
+                                       <th class=" col-md-2 col-lg-2 exce"> 商品是否上架</th>
+                                <th class="col-md-2 col-lg-2 exce"> 商品图片</th>
                                 </tr>
                                 </thead>
                                 <tbody>`;
 
                             for (let i in res.data.products) {
 
+                                var meddle = res.data.products[i].status == 1 ? '上架' : '下架';
                                 datas += `<tr><td class="exce">${j}</td>
                                     <td class="exce">${res.data.products[i].zn_name}<br/>${res.data.products[i].en_name}</td>
                                       <td class="exce">${res.data.products[i].hot.cat.zn_name}</td>
+                                  <td class="exce">${meddle}</td>
                                    <td class="exce"><img height="100px; align=" middle"
                                                                 src="${res.data.products[i].product_image}"
                                                                 alt="没有上传"/>
@@ -1708,15 +1969,17 @@
                                 datas = `<thead>
                             <tr>
                             <th class=" col-md-2 col-lg-2 exce"> 序号</th>
-                                <th class=" col-md-4 col-lg-4 exce"> 商品名称</th>
-                                <th class="col-md-6 col-lg-6 exce"> 商品图片</th>
+                                <th class=" col-md-3 col-lg-3 exce"> 商品名称</th>
+                                 <th class=" col-md-3 col-lg-3 exce"> 商品是否上架</th>
+                                <th class="col-md-4 col-lg-4 exce"> 商品图片</th>
                                 </tr>
                                 </thead>
                                 <tbody>`;
                             for (let i in res.data.products) {
-
+                                var meddle = res.data.products[i].status == 1 ? '上架' : '下架';
                                 datas += ` <tr><td class="exce">${j}</td>
                                     <td class="exce">${res.data.products[i].zn_name}<br/>${res.data.products[i].en_name}</td>
+                                   <td class="exce">${meddle}</td>
                                    <td class="exce"><img height="100px; align=" middle"
                                                                 src="${res.data.products[i].product_image}"
                                                                 alt="没有上传"/>
@@ -1749,7 +2012,7 @@
 
         @endforeach
 
-        //console.log(info);
+
         for (let i = 1; i < 8; i++) {
 
 
@@ -1821,7 +2084,106 @@
 
         }
     </script>
+    <script>
+        window.sthotImgAddress = '';
+        var info = [], infos = '';
+        @foreach ($sthot as $items)
 
+            info.push({"id": "{{$items->id}}", "img": "{{$items->img}}", 'url': "{{$items->url}}"});
+
+        @endforeach
+
+
+        for (let i = 8; i < 15; i++) {
+
+
+            for (let j in info) {
+
+                if (info[j].id == i) {
+
+                    $('#stti' + i).val(`${info[j].url}`);
+                    infos = `<img class='file-preview-frame' data-fileindex='0' data-template='image' src='${info[j].img}'/>`;
+                    break;
+
+                }
+                infos = '';
+            }
+
+            var objs = $("#stuploadFileImg" + i);
+
+            data1 = {
+                language: 'zh', //设置语言
+                uploadUrl: "/hot/imgHandle", //上传的地址
+                allowedFileExtensions: ['jpg', 'gif', 'png'],//接收的文件后缀
+                initialPreview: [ //预览图片的设置
+//                infos
+                ],
+                uploadAsync: true, //默认异步上传
+                showUpload: true, //是否显示上传按钮
+                showRemove: true, //显示移除按钮
+                showPreview: true, //是否显示预览+
+                showCaption: false,//是否显示标题
+                browseClass: "btn btn-primary", //按钮样式
+                dropZoneEnabled: false,//是否显示拖拽区域
+                //minImageWidth: 50, //图片的最小宽度
+                //minImageHeight: 50,//图片的最小高度
+                maxImageWidth: objs.attr('data-width'),//图片的最大宽度
+                maxImageHeight: objs.attr('data-height'),//图片的最大高度
+                //maxFileSize: 0,//单位为kb，如果为0表示不限制文件大小
+                //minFileCount: 0,
+                maxFileCount: 1, //表示允许同时上传的最大文件个数
+                enctype: 'multipart/form-data',
+                validateInitialCount: true,
+                previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+                msgFilesTooMany: "选择上传的文件数量{n} 超过允许的最大数值{m}！",
+                //传递参数
+                uploadExtraData: function (previewId, index, objs) {   //额外参数的关键点
+
+                    var data = {
+                        'id': i,
+                        'status':2,
+                        '_token': '{{csrf_token()}}'
+                    };
+                    return data;
+                }
+            };
+            if (infos.length > 0)
+                data1['initialPreview'] = [infos];
+
+            objs.fileinput('refresh', data1);
+            //异步上传返回结果处理
+            objs.on("fileuploaded", function (event, data) {
+                var obj = data.response;
+
+                if (obj.errno == 1) {
+                    alertify.alert(obj.data[0]);
+                    return;
+                } else {
+                    sthotImgAddress = obj.data;
+                    alertify.alert('上传成功');
+                }
+            });
+
+        }
+        sttijiao = function (event) {
+
+            var datas = {
+                'id': $(event).attr('data-id'),
+                'status':2,
+                'url': $('#stti' + $(event).attr('data-id')).val()
+            };
+            $.get('/hot/url', datas, function (res) {
+                if (res.status) {
+                    alertify.success('提交成功');
+//                    setTimeout(function () {
+//                        location.reload();
+//                    }, 1500);
+                } else {
+                    alertify.alert(res.message);
+                }
+            })
+        }
+    </script>
     <script>
         tijiao = function (event) {
 

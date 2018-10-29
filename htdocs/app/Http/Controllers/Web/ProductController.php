@@ -57,7 +57,7 @@ class ProductController extends Controller
         $banner = BannerModel::getbannerById(4);
         //获取热销
         $hotImg = ThemeImageModel::where('type',2)->get()->toArray();
-//  dump($res);
+  dump($res);
 //  dump($banner->toArray());
 //        dump($hotImg);
 //        dump($categorys);

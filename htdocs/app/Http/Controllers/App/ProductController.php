@@ -97,6 +97,7 @@ class ProductController extends Controller
             ->orderBy('created_at', 'desc')
             ->get()
             ->toArray();
+        dump($res);
 //        dd($res);
 //        dd($res);
 //        $this->lang(['categorys' => $categorys, 'modular' => $res, 'banner' => $banner->items, 'logo' => $logo['logo']]);

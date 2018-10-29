@@ -259,35 +259,35 @@
         <div class="hotPro clearfloat">
             <ul>
                 <li class="hotPro1"><a
-                            href="{{!empty($hotImg[0]['url']) ? 'https://snacktalk.com'.$hotImg[0]['url'] : ''}}"><img
+                            href="{{!empty($hotImg[0]['url']) ? $hotImg[0]['url'] : ''}}"><img
                                 src="{{!empty($hotImg[0]['img']) ? $hotImg[0]['img'] : '' }}"
                                 alt=""/></a></li>
                 <li class="hotPro3"><a
-                            href="{{!empty($hotImg[2]['url']) ? 'https://snacktalk.com'.$hotImg[2]['url'] : ''}}"><img
+                            href="{{!empty($hotImg[2]['url']) ? $hotImg[2]['url'] : ''}}"><img
                                 src="{{!empty($hotImg[2]['img']) ? $hotImg[2]['img'] : '' }}"
                                 alt=""/></a></li>
             </ul>
             <ul>
                 <li class="hotPro2" style="margin-bottom: 2%;"><a
-                            href="{{!empty($hotImg[1]['url']) ? 'https://snacktalk.com'.$hotImg[1]['url'] : ''}}"><img
+                            href="{{!empty($hotImg[1]['url']) ? $hotImg[1]['url'] : ''}}"><img
                                 src="{{!empty($hotImg[1]['img']) ? $hotImg[1]['img'] : '' }}"
                                 alt=""/></a></li>
                 <li class="hotPro2" style="margin-bottom: 1%;"><a
-                            href="{{!empty($hotImg[3]['url']) ? 'https://snacktalk.com'.$hotImg[3]['url'] : ''}}"><img
+                            href="{{!empty($hotImg[3]['url']) ? $hotImg[3]['url'] : ''}}"><img
                                 src="{{!empty($hotImg[3]['img']) ? $hotImg[3]['img'] : '' }}"
                                 alt=""/></a></li>
                 <li class="hotPro2"><a
-                            href="{{!empty($hotImg[4]['url']) ? 'https://snacktalk.com'.$hotImg[4]['url'] : ''}}"><img
+                            href="{{!empty($hotImg[4]['url']) ? $hotImg[4]['url'] : ''}}"><img
                                 src="{{!empty($hotImg[4]['img']) ? $hotImg[4]['img'] : '' }}"
                                 alt=""/></a></li>
             </ul>
             <ul>
                 <li class="hotPro3"><a
-                            href="{{!empty($hotImg[5]['url']) ? 'https://snacktalk.com'.$hotImg[5]['url'] : ''}}"><img
+                            href="{{!empty($hotImg[5]['url']) ? $hotImg[5]['url'] : ''}}"><img
                                 src="{{!empty($hotImg[5]['img']) ? $hotImg[5]['img'] : '' }}"
                                 alt=""/></a></li>
                 <li class="hotPro1"><a
-                            href="{{!empty($hotImg[6]['url']) ? 'https://snacktalk.com'.$hotImg[6]['url'] : ''}}"><img
+                            href="{{!empty($hotImg[6]['url']) ? $hotImg[6]['url'] : ''}}"><img
                                 src="{{!empty($hotImg[6]['img']) ? $hotImg[6]['img'] : '' }}"
                                 alt=""/></a></li>
             </ul>

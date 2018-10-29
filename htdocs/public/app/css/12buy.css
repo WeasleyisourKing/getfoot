@@ -172,7 +172,9 @@ a.bg-color-red:hover {
 }
 
 .btn-red {
+    /*background-color: #f14067;*/
     background-color: #f14067;
+    
     color: #ffffff;
 }
 

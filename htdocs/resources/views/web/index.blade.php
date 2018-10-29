@@ -113,7 +113,7 @@
         </div>
     </div>
 
-    <!--{{--<div class="maxCentr ">
+    <div class="maxCentr ">
         <div class="second ">
             <div class="secondBg clearfloat">
                 <div class="secondBg1 float_left">
@@ -126,9 +126,10 @@
             <script>
             	Language("{{$modular[1]['zn_name']}}","{{$modular[1]['en_name']}}")
             </script><br/><span>
-            <script>
-            	Language("本场秒杀商品","Flash Sales Products")
-            </script></span></p>
+            {{--<script>--}}
+            	{{--Language("本场秒杀商品","Flash Sales Products")--}}
+            {{--</script>--}}
+                    </span></p>
             </div>
             <div class="secondBanner">
                 <div data-am-widget="slider" class="am-slider am-slider-default"
@@ -153,7 +154,7 @@
                                                 Sprice({{$item['distributor']['level_four_price']}},{{$item['distributor']['level_two_price']}},{{$item['distributor']['level_one_price']}},{{$item['distributor']['level_three_price']}});
                                             </script>
                                         @endif
-                                        
+
                                         <script>
                                             Language(`<button data-number="1" data-zn-name="{{$item['zn_name']}}" data-en-name="{{$item['en_name']}}"  datas-tock="{{$item['stock']}}" data-price="@if(!empty(Auth::guard("pc")->user()))${Sprice1({{$item['distributor']['level_four_price']}},{{$item['distributor']['level_two_price']}},{{$item['distributor']['level_one_price']}},{{$item['distributor']['level_three_price']}})}@endif"data-img="{{$item['product_image']}}" data-id="{{$item['id']}}" class="shopAdd">加入购物车`,
                                                 `<button data-number="1" data-zn-name="{{$item['zn_name']}}" data-en-name="{{$item['en_name']}}" datas-tock="{{$item['stock']}}" data-price="@if(!empty(Auth::guard("pc")->user()))${Sprice1({{$item['distributor']['level_four_price']}},{{$item['distributor']['level_two_price']}},{{$item['distributor']['level_one_price']}},{{$item['distributor']['level_three_price']}})}@endif" data-img="{{$item['product_image']}}" data-id="{{$item['id']}}" class="shopAdd"> Shopping Cart`)
@@ -168,7 +169,7 @@
 
             </div>
         </div>
-    </div>--}}-->
+    </div>
 
 
     <div class="iocBg">

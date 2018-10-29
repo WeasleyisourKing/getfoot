@@ -70,7 +70,7 @@
 </script>
     <script>
     //底部导航显示当前所在页面样式
-    $("#mobile-nav a").eq(1).css({"background":"#fdb3d3","color":"#ffffff"})
+    $("#mobile-nav a").eq(1).css({"background":"#4982A3","color":"#ffffff"})
     //设置分类高度
 //  $(function(){
 //  		var categoryListHeight=$(window).height()-$(".container").eq(0).height()-$(".mobile-fix").eq(0).height()-8-24;

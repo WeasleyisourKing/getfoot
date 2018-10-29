@@ -475,7 +475,7 @@
         $(".cartPro:last").addClass("clearfix");
         $(".cartPro:last").after('<div style="width:100%;height:1px"></div>')
         //底部导航显示当前所在页面样式
-        $("#mobile-nav a").eq(2).css({"background": "#fdb3d3", "color": "#ffffff"})
+        $("#mobile-nav a").eq(2).css({"background": "#4982A3", "color": "#ffffff"})
     </script>
     <style type="text/css"> 
         .clearfix:before, .clearfix:after {

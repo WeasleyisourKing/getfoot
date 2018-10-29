@@ -413,7 +413,7 @@ overflow: hidden;">-->
             {{--</script>--}}
             <script>
                 //底部导航显示当前所在页面样式
-                $("#mobile-nav a").eq(0).css({"background": "#fdb3d3", "color": "#ffffff"});
+                $("#mobile-nav a").eq(0).css({"background": "#4982A3", "color": "#ffffff"});
                 //解决样式bug
                 $(document).ready(function () {
 

@@ -10,9 +10,11 @@ use App\Http\Model\ShelvesModel;
 use App\Http\Model\PurchaseOrderModel;
 use App\Http\Model\StockOrderModel;
 use App\Http\Model\OrderProductModel;
+use App\Http\Model\StockOrderProductModel;
 use App\Http\Controllers\Common;
 use App\Rules\StockRule;
 use App\Rules\ShelveRule;
+use App\Rules\IdRule;
 use App\Rules\PurchaseRule;
 use App\Rules\OrderRule;
 use App\Rules\EnterRule;
@@ -476,7 +478,7 @@ class StockController extends Controller
             $info = PurchaseOrderModel::updateStatus($params['id'], $data, $copy);
 
             //stock表需要origin_stock
-            $this->createStockOrder($info->id, $info->order_no, $params['uproducts'], $params['num'] ,true);
+            $this->createStockOrder($info->id, $info->order_no, $params['uproducts'], $params['num'], true);
 
 
         } else {
@@ -553,7 +555,39 @@ class StockController extends Controller
 
         $params = $request->all();
 
-        return $this->entercreateOrder($params, $params['uproducts']);
+
+        $num = StockOrderModel::where('status', '=', 1)->orderBy('created_at', 'desc')->first(['order_no']);
+
+//        $Product = ProductModel::whereIn('id', array_column($params['uproducts'], 'product_id'))->get(['id', 'stock'])->toArray();
+//        foreach ($Product as $val) {
+//            foreach ($params['uproducts'] as &$items) {
+//                if ($val['id'] == $items['product_id']) {
+////                 dd($val['id']);
+//                    $items['origin_stock'] = $val['stock'];
+//
+//                }
+//            }
+//        }
+
+        $orderNo = Common::makeOrderNo(is_null($num) ? 'A2018101800001' : $num->order_no);
+        //构造数据
+        $data = [];
+        $data = [
+            'order_no' => 'I' . substr($orderNo, 1),
+            'operator' => htmlspecialchars(strip_tags(trim($params['operator']))),
+            'total_count' => $params['num'],
+            'pruchase_order_no' => htmlspecialchars(strip_tags(trim($params['orderId']))),
+            'remark' => htmlspecialchars(strip_tags(trim($params['remark']))),
+            'status' => 1,
+            'type' => 2
+        ];
+
+        $res = StockOrderModel::insertInOrder(null, $data, $params['uproducts']);
+
+
+        return Common::successData();
+
+
     }
 
     // 创建订单时没有预扣除库存量，简化处理
@@ -585,7 +619,7 @@ class StockController extends Controller
             'pruchase_order_no' => htmlspecialchars(strip_tags(trim($orderSnap['orderId']))),
             'remark' => htmlspecialchars(strip_tags(trim($orderSnap['remark']))),
             'status' => 1,
-            'type' => 2
+            'type' => 1
         ];
 
         $res = StockOrderModel::insertOrder(null, $data, $uProducts);
@@ -664,7 +698,44 @@ class StockController extends Controller
 
         $params = $request->all();
 
-        return $this->outcreateOrder($params, $params['uproducts']);
+        $num = StockOrderModel::where('status', '=', 2)->orderBy('created_at', 'desc')->first(['order_no']);
+
+//        $Product = ProductModel::whereIn('id', array_column($params['uproducts'], 'product_id'))->get(['id', 'zn_name', 'stock'])->toArray();
+//        foreach ($Product as $val) {
+//            foreach ($uProducts as &$items) {
+//
+//                if ($val['id'] == $items['product_id']) {
+//
+//                    if ($val['stock'] == 0 || $val['stock'] - $items['count'] < 0) {
+//                        throw new ParamsException([
+//                            'code' => 200,
+//                            'message' => '商品' . $val['zn_name'] . '库存不足'
+//                        ]);
+//                    }
+//                    $items['origin_stock'] = $val['stock'];
+//
+//                }
+//            }
+//        }
+
+        $orderNo = Common::makeOrderNo(is_null($num) ? 'A2018101800001' : $num->order_no);
+        //构造数据
+        $data = [];
+        $data = [
+            'order_no' => 'O' . substr($orderNo, 1),
+            'operator' => htmlspecialchars(strip_tags(trim($params['operator']))),
+            'total_count' => $params['num'],
+            'pruchase_order_no' => htmlspecialchars(strip_tags(trim($params['orderId']))),
+            'remark' => htmlspecialchars(strip_tags(trim($params['remark']))),
+            'status' => 2,
+            'type' => 2
+        ];
+
+       $res = StockOrderModel::insertInOrder(null, $data, $params['uproducts']);
+
+
+        return Common::successData();
+
     }
 
     // 创建订单时没有预扣除库存量，简化处理
@@ -703,7 +774,7 @@ class StockController extends Controller
             'pruchase_order_no' => htmlspecialchars(strip_tags(trim($orderSnap['orderId']))),
             'remark' => htmlspecialchars(strip_tags(trim($orderSnap['remark']))),
             'status' => 2,
-            'type' => 2
+            'type' => 1
         ];
 
         $res = StockOrderModel::reduceOrder(null, $data, $uProducts);
@@ -827,5 +898,40 @@ class StockController extends Controller
 
         return Common::successData();
     }
+
+    /**
+     * 确认订单接口
+     * @param Request $request
+     * @return null
+     */
+    public function stockCheck (Request $request)
+    {
+        (new IdRule)->goCheck(200);
+        $id = $request->input('id');
+
+        $data = StockOrderProductModel::where('order_id','=', $id)->get(['product_id', 'count'])->toArray();
+        $Product = ProductModel::whereIn('id', array_column($data, 'product_id'))->get(['id', 'stock'])->toArray();
+        foreach ($Product as $val) {
+            foreach ($data as &$items) {
+                if ($val['id'] == $items['product_id']) {
+//                 dd($val['id']);
+                    $items['origin_stock'] = $val['stock'];
+
+                }
+            }
+        }
+//dd($data);
+        if ($request->input('status') == 1) {
+            //入库
+            StockOrderModel::check($id, $data, 1);
+
+        } else {
+            //出库
+            StockOrderModel::check($id, $data, 2);
+        }
+        return Common::successData();
+
+    }
+
 }
 

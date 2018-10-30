@@ -322,12 +322,13 @@
 
                 data.push($(this).val());
             });
-            if (data.length == 0) {
-                alertify.alert('请选择相应权限');
-                return;
-            }
 
-            console.log(data);
+//            if (data.length == 0) {
+//                alertify.alert('请选择相应权限');
+//                return;
+//            }
+
+//            console.log(data);
             var datas = {
                 'id': $(this).attr('data-id'),
                 'data':data,

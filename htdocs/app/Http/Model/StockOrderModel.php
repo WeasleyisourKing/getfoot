@@ -170,7 +170,7 @@ class StockOrderModel extends Model
     }
 
     //写入订单和相关商品信息
-    public static function automaticOrder ( $data, $arr)
+    public static function automaticOrder ($data, $arr)
     {
 
         //涉及多表 使用事务控制
@@ -298,4 +298,94 @@ class StockOrderModel extends Model
 
     }
 
+    //生成预定单
+    public static function check ($id,$arr, $status)
+    {
+
+        //涉及多表 使用事务控制
+        DB::beginTransaction();
+        try {
+            self::where('id', '=', $id)->update(['state' => 2]);
+            if ($status == 1) {
+                foreach ($arr as &$p) {
+
+                    $flight = ProductModel::find($p['product_id']);
+                    $flight->stock = $flight->stock + $p['count'];
+                    $flight->save();
+
+                    StockOrderProductModel::where('order_id','=',$id)
+                        ->where('product_id','=',$p['product_id'])
+                        ->update([
+                            'origin_stock' => $p['origin_stock'],
+                            'created_at' => date('Y-m-d H:i:s', time())
+                            ]);
+                }
+
+            } else {
+
+                foreach ($arr as &$p) {
+
+                    $flight = ProductModel::find($p['product_id']);
+                    $flight->stock = $flight->stock - $p['count'];
+                    $flight->save();
+
+                    StockOrderProductModel::where('order_id','=',$id)
+                        ->where('product_id','=',$p['product_id'])
+                        ->update([
+                            'origin_stock' => $p['origin_stock'],
+                            'created_at' => date('Y-m-d H:i:s', time())
+                        ]);
+                }
+
+            }
+
+            DB::commit();
+
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            //记录日志
+            throw $ex;
+        }
+
+    }
+    //写入订单和相关商品信息
+    public static function insertInOrder ($id, $data, $arr)
+    {
+
+        //涉及多表 使用事务控制
+        DB::beginTransaction();
+        try {
+            //插入order表
+            $orderId = self::newOrder($data);
+            if (!is_null($id))
+                PurchaseOrderModel::where('id', '=', $id)->update(['status' => 2]);
+
+            //插入order_product表
+            foreach ($arr as &$p) {
+
+                $p['order_id'] = $orderId->id;
+                $p['created_at'] = date('Y-m-d H:i:s', time());
+                $p['updated_at'] = date('Y-m-d H:i:s', time());
+                $p['status'] = $orderId->status;
+
+//                $flight = ProductModel::find($p['product_id']);
+//                $flight->stock = $flight->stock + $p['count'];
+//                $flight->save();
+            }
+
+            (new StockOrderProductModel)->insert($arr);
+
+            DB::commit();
+
+            //返回订单数据
+            return $orderId->toArray();
+
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            //记录日志
+            throw $ex;
+        }
+
+
+    }
 }

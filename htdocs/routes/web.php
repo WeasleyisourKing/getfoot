@@ -332,7 +332,7 @@ Route::group(['middleware' => 'role'], function () {
         //订单列表页面*
         Route::get('/list/status/{status?}/limit/{limit?}', 'Admin\OrderController@orderList');
         //某订单详情页面*
-        Route::get('/detail/{id?}', 'Admin\OrderController@orderDetail');
+        Route::get('/detail/id/{id?}', 'Admin\OrderController@orderDetail');
         //运费设置页面*
         Route::get('/freight', 'Admin\OrderController@freight');
         //优惠活动页面
@@ -595,6 +595,8 @@ Route::get('/out/stock/order/deal', 'Admin\StockController@outOrderDeal');
 
 //入库下订单接口
 Route::post('/stock/product/deal', 'Admin\StockController@productStockDeal');
+//确认订单接口*
+Route::get('/stock/check', 'Admin\StockController@stockCheck');
 
 //TODO 抓货打包接口
 //随机获取订单接口*
@@ -680,6 +682,7 @@ Route::get('error', 'Admin\MyController@error');
 
 //404页面
 Route::get('/404', 'Admin\MyController@notFound');
+
 
 Route::get('auth', function () {
 

@@ -279,6 +279,9 @@
 
         var middle = '';
         @foreach ($item['pid'] as $keys => $items)
+            @if ($items['id'] == 31)
+                <?php continue; ?>
+                @endif
             middle += ` <span class="check"><input type="checkbox" checked ="false" id="authCheckBox{{ $items['id'] }}" name="radio" value="{{ $items['id'] }}" /><label for="authCheckBox{{ $items['id'] }}">{{ $items['name'] }}</label></span>`;
         @endforeach
             auth += middle + '</div></div></div>';
@@ -320,13 +323,16 @@
             var data = [];
             $("input[name='radio']:checked").each(function () {
 
+                if ($(this).val() == 28)
+                    data.push(31);
+                if ($(this).val() == 8)
+                    data.push(32);
                 data.push($(this).val());
             });
-
-//            if (data.length == 0) {
-//                alertify.alert('请选择相应权限');
-//                return;
-//            }
+            if (data.length == 0) {
+                alertify.alert('请选择相应权限');
+                return;
+            }
 
 //            console.log(data);
             var datas = {
@@ -337,7 +343,7 @@
 
             $.post('/manager/auth', datas, function (res) {
                 if (res.status) {
-                    alertify.success('创建管理员角色成功');
+                    alertify.success('修改角色权限成功');
                     $('#name').val('');
                     setTimeout(function () {
                         location.reload();

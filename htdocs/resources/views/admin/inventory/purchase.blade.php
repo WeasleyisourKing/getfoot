@@ -241,7 +241,7 @@
                                 @if($item->status == 1)
                                     <td class="text-info">已下单</td>
                                 @elseif($item->status == 2)
-                                    <td class="text-info">已入库</td>
+                                    <td class="text-info">已审核入库</td>
                                 @else
                                     <td class="text-info">已取消</td>
                             @endif
@@ -330,6 +330,7 @@
     </div><!---- End 查看 ---->
     <script type="text/javascript">
 
+        $('#supplier').val('');
         $('#start').click(function() {
             if ($(this).attr('data-status') != 2) {
                 $(this).find('i').removeClass('fa fa-unlock-alt').addClass('fa fa-unlock');
@@ -510,7 +511,7 @@
                             var word = '已下单';
                             break;
                         case '2' :
-                            var word = '已入库';
+                            var word = '已审核入库';
                             break;
                         default :
                             var word = '已取消';

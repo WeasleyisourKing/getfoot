@@ -28,7 +28,7 @@
             入库类型
         </label>
 
-        <input type="text" class="form-control" readonly="readonly" value="手动入库">
+        <input type="text" id="inStock" class="form-control" readonly="readonly" value="手动入库">
         {{-- <select class="form-control" name="" id="">
             <option value="">入库</option>
             <option value="">出库</option>
@@ -57,7 +57,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">添加商品</h4>
             </div>
-            <div id="content" class="form-group"style="
+            <div id="content" class="form-group" style="
    			 padding: 10px;">
             </div>
             <div class="panel-body">
@@ -79,21 +79,21 @@
                     </table>
 
                     {{--<table class="table table-bordered table-striped display">--}}
-                        {{--<thead>--}}
-                        {{--<tr>--}}
-                            {{--<th>商品图片</th>--}}
-                            {{--<th>SKU</th>--}}
-                            {{--<th>商品名称</th>--}}
-                            {{--<th>入库数量</th>--}}
-                            {{--<th>批次过期时间--}}
-                                {{--<small class="text-muted">选填</small>--}}
-                            {{--</th>--}}
-                        {{--</tr>--}}
-                        {{--</thead>--}}
+                    {{--<thead>--}}
+                    {{--<tr>--}}
+                    {{--<th>商品图片</th>--}}
+                    {{--<th>SKU</th>--}}
+                    {{--<th>商品名称</th>--}}
+                    {{--<th>入库数量</th>--}}
+                    {{--<th>批次过期时间--}}
+                    {{--<small class="text-muted">选填</small>--}}
+                    {{--</th>--}}
+                    {{--</tr>--}}
+                    {{--</thead>--}}
 
-                        {{--<tbody id="place">--}}
+                    {{--<tbody id="place">--}}
                     {{----}}
-                        {{--</tbody>--}}
+                    {{--</tbody>--}}
                     {{--</table>--}}
                 </div><!---- End 添加的商品 ---->
 
@@ -141,7 +141,7 @@
         <label for="" class="control-label">
             关联订单
         </label>
-        <input type="text" id="eorderId" class="form-control"  value="">
+        <input type="text" id="eorderId" class="form-control" value="">
         {{--<a class="form-control" href="" target="_blank">A2018102300001</a>--}}
     </div>
     <div class="form-group col-lg-8">
@@ -149,7 +149,7 @@
             备注
         </label>
 
-        <textarea class="form-control"  id="eremark" cols="30" rows="4" readonly="readonly"></textarea>
+        <textarea class="form-control" id="eremark" cols="30" rows="4" readonly="readonly"></textarea>
     </div>
     <!---- 商品列表 ---->
     <div class="col-lg-12">
@@ -173,7 +173,7 @@
                     <tbody id="orderDeal">
 
                     {{--<td><img class="" height="60px; align=" middle" src="https://12buy.com/uploads/安慕希正面101118.jpg"--}}
-                        {{--alt="">--}}
+                    {{--alt="">--}}
                     {{--</td>--}}
                     {{--<td><a href="" target="_blank">6907992512570</a></td>--}}
                     {{--<td><a href="" target="_blank">安慕希 希腊风味酸奶 原味 205g Ambrosial Greek Flavored Yoghurt 205g</a></td>--}}
@@ -256,6 +256,7 @@
                             <th>库存编号</th>
                             <th>入库类型</th>
                             <th>操作人</th>
+                            <th>审核状态</th>
                             <th>创建时间</th>
                             <th>关联订单</th>
                             <th>操作</th>
@@ -267,7 +268,8 @@
                                 <!---- 选择框及编号 ---->
                                 <td>
                                     <div class="checkbox checkbox-success">
-                                        <input id="item-checkbox-id" type="checkbox" name="image_input" value="{{$item->id}}" class="item-checkbox">
+                                        <input id="item-checkbox-id" type="checkbox" name="image_input"
+                                               value="{{$item->id}}" class="item-checkbox">
                                         <label for="item-checkbox-id">
                                             {{$item->order_no}}
                                         </label>
@@ -279,15 +281,29 @@
                                     <td>自动</td>
                                 @endif
                                 <td> {{$item->operator}}</td>
+                                @if($item->state != 1 || $item->type != 2)
+                                    <td>已审核</td>
+                                @else
+                                    <td>等待审核</td>
+                                @endif
                                 <td>{{$item->created_at}}</td>
                                 <td>{{$item->pruchase_order_no}}
                                 </td>
                                 <!-- 操作按钮 -->
                                 <td class="actions">
-                                    <!---- 查看按钮 ---->
-                                    <button class="btn-sm btn-success waves-effect waves-light edit-item-btn" data-toggle="modal" data-target="#view-item-modal"  data-id="{{$item->id}}" onclick="sse(this);"><i class="fa fa-eye"></i></button><!---- End 编辑按钮 ---->
+                                    @if ($item->state == 1 && $item->type == 2)
+                                        <button class="btn-sm btn-success waves-effect waves-light btn-sm btn-info"
+                                                data-id="{{$item->id}}" onclick="check(this);"><i
+                                                    class="fa fa-check"></i></button><!---- End 编辑按钮 ---->
+                                @endif
+                                <!---- 查看按钮 ---->
+                                    <button class="btn-sm btn-success waves-effect waves-light edit-item-btn"
+                                            data-toggle="modal" data-target="#view-item-modal" data-id="{{$item->id}}"
+                                            onclick="sse(this);"><i class="fa fa-eye"></i></button><!---- End 编辑按钮 ---->
                                     <!---- 删除按钮 ---->
-                                    <button class="btn-sm btn-danger waves-effect waves-light delete-item-btn" data-id="{{$item->id}}" onclick="del(this);"><i class="fa fa-trash"></i></button><!---- End 删除按钮 ---->
+                                    <button class="btn-sm btn-danger waves-effect waves-light delete-item-btn"
+                                            data-id="{{$item->id}}" onclick="del(this);"><i class="fa fa-trash"></i>
+                                    </button><!---- End 删除按钮 ---->
                                 </td><!-- 操作按钮 -->
                             </tr>
                         @endforeach
@@ -344,7 +360,7 @@
                     </div>
                 </div><!--endprint-->
                 <div class="modal-footer">
-                    <a href="##"id="Print" class="btn btn-inverse waves-effect waves-light"><i class="fa fa-print"></i></a>
+                    <a href="##" id="Print" class="btn btn-inverse waves-effect waves-light"><i class="fa fa-print"></i></a>
                     <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -354,6 +370,34 @@
 
     <!---- End 弹窗 ---->
 
+    <script>
+        $('#operator').val('');
+        $('#orderId').val('');
+        $('#remark').val('');
+        $('#searchString').val('');
+        $('#NowDate').val('当前时间');
+        $('#inStock').val('手动入库');
+
+        var check = function (evnet) {
+            alertify.confirm("确认入库吗？", function (e) {
+                if (e) {
+                    $.get('/stock/check', {'id' : $(evnet).attr('data-id'),'status' : 1}, function (res) {
+                        if (res.status) {
+
+                            alertify.success('入库成功');
+                            window.obj = [];
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1500);
+                        } else {
+                            alertify.alert(res.message);
+                        }
+                    })
+                }
+
+            });
+        }
+    </script>
     <script>
 
         //点击添加
@@ -372,7 +416,7 @@
                     });
                     window.objs.push({
                         'product_id': $(this).attr('data-id'),
-                        'overdue' : $(this).parent().next().find('input').val(),
+                        'overdue': $(this).parent().next().find('input').val(),
                         "count": $(this).val()
                     });
                     i += Number($(this).val());
@@ -383,7 +427,7 @@
 
             var datas = {
                 'products': window.obj,
-                'uproducts':window.objs,
+                'uproducts': window.objs,
                 'operator': $('#operator').val(),
                 'num': i,
                 'orderId': $('#orderId').val(),
@@ -393,7 +437,7 @@
 
             $.post('/enter/stock/deal/order', datas, function (res) {
                 if (res.status) {
-                    alertify.success('创建采购订单成功');
+                    alertify.success('创建入库订单成功');
                     $('#save-item-btn').attr('disabled', "false");
                     window.obj = [];
                     setTimeout(function () {
@@ -467,7 +511,7 @@
                         var datas = '';
                         for (let i in res.data.purchase) {
 
-                            var midlle = res.data.purchase[i].overdue == null ? '未填写': '至'+res.data.purchase[i].overdue;
+                            var midlle = res.data.purchase[i].overdue == null ? '未填写' : '至' + res.data.purchase[i].overdue;
                             datas += `<tr>
                                 <td><img height="60px; align=" middle" src="${res.data.purchase[i].products.product_image}" alt="没有上传"></td>
                                 <td >${res.data.purchase[i].products.sku}</td>
@@ -481,38 +525,38 @@
 
                     }
 
-                    $('#eoperator').attr("value",`${res.data.operator}`);
-                    $('#eorderId').attr("value",`${res.data.pruchase_order_no}`);
-                    $('#date').attr("value",`${res.data.created_at}`);
+                    $('#eoperator').attr("value", `${res.data.operator}`);
+                    $('#eorderId').attr("value", `${res.data.pruchase_order_no}`);
+                    $('#date').attr("value", `${res.data.created_at}`);
                     $('#eremark').text(`${res.data.remark}`);
                     if (res.data.type == 1) {
-                        $('#etype').attr("value",`自动出库`);
+                        $('#etype').attr("value", `自动出库`);
                     } else {
-                        $('#etype').attr("value",`手动出库`);
+                        $('#etype').attr("value", `手动出库`);
                     }
 
 
                     alertify.success('获取成功');
 
                     $('#orderDeal').html(datas);
-			        $("#Print").click(
-						function Printing () {   
-						    bdhtml=window.document.body.innerHTML;   
-						    sprnstr="<!--startprint-->";   
-						    eprnstr="<!--endprint-->";   
-						    prnhtml=bdhtml.substr(bdhtml.indexOf(sprnstr)+17);   
-						    prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr));   
-						    window.document.body.innerHTML=prnhtml;  
-						    window.print();   
-						    window.location.reload()
-						})
+                    $("#Print").click(
+                        function Printing() {
+                            bdhtml = window.document.body.innerHTML;
+                            sprnstr = "<!--startprint-->";
+                            eprnstr = "<!--endprint-->";
+                            prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
+                            prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+                            window.document.body.innerHTML = prnhtml;
+                            window.print();
+                            window.location.reload()
+                        })
                 } else {
                     alertify.alert(res.message);
                 }
             })
         }
         var mydate = new Date();
-        $('#NowDate').val(`${myDate.getFullYear()}-${myDate.getMonth()+1}-${myDate.getDate()} ${myDate.getHours()}:${myDate.getMinutes()}:${myDate.getSeconds()}`);
+        $('#NowDate').val(`${myDate.getFullYear()}-${myDate.getMonth() + 1}-${myDate.getDate()} ${myDate.getHours()}:${myDate.getMinutes()}:${myDate.getSeconds()}`);
 
         //        $("#NowDate").val(`${mydate.getFullYear()}-${mydate.getMonth() + 1}-${mydate.getDate()}`)
     </script>
@@ -565,10 +609,10 @@
                     alertify.success('获取成功');
 //                    $('#link').hide();
                     $('#table').html(datas);
-                jQuery('.datepicker').datepicker({
-                    numberOfMonths: 3,
-                    showButtonPanel: true,
-                });
+                    jQuery('.datepicker').datepicker({
+                        numberOfMonths: 3,
+                        showButtonPanel: true,
+                    });
                 } else {
                     alertify.alert(res.message);
                 }
@@ -624,10 +668,10 @@
 
 
             }
-                jQuery('.datepicker').datepicker({
-                    numberOfMonths: 3,
-                    showButtonPanel: true,
-                });
+            jQuery('.datepicker').datepicker({
+                numberOfMonths: 3,
+                showButtonPanel: true,
+            });
 
         }
 

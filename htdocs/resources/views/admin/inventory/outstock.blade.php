@@ -236,6 +236,7 @@
                             <th>库存编号</th>
                             <th>出库类型</th>
                             <th>操作人</th>
+                            <th>审核状态</th>
                             <th>创建时间</th>
                             <th>关联订单</th>
                             <th>操作</th>
@@ -259,11 +260,21 @@
                                 <td>自动</td>
                             @endif
                             <td> {{$item->operator}}</td>
+                            @if($item->state != 1 || $item->type != 2)
+                                <td>已审核</td>
+                            @else
+                                <td>等待审核</td>
+                            @endif
                             <td>{{$item->created_at}}</td>
                             <td>{{$item->pruchase_order_no}}
                             </td>
                             <!-- 操作按钮 -->
                             <td class="actions">
+                                @if ($item->state == 1 && $item->type == 2)
+                                    <button class="btn-sm btn-success waves-effect waves-light btn-sm btn-info"
+                                            data-id="{{$item->id}}" onclick="check(this);"><i
+                                                class="fa fa-check"></i></button><!---- End 编辑按钮 ---->
+                            @endif
                                 <!---- 查看按钮 ---->
                                 <button data-id="{{$item->id}}" onclick="sse(this);" class="btn-sm btn-success waves-effect waves-light edit-item-btn" data-toggle="modal" data-target="#view-item-modal" id=""><i class="fa fa-eye"></i></button><!---- End 编辑按钮 ---->
                                 <!---- 删除按钮 ---->
@@ -332,7 +343,34 @@
 
 
 <!---- End 弹窗 ---->
+<script>
+//    $('#operator').val('');
+//    $('#orderId').val('');
+//    $('#remark').val('');
+//    $('#searchString').val('');
+//    $('#NowDate').val('当前时间');
+//    $('#inStock').val('手动入库');
 
+    var check = function (evnet) {
+        alertify.confirm("确认出库吗？", function (e) {
+            if (e) {
+                $.get('/stock/check', {'id' : $(evnet).attr('data-id'),'status' : 2}, function (res) {
+                    if (res.status) {
+
+                        alertify.success('入库成功');
+                        window.obj = [];
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1500);
+                    } else {
+                        alertify.alert(res.message);
+                    }
+                })
+            }
+
+        });
+    }
+</script>
 <script>
 
     //点击添加
@@ -372,7 +410,7 @@
 
         $.post('/out/stock/deal/order', datas, function (res) {
             if (res.status) {
-                alertify.success('创建采购订单成功');
+                alertify.success('创建出库订单成功');
                 $('#save-item-btn').attr('disabled', "false");
                 window.obj = [];
                 setTimeout(function () {

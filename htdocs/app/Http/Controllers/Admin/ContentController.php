@@ -151,8 +151,8 @@ class ContentController extends Controller
             }
         }
 
-        $themeData = ThemeModel::get();
         //获取活动列表
+        $themeData = ThemeModel::get();
         $theme = ThemeModel::getThemeList(1);
         //获取ST活动列表
         $STtheme = ThemeModel::getThemeList(2);

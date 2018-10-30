@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Http\Model\PrivilegeRoleModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Model\UsersModel;
 use App\Http\Model\AdminModel;
 use App\Http\Model\UsersRoleModel;
 use App\Http\Model\AdminRoleModel;
+use App\Http\Model\PrivilegeModel;
 use App\Http\Controllers\Common;
 use App\Rules\IdRule;
 use App\Rules\UserInfoRule;
@@ -115,9 +117,14 @@ class UserController extends Controller
     public function managerRole ($limit)
     {
 
+
         $res = AdminRoleModel::getRole($limit);
+
+//        dd($res->toArray());
+        $auth = Common::getTree(PrivilegeModel::get()->toArray(),0);
+
         //数据 类型 标题 状态
-        return view('admin.user.user-admin-role', ['data' => $res, 'limit' => '显示' . $limit . '条']);
+        return view('admin.user.user-admin-role', ['data' => $res, 'limit' => '显示' . $limit . '条','auth' => $auth]);
     }
 //    /**
 //     * 添加用户页面
@@ -541,6 +548,29 @@ class UserController extends Controller
     {
 
         $res = AdminRoleModel::get();
+
+        if (!$res) {
+            throw new \Exception('服务器内部错误');
+        }
+
+        return Common::successData($res);
+    }
+
+    //管理员权限
+    public function managerAuth (Request $request)
+    {
+
+        $param = $request->all();
+
+        $data = [];
+        foreach ($param['data'] as $items) {
+            $data[] = [
+                'privilege_id' => $items,
+                'role_id' => $param['id'],
+            ];
+        }
+        PrivilegeRoleModel::where('role_id',$param['id'])->delete();
+        $res = PrivilegeRoleModel::insert($data);
 
         if (!$res) {
             throw new \Exception('服务器内部错误');

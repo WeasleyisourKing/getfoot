@@ -161,7 +161,7 @@
         $('#shop').change(function () {
             //1 注册 2 下单 3 发货 4 到货
 
-            window.location.href = '/set/mail/' + $(this).val();
+            window.location.href = '/set/mail/status/' + $(this).val();
 
         })
 

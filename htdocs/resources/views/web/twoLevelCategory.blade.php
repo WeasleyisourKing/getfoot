@@ -3,7 +3,11 @@
 @section('content')
 
     @include('web/layout.category')
-
+<style type="text/css">
+	.Drinks .am-u-sm-3{
+		height: 300px;
+	}
+</style>
     <div class="classIfyBg">
         <div class="maxCentr">
 
@@ -21,7 +25,9 @@
                         $j = 0;
                     @endphp
                     <div class="Drinks clearfloat">
-
+						<div class="DrinksMore" style="position: absolute;top: -42px;right: 17px;font-size: 50px;">
+							<p data-router="/shop/{{$item->id}}" style="cursor: pointer;font-size: 20px;font-weight: bold;color: #666;">MORE</p>
+						</div>
                         @if (!empty($item->product))
 
                             @foreach($item->product as $items)

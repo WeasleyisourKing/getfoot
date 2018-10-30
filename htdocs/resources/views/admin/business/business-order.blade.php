@@ -261,7 +261,7 @@
                                                 <td class="exce">
                                                     <a title="查看订单" id="info" data-id="{{$item->id}}"
                                                        class="btn btn-small btn-success"
-                                                       href="/business/detail/{{$item->id}}"
+                                                       href="/business/detail/id/{{$item->id}}"
                                                     >
                                                         <i class="icon fa fa-file-text"> </i>
                                                     </a>

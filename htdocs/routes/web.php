@@ -390,7 +390,7 @@ Route::group(['middleware' => 'role'], function () {
         //订单列表页面*
         Route::get('/list/status/{status?}/limit/{limit?}', 'Admin\BusinessController@businessList');
         //某订单详情页面*
-        Route::get('/detail/{id?}', 'Admin\BusinessController@orderDetail');
+        Route::get('/detail/id/{id?}', 'Admin\BusinessController@orderDetail');
         //删除接口
         Route::get('/order/del', 'Admin\BusinessController@orderDel');
 //        Route::get('/show', 'Admin\CatchController@payShow');

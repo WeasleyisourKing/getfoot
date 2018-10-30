@@ -64,7 +64,7 @@ $(function(){
     </div>
     @if (!empty($product))
     <div class="snacksBg maxCentr">
-        <div class="qualityTitle" style="background: #FFFFFF;color: #fdb3d3;">
+        <div class="qualityTitle" style="background: #FFFFFF;color: #82b7d7;">
           <script>
             Language("{{$product[0]->zn_name}}","{{$product[0]->en_name}}")
           </script>

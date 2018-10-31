@@ -26,7 +26,7 @@
     <meta name="msapplication-TileImage" content="{{ asset('/home/assets/i/app-icon72x72@2x.png') }}">
     <meta name="msapplication-TileColor" content="#0e90d2">
 
-    <link rel="shortcut icon" href="/image/favicon_1.ico">
+    <link rel="shortcut icon" href="/uploads/snack.ico">
 
     <title>Snack Talk</title>
 

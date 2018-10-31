@@ -291,7 +291,6 @@ var LanguageHtml=function(one, tow){
                 <li>客户服务</li>
                 <li class="btoNavPro" data-router="/company/9">常见问题</li>
                 <li class="btoNavPro" data-router="/company/10">付款方式</li>
-                <li class="btoNavPro" data-router="/company/11">邮寄信息</li>
                 <li class="btoNavPro" data-router="/company/12">退货换货</li>
             </ul>
         </div>
@@ -320,7 +319,6 @@ var LanguageHtml=function(one, tow){
                 <li>Customer Service</li>
                 <li class="btoNavPro" data-router="/company/9">FAQs</li>
                 <li class="btoNavPro" data-router="/company/10">Payment Method</li>
-                <li class="btoNavPro" data-router="/company/11">Shipping Rates</li>
                 <li class="btoNavPro" data-router="/company/12">Returns & Exchanges</li>
             </ul>
         </div>

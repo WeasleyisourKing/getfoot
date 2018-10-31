@@ -228,13 +228,13 @@
 							</script>
 							$<span>$0.00</span>
 						</p>
-            <p class="float_right freight">
+            <p class="float_right freight"style="display: none;">
 							<script>
 								Language("运费","Shipping")
 							</script>
 							$<span>$0.00</span>
 						</p>
-            <p class="float_right tax">
+            <p class="float_right tax" style="display: none;">
 							<script>
 								Language("税金：","Tax：")
 							</script>$<span></span>

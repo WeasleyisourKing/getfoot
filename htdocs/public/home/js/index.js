@@ -81,7 +81,7 @@ $(document).ready(function () {
     $(".categoryNav a:odd").css("background", "#82b7d7");
     $(".labelbox:odd").css("background", "#ffffff");
     //商品详情页加减按钮
-    $(".increase").click(function () {
+    $("#increase").click(function () {
         var number = $("#prdoctNumbers").attr("value")
         console.log(number)
         $("#prdoctNumbers").attr("value",parseInt(number) + 1)
@@ -91,7 +91,7 @@ $(document).ready(function () {
         console.log(1)
         $("#addCart").attr(	"data-number",$(this).val())
     })
-    $(".reduce").click(function () {
+    $("#reduce").click(function () {
         console.log(1)
         var number = $("#prdoctNumbers").attr("value")
         if (parseInt(number) == 1) {

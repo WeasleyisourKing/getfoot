@@ -80,26 +80,6 @@ $(document).ready(function () {
     $(".category:odd li,.category:odd").css("border-color", "#82b7d7");
     $(".categoryNav a:odd").css("background", "#82b7d7");
     $(".labelbox:odd").css("background", "#ffffff");
-    //商品详情页加减按钮
-    $("#increase").click(function () {
-        var number = $("#prdoctNumbers").attr("value")
-        console.log(number)
-        $("#prdoctNumbers").attr("value",parseInt(number) + 1)
-        $("#addCart").attr("data-number",parseInt(number) + 1)
-    });
-    $("#prdoctNumbers").change(function(){
-        console.log(1)
-        $("#addCart").attr(	"data-number",$(this).val())
-    })
-    $("#reduce").click(function () {
-        console.log(1)
-        var number = $("#prdoctNumbers").attr("value")
-        if (parseInt(number) == 1) {
-        } else {
-            $("#prdoctNumbers").attr("value",parseInt(number) - 1)
-        $("#addCart").attr("data-number",parseInt(number) - 1)
-        }
-    });
     //购物车全选按钮
     $(".allTotal").data("allPlay", "false");
     $(".allTotal").click(function () {

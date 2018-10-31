@@ -73,9 +73,9 @@
                         Language("数量", "Quantities")
                     </script>
                 </p>
-                <button class="float_left increase">＋</button>
-                <input type="number" id="prdoctNumbers" class="float_left productNumber">1</input>
-                <button class="float_left reduce">－</button>
+                <button class="float_left "id="increase">＋</button>
+                <input type="text" id="prdoctNumbers" value="1" class="float_left productNumber" style=" width: 50px;text-align: center;line-height: 29px;">
+                <button class="float_left"id=" reduce">－</button>
                 <div class="float_left">&nbsp;
                     <script>
                         Language("（库存{{$product->stock}}{{$product->zn_number}}）", "（In Stock{{$product->stock}}{{$product->en_number}}）")
@@ -477,7 +477,25 @@
                                                 },"json")
 
 </script>
-//<script>	
+<script>	
+    //商品详情页加减按钮
+    $("#increase").click(function () {
+        var number = $("#prdoctNumbers").attr("value")
+        $("#prdoctNumbers").attr("value",parseInt(number) + 1)
+        $("#addCart").attr("data-number",parseInt(number) + 1)
+    });
+    $("#prdoctNumbers").change(function(){
+        $("#prdoctNumbers").attr("value",$(this).val())
+        $("#addCart").attr(	"data-number",$(this).val())
+    })
+    $("#reduce").click(function () {
+        var number = $("#prdoctNumbers").attr("value")
+        if (parseInt(number) == 1) {
+        } else {
+            $("#prdoctNumbers").attr("value",parseInt(number) - 1)
+        $("#addCart").attr("data-number",parseInt(number) - 1)
+        }
+    });
 //
 //$.ajax({
 //          url:'https://api.zip-tax.com/request/v40',
@@ -492,5 +510,5 @@
 //
 //          }
 //      });
-//</script>
+</script>
 @endsection

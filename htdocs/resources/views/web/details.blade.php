@@ -74,7 +74,7 @@
                     </script>
                 </p>
                 <button class="float_left increase">＋</button>
-                <input type="text" id="prdoctNumbers" class="float_left productNumber"value="1">
+                <input type="text" id="prdoctNumbers" class="float_left productNumber" style=" width: 50px;text-align: center;">
                 <button class="float_left reduce">－</button>
                 <div class="float_left">&nbsp;
                     <script>

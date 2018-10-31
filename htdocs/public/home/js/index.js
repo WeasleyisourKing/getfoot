@@ -87,7 +87,7 @@ $(document).ready(function () {
         $("#prdoctNumbers").attr("value",parseInt(number) + 1)
         $("#addCart").attr("data-number",parseInt(number) + 1)
     });
-    $(".productNumber").change(()=>{
+    $("#prdoctNumbers").change(function(){
         $("#addCart").attr(	"data-number",$(this).val())
     
     })

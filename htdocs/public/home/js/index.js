@@ -88,10 +88,11 @@ $(document).ready(function () {
         $("#addCart").attr("data-number",parseInt(number) + 1)
     });
     $("#prdoctNumbers").change(function(){
+        console.log(1)
         $("#addCart").attr(	"data-number",$(this).val())
-    
     })
     $(".reduce").click(function () {
+        console.log(1)
         var number = $("#prdoctNumbers").attr("value")
         if (parseInt(number) == 1) {
         } else {

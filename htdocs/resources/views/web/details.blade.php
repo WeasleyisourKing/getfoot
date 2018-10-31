@@ -481,16 +481,14 @@
     //商品详情页加减按钮
     $("#increase").click(function () {
         var number = $("#prdoctNumbers").attr("value")
-        console.log(number)
         $("#prdoctNumbers").attr("value",parseInt(number) + 1)
         $("#addCart").attr("data-number",parseInt(number) + 1)
     });
     $("#prdoctNumbers").change(function(){
-        console.log(1)
+        $("#prdoctNumbers").attr("value",$(this).val())
         $("#addCart").attr(	"data-number",$(this).val())
     })
     $("#reduce").click(function () {
-        console.log(1)
         var number = $("#prdoctNumbers").attr("value")
         if (parseInt(number) == 1) {
         } else {

@@ -82,19 +82,19 @@ $(document).ready(function () {
     $(".labelbox:odd").css("background", "#ffffff");
     //商品详情页加减按钮
     $(".increase").click(function () {
-        var number = $(this).siblings(".productNumber").val()
-        $(this).siblings(".productNumber").val(parseInt(number) + 1)
+        var number = $(this).siblings(".productNumber").attr("value")
+        $(this).siblings(".productNumber").attr("value",parseInt(number) + 1)
         $("#addCart").attr("data-number",parseInt(number) + 1)
     });
     $(".productNumber").change(()=>{
-        $("#addCart").attr(	$(this).val())
+        $("#addCart").attr(	"data-number",$(this).val())
     
     })
     $(".reduce").click(function () {
-        var number = $(this).siblings(".productNumber").val()
+        var number = $(this).siblings(".productNumber").attr("value")
         if (parseInt(number) == 1) {
         } else {
-            $(this).siblings(".productNumber").val(parseInt(number) - 1)
+            $(this).siblings(".productNumber").attr("value",parseInt(number) - 1)
         $("#addCart").attr("data-number",parseInt(number) - 1)
         }
     });

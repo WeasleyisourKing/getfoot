@@ -82,8 +82,8 @@ $(document).ready(function () {
     $(".labelbox:odd").css("background", "#ffffff");
     //商品详情页加减按钮
     $(".increase").click(function () {
-        var number = $(this).siblings(".productNumber").attr("value")
-        $(this).siblings(".productNumber").attr("value",parseInt(number) + 1)
+        var number = $("#prdoctNumbers").attr("value")
+        $("#prdoctNumbers").attr("value",parseInt(number) + 1)
         $("#addCart").attr("data-number",parseInt(number) + 1)
     });
     $(".productNumber").change(()=>{
@@ -91,10 +91,10 @@ $(document).ready(function () {
     
     })
     $(".reduce").click(function () {
-        var number = $(this).siblings(".productNumber").attr("value")
+        var number = $("#prdoctNumbers").attr("value")
         if (parseInt(number) == 1) {
         } else {
-            $(this).siblings(".productNumber").attr("value",parseInt(number) - 1)
+            $("#prdoctNumbers").attr("value",parseInt(number) - 1)
         $("#addCart").attr("data-number",parseInt(number) - 1)
         }
     });

@@ -83,6 +83,7 @@ $(document).ready(function () {
     //商品详情页加减按钮
     $(".increase").click(function () {
         var number = $("#prdoctNumbers").attr("value")
+        console.log(number)
         $("#prdoctNumbers").attr("value",parseInt(number) + 1)
         $("#addCart").attr("data-number",parseInt(number) + 1)
     });

@@ -28,7 +28,7 @@
 
     <link rel="shortcut icon" href="/uploads/snack.ico">
 
-    <title>Admin - Pulse</title>
+    <title>Snack Talk</title>
 
     <link rel="stylesheet" type="text/css" href="{{ asset('/home/css/zzsc.css') }}">
     <link rel="stylesheet" href="{{ asset('/home/assets/css/amazeui.min.css') }}">
@@ -186,13 +186,13 @@
                         </p>
                     </a></li>
             @endif
-            <li class="navIcon float_left"><a href="##">
+            <!--<li class="navIcon float_left"><a href="##">
                     <p class="navIcon1">
                         <script>
                             Language("消息通知", "Notification")
                         </script>
                     </p>
-                </a></li>
+                </a></li>-->
             @if (!empty(Auth::guard("pc")->user()->id))
                 <li class=" navIcon float_left"><a href="/shop/cart/{{Auth::guard('pc')->user()->id}}"
                                                    onclick="shopping();">
@@ -287,7 +287,6 @@
                 <li>客户服务</li>
                 <li class="btoNavPro" data-router="/company/9">常见问题</li>
                 <li class="btoNavPro" data-router="/company/10">付款方式</li>
-                <li class="btoNavPro" data-router="/company/11">邮寄信息</li>
                 <li class="btoNavPro" data-router="/company/12">退货换货</li>
             </ul>
         </div>
@@ -316,7 +315,6 @@
                 <li>Customer Service</li>
                 <li class="btoNavPro" data-router="/company/9">FAQs</li>
                 <li class="btoNavPro" data-router="/company/10">Payment Method</li>
-                <li class="btoNavPro" data-router="/company/11">Shipping Rates</li>
                 <li class="btoNavPro" data-router="/company/12">Returns & Exchanges</li>
             </ul>
         </div>

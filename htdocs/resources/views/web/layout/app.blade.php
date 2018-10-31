@@ -397,7 +397,7 @@
 
                 if (status != -1) {
                     //有重复
-                    shop[item].count+=$(this).attr('data-number')*1;
+                    shop[item].count=shop[item].count*1+$(this).attr('data-number')*1;
                 } else {
                     data = {
                         'count': $(this).attr('data-number'),

@@ -86,6 +86,10 @@ $(document).ready(function () {
         $(this).siblings(".productNumber").val(parseInt(number) + 1)
         $("#addCart").attr("data-number",parseInt(number) + 1)
     });
+    $(".productNumber").change(()=>{
+        $("#addCart").attr(	$(this).val())
+    
+    })
     $(".reduce").click(function () {
         var number = $(this).siblings(".productNumber").val()
         if (parseInt(number) == 1) {

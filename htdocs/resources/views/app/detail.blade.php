@@ -300,9 +300,14 @@
                     <div class="row py-1">
                         <div class="col-7 align-middle">
                             <span class="pl-2 text-secondary align-middle">
-                	<script type="text/javascript">
-                	Language("商品数量","Quantities")
-                </script></span>
+			                	<script type="text/javascript">
+			                	Language("商品数量","Quantities")
+			                </script></span>
+			                <span>
+			                	<script type="text/javascript">
+			                	Language("（箱规：每箱xx）","（箱规：每箱xx）")
+			                </script>
+			                </span>
                         </div>
                         <div class="col-5">
                             <div class="input-group">

@@ -500,6 +500,7 @@
         if (parseInt(number) == 1) {
         } else {
             $("#prdoctNumbers").attr("value",parseInt(number) - 1)
+            $("#prdoctNumbers").val(parseInt(number) - 1)
         $("#addCart").attr("data-number",parseInt(number) - 1)
         }
     });

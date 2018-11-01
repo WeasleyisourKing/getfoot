@@ -538,7 +538,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="einnersku">SKU<span
+                                <label class="control-label" for="einnersku">内部SKU<span
                                             class="red">＊</span></label>
                                 <div class="controls">
                                     <input type="text" name="einnersku" id="einnersku" class="form-control"

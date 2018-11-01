@@ -722,9 +722,9 @@
         }
 
 //PDF打印按钮
-	    $("datatable-buttons_wrapper").ready(()=>{
-	    		$("#datatable-buttons_wrapper .dt-buttons a").eq(3).hide();
-	    		console.log("chengg")
-	    })
+//	    $("datatable-buttons_wrapper").ready(()=>{
+//	    		$("#datatable-buttons_wrapper .dt-buttons a").eq(3).hide();
+//	    		console.log("chengg")
+//	    })
     </script>
 @endsection

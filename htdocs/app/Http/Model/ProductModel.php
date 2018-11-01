@@ -142,7 +142,7 @@ class ProductModel extends Model
     {
         return self::with(['category', 'brand', 'distributor'])
             ->select('id', 'sku', 'zn_name', 'price', 'en_name', 'product_image', 'stock',
-                'status', 'summary', 'number', 'zn_number', 'en_number', 'weight', 'zn_weight', 'en_weight', 'net_weight', 'zn_net_weight', 'en_net_weight', 'created_at', 'category_id', 'brand_id', 'term', 'created_at')
+                'innersku','status', 'summary', 'number', 'zn_number', 'en_number', 'weight', 'zn_weight', 'en_weight', 'net_weight', 'zn_net_weight', 'en_net_weight', 'created_at', 'category_id', 'brand_id', 'term', 'created_at')
             ->where($arr)
             ->where('status', '=', $status)
             ->orderBy('created_at', 'desc')
@@ -155,7 +155,7 @@ class ProductModel extends Model
     {
         return self::with(['category', 'brand', 'distributor'])
             ->select('id', 'sku', 'zn_name', 'price', 'en_name', 'product_image', 'stock',
-                'status', 'summary', 'number', 'zn_number', 'en_number', 'weight', 'zn_weight', 'en_weight', 'net_weight', 'zn_net_weight', 'en_net_weight', 'created_at', 'category_id', 'brand_id', 'term', 'created_at')
+                'innersku','status', 'summary', 'number', 'zn_number', 'en_number', 'weight', 'zn_weight', 'en_weight', 'net_weight', 'zn_net_weight', 'en_net_weight', 'created_at', 'category_id', 'brand_id', 'term', 'created_at')
             ->where($arr)
             ->orderBy('created_at', 'desc')
             ->paginate($limit);

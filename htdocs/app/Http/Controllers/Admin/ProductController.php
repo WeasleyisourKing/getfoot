@@ -580,6 +580,7 @@ class ProductController extends Controller
 
         $name = htmlspecialchars(strip_tags(trim($params['zn_name'])));
         $sku = htmlspecialchars(strip_tags(trim($params['sku'])));
+        $innerSku = htmlspecialchars(strip_tags(trim($params['inner_sku'])));
 
         if (ProductModel::uniqueP($params['id'], $name) || ProductModel::uniqueS($params['id'], $sku)) {
 
@@ -588,10 +589,17 @@ class ProductController extends Controller
                 'message' => '商品中文名称或SKU已存在'
             ]);
         }
+        if (ProductModel::where('innersku', '=', $innerSku)->where('id', '!=', $params['id'])->first()) {
 
+            throw new ParamsException([
+                'code' => 200,
+                'message' => '商品内部SKU已存在'
+            ]);
+        }
         //拼接数据
         $data = [
             'sku' => $sku,
+            'innersku' => $innerSku,
             'zn_name' => $name,
             'en_name' => htmlspecialchars(strip_tags(trim($params['en_name']))),
             'term' => $params['term'],
@@ -666,6 +674,8 @@ class ProductController extends Controller
 
         $name = htmlspecialchars(strip_tags(trim($params['zn_name'])));
         $sku = htmlspecialchars(strip_tags(trim($params['sku'])));
+        $innerSku = htmlspecialchars(strip_tags(trim($params['inner_sku'])));
+
         //验证唯一性
         if (ProductModel::uniqueProduct($name) || ProductModel::uniqueSKU($sku)) {
 
@@ -674,10 +684,18 @@ class ProductController extends Controller
                 'message' => '商品中文名称或SKU已存在'
             ]);
         }
+        if (ProductModel::where('innersku', '=', $innerSku)->first()) {
+
+            throw new ParamsException([
+                'code' => 200,
+                'message' => '商品内部SKU已存在'
+            ]);
+        }
 
         //拼接数据
         $data = [
             'sku' => $sku,
+            'innersku' => $innerSku,
             'zn_name' => $name,
             'term' => $params['term'],
             'en_name' => htmlspecialchars(strip_tags(trim($params['en_name']))),

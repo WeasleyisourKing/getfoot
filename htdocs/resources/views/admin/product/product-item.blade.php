@@ -23,7 +23,11 @@
                             <text style="font-weight: 400;" id="psku"></text>
                         </label>
                     </div>
-
+                    <div class="form-group">
+                        <label>商品内部SKU :
+                            <text style="font-weight: 400;" id="pinnersku"></text>
+                        </label>
+                    </div>
                     <div class="form-group">
                         <label>商品保质期 （天）:
                             <text style="font-weight: 400;" id="pterm"></text>
@@ -221,6 +225,14 @@
                                             class="red">＊</span></label>
                                 <div class="controls">
                                     <input type="text" name="sku" id="sku" class="form-control"
+                                           value="" required="required"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="innersku">内部SKU<span
+                                            class="red">＊</span></label>
+                                <div class="controls">
+                                    <input type="text" name="innersku" id="innersku" class="form-control"
                                            value="" required="required"/>
                                 </div>
                             </div>
@@ -522,6 +534,14 @@
                                             class="red">＊</span></label>
                                 <div class="controls">
                                     <input type="text" name="esku" id="esku" class="form-control"
+                                           value="" required="required"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="einnersku">SKU<span
+                                            class="red">＊</span></label>
+                                <div class="controls">
+                                    <input type="text" name="einnersku" id="einnersku" class="form-control"
                                            value="" required="required"/>
                                 </div>
                             </div>
@@ -982,6 +1002,7 @@
                                                        data-id="{{$item->id}}"
                                                        data-name="{{ $item->zn_name }}（{{ $item->en_name }}）"
                                                        data-sku="{{ $item->sku }}"
+                                                       data-innersku="{{$item->innersku}}"
                                                        data-price="{{ $item->price }}"
                                                        data-oneprice="{{ empty($item->distributor->level_one_price) ? 0: $item->distributor->level_one_price}}"
                                                        data-twoprice="{{ empty($item->distributor->level_two_price) ? 0:  $item->distributor->level_two_price}}"
@@ -1057,6 +1078,7 @@
 
             $('#pname').text($(event).attr('data-name'));
             $('#psku').text($(event).attr('data-sku'));
+            $('#pinnersku').text($(event).attr('data-innersku'));
             $('#pprice').text($(event).attr('data-price'));
             $('#pprice1').text($(event).attr('data-oneprice'));
             $('#pprice2').text($(event).attr('data-twoprice'));
@@ -1350,6 +1372,7 @@
             var datas = {
                 'id': 1,
                 'sku': $('#sku').val(),
+                'inner_sku': $('#innersku').val(),
                 'zn_name': $('#zn_name').val(),
                 'en_name': $('#en_name').val(),
                 'imgId': window.imgAddress,
@@ -1852,6 +1875,7 @@
             var datas = {
                 'id': $(event).attr('data-id'),
                 'sku': $('#esku').val(),
+                'inner_sku': $('#einnersku').val(),
                 'term': $('#eterm').val(),
                 'zn_name': $('#ezn_name').val(),
                 'en_name': $('#een_name').val(),
@@ -2023,6 +2047,7 @@
                             data-id="${res.data[i].id}"
                             data-name="${res.data[i].zn_name}（${res.data[i].en_name}）"
                             data-sku="${res.data[i].sku}"
+                            data-innersku="${res.data[i].innersku}"
                             data-price="${res.data[i].price}"
                             data-oneprice="{{ empty($item->distributor->level_one_price) ? 0: $item->distributor->level_one_price}}"
                             data-twoprice="{{ empty($item->distributor->level_two_price) ? 0:  $item->distributor->level_two_price}}"

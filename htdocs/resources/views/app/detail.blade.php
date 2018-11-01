@@ -300,9 +300,9 @@
                     <div class="row py-1">
                         <div class="col-7 align-middle">
                             <span class="pl-2 text-secondary align-middle">
-                	<script type="text/javascript">
-                	Language("商品数量","Quantities")
-                </script></span>
+			                	<script type="text/javascript">
+			                	Language("商品数量","Quantities")
+			                </script></span>
                         </div>
                         <div class="col-5">
                             <div class="input-group">
@@ -320,9 +320,16 @@
                     "row">
                     <div class="container py-3">
                         <span class="d-inline">
-                	<script type="text/javascript">
-                	Language("库存：","In Stock:")
-                </script><span>{{$product->stock}}</span></span>
+			                	<script type="text/javascript">
+			                	Language("库存：","In Stock:")
+			                </script>
+			                <span>{{$product->stock}}</span>
+		                </span>
+		                <span>
+		                	<script type="text/javascript">
+		                	Language("（箱规：每箱{{$product->number}}）","（箱规：每箱{{$product->number}}）")
+		                </script>
+		                </span>
                     </div>
                 </div>
                 <div class="row">

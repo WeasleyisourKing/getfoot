@@ -327,7 +327,7 @@
 		                </span>
 		                <span>
 		                	<script type="text/javascript">
-		                	Language("（箱规：每箱xx）","（箱规：每箱xx）")
+		                	Language("（箱规：每箱{{$product->number}}）","（箱规：每箱{{$product->number}}）")
 		                </script>
 		                </span>
                     </div>

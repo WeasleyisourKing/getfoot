@@ -486,6 +486,7 @@
     		console.log("increase")
         var number = $("#prdoctNumbers").attr("value")
         $("#prdoctNumbers").attr("value",parseInt(number) + 1)
+        $("#prdoctNumbers").val(parseInt(number) + 1)
         $("#addCart").attr("data-number",parseInt(number) + 1)
     });
     $("#prdoctNumbers").change(function(){

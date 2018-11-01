@@ -59,7 +59,7 @@
 				<div class="col-twelve">
 
 					<h1 class="kern-this">您没有权限访问！</h1>
-					<h2>您的权限登记不足</h2>
+					<h2>您的权限不足</h2>
 					<h2 style="text-decoration:underline;"><a href="javascript:history.go(-1)">返回上一页</a></h2>
 				</div> <!-- /twelve -->
 			</div> <!-- /row -->

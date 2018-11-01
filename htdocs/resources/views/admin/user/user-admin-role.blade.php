@@ -327,6 +327,8 @@
                     data.push(31);
                 if ($(this).val() == 8)
                     data.push(32);
+                if ($(this).val() == 18)
+                    data.push(37);
                 data.push($(this).val());
             });
             if (data.length == 0) {

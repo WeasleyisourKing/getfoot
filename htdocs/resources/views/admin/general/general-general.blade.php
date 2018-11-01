@@ -98,7 +98,7 @@
         $("#uploadfile").fileinput({
             language: 'zh', //设置语言
             uploadUrl: "/imgHandle", //上传的地址
-            allowedFileExtensions: ['jpg', 'gif', 'png'],//接收的文件后缀
+            allowedFileExtensions: ['jpg', 'gif', 'png','ico'],//接收的文件后缀
             initialPreview: [ //预览图片的设置
                 @if (!empty($data->logo))
 

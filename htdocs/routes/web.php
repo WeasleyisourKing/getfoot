@@ -572,9 +572,13 @@ Route::get('/shelves/order/del', 'Admin\StockController@orderDel');
 Route::get('/shelves/Batch/del', 'Admin\StockController@orderBatchDel');
 //获取某订单详情接口*
 Route::get('/shelves/order/deal', 'Admin\StockController@orderDeal');
+
 //采购订单入库接口*
 Route::get('/stock/put', 'Admin\StockController@stockPut');
+//入库确认接口
+Route::get('/stock/in/confirm', 'Admin\StockController@stockInConfirm');
 
+Route::get('/stock/out/confirm', 'Admin\StockController@stockOutConfirm');
 //入库下订单接口
 Route::post('/enter/stock/deal/order', 'Admin\StockController@enterPlaceOrder');
 //删除入库订单接口*

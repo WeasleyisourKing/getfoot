@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <link rel="shortcut icon" href="/image/favicon_1.ico">
+    <link rel="shortcut icon" href="/uploads/12buy.ico">
 
-    <title>Admin - Pulse</title>
+    <title>12buy商城管理系统</title>
 
     <style>
 

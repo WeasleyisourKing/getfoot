@@ -423,8 +423,8 @@ class ProductModel extends Model
     public static function searchName ($data)
     {
         return self::with('distributor')
-            ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'shelves')
-            ->where('zn_name', 'like', $data . '%')
+            ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'shelves','price')
+            ->where('zn_name', 'like','%'. $data . '%')
             ->orderBy('created_at', 'desc')
             ->get();
     }
@@ -433,8 +433,8 @@ class ProductModel extends Model
     public static function searchSKU ($data)
     {
         return self::with('distributor')
-            ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'shelves')
-            ->where('sku', 'like', $data . '%')
+            ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'shelves','price')
+            ->where('sku', 'like', '%'.$data . '%')
             ->orderBy('created_at', 'desc')
             ->get();
     }

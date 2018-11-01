@@ -299,40 +299,46 @@ class StockOrderModel extends Model
     }
 
     //生成预定单
-    public static function check ($id,$arr, $status)
+    public static function check ($id, $arr, $status, $num = null)
     {
 
         //涉及多表 使用事务控制
         DB::beginTransaction();
         try {
-            self::where('id', '=', $id)->update(['state' => 2]);
+
             if ($status == 1) {
+                self::where('id', '=', $id)->update(['state' => 2]);
                 foreach ($arr as &$p) {
 
                     $flight = ProductModel::find($p['product_id']);
                     $flight->stock = $flight->stock + $p['count'];
                     $flight->save();
 
-                    StockOrderProductModel::where('order_id','=',$id)
-                        ->where('product_id','=',$p['product_id'])
+                    StockOrderProductModel::where('order_id', '=', $id)
+                        ->where('product_id', '=', $p['product_id'])
                         ->update([
                             'origin_stock' => $p['origin_stock'],
                             'created_at' => date('Y-m-d H:i:s', time())
-                            ]);
+                        ]);
                 }
 
             } else {
-
+                $info = self::find($id);
+                $info->total_count = $num;
+                $info->remark = '非直接入库确认，入库数量与订单数量存在误差';
+                $info->state = 2;
+                $info->save();
                 foreach ($arr as &$p) {
 
                     $flight = ProductModel::find($p['product_id']);
-                    $flight->stock = $flight->stock - $p['count'];
+                    $flight->stock = $flight->stock + $p['count'];
                     $flight->save();
 
-                    StockOrderProductModel::where('order_id','=',$id)
-                        ->where('product_id','=',$p['product_id'])
+                    StockOrderProductModel::where('order_id', '=', $id)
+                        ->where('product_id', '=', $p['product_id'])
                         ->update([
                             'origin_stock' => $p['origin_stock'],
+                            'overdue' => $p['overdue'],
                             'created_at' => date('Y-m-d H:i:s', time())
                         ]);
                 }
@@ -348,6 +354,7 @@ class StockOrderModel extends Model
         }
 
     }
+
     //写入订单和相关商品信息
     public static function insertInOrder ($id, $data, $arr)
     {
@@ -385,7 +392,62 @@ class StockOrderModel extends Model
             //记录日志
             throw $ex;
         }
+    }
 
+    public static function updatestate ($id, $arr, $status, $num = null)
+    {
+
+        //涉及多表 使用事务控制
+        DB::beginTransaction();
+        try {
+
+            if ($status == 1) {
+                self::where('id', '=', $id)->update(['state' => 2]);
+                foreach ($arr as &$p) {
+
+                    $flight = ProductModel::find($p['product_id']);
+                    $flight->stock = $flight->stock - $p['count'];
+                    $flight->save();
+
+                    StockOrderProductModel::where('order_id', '=', $id)
+                        ->where('product_id', '=', $p['product_id'])
+                        ->update([
+                            'origin_stock' => $p['origin_stock'],
+                            'created_at' => date('Y-m-d H:i:s', time())
+                        ]);
+                }
+
+            } else {
+                $info = self::find($id);
+                $info->total_count = $num;
+                $info->remark = '非直接出库确认';
+                $info->state = 2;
+                $info->save();
+
+                foreach ($arr as &$p) {
+
+                    $flight = ProductModel::find($p['product_id']);
+                    $flight->stock = $flight->stock - $p['count'];
+                    $flight->save();
+
+                    StockOrderProductModel::where('order_id', '=', $id)
+                        ->where('product_id', '=', $p['product_id'])
+                        ->update([
+                            'origin_stock' => $p['origin_stock'],
+                            'overdue' => $p['overdue'],
+                            'created_at' => date('Y-m-d H:i:s', time())
+                        ]);
+                }
+
+            }
+
+            DB::commit();
+
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            //记录日志
+            throw $ex;
+        }
 
     }
 }

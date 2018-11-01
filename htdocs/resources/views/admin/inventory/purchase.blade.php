@@ -240,10 +240,8 @@
                                 <td><i class="fa fa-dollar"></i>{{$item->total_price}}</td>
                                 @if($item->status == 1)
                                     <td class="text-info">已下单</td>
-                                @elseif($item->status == 2)
-                                    <td class="text-info">已审核入库</td>
                                 @else
-                                    <td class="text-info">已取消</td>
+                                    <td >已审核入库</td>
                             @endif
                             <!-- 操作按钮 -->
                                 <td class="actions">
@@ -314,16 +312,18 @@
                 </div>
                 <!--endprint-->
                 <div class="modal-footer">
-                    <a href="##" id="Print" class="btn btn-inverse waves-effect waves-light"><i class="fa fa-print"></i></a>
+
                     <button type="button" onclick="dealStock(this);" data-status="1" id="sure"
-                            class="btn btn-success waves-effect pull-left">确认入库
+                            style="display: none;" class="btn btn-success waves-effect pull-left">确认出库
                     </button>
                     <button type="button" id="not" onclick="dealStock(this);" data-status="2"
-                            class="btn btn-danger waves-effect pull-left">修改入库信息
+                            style="display: none;" class="btn btn-danger waves-effect pull-left">修改出库信息
                     </button>
                     <button type="button" id="start" data-status="1"
-                            class="btn btn-small btn-info waves-effect pull-left"><i class="fa fa-unlock-alt"></i>
+                            style="display: none;" class="btn btn-small btn-info waves-effect pull-left"><i class="fa fa-unlock-alt"></i>
                     </button>
+                    <a href="##" id="Print" class="btn btn-inverse waves-effect waves-light"><i class="fa fa-print"></i></a>
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -337,11 +337,16 @@
                 $(this).attr('data-status',2);
                 $('input[name=editcount]').removeAttr('readonly');
                 $('input[name=editdate]').removeAttr('readonly');
+				$('.datepickers').datepicker({
+	                numberOfMonths: 3,
+	                showButtonPanel: true,
+	            });
             } else {
                 $(this).find('i').removeClass('fa fa-unlock').addClass('fa fa-unlock-alt');
                 $(this).attr('data-status',1);
                 $('input[name=editcount]').attr('readonly','readonly');
                 $('input[name=editdate]').attr('readonly','');
+				$('.datepickers').unbind();
             }
 
         })
@@ -488,9 +493,9 @@
 
                             var middle = (res.data.purchase[i].products.price * res.data.purchase[i].count).toFixed(2);
                             totalPrice += Number(middle);
-                            var dates = res.data.purchase[i].overdue == null ? `<input class="form-control datepicker" data-date-format="yyyy-mm-dd"
-                                placeholder="批次过期时间 选填" value="" name="editdate" readonly="readonly" type="text">`: `<input class="form-control datepicker" data-date-format="yyyy-mm-dd"
-                              name="editdate" value="${res.data.purchase[i].overdue}" readonly="readonly" type="text">`;
+                            var dates = res.data.purchase[i].overdue == null ? `<input class="form-control datepickers" id="datepicker" data-date-format="yyyy-mm-dd"
+                                placeholder="批次过期时间 选填" value="" name="editdate" readonly="readonly" type="text">`: `<input class="form-control datepickers" data-date-format="yyyy-mm-dd"
+                              name="editdate" value="${res.data.purchase[i].overdue}" readonly="readonly" id="datepicker" type="text">`;
 
                             datas += `<tr>
                                 <td><img height="60px; align=" middle" src="${res.data.purchase[i].products.product_image}" alt="没有上传"></td>
@@ -521,11 +526,28 @@
                     $('#puser').html(`<strong>采购人: </strong> ${res.data.name}`);
                     $('#orderStatus').html(`<strong>订单状态: </strong><span class="label label-pink">${word}</span>`);
                     $('#totalPrice').html(`$${totalPrice}`);
-                    $('#sure').attr('data-id', res.data.id);
-                    $('#not').attr('data-id', res.data.id);
+
+
+                    @if (in_array(Auth::user()->role,$auth))
+                    if (res.data.status == 1 ) {
+                        //未审核 手动 需要审核
+                        $('#sure').attr('data-id', res.data.id).show();
+                        $('#not').attr('data-id', res.data.id).show();
+                        $('#start').show();
+                    } else {
+                        $('#sure').hide();
+                        $('#not').hide();
+                        $('#start').hide();
+                    }
+                    @endif
                     alertify.success('获取成功');
 
                     $('#orderDeal').html(datas);
+
+                    jQuery('.datepicker').datepicker({
+                        numberOfMonths: 3,
+                        showButtonPanel: true,
+                    });
                 } else {
                     alertify.alert(res.message);
                 }
@@ -599,7 +621,8 @@
                             ' <th class="col-md-2 col-lg-2 exce"> 商品名称</th>' +
                             ' <th class="col-md-2 col-lg-2 exce">  SKU</th>' +
                             '<th class="col-md-2 col-lg-2 exce"> 商品图片</th> ' +
-                            '<th class="col-md-2 col-lg-2 exce">零售价（$）</th>' +
+                            '<th class="col-md-2 col-lg-2 exce">成本价（$）</th>' +
+                            '<th class="col-md-2 col-lg-2 exce"> 商品库存</th> ' +
                             '<th class="col-md-2 col-lg-2 exce">操作</th>' +
                             ' </tr>' +
                             ' </thead><tbody id="postContainer">';
@@ -613,8 +636,9 @@
                                                     src="${res.data[i].product_image}"
                                                     alt="没有上传"/>
                                                 </td>
-                                         <td class="exce">${res.data[i].distributor.level_four_price}
+                                         <td class="exce">${res.data[i].price}
                                                 </td>
+                                                <td class="exce">${res.data[i].stock}</td>
                                            <td class="exce">
                         <a title="添加商品" data-id="${res.data[i].id}" data-name="${res.data[i].zn_name}（${res.data[i].en_name}）"
                                                        class="btn btn-small btn-success"
@@ -629,11 +653,8 @@
                     }
                     alertify.success('获取成功');
 //                    $('#link').hide();
+
                     $('#table').html(datas);
-                    jQuery('.datepicker').datepicker({
-                        numberOfMonths: 3,
-                        showButtonPanel: true,
-                    });
                 } else {
                     alertify.alert(res.message);
                 }
@@ -663,6 +684,10 @@
                         </div>
 
                     </div>`);
+                    jQuery('.datepicker').datepicker({
+                        numberOfMonths: 3,
+                        showButtonPanel: true,
+                    });
                     window.arr.push($(event).attr('data-id'));
                 } else {
                     return;
@@ -688,12 +713,11 @@
 
                 window.arr.push($(event).attr('data-id'));
 
-
+                jQuery('.datepicker').datepicker({
+                    numberOfMonths: 3,
+                    showButtonPanel: true,
+                });
             }
-            jQuery('.datepicker').datepicker({
-                numberOfMonths: 3,
-                showButtonPanel: true,
-            });
 
         }
 

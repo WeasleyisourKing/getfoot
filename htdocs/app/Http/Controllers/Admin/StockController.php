@@ -11,6 +11,7 @@ use App\Http\Model\PurchaseOrderModel;
 use App\Http\Model\StockOrderModel;
 use App\Http\Model\OrderProductModel;
 use App\Http\Model\StockOrderProductModel;
+use App\Http\Model\PrivilegeRoleModel;
 use App\Http\Controllers\Common;
 use App\Rules\StockRule;
 use App\Rules\ShelveRule;
@@ -19,6 +20,7 @@ use App\Rules\PurchaseRule;
 use App\Rules\OrderRule;
 use App\Rules\EnterRule;
 use App\Exceptions\ParamsException;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * 库存管理类
@@ -203,29 +205,40 @@ class StockController extends Controller
         return view('admin.inventory.inventories', ['res' => $res]);
     }
 
-    //入库
+    //入库 34
     public function Stock3 ()
     {
         $res = StockOrderModel::where('status', '=', 1)->get();
 
-//        dd($res);
-        return view('admin.inventory.instock', ['res' => $res]);
+        $auth = array_column(PrivilegeRoleModel::where('privilege_id','=',34)
+            ->get(['role_id'])
+            ->toArray(),'role_id');
+
+        return view('admin.inventory.instock', ['res' => $res,'auth' => $auth]);
     }
 
-    //出库
+    //出库 35
     public function Stock4 ()
     {
         $res = StockOrderModel::where('status', '=', 2)->get();
 
-        return view('admin.inventory.outstock', ['res' => $res]);
+        $auth = array_column(PrivilegeRoleModel::where('privilege_id','=',35)
+            ->get(['role_id'])
+            ->toArray(),'role_id');
+//        dump($auth);
+        return view('admin.inventory.outstock', ['res' => $res,'auth' => $auth]);
     }
 
-    //采购
+    //采购 36
     public function Stock5 ()
     {
         $res = PurchaseOrderModel::get();
 
-        return view('admin.inventory.purchase', ['res' => $res]);
+        $auth = array_column(PrivilegeRoleModel::where('privilege_id','=',36)
+            ->get(['role_id'])
+            ->toArray(),'role_id');
+
+        return view('admin.inventory.purchase', ['res' => $res,'auth' => $auth]);
     }
 
     /**
@@ -532,7 +545,8 @@ class StockController extends Controller
             'pruchase_order_no' => $orderId,
             'remark' => '自动入库',
             'total_count' => $number,
-            'status' => 1
+            'status' => 1,
+            'state' => 2
         ];
 
         if (!is_null($state)) {
@@ -700,23 +714,23 @@ class StockController extends Controller
 
         $num = StockOrderModel::where('status', '=', 2)->orderBy('created_at', 'desc')->first(['order_no']);
 
-//        $Product = ProductModel::whereIn('id', array_column($params['uproducts'], 'product_id'))->get(['id', 'zn_name', 'stock'])->toArray();
-//        foreach ($Product as $val) {
-//            foreach ($uProducts as &$items) {
-//
-//                if ($val['id'] == $items['product_id']) {
-//
-//                    if ($val['stock'] == 0 || $val['stock'] - $items['count'] < 0) {
-//                        throw new ParamsException([
-//                            'code' => 200,
-//                            'message' => '商品' . $val['zn_name'] . '库存不足'
-//                        ]);
-//                    }
+        $Product = ProductModel::whereIn('id', array_column($params['uproducts'], 'product_id'))->get(['id', 'zn_name', 'stock'])->toArray();
+        foreach ($Product as $val) {
+            foreach ($params['uproducts'] as &$items) {
+
+                if ($val['id'] == $items['product_id']) {
+
+                    if ($val['stock'] == 0 || $val['stock'] - $items['count'] < 0) {
+                        throw new ParamsException([
+                            'code' => 200,
+                            'message' => '商品' . $val['zn_name'] . '库存不足'
+                        ]);
+                    }
 //                    $items['origin_stock'] = $val['stock'];
-//
-//                }
-//            }
-//        }
+
+                }
+            }
+        }
 
         $orderNo = Common::makeOrderNo(is_null($num) ? 'A2018101800001' : $num->order_no);
         //构造数据
@@ -731,7 +745,7 @@ class StockController extends Controller
             'type' => 2
         ];
 
-       $res = StockOrderModel::insertInOrder(null, $data, $params['uproducts']);
+        $res = StockOrderModel::insertInOrder(null, $data, $params['uproducts']);
 
 
         return Common::successData();
@@ -904,34 +918,169 @@ class StockController extends Controller
      * @param Request $request
      * @return null
      */
-    public function stockCheck (Request $request)
+    public function stockCheck ($id, $status, $num)
     {
-        (new IdRule)->goCheck(200);
-        $id = $request->input('id');
-
-        $data = StockOrderProductModel::where('order_id','=', $id)->get(['product_id', 'count'])->toArray();
+        //入库确定
+        $data = StockOrderProductModel::where('order_id', '=', $id)->get(['product_id', 'count'])->toArray();
         $Product = ProductModel::whereIn('id', array_column($data, 'product_id'))->get(['id', 'stock'])->toArray();
-        foreach ($Product as $val) {
-            foreach ($data as &$items) {
-                if ($val['id'] == $items['product_id']) {
-//                 dd($val['id']);
-                    $items['origin_stock'] = $val['stock'];
+        if ($status == 1) {
+            foreach ($Product as $val) {
+                foreach ($data as &$items) {
+                    if ($val['id'] == $items['product_id']) {
 
+                        $items['origin_stock'] = $val['stock'];
+
+                    }
                 }
             }
-        }
-//dd($data);
-        if ($request->input('status') == 1) {
-            //入库
-            StockOrderModel::check($id, $data, 1);
 
+            StockOrderModel::check($id, $data, 1);
         } else {
-            //出库
-            StockOrderModel::check($id, $data, 2);
+
+            //入库修改确定
+            foreach ($Product as $val) {
+                foreach ($uProducts as &$items) {
+
+                    if ($val['id'] == $items['product_id']) {
+
+                        if ($val['stock'] == 0 || $val['stock'] - $items['count'] < 0) {
+                            throw new ParamsException([
+                                'code' => 200,
+                                'message' => '商品' . $val['zn_name'] . '库存不足'
+                            ]);
+                        }
+                        $items['origin_stock'] = $val['stock'];
+
+                    }
+                }
+            }
+
+            StockOrderModel::check($id, $data, 2, $num);
         }
         return Common::successData();
 
     }
 
+    /**
+     * //获取某订单详情接口
+     * @param Request $request
+     * @return mixed
+     */
+    public function stockInConfirm (Request $request)
+    {
+
+        $params = $request->all();
+
+        if (StockOrderModel::where('id', $params['id'])->first(['state'])->state != 1) {
+
+            throw new ParamsException([
+                'code' => 200,
+                'message' => '此订单已经处理 不能重复处理'
+            ]);
+        }
+        if ($params['status'] != 1) {
+            //update in stock
+
+            $set = ProductModel::whereIn('id', array_column($params['products'], 'product_id'))->get(['id', 'price', 'stock'])->toArray();
+
+
+            foreach ($set as $items) {
+                foreach ($params['uproducts'] as &$val) {
+                    if ($items['id'] == $val['product_id']) {
+                        $val['origin_stock'] = $items['stock'];
+                    }
+                }
+            }
+
+            StockOrderModel::check($params['id'], $params['uproducts'], 2, $params['num']);
+
+
+        } else {
+
+            //入库确定
+            $data = StockOrderProductModel::where('order_id', '=', $params['id'])->get(['product_id', 'count'])->toArray();
+            $Product = ProductModel::whereIn('id', array_column($data, 'product_id'))->get(['id', 'stock'])->toArray();
+
+            foreach ($Product as $val) {
+                foreach ($data as &$items) {
+                    if ($val['id'] == $items['product_id']) {
+
+                        $items['origin_stock'] = $val['stock'];
+
+                    }
+                }
+            }
+            StockOrderModel::check($params['id'], $data, 1);
+
+        }
+        return Common::successData();
+    }
+
+
+    public function stockOutConfirm (Request $request)
+    {
+
+        $params = $request->all();
+
+        if (StockOrderModel::where('id', $params['id'])->first(['state'])->state != 1) {
+
+            throw new ParamsException([
+                'code' => 200,
+                'message' => '此订单已经处理 不能重复处理'
+            ]);
+        }
+        if ($params['status'] != 1) {
+            //update in stock
+
+            $set = ProductModel::whereIn('id', array_column($params['products'], 'product_id'))->get(['id', 'price', 'stock'])->toArray();
+
+
+            foreach ($set as $val) {
+                foreach ($params['uproducts'] as &$items) {
+
+                    if ($val['id'] == $items['product_id']) {
+
+                        if ($val['stock'] == 0 || $val['stock'] - $items['count'] < 0) {
+                            throw new ParamsException([
+                                'code' => 200,
+                                'message' => '商品' . $val['zn_name'] . '库存不足'
+                            ]);
+                        }
+                        $items['origin_stock'] = $val['stock'];
+
+                    }
+
+                }
+            }
+
+            StockOrderModel::updatestate($params['id'], $params['uproducts'], 2, $params['num']);
+
+
+        } else {
+            //出库确定
+            $data = StockOrderProductModel::where('order_id', '=', $params['id'])->get(['product_id', 'count'])->toArray();
+            $Product = ProductModel::whereIn('id', array_column($data, 'product_id'))->get(['id', 'stock'])->toArray();
+            foreach ($Product as $val) {
+                foreach ($data as &$items) {
+
+                    if ($val['id'] == $items['product_id']) {
+
+                        if ($val['stock'] == 0 || $val['stock'] - $items['count'] < 0) {
+                            throw new ParamsException([
+                                'code' => 200,
+                                'message' => '商品' . $val['zn_name'] . '库存不足'
+                            ]);
+                        }
+                        $items['origin_stock'] = $val['stock'];
+
+                    }
+                }
+            }
+
+            StockOrderModel::updatestate($params['id'], $data, 1);
+
+        }
+        return Common::successData();
+    }
 }
 

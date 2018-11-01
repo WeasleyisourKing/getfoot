@@ -158,13 +158,13 @@
                 <h4 class="panel-title">商品列表</h4>
             </div>
             <div class="panel-body">
-                <table class="table table-bordered table-striped display">
+                <table class="table ">
                     <thead>
                     <tr>
                         <th>商品图片</th>
                         <th>SKU</th>
                         <th>商品名称</th>
-                        <th>变更数量</th>
+                        <th>变更数量（+）</th>
                         <th>实时库存</th>
                         <th>过期时间</th>
                     </tr>
@@ -254,11 +254,11 @@
                         <thead>
                         <tr>
                             <th>库存编号</th>
-                            <th>入库类型</th>
+                            <th>出库类型</th>
                             <th>操作人</th>
-                            <th>审核状态</th>
                             <th>创建时间</th>
                             <th>关联订单</th>
+                            <th>审核状态</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -281,24 +281,24 @@
                                     <td>自动</td>
                                 @endif
                                 <td> {{$item->operator}}</td>
-                                @if($item->state != 1 || $item->type != 2)
-                                    <td>已审核</td>
-                                @else
-                                    <td>等待审核</td>
-                                @endif
                                 <td>{{$item->created_at}}</td>
                                 <td>{{$item->pruchase_order_no}}
                                 </td>
+                                @if($item->state != 1 || $item->type != 2)
+                                    <td>已审核入库</td>
+                                @else
+                                    <td class="text-info">等待审核</td>
+                            @endif
                                 <!-- 操作按钮 -->
                                 <td class="actions">
-                                    @if ($item->state == 1 && $item->type == 2)
-                                        <button class="btn-sm btn-success waves-effect waves-light btn-sm btn-info"
-                                                data-id="{{$item->id}}" onclick="check(this);"><i
-                                                    class="fa fa-check"></i></button><!---- End 编辑按钮 ---->
-                                @endif
+                                    {{--@if ($item->state == 1 && $item->type == 2)--}}
+                                        {{--<button class="btn-sm btn-success waves-effect waves-light btn-sm btn-info"--}}
+                                                {{--data-id="{{$item->id}}" onclick="check(this);"><i--}}
+                                                    {{--class="fa fa-check"></i></button><!---- End 编辑按钮 ---->--}}
+                                {{--@endif--}}
                                 <!---- 查看按钮 ---->
                                     <button class="btn-sm btn-success waves-effect waves-light edit-item-btn"
-                                            data-toggle="modal" data-target="#view-item-modal" data-id="{{$item->id}}"
+                                             data-id="{{$item->id}}"
                                             onclick="sse(this);"><i class="fa fa-eye"></i></button><!---- End 编辑按钮 ---->
                                     <!---- 删除按钮 ---->
                                     <button class="btn-sm btn-danger waves-effect waves-light delete-item-btn"
@@ -360,6 +360,15 @@
                     </div>
                 </div><!--endprint-->
                 <div class="modal-footer">
+                    <button type="button" onclick="dealStock(this);" data-status="1" id="sure"
+                            style="display: none;" class="btn btn-success waves-effect pull-left">确认出库
+                    </button>
+                    <button type="button" id="not" onclick="dealStock(this);" data-status="2"
+                            style="display: none;" class="btn btn-danger waves-effect pull-left">修改出库信息
+                    </button>
+                    <button type="button" id="start" data-status="1"
+                            style="display: none;" class="btn btn-small btn-info waves-effect pull-left"><i class="fa fa-unlock-alt"></i>
+                    </button>
                     <a href="##" id="Print" class="btn btn-inverse waves-effect waves-light"><i class="fa fa-print"></i></a>
                     <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
                 </div>
@@ -377,6 +386,26 @@
         $('#searchString').val('');
         $('#NowDate').val('当前时间');
         $('#inStock').val('手动入库');
+
+        $('#start').click(function() {
+            if ($(this).attr('data-status') != 2) {
+                $(this).find('i').removeClass('fa fa-unlock-alt').addClass('fa fa-unlock');
+                $(this).attr('data-status',2);
+                $('input[name=editcount]').removeAttr('readonly');
+                $('input[name=editdate]').removeAttr('readonly');
+                $('.datepickers').datepicker({
+                    numberOfMonths: 3,
+                    showButtonPanel: true,
+                });
+            } else {
+                $(this).find('i').removeClass('fa fa-unlock').addClass('fa fa-unlock-alt');
+                $(this).attr('data-status',1);
+                $('input[name=editcount]').attr('readonly','readonly');
+                $('input[name=editdate]').attr('readonly','');
+                $('.datepickers').unbind();
+            }
+
+        })
 
         var check = function (evnet) {
             alertify.confirm("确认入库吗？", function (e) {
@@ -511,34 +540,49 @@
                         var datas = '';
                         for (let i in res.data.purchase) {
 
-                            var midlle = res.data.purchase[i].overdue == null ? '未填写' : '至' + res.data.purchase[i].overdue;
+                            var dates = res.data.purchase[i].overdue == null ? `<input class="form-control datepickers"  data-date-format="yyyy-mm-dd"
+                                placeholder="批次过期时间 选填" value="" name="editdate" readonly="readonly" type="text">`: `<input class="form-control datepickers" data-date-format="yyyy-mm-dd"
+                              name="editdate" value="${res.data.purchase[i].overdue}" readonly="readonly"  type="text">`;
                             datas += `<tr>
                                 <td><img height="60px; align=" middle" src="${res.data.purchase[i].products.product_image}" alt="没有上传"></td>
                                 <td >${res.data.purchase[i].products.sku}</td>
                                 <td>${res.data.purchase[i].products.zn_name}${res.data.purchase[i].products.en_name}</td>
-                                <td><p class="text-center text-success">+${res.data.purchase[i].count}</p></td>
-                                 <td><p class="text-center">${res.data.purchase[i].products.stock}</p></td>
-                               <td>${midlle}</td>
+                                  <td><input type="text" data-id="${res.data.purchase[i].products.id}" name="editcount" class="form-control" readonly="readonly" value="${res.data.purchase[i].count}"></td>
+                                 <td><p class="text-center "style="padding-top:5px">${res.data.purchase[i].products.stock}</p></td>
+                               <td>${dates}</td>
                             </tr>`;
 
                         }
 
                     }
-
-                    $('#eoperator').attr("value", `${res.data.operator}`);
-                    $('#eorderId').attr("value", `${res.data.pruchase_order_no}`);
-                    $('#date').attr("value", `${res.data.created_at}`);
-                    $('#eremark').text(`${res.data.remark}`);
+                    $('#eoperator').val(res.data.operator);
+                    $('#eorderId').val(res.data.pruchase_order_no);
+                    $('#date').val(res.data.created_at);
+                    $('#eremark').text(res.data.remark);
                     if (res.data.type == 1) {
-                        $('#etype').attr("value", `自动出库`);
+                        $('#etype').val('自动入库');
                     } else {
-                        $('#etype').attr("value", `手动出库`);
+                        $('#etype').val('手动入库');
+
                     }
 
-
+                    @if (in_array(Auth::user()->role,$auth))
+                    if (res.data.state == 1 && res.data.type == 2) {
+                        //未审核 手动 需要审核
+                        $('#sure').attr('data-id', res.data.id).show();
+                        $('#not').attr('data-id', res.data.id).show();
+                        $('#start').show();
+                    } else {
+                        $('#sure').hide();
+                        $('#not').hide();
+                        $('#start').hide();
+                    }
+                    @endif
                     alertify.success('获取成功');
 
                     $('#orderDeal').html(datas);
+                    $('#view-item-modal').modal('show');
+
                     $("#Print").click(
                         function Printing() {
                             bdhtml = window.document.body.innerHTML;
@@ -556,7 +600,7 @@
             })
         }
         var mydate = new Date();
-        $('#NowDate').val(`${myDate.getFullYear()}-${myDate.getMonth() + 1}-${myDate.getDate()} ${myDate.getHours()}:${myDate.getMinutes()}:${myDate.getSeconds()}`);
+//        $('#NowDate').val(`${myDate.getFullYear()}-${myDate.getMonth() + 1}-${myDate.getDate()} ${myDate.getHours()}:${myDate.getMinutes()}:${myDate.getSeconds()}`);
 
         //        $("#NowDate").val(`${mydate.getFullYear()}-${mydate.getMonth() + 1}-${mydate.getDate()}`)
     </script>
@@ -578,7 +622,8 @@
                             ' <th class="col-md-2 col-lg-2 exce"> 商品名称</th>' +
                             ' <th class="col-md-2 col-lg-2 exce">  SKU</th>' +
                             '<th class="col-md-2 col-lg-2 exce"> 商品图片</th> ' +
-                            '<th class="col-md-2 col-lg-2 exce">零售价（$）</th>' +
+                            '<th class="col-md-2 col-lg-2 exce">成本价（$）</th>' +
+                            '<th class="col-md-2 col-lg-2 exce"> 商品库存</th> ' +
                             '<th class="col-md-2 col-lg-2 exce">操作</th>' +
                             ' </tr>' +
                             ' </thead><tbody id="postContainer">';
@@ -592,8 +637,9 @@
                                                     src="${res.data[i].product_image}"
                                                     alt="没有上传"/>
                                                 </td>
-                                         <td class="exce">${res.data[i].distributor.level_four_price}
+                                         <td class="exce">${res.data[i].price}
                                                 </td>
+                                                   <td class="exce">${res.data[i].stock}</td>
                                            <td class="exce">
                         <a title="添加商品" data-id="${res.data[i].id}" data-name="${res.data[i].zn_name}（${res.data[i].en_name}）"
                                                        class="btn btn-small btn-success"
@@ -676,5 +722,52 @@
         }
 
     </script>
+    <script>
+        //处理订单
+        var dealStock = function (event) {
 
+            var datas = {
+                'id': $(event).attr('data-id'),
+                'status': $(event).attr('data-status')
+            };
+            //update in stock
+            if ($(event).attr('data-status') != 1) {
+                window.obj = [];
+                window.objs = [];
+                var i = 0;
+                $("input[name='editcount']").each(function () {
+
+                    if ($(this).val() != 0) {
+                        window.obj.push({
+                            'product_id': $(this).attr('data-id'),
+                            "count": $(this).val()
+                        });
+                        window.objs.push({
+                            'product_id': $(this).attr('data-id'),
+                            'overdue' : $(this).parent().nextAll().find('input.datepickers').val(),
+                            "count": $(this).val()
+                        });
+                        i += Number($(this).val());
+                    }
+
+
+                });
+                datas.products = window.obj;
+                datas.uproducts = window.objs;
+                datas.num = i;
+            }
+
+            $.get('/stock/in/confirm', datas, function (res) {
+                if (res.status) {
+                    alertify.success('处理成功');
+
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1500);
+                } else {
+                    alertify.alert(res.message);
+                }
+            })
+        }
+    </script>
 @endsection

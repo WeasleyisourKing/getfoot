@@ -559,10 +559,17 @@
                     $('#eorderId').val(res.data.pruchase_order_no);
                     $('#date').val(res.data.created_at);
                     $('#eremark').text(res.data.remark);
+
+                    $('#eoperator').attr('value',res.data.operator);
+                    $('#eorderId').attr('value',res.data.pruchase_order_no);
+                    $('#date').attr('value',res.data.created_at);
+
                     if (res.data.type == 1) {
                         $('#etype').val('自动入库');
+                        $('#etype').attr('value','自动入库');
                     } else {
                         $('#etype').val('手动入库');
+                        $('#etype').attr('value','手动入库');
 
                     }
 

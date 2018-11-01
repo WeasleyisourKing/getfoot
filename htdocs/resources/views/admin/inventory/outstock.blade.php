@@ -537,10 +537,16 @@
                 $('#eorderId').val(res.data.pruchase_order_no);
                 $('#date').val(res.data.created_at);
                 $('#eremark').text(res.data.remark);
+
+                $('#eoperator').attr('value',res.data.operator);
+                $('#eorderId').attr('value',res.data.pruchase_order_no);
+                $('#date').attr('value',res.data.created_at);
                 if (res.data.type == 1) {
                     $('#etype').val('自动出库');
+                    $('#etype').attr('value','自动出库');
                 } else {
                     $('#etype').val('手动出库');
+                    $('#etype').attr('value','手动出库');
                 }
 //                $('#sure').attr('data-id', res.data.id);
 //                $('#not').attr('data-id', res.data.id);

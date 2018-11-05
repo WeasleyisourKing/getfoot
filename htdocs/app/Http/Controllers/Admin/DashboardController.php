@@ -26,7 +26,11 @@ class DashboardController extends Controller
      */
     public function index ()
     {
+        
+        if (is_null(Auth()->user())) {
 
+            return redirect('/login');
+        }
 
         return view('admin.dashboard.index');
 

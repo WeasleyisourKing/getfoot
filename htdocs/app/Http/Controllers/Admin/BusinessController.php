@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Http\Model\ShelvesModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Model\OrderModel;
@@ -42,26 +43,14 @@ class BusinessController extends Controller
     public function businessList ($status, $limit)
     {
 
-        $statusData = ($status != -1) ? [$status] : [1, 2, 3, 4, 5];
+        $statusData = ($status != -1) ? [$status] : [1, 2];
         //默认显示已完成
         switch ($status) {
             case 1 :
-                $title = '待处理';
-                break;
-            case 2 :
-                $title = '未支付';
-                break;
-            case 3 :
-                $title = '已发货';
-                break;
-            case 4 :
                 $title = '已完成';
                 break;
-            case 5 :
-                $title = '退货';
-                break;
             default :
-                $title = ' 全部状态';
+                $title = ' 已下单';
         }
 
         $res = BusinessOrderModel::getOrderList($statusData, $limit);
@@ -78,9 +67,12 @@ class BusinessController extends Controller
      * @param Request $request
      * @return null
      */
-    public function orderDetail ($id)
+    public function orderDetail ($id, $status)
     {
 
+//        $res = BusinessOrderModel::where('id', '=', $id)->with(['manys' => function ($q) {
+//            $q->with('shelves')->select('sku','en_name','zn_name','price','shelves','innersku');
+//        }])->get()->toArray();
         $res = BusinessOrderModel::getOrderProduct($id);
 
         //数据太大 防止内存溢出
@@ -91,10 +83,18 @@ class BusinessController extends Controller
         unset($res['snap_items']);
         unset($res['snap_address']);
 
+//        dd($product);
+//        dump($product);
 //        $originPrice = round(($res['total_price'] - $res['freight']) / (1 + $res['tax']), 2) * $res['tax'];
 
 
-        return view('admin.business.order-detail', ['data' => $res,  'product' => $product, 'address' => $address]);
+        return view('admin.business.order-detail',
+            [
+                'data' => $res,
+                'product' => $product,
+                'address' => $address,
+                'status' => $status
+            ]);
     }
 
 
@@ -282,10 +282,12 @@ class BusinessController extends Controller
             $pStatus['enName'] = $product['en_name'];
             $pStatus['sku'] = $product['sku'];
             $pStatus['count'] = $uCount;
-            $pStatus['singlePrice'] = $product['distributor']['level_four_price'];
+            $pStatus['singlePrice'] = $product['price'];
             $pStatus['image'] = $product['product_image'];
-            $pStatus['totalPrice'] = $uCount * $product['distributor']['level_four_price'];
-            $pStatus['shelves'] = $product['shelves'];
+            $pStatus['totalPrice'] = $uCount * $product['price'];
+            $pStatus['innersku'] = $product['innersku'];
+            $pStatus['shelves'] = $product['shelves']['name'];
+            $pStatus['number'] = $product['number'];
             $pStatus['haveStock'] = $product['stock'] >= $uCount ? true : false;
         }
         return $pStatus;
@@ -343,7 +345,7 @@ class BusinessController extends Controller
     {
         $num = BusinessOrderModel::orderBy('created_at', 'desc')->first(['order_no']);
 
-        $orderNo = Common::makeOrderNo(is_null($num) ? 'A2018101800001' : $num->order_no);
+        $orderNo = 'B' . substr(Common::makeOrderNo(is_null($num) ? 'A2018101800001' : $num->order_no), 1);
         //构造数据
         $data = [];
         $data = [
@@ -358,8 +360,21 @@ class BusinessController extends Controller
             //一次下单的详细信息
             'snap_items' => json_encode($orderSnap['pStatus'])
         ];
+        $num = \App\Http\Model\StockOrderModel::where('status', '=', 2)->orderBy('created_at', 'desc')->first(['order_no']);
 
-        $res = BusinessOrderModel::insertOrder($data, $this->uProducts);
+        $orderNos = Common::makeOrderNo(is_null($num) ? 'A2018101800001' : $num->order_no);
+        //构造数据
+        $datas = [];
+        $datas = [
+            'order_no' => 'O' . substr($orderNos, 1),
+            'operator' => 'Admin',
+            'total_count' => $orderSnap['allCount'],
+            'pruchase_order_no' => $orderNo,
+            'remark' => '后台手动生成商户订单',
+            'status' => 2,
+            'type' => 2
+        ];
+        $res = BusinessOrderModel::insertOrder($data, $datas, $this->uProducts);
 
         return [
             //订单号
@@ -389,61 +404,61 @@ class BusinessController extends Controller
      * @param string $excelName excel文件名
      *
      */
-    public function exportExcel (&$data, $colName, $tableName, $excelName)
-    {
-
-        //表标题
-        $tableName = "<tr style='height:50px;border-style:none;'>
-                        <th border=\"0\" style='height:60px;width:270px;font-size:40px;' colspan='11'>
-                            {$tableName}
-                        </th>
-                    </tr>";
-
-        //表格列头
-        $titleName = '';
-        foreach ($colName as $item) {
-            $titleName .= "<th style='width:100px;font-size:20px;'>{$item}</th>";
-        }
-
-        //excel文件名
-        $excelName = $excelName . ".xls";
-        $this->pushExcel($data, $titleName, $tableName, $excelName);
-    }
+//    public function exportExcel (&$data, $colName, $tableName, $excelName)
+//    {
+//
+//        //表标题
+//        $tableName = "<tr style='height:50px;border-style:none;'>
+//                        <th border=\"0\" style='height:60px;width:270px;font-size:40px;' colspan='11'>
+//                            {$tableName}
+//                        </th>
+//                    </tr>";
+//
+//        //表格列头
+//        $titleName = '';
+//        foreach ($colName as $item) {
+//            $titleName .= "<th style='width:100px;font-size:20px;'>{$item}</th>";
+//        }
+//
+//        //excel文件名
+//        $excelName = $excelName . ".xls";
+//        $this->pushExcel($data, $titleName, $tableName, $excelName);
+//    }
 
 
     /*
     * 处理Excel导出
     */
-    private function pushExcel (&$datas, &$titleName, &$title, $filename)
-    {
-        //日期时间函数的默认时区
-        date_default_timezone_set('Asia/Shanghai');
-        $str = "<html xmlns:o=\"urn:schemas-microsoft-com:
-                office:office\"\r\nxmlns:x=\"urn:schemas-microsoft-com:office:
-                excel\"\r\nxmlns=\"http://www.w3.org/TR/REC-html40\">\r\n<head>
-                \r\n<meta http-equiv=Content-Type content=\"text/html; charset=utf-8\">
-                \r\n</head>\r\n<body>";
-
-        $str .= '<div style="font-size:30px; text-align: center;">'.$title;
-        $str .= "<table border=1><head>" . $titleName . "</head>";
-
-        foreach ($datas as $key => $rt) {
-            $str .= "<tr style='text-align: center;font-size:25px; width: 100px; '>";
-            foreach ($rt as $k => $v) {
-                $str .= "<td>{$v}</td>";
-            }
-            $str .= "</tr>";
-        }
-
-        $str .= "</table></body></html>";
-        header("Content-Type: application/vnd.ms-excel; name='excel'");
-        header("Content-type: application/octet-stream");
-        header("Content-Disposition: attachment; filename=" . $filename);
-        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-        header("Pragma: no-cache");
-        header("Expires: 0");
-        exit($str);
-    }
+//    private function pushExcel (&$datas, &$titleName, &$title, $filename)
+//    {
+//        //日期时间函数的默认时区
+//        date_default_timezone_set('Asia/Shanghai');
+//        $str = "<html xmlns:o=\"urn:schemas-microsoft-com:
+//                office:office\"\r\nxmlns:x=\"urn:schemas-microsoft-com:office:
+//                excel\"\r\nxmlns=\"http://www.w3.org/TR/REC-html40\">\r\n<head>
+//                \r\n<meta http-equiv=Content-Type content=\"text/html; charset=utf-8\">
+//                \r\n</head>\r\n<body>";
+//
+//        $str .= '<div style="font-size:30px; text-align: center;">'.$title;
+//        $str .= "<table border=1><head>" . $titleName . "</head>";
+//
+//        foreach ($datas as $key => $rt) {
+//            $str .= "<tr style='text-align: center;font-size:25px; width: 100px; '>";
+//            foreach ($rt as $k => $v) {
+//                $str .= "<td>{$v}</td>";
+//            }
+//            $str .= "</tr>";
+//        }
+//
+//        $str .= "</table></body></html>";
+//        header("Content-Type: application/vnd.ms-excel; name='excel'");
+//        header("Content-type: application/octet-stream");
+//        header("Content-Disposition: attachment; filename=" . $filename);
+//        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+//        header("Pragma: no-cache");
+//        header("Expires: 0");
+//        exit($str);
+//    }
 
 
 }

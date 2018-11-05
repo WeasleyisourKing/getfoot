@@ -16,7 +16,7 @@ class BusinessOrderModel extends Model
     //订单和商品
     public function manys ()
     {
-        return $this->belongsToMany('App\Http\Model\ProductModel', 'order_product', 'order_id', 'product_id')->withPivot('count', 'status');
+        return $this->belongsToMany('App\Http\Model\ProductModel', 'business_order_product', 'order_id', 'product_id')->withPivot('count', 'status');
     }
 
     //关联商品和分销商关系 一对一
@@ -61,8 +61,8 @@ class BusinessOrderModel extends Model
     //获取订单列表
     public static function getOrderList ($status, $limit)
     {
-        return self::select('id', 'order_no', 'total_price', 'snap_img', 'total_count', 'created_at', 'snap_name',
-            DB::raw("(CASE status WHEN '1' THEN '待处理' WHEN '2' THEN '未支付' WHEN '3' THEN '已发货' WHEN '4' THEN '待支付' WHEN '5' THEN '退货' END) as status"))
+        return self::select('id', 'order_no', 'total_price', 'snap_img', 'total_count', 'created_at', 'snap_name','status',
+            DB::raw("(CASE status WHEN '1' THEN '已完成' WHEN '2' THEN '已下单' END) as state"))
             ->whereIn('status', $status)
             ->orderBy('created_at', 'desc')
             ->paginate($limit);
@@ -82,7 +82,7 @@ class BusinessOrderModel extends Model
     }
 
     //写入订单和相关商品信息
-    public static function insertOrder ($data, $arr)
+    public static function insertOrder ($data, $datas,$arr)
     {
 
         //涉及多表 使用事务控制
@@ -100,6 +100,8 @@ class BusinessOrderModel extends Model
                 $p['updated_at'] = date('Y-m-d H:i:s', time());
             }
             (new BusinessOrderProductModel)->insert($arr);
+
+            StockOrderModel::insertInOrder(null, $datas, $arr);
 
             DB::commit();
 

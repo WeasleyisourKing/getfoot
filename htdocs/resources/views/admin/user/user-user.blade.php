@@ -37,9 +37,9 @@
                     <div class="form-group">
                         <label class="control-label">角色<span
                                     class="red">＊</span></label>
-                        <select class="form-control" id="role">
+                        <select class="form-control" id="role" onchange="change(this);">
                             @foreach($arr as $item)
-                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                <option  value="{{$item->id}}">{{$item->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -75,6 +75,75 @@
                         <div class="controls">
                             <input type="password" name="passwd" id="passwd" class="form-control"
                                    value="" required="required"/>
+                        </div>
+                    </div>
+
+                    <div id="info" style="display: none;">
+                        <div class="form-group">
+                            <label class="control-label" for="names">收件人（最多40字）<span
+                                        style="color:red;">＊</span></label>
+                            <div class="controls">
+                                <input type="text" name="names" id="names"
+                                       class="form-control"
+                                       value="" required="required"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="mobile">联系电话<span
+                                        style="color:red;">＊</span></label>
+                            <div class="controls">
+                                <input type="text" name="mobile" id="mobile"
+                                       class="form-control"
+                                       value="" required="required"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="country">地址1<span
+                                        style="color:red;">＊</span></label>
+                            <div class="controls">
+                                <input type="text" name="country" id="country"
+                                       class="form-control"
+                                       value="" required="required"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="detail">地址2<span
+                                        style="color:red;">＊</span></label>
+                            <div class="controls">
+                                <input type="text" name="detail" id="detail"
+                                       class="form-control"
+                                       value="" required="required"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="city">城市<span
+                                        style="color:red;">＊</span></label>
+                            <div class="controls">
+                                <input type="text" name="city" id="city"
+                                       class="form-control"
+                                       value="" required="required"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="province">州<span
+                                        style="color:red;">＊</span></label>
+                            <div class="controls">
+                                <input type="text" name="province" id="province"
+                                       class="form-control"
+                                       value="" required="required"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="zip">邮编<span
+                                        style="color:red;">＊</span></label>
+                            <div class="controls">
+                                <input type="text" name="zip" id="zip"
+                                       class="form-control"
+                                       value="" required="required"/>
+                            </div>
                         </div>
                     </div>
 
@@ -125,7 +194,7 @@
                     <div class="form-group">
                         <label class="control-label">角色<span
                                     class="red">＊</span></label>
-                        <select class="form-control" id="erole">
+                        <select class="form-control" id="erole" onchange="changes(this);">
 
                         </select>
                     </div>
@@ -160,6 +229,74 @@
                         <div class="controls">
                             <input type="password" name="epasswd" id="epasswd" class="form-control"
                                    value="" required="required"/>
+                        </div>
+                    </div>
+
+                    <div id="einfo" style="display: none;">
+                        <div class="form-group">
+                            <label class="control-label" for="enames">收件人（最多40字）<span
+                                        style="color:red;">＊</span></label>
+                            <div class="controls">
+                                <input type="text" name="enames" id="enames"
+                                       class="form-control"
+                                       value="" required="required"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="emobile">联系电话<span
+                                        style="color:red;">＊</span></label>
+                            <div class="controls">
+                                <input type="text" name="emobile" id="emobile"
+                                       class="form-control"
+                                       value="" required="required"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="ecountry">地址1<span
+                                        style="color:red;">＊</span></label>
+                            <div class="controls">
+                                <input type="text" name="ecountry" id="ecountry"
+                                       class="form-control"
+                                       value="" required="required"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="edetail">地址2<span
+                                        style="color:red;">＊</span></label>
+                            <div class="controls">
+                                <input type="text" name="edetail" id="edetail"
+                                       class="form-control"
+                                       value="" required="required"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="ecity">城市<span
+                                        style="color:red;">＊</span></label>
+                            <div class="controls">
+                                <input type="text" name="ecity" id="ecity"
+                                       class="form-control"
+                                       value="" required="required"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="eprovince">州<span
+                                        style="color:red;">＊</span></label>
+                            <div class="controls">
+                                <input type="text" name="eprovince" id="eprovince"
+                                       class="form-control"
+                                       value="" required="required"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="ezip">邮编<span
+                                        style="color:red;">＊</span></label>
+                            <div class="controls">
+                                <input type="text" name="ezip" id="ezip"
+                                       class="form-control"
+                                       value="" required="required"/>
+                            </div>
                         </div>
                     </div>
 
@@ -309,45 +446,47 @@
                         <div class="panel-body">
                             <div class="row">
 
-                                <div class="btn-group col-md-2">
-                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
-                                            aria-expanded="true">{{$limit}} <span class="caret"></span></button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a id="select" href="">5条</a></li>
-                                        <li><a id="select10" href="">10条</a></li>
-                                        <li><a id="select15" href="">15条</a></li>
-                                        <li><a id="select20" href="">20条</a></li>
-                                    </ul>
-                                </div>
+                                {{--<div class="btn-group col-md-2">--}}
+                                    {{--<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"--}}
+                                            {{--aria-expanded="true">{{$limit}} <span class="caret"></span></button>--}}
+                                    {{--<ul class="dropdown-menu" role="menu">--}}
+                                        {{--<li><a id="select" href="">5条</a></li>--}}
+                                        {{--<li><a id="select10" href="">10条</a></li>--}}
+                                        {{--<li><a id="select15" href="">15条</a></li>--}}
+                                        {{--<li><a id="select20" href="">20条</a></li>--}}
+                                    {{--</ul>--}}
+                                {{--</div>--}}
                                 <div class="col-md-8"></div>
 
                             </div>
 
                             <div class="row m-t-10">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <table class="table table-bordered">
+                                    {{--<table class="table table-bordered">--}}
+                                    <table class="table table-bordered table-striped display" id="datatable-buttons">
                                         <thead>
                                         <tr>
                                             <th class="col-md-2 col-lg-2 exce"> 名称</th>
                                             <th class="col-md-1 col-lg-1 exce"> 性别</th>
                                             <th class="col-md-2 col-lg-2 exce"> 头像</th>
                                             <th class="col-md-2 col-lg-2 exce"> 邮箱</th>
-                                            <th class="col-md-1 col-lg-1 exce"> 积分</th>
-                                            <th class="col-md-1 col-lg-1 exce"> 注册时间</th>
+                                            {{--<th class="col-md-1 col-lg-1 exce"> 积分</th>--}}
+                                            <th class="col-md-2 col-lg-2 exce"> 注册时间</th>
                                             <th class="col-md-1 col-lg-1 exce">
-                                                <div class="btn-group ">
-                                                    <button type="button"
-                                                            class="btn btn-default dropdown-toggle waves-effect"
-                                                            data-toggle="dropdown" aria-expanded="false">{{$status}}
-                                                        <span
-                                                                class="caret"></span></button>
-                                                    <ul class="dropdown-menu" role="menu">
-                                                        <li><a id="statusAll" href="javascript:void(0);">全部状态</a></li>
-                                                        <li><a id="statusShow" href="javascript:void(0);">激活</a></li>
-                                                        <li><a id="statusHide" href="javascript:void(0);">不激活</a></li>
+                                                全部状态
+                                                {{--<div class="btn-group ">--}}
+                                                    {{--<button type="button"--}}
+                                                            {{--class="btn btn-default dropdown-toggle waves-effect"--}}
+                                                            {{--data-toggle="dropdown" aria-expanded="false">{{$status}}--}}
+                                                        {{--<span--}}
+                                                                {{--class="caret"></span></button>--}}
+                                                    {{--<ul class="dropdown-menu" role="menu">--}}
+                                                        {{--<li><a id="statusAll" href="javascript:void(0);">全部状态</a></li>--}}
+                                                        {{--<li><a id="statusShow" href="javascript:void(0);">激活</a></li>--}}
+                                                        {{--<li><a id="statusHide" href="javascript:void(0);">不激活</a></li>--}}
 
-                                                    </ul>
-                                                </div>
+                                                    {{--</ul>--}}
+                                                {{--</div>--}}
                                             </th>
                                             <th class="col-md-2 col-lg-2 exce"> 操作</th>
                                         </tr>
@@ -363,13 +502,14 @@
                                                     alt="没有上传"/>
                                                 </td>
                                                 <td class="exce">{{ $item->email }}</td>
-                                                <td class="exce">{{ $item->integral }}</td>
+                                                {{--<td class="exce">{{ $item->integral }}</td>--}}
                                                 <td class="exce">{{ $item->created_at }}</td>
                                                 @if ($item->status != 1)
-
-                                                    <td class="exce"><i class="icon fa fa-2x fa-times-circle"> </i></td>
+                                                    <td class="exce">不激活</td>
+                                                    {{--<td class="exce"><i class="icon fa fa-2x fa-times-circle"> </i></td>--}}
                                                 @else
-                                                    <td class="exce"><i class="icon fa fa-2x fa-check-circle"> </i></td>
+                                                    {{--<td class="exce"><i class="icon fa fa-2x fa-check-circle"> </i></td>--}}
+                                                    <td class="exce">激活</td>
                                                 @endif
 
                                                 <td class="exce">
@@ -387,12 +527,22 @@
                                                         <i class="icon fa fa-bars"> </i>
                                                     </a>
                                                     <a title="修改" href="javascript:void(0); "class="btn btn-small btn-info"
-                                                       data-id="{{$item->id}}"  data-name="{{$item->name}}"
+                                                       data-id="{{$item->id}}"
+                                                       data-name="{{$item->name}}"
                                                        data-sex="{{$item->sex}}"
                                                        data-avatar="{{$item->avatar}}"
                                                        data-email="{{$item->email}}"
                                                        data-integral="{{$item->integral}}"
                                                        data-role="{{$item->role}}"
+
+                                                       {{--{{dd($item->manys)}}--}}
+                                                       data-enames="{{!empty($item->manys[0]->name) ? $item->manys[0]->name  :'' }}"
+                                                       data-emobile="{{!empty($item->manys[0]->mobile ) ? $item->manys[0]->mobile :'' }}"
+                                                       data-eprovince="{{!empty($item->manys[0]->province)? $item->manys[0]->province:'' }}"
+                                                       data-ecity="{{!empty($item->manys[0]->city )? $item->manys[0]->city:'' }}"
+                                                       data-ecountry="{{!empty($item->manys[0]->country )? $item->manys[0]->country:'' }}"
+                                                       data-edetail="{{!empty($item->manys[0]->detail )?$item->manys[0]->detail :'' }}"
+                                                       data-ezip="{{!empty($item->manys[0]->zip )?$item->manys[0]->zip:'' }}"
                                                        onclick="edit(this);">
                                                         <i class="icon fa fa-pencil"> </i>
                                                     </a>
@@ -408,9 +558,9 @@
                                         @endforeach
                                         </tbody>
                                     </table>
-                                    <div style="clear: both;text-align: center;">
-                                        {{ $data->links() }}
-                                    </div>
+                                    {{--<div style="clear: both;text-align: center;">--}}
+                                        {{--{{ $data->links() }}--}}
+                                    {{--</div>--}}
 
                                 </div>
                                 @if(!$data->count())
@@ -428,6 +578,37 @@
         </div>
     </div>
 
+
+    <script>
+
+        $(function(){
+            if ($('#role').val() != 1) {
+            $('#info').show();
+        } else {
+                $('#info').hide();
+            }
+
+        });
+
+        var change = function (event) {
+
+            if ($(event).val() != 1) {
+                $('#info').show();
+
+            } else{
+                $('#info').hide();
+            }
+        }
+        var changes = function (event) {
+
+            if ($(event).val() != 1) {
+                $('#einfo').show();
+
+            } else{
+                $('#einfo').hide();
+            }
+        }
+    </script>
     <script>
 
 //        var a = 'b';
@@ -539,11 +720,11 @@
 
 
             //验证密码参数
-            res = check({'password': $('#passwd').val()});
-            if (!res.status) {
-                alertify.alert('密码中必须包含字母、数字、特称字符，至少8个字符');
-                return;
-            }
+//            res = check({'password': $('#passwd').val()});
+//            if (!res.status) {
+//                alertify.alert('密码中必须包含字母、数字、特称字符，至少8个字符');
+//                return;
+//            }
             var datas = {
                 'img_id':window.imgId,
                 'name': $('#name').val(),
@@ -555,6 +736,16 @@
                 '_token': '{{csrf_token()}}'
             };
 
+            //加入数据
+            if (datas.role != 1) {
+                    datas.names = $('#names').val();
+                    datas.mobile = $('#mobile').val();
+                    datas.province = $('#province').val();
+                    datas.city = $('#city').val();
+                    datas.country = $('#country').val();
+                    datas.detail = $('#detail').val();
+                    datas.zip = $('#zip').val();
+            }
             $.post('/user/add', datas, function (res) {
                 if (res.status) {
                     alertify.success('创建用户成功');
@@ -625,6 +816,19 @@
             $('#eemail').val($(event).attr('data-email'));
             $('#eintegral').val($(event).attr('data-integral'));
 
+            $('#enames').val($(event).attr('data-enames'));
+            $('#emobile').val($(event).attr('data-emobile'));
+            $('#eprovince').val($(event).attr('data-eprovince'));
+            $('#ecity').val($(event).attr('data-ecity'));
+            $('#ecountry').val($(event).attr('data-ecountry'));
+            $('#edetail').val($(event).attr('data-edetail'));
+            $('#ezip').val($(event).attr('data-ezip'));
+
+            if ($(event).attr('data-role') != 1) {
+                $('#einfo').show();
+            } else {
+                $('#einfo').hide();
+            }
             $('#edit-save').attr('data-id',$(event).attr('data-id'));
             $('#edit').modal('toggle');
         }
@@ -655,6 +859,15 @@
 
            }
 
+           if (datas.role != 1) {
+               datas.names = $('#enames').val();
+               datas.mobile = $('#emobile').val();
+               datas.province = $('#eprovince').val();
+               datas.city = $('#ecity').val();
+               datas.country = $('#ecountry').val();
+               datas.detail = $('#edetail').val();
+               datas.zip = $('#ezip').val();
+           }
            $.post('/user/update', datas, function (res) {
 
                if (res.status) {
@@ -806,7 +1019,7 @@
                 if (res.status) {
                     if (res.data.length == 0) {
 
-                        var datas = '<div style="width:100px;text-align: center"><h5 style="color: red;">该客户没有填写地址信息</h5></div>';
+                        var datas =`<th width="100%" style="text-align:center;" colspan="7">该客户没有填写地址信息</th>`;
                         $('#count').text(0);
                     } else {
                         var j = 1;
@@ -833,7 +1046,11 @@
                     $('#address').html(datas);
                     $('#addressModal').modal('toggle');
                 } else {
-                    alertify.alert('获取地址列表失败');
+                    var datas =`<th width="100%" style="text-align:center;" colspan="7">该客户没有填写地址信息</th>`;
+                    $('#count').text(0);
+                    $('#address').html(datas);
+                    $('#addressModal').modal();
+//                    alertify.alert('获取地址列表失败');
                 }
             })
         }

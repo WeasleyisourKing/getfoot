@@ -16,6 +16,7 @@ use App\Rules\IdRule;
 use App\Rules\UserInfoRule;
 use App\Rules\IdAndRoleRule;
 use App\Rules\ManagerInfoRule;
+use App\Rules\AddressRule;
 use App\Exceptions\ParamsException;
 
 /**
@@ -39,7 +40,7 @@ class UserController extends Controller
 
         $res = UsersModel::getUserList($statusData, $limit);
 
-
+//dd($res[0]->manys->flatten()->toArray());
         $arr = UsersRoleModel::get();
         return view('admin.user.user-user', [
             'arr' => $arr,
@@ -55,17 +56,17 @@ class UserController extends Controller
      * @param Request $request
      * @return null
      */
-    public function managerList ($type,$status, $limit)
+    public function managerList ($type, $status, $limit)
     {
 
         $statusData = ($status != -1) ? [$status] : [1, 2];
 
         //取全部数据
-        if ($type == -1 ) {
+        if ($type == -1) {
 
             $res = AdminModel::getList($statusData, $limit);
         } else {
-            $res = AdminModel::getLists($type,$statusData, $limit);
+            $res = AdminModel::getLists($type, $statusData, $limit);
         }
 
         $role = AdminRoleModel::get();
@@ -121,10 +122,10 @@ class UserController extends Controller
         $res = AdminRoleModel::getRole($limit);
 
 //        dd($res->toArray());
-        $auth = Common::getTree(PrivilegeModel::get()->toArray(),0);
+        $auth = Common::getTree(PrivilegeModel::get()->toArray(), 0);
 
         //数据 类型 标题 状态
-        return view('admin.user.user-admin-role', ['data' => $res, 'limit' => '显示' . $limit . '条','auth' => $auth]);
+        return view('admin.user.user-admin-role', ['data' => $res, 'limit' => '显示' . $limit . '条', 'auth' => $auth]);
     }
 //    /**
 //     * 添加用户页面
@@ -220,11 +221,29 @@ class UserController extends Controller
             'status' => 1
         ];
 
-        //添加用户
-        $res = UsersModel::getUserAdd($data);
+        if ($params['role'] != 1) {
+            (new AddressRule)->goCheck(200);
 
-        if (!$res) {
-            throw new \Exception('服务器内部错误');
+            //不是普通用户
+            $datas = [
+                'name' => htmlspecialchars(strip_tags(trim($params['names']))),
+                'mobile' => htmlspecialchars(strip_tags(trim($params['mobile']))),
+                'province' => htmlspecialchars(strip_tags(trim($params['province']))),
+                'city' => htmlspecialchars(strip_tags(trim($params['city']))),
+                'country' => htmlspecialchars(strip_tags(trim($params['country']))),
+                'detail' => htmlspecialchars(strip_tags(trim($params['detail']))),
+                'zip' => htmlspecialchars(strip_tags(trim($params['zip'])))
+
+            ];
+            $res = UsersModel::getUserAndAddress($data, $datas);
+        } else {
+            //添加用户
+            $res = UsersModel::getUserAdd($data);
+
+            if (!$res) {
+                throw new \Exception('服务器内部错误');
+            }
+
         }
 
         return Common::successData();
@@ -261,11 +280,29 @@ class UserController extends Controller
             $data['avatar'] = is_array($params['img_id']) ? $params['img_id'][0][0] : $params['img_id'];
         }
 
-        //添加用户
-        $res = UsersModel::updateUserInfo($params['id'], $data);
+        if ($params['role'] != 1) {
+            (new AddressRule)->goCheck(200);
 
-        if (!$res) {
-            throw new \Exception('服务器内部错误');
+            //不是普通用户
+            $datas = [
+                'name' => htmlspecialchars(strip_tags(trim($params['names']))),
+                'mobile' => htmlspecialchars(strip_tags(trim($params['mobile']))),
+                'province' => htmlspecialchars(strip_tags(trim($params['province']))),
+                'city' => htmlspecialchars(strip_tags(trim($params['city']))),
+                'country' => htmlspecialchars(strip_tags(trim($params['country']))),
+                'detail' => htmlspecialchars(strip_tags(trim($params['detail']))),
+                'zip' => htmlspecialchars(strip_tags(trim($params['zip'])))
+
+            ];
+            $res = UsersModel::updateUserInfos($params['id'], $data, $datas);
+        } else {
+            //添加用户
+            $res = UsersModel::updateUserInfo($params['id'], $data);
+
+            if (!$res) {
+                throw new \Exception('服务器内部错误');
+            }
+
         }
 
         return Common::successData();
@@ -569,7 +606,7 @@ class UserController extends Controller
                 'role_id' => $param['id'],
             ];
         }
-        PrivilegeRoleModel::where('role_id',$param['id'])->delete();
+        PrivilegeRoleModel::where('role_id', $param['id'])->delete();
         $res = PrivilegeRoleModel::insert($data);
 
         if (!$res) {

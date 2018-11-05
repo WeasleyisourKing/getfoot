@@ -203,44 +203,43 @@
                         <div class="panel-body">
                             <div class="row">
 
-                                <div class="btn-group col-md-2">
-                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
-                                            aria-expanded="true">{{$limit}} <span class="caret"></span></button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a id="select" href="">20条</a></li>
-                                        <li><a id="select10" href="">50条</a></li>
-                                        <li><a id="select15" href="">100条</a></li>
+                                {{--<div class="btn-group col-md-2">--}}
+                                    {{--<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"--}}
+                                            {{--aria-expanded="true">{{$limit}} <span class="caret"></span></button>--}}
+                                    {{--<ul class="dropdown-menu" role="menu">--}}
+                                        {{--<li><a id="select" href="">20条</a></li>--}}
+                                        {{--<li><a id="select10" href="">50条</a></li>--}}
+                                        {{--<li><a id="select15" href="">100条</a></li>--}}
                                         {{--<li><a id="select20" href="">20条</a></li>--}}
-                                    </ul>
-                                </div>
+                                    {{--</ul>--}}
+                                {{--</div>--}}
                                 <div class="col-md-8"></div>
 
                             </div>
 
                             <div class="row m-t-10">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <table class="table table-bordered">
+                                    {{--<table class="table table-bordered">--}}
+                                    <table class="table table-bordered table-striped display" id="datatable-buttons">
                                         <thead>
                                         <tr>
                                             <th class="col-md-2 col-lg-2 exce"> 订单号</th>
                                             <th class="col-md-2 col-lg-2 exce"> 总数量</th>
                                             <th class="col-md-2 col-lg-2 exce"> 总价格($)</th>
                                             <th class="col-md-2 col-lg-2 exce">
-                                                <div class="btn-group ">
-                                                    <button type="button"
-                                                            class="btn btn-default dropdown-toggle waves-effect"
-                                                            data-toggle="dropdown" aria-expanded="false">{{$title}}
-                                                        <span
-                                                                class="caret"></span></button>
-                                                    <ul class="dropdown-menu" role="menu">
-                                                        <li><a id="statusAll" href="javascript:void(0);">全部状态</a></li>
-                                                        <li><a id="status1" href="javascript:void(0);">待处理</a></li>
-                                                        <li><a id="status2" href="javascript:void(0);">未支付</a></li>
-                                                        <li><a id="status3" href="javascript:void(0);">已发货</a></li>
-                                                        <li><a id="status4" href="javascript:void(0);">已完成</a></li>
-                                                        <li><a id="status5" href="javascript:void(0);">退货</a></li>
-                                                    </ul>
-                                                </div>
+                                                状态
+                                                {{--<div class="btn-group ">--}}
+                                                    {{--<button type="button"--}}
+                                                            {{--class="btn btn-default dropdown-toggle waves-effect"--}}
+                                                            {{--data-toggle="dropdown" aria-expanded="false">{{$title}}--}}
+                                                        {{--<span--}}
+                                                                {{--class="caret"></span></button>--}}
+                                                    {{--<ul class="dropdown-menu" role="menu">--}}
+                                                        {{--<li><a id="statusAll" href="javascript:void(0);">全部状态</a></li>--}}
+                                                        {{--<li><a id="status1" href="javascript:void(0);">已完成</a></li>--}}
+                                                        {{--<li><a id="status2" href="javascript:void(0);">已下单</a></li>--}}
+                                                    {{--</ul>--}}
+                                                {{--</div>--}}
                                             </th>
 
                                             <th class="col-md-1 col-lg-2 exce"> 下单时间</th>
@@ -255,13 +254,13 @@
                                                 <td class="exce">{{ $item->order_no }}</td>
                                                 <td class="exce">{{ $item->total_count }}</td>
                                                 <td class="exce">{{ $item->total_price }}</td>
-                                                <td class="exce">{{ $item->status }}</td>
+                                                <td class="exce">{{ $item->state }}</td>
                                                 <td class="exce">{{ $item->created_at }}</td>
 
                                                 <td class="exce">
                                                     <a title="查看订单" id="info" data-id="{{$item->id}}"
                                                        class="btn btn-small btn-success"
-                                                       href="/business/detail/id/{{$item->id}}"
+                                                       href="/business/detail/id/{{$item->id}}/status/{{$item->status}}"
                                                     >
                                                         <i class="icon fa fa-file-text"> </i>
                                                     </a>
@@ -344,20 +343,6 @@
         var val6 = strs.join('/');
         $('#status2').attr('href', val6);
 
-        //替换status为5
-        strs.splice(4, 1, 3);
-        var val8 = strs.join('/');
-        $('#status3').attr('href', val8);
-
-        //替换status为5
-        strs.splice(4, 1, 4);
-        var val9 = strs.join('/');
-        $('#status4').attr('href', val9);
-
-        //替换status为5
-        strs.splice(4, 1, 5);
-        var val10 = strs.join('/');
-        $('#status5').attr('href', val10);
     </script>
 
 
@@ -368,7 +353,7 @@
         //删除
         var del = function (event) {
 
-            alertify.confirm("确认框", function (e) {
+            alertify.confirm("确认删除吗？", function (e) {
                 if (e) {
 
                     $.get('/business/order/del', {'id': $(event).attr('data-id')}, function (res) {
@@ -406,7 +391,8 @@
                             ' <th class="col-md-2 col-lg-2 exce"> 商品名称</th>' +
                             ' <th class="col-md-2 col-lg-2 exce">  SKU</th>' +
                             '<th class="col-md-2 col-lg-2 exce"> 商品图片</th> ' +
-                            '<th class="col-md-2 col-lg-2 exce">零售价（$）</th>' +
+                            '<th class="col-md-2 col-lg-2 exce">成本价（$）</th>' +
+                            '<th class="col-md-2 col-lg-2 exce">库存</th>' +
                             '<th class="col-md-2 col-lg-2 exce">操作</th>' +
                             ' </tr>' +
                             ' </thead><tbody id="postContainer">';
@@ -420,7 +406,9 @@
                                                     src="${res.data[i].product_image}"
                                                     alt="没有上传"/>
                                                 </td>
-                                         <td class="exce">${res.data[i].distributor.level_four_price}
+                                         <td class="exce">${res.data[i].price}
+                                                </td>
+                                            <td class="exce">${res.data[i].stock}
                                                 </td>
                                            <td class="exce">
                         <a title="添加商品" data-id="${res.data[i].id}" data-name="${res.data[i].zn_name}（${res.data[i].en_name}）"

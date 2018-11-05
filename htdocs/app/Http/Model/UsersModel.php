@@ -28,12 +28,16 @@ class UsersModel extends Model
     public static function getUserList ($status, $limit)
     {
 
-        return self::select('id', 'name', 'role', 'status',
-            DB::raw("(CASE sex WHEN '1' THEN '男' WHEN '2' THEN '女' END) as sex"),
-            'email', 'avatar', 'integral', 'created_at')
-            ->whereIn('status', $status)
+        return self::with(['manys' => function ($q) {
+            $q->where('default', '=', 1);
+        }])
+            ->select('id', 'name', 'role', 'status',
+                DB::raw("(CASE sex WHEN '1' THEN '男' WHEN '2' THEN '女' END) as sex"),
+                'email', 'avatar', 'integral', 'created_at')
+            ->whereIn('status', [1, 2])
             ->orderBy('created_at', 'desc')
-            ->paginate($limit);
+            ->get();
+//            ->paginate($limit);
 
     }
 
@@ -51,7 +55,7 @@ class UsersModel extends Model
     //一对多 用户和订单
     public function orederManys ()
     {
-        return $this->hasMany('App\Http\Model\BusinessOrderModel', 'users_id', 'id');
+        return $this->hasMany('App\Http\Model\OrderModel', 'users_id', 'id');
     }
 
     //获取用户地址信息
@@ -59,7 +63,7 @@ class UsersModel extends Model
     {
 
 
-        return self::with(['manys' => function ($query)  {
+        return self::with(['manys' => function ($query) {
 
             $query->orderBy('created_at', 'desc');
         }])
@@ -69,7 +73,7 @@ class UsersModel extends Model
     }
 
     //获取用户订单信息
-    public static function getUserOrder ($id,$status = null)
+    public static function getUserOrder ($id, $status = null)
     {
 
         if (!empty($status)) {
@@ -102,6 +106,27 @@ class UsersModel extends Model
         return $obj;
     }
 
+    //添加用户
+    public static function getUserAndAddress ($data, $datas)
+    {
+        DB::beginTransaction();
+        try {
+            $obj = new self($data);
+            $obj->save();
+
+            $datas['users_id'] = $obj->id;
+
+            UsersAddressModel::insert($datas);
+            DB::commit();
+
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            //记录日志
+            throw $ex;
+        }
+
+    }
+
     //删除用户
     public static function delUser ($id)
     {
@@ -114,6 +139,23 @@ class UsersModel extends Model
     public static function updateUserInfo ($id, $data)
     {
         return self::where('id', '=', $id)->update($data);
+    }
+
+    //修改用户
+    public static function updateUserInfos ($id, $data, $datas)
+    {
+        DB::beginTransaction();
+        try {
+             self::where('id', '=', $id)->update($data);
+
+            UsersAddressModel::where('users_id', '=', $id)->where('default', '=', 1)->update($datas);
+            DB::commit();
+
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            //记录日志
+            throw $ex;
+        }
     }
 
     //根据id 获取用户信息

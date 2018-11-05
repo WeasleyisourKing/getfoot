@@ -139,6 +139,9 @@ class StockOrderModel extends Model
             $orderId = self::newOrder($data);
             if (!is_null($id))
                 PurchaseOrderModel::where('id', '=', $id)->update(['status' => 2]);
+
+
+            $st = BusinessOrderModel::where('order_no', '=', $orderId->pruchase_order_no);
             //插入order_product表
             foreach ($arr as &$p) {
 
@@ -400,9 +403,13 @@ class StockOrderModel extends Model
         //涉及多表 使用事务控制
         DB::beginTransaction();
         try {
+            $info = self::find($id);
 
+            if (substr($info->pruchase_order_no, 0, 1) === 'B') {
+                BusinessOrderModel::where('order_no','=',$info->pruchase_order_no)->update(['status' => 1]);
+            }
             if ($status == 1) {
-                self::where('id', '=', $id)->update(['state' => 2]);
+                $info->update(['state' => 2]);
                 foreach ($arr as &$p) {
 
                     $flight = ProductModel::find($p['product_id']);
@@ -418,7 +425,7 @@ class StockOrderModel extends Model
                 }
 
             } else {
-                $info = self::find($id);
+
                 $info->total_count = $num;
                 $info->remark = '非直接出库确认';
                 $info->state = 2;

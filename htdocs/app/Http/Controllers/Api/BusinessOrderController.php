@@ -510,12 +510,12 @@ class BusinessOrderController extends Controller
     private function createOrder ($orderSnap)
     {
         $num = BusinessOrderModel::orderBy('created_at', 'desc')->first(['order_no']);
-        $orderNo = Common::makeOrderNo(is_null($num) ? 'A2018101800001' : $num->order_no);
+        $orderNo = 'B' . substr(Common::makeOrderNo(is_null($num) ? 'A2018101800001' : $num->order_no), 1);
 
         //构造数据
         $data = [];
         $data = [
-            'order_no' =>  'B' . substr($orderNo, 1),
+            'order_no' => $orderNo,
             'users_id' => $this->uid,
             'total_price' => $orderSnap['orderPrice'],
             'total_count' => $orderSnap['allCount'],
@@ -538,7 +538,21 @@ class BusinessOrderController extends Controller
 //            $data['discount_id'] = $this->code['id'];
 //            UsersDiscountModel::where('id', '=', $this->code['id'])->update(['status' => 2]);
 //        }
-        $res = BusinessOrderModel::insertOrder($data, $this->uProducts);
+        $num = \App\Http\Model\StockOrderModel::where('status', '=', 2)->orderBy('created_at', 'desc')->first(['order_no']);
+        $orderNos = Common::makeOrderNo(is_null($num) ? 'A2018101800001' : $num->order_no);
+        //构造数据
+        $datas = [];
+        $datas = [
+            'order_no' => 'O' . substr($orderNos, 1),
+            'operator' => 'Admin',
+            'total_count' => $orderSnap['allCount'],
+            'pruchase_order_no' => $orderNo,
+            'remark' => '商户下订单',
+            'status' => 2,
+            'type' => 2
+        ];
+
+        $res = BusinessOrderModel::insertOrder($data, $datas, $this->uProducts);
 
         return [
             //订单号

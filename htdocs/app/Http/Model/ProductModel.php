@@ -25,6 +25,13 @@ class ProductModel extends Model
         return $this->belongsTo('App\Http\Model\FineProductModel', 'id', 'product_id');
     }
 
+    //关联主题区和图片关系 一对一
+    public function shelves ()
+    {
+
+        return $this->belongsTo('App\Http\Model\ShelvesModel', 'shelves','id');
+    }
+
     //关联商品和分类关系 一对一
     public function category ()
     {
@@ -119,8 +126,8 @@ class ProductModel extends Model
     //获取某些商品信息
     public static function getProduct ($arr)
     {
-        return self::with('distributor')
-            ->select(['id', 'sku', 'price', 'stock', 'zn_name','en_name', 'product_image', 'status', 'shelves'])
+        return self::with('distributor','shelves')
+            ->select(['id', 'sku', 'price', 'stock', 'zn_name','en_name', 'product_image', 'status', 'shelves','innersku','number'])
             ->whereIn('id', $arr)
             ->get()
             ->toArray();

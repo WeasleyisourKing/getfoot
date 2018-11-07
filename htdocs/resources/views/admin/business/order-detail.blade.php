@@ -1,212 +1,244 @@
-@extends('admin/layout.app')
+@extends('admin/layout.app') @section('content')
+<!-- Main Content -->
 
-@section('content')
-    <!-- Main Content -->
 
-    {{--<div class="row">--}}
-        {{--<div class="col-sm-12">--}}
-            {{--<h4 class="pull-left page-title">商家订单管理</h4>--}}
-            {{--<ol class="breadcrumb pull-right">--}}
-                {{--<li><a href="#">Admin Panel</a></li>--}}
-                {{--<li><a href="#">商家订单管理</a></li>--}}
-                {{--<li class="active">订单列表</li>--}}
-                {{--<li class="active">订单详情</li>--}}
-            {{--</ol>--}}
-        {{--</div>--}}
-    {{--</div>--}}
-
-    {{--<div class="row">--}}
-        {{--<div class="col-md-12">--}}
-            {{--<div class="panel panel-default">--}}
-                {{--<div class="panel-body">--}}
-                    {{--<!--startprint-->--}}
-                    {{--<div class="clearfix">--}}
-                        {{--<div class="pull-left">--}}
-                            {{--<h4 class="text-right"><img width="80px" src="/uploads/logo5.png" alt="12buy"></h4>--}}
-
-                        {{--</div>--}}
-                        {{--<div class="pull-right">--}}
-                            {{--<h4>Order # <br>--}}
-                                {{--<strong>{{$data['order_no']}}</strong>--}}
-                            {{--</h4>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<hr>--}}
-                    {{--<div class="row">--}}
-                        {{--<div class="col-md-12">--}}
-
-                            {{--<div class="pull-left">--}}
-                                {{--<address>--}}
-                                    {{--<strong>{{$address['name']}}</strong><br>--}}
-                                    {{--{{$address['country']}}<br>--}}
-                                    {{--{{$address['detail']}}<br>--}}
-                                    {{--{{$address['city']}}, {{$address['province']}} {{$address['zip']}}<br>--}}
-                                    {{--{{$address['mobile']}}--}}
-                                {{--</address>--}}
-                            {{--</div>--}}
-                            {{--<div class="pull-right m-t-30">--}}
-                                {{--<p><strong>Order Date: </strong> {{$data['created_at']}}</p>--}}
-                                {{-- <p class="m-t-10"><strong>订单状态: </strong> <span class="label label-pink">Pending</span></p> --}}
-                                {{--<p class="m-t-10"><strong>User: </strong>{{$address['user']}}--}}
-                                    {{--<strong>Email:</strong> {{$address['email']}}</p>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="row">--}}
-                        {{--<div class="col-md-12">--}}
-                            {{--<div class="table-responsive">--}}
-                                {{--<table class="table">--}}
-                                    {{--<thead>--}}
-                                    {{--<tr>--}}
-                                        {{--<th>#</th>--}}
-                                        {{--<th>Item</th>--}}
-                                        {{--<th>Description</th>--}}
-                                        {{--<th>Unit Cost</th>--}}
-                                        {{--<th>Quantity</th>--}}
-                                        {{--<th>Total</th>--}}
-                                    {{--</tr>--}}
-                                    {{--</thead>--}}
-                                    {{--<tbody>--}}
-                                    {{--@foreach ($product as $key => $item)--}}
-                                        {{--<tr>--}}
-                                            {{--<td>{{ $key + 1 }}</td>--}}
-                                            {{--<td><img height="30px; align=" middle" src="{{ $item['image'] }}"--}}
-                                                {{--alt="没有上传"/>--}}
-                                            {{--</td>--}}
-                                            {{--<td>{{ !empty($item['znName']) ? $item['znName'] : $item['name'] }}</td>--}}
-                                            {{--<td>{{ $item['singlePrice'] }}</td>--}}
-                                            {{--<td>{{ $item['count'] }}</td>--}}
-                                            {{--<td>{{ $item['totalPrice'] }}</td>--}}
-                                        {{--</tr>--}}
-                                    {{--@endforeach--}}
-                                    {{--</tbody>--}}
-                                {{--</table>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="row" style="border-radius: 0px">--}}
-                        {{--<div class="col-md-3 col-md-offset-9">--}}
-
-                            {{--<hr>--}}
-                            {{--<h3 class="text-right">USD {{$data['total_price']}}</h3>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<hr>--}}
-                    {{--<!---endprint-->--}}
-                    {{--<div class="hidden-print">--}}
-                        {{--<div class="pull-right">--}}
-                            {{--<a href="javascript:window.print()" class="btn btn-inverse waves-effect waves-light"><i--}}
-                                        {{--class="fa fa-print"></i></a>--}}
-                            {{-- <a href="#" class="btn btn-primary waves-effect waves-light">Submit</a> --}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-
-        {{--</div>--}}
-
-    {{--</div>--}}
-
-    <div class="row">
-        <div class="col-sm-12">
-            <h4 class="pull-left page-title">商家订单管理</h4>
-            <ol class="breadcrumb pull-right">
-                <li><a href="#">Admin Panel</a></li>
-                <li><a href="#">商家订单管理</a></li>
-                <li class="active">订单列表</li>
-                <li class="active">订单详情</li>
-            </ol>
-        </div>
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="pull-left page-title">商家订单管理</h4>
+        <ol class="breadcrumb pull-right">
+            <li><a href="#">Admin Panel</a></li>
+            <li><a href="#">商家订单管理</a></li>
+            <li class="active">订单列表</li>
+            <li class="active">订单详情</li>
+        </ol>
     </div>
+</div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
 
 
-                <div class="panel-body">
-                    <!--startprint_1-->
-                    <div class="table-responsive">
-                        <table id="biaoge" class="table">
-                            <thead>
-                    <div class="clearfix">
-                        <div class="pull-left">
-                            {{--<h4 class="text-right"><img width="80px" src="/uploads/logo5.png" alt="12buy"></h4>--}}
+            <div class="panel-body">
+                <!--ttartprint-->
+                <div class="table-responsive">
+                    <table id="biaoge" class="table">
+                        <thead>
+                            <div class="clearfix">
+                                <div class="pull-left">
+                                    {{--
+                                    <h4 class="text-right"><img width="80px" src="/uploads/logo5.png" alt="12buy"></h4>--}} {{--
 
-                        {{--</div>--}}
-                        {{--<div class="pull-right">--}}
-                            {{--<h4>Order # <br>--}}
-                                {{--<strong>{{$data['order_no']}}</strong>--}}
-                            {{--</h4>--}}
+                                </div>--}} {{--
+                                <div class="pull-right">--}} {{--
+                                    <h4>Order # <br>--}} {{--
+                                        <strong>{{$data['order_no']}}</strong>--}} {{--
+                                    </h4>--}}
 
-                            <tr style="font-size: 18px;" >
-                                <th colspan="3">PO</th>
+                                    <tr style="font-size: 18px;">
+                                        <th colspan="3">PO</th>
 
-                                <th colspan="3"  align="right">
-                                	<p style="text-align: right;">
-                                    <!-- Order # <br> -->
-                                    <strong>Snack Talk</strong>
-                                	</p>
+                                        <th colspan="3" align="right">
+                                            <p style="text-align: right;">
+                                                <!-- Order # <br> -->
+                                                <strong>Snack Talk</strong>
+                                            </p>
 
-                                </th>
-                            </tr>
-                        </div>
-                    </div>
+                                        </th>
+                                    </tr>
+                                </div>
+                            </div>
 
-                    <hr>
-                    {{--<div class="row">--}}
-                        <div class="col-md-12">
-                            {{--<div class="table-responsive">--}}
-                                {{--<table id="biaoge" class="table">--}}
-                                    {{--<thead>--}}
-                            <div class="pull-left">
-                                <th colspan="3" align="left">
-                                <address>
+                            <hr> {{--
+                            <div class="row">--}}
+                                <div class="col-md-12">
+                                    {{--
+                                    <div class="table-responsive">--}} {{--
+                                        <table id="biaoge" class="table">--}} {{--
+                                            <thead>--}}
+                                                <div class="pull-left">
+                                                    <th colspan="2" align="left">
+                                                        <address>
+                                    <strong>SnackTalk</strong><br>
+                                    4961 Santa Anita<br>
+                                    Ave unit i<br>
+                                    Temple city, CA 91780<br>
+                                    650-690-6666<br>
+                                    info@snacktalk.com
+                                </address>
+                                                    </th>
+                                                </div>
+                                                <div class="pull-left">
+                                                    <th colspan="3" align="left">
+                                                        <address>
                                     <strong>{{$address['name']}}</strong><br>
                                     {{$address['country']}}<br>
                                     {{$address['detail']}}<br>
                                     {{$address['city']}}, {{$address['province']}} {{$address['zip']}}<br>
                                     {{$address['mobile']}}
                                 </address>
-                                </th>
-                            </div>
-                            <div class="pull-right ">
-                                <th colspan="3" align="right">
-                                <p style="text-align: right;"><strong>创建时间: </strong> {{$data['created_at']}}</p>
-                                {{-- <p class="m-t-10"><strong>订单状态: </strong> <span class="label label-pink">Pending</span></p> --}}
-                                <p style="text-align: right;" class="m-t-10"><strong>采购人: </strong>{{$address['user']}}<br>
-                                    <strong>订单编号:</strong> {{$data['order_no']}}</p>
-                                </th>
-                            </div>
-                        </div>
+                                                    </th>
+                                                </div>
+                                                <div class="pull-right ">
+                                                    <th colspan="3" align="right">
+                                                        <p style="text-align: right;"><strong>创建时间: </strong> {{$data['created_at']}}</p>
+                                                        {{--
+                                                        <p class="m-t-10"><strong>订单状态: </strong> <span class="label label-pink">Pending</span></p> --}}
+                                                        <p style="text-align: right;" class="m-t-10"><strong>采购人: </strong>{{$address['user']}}<br>
+                                                            <strong>订单编号:</strong> {{$data['order_no']}}</p>
+                                                    </th>
+                                                </div>
+                                    </div>
 
-                    {{--</div>--}}
-                    {{--<div class="row">--}}
-                        {{--<div class="col-md-12">--}}
-                            {{--<div class="table-responsive">--}}
-                                {{--<table class="table">--}}
-                                    {{--<thead>--}}
-                                    {{--<tr>--}}
-                                        {{--<th>#</th>--}}
-                                        {{--<th>Item</th>--}}
-                                        {{--<th>Description</th>--}}
-                                        {{--<th>Unit Cost</th>--}}
-                                        {{--<th>Quantity</th>--}}
-                                        {{--<th>Total</th>--}}
-                                    {{--</tr>--}}
                                     </thead>
 
                                     <tbody>
-                                    <tr>
-                                    <th>#</th>
-                                    <!-- <th>Item</th> -->
-                                    <th>SKU</th>
-                                    <th>商品名称</th>
-                                    <th>单价</th>
-                                    <th>数量</th>
-                                    <th>总价</th>
+                                        <tr>
+                                            <th>SKU</th>
+                                            <th>内部SKU</th>
+                                            <th>商品名称</th>
+                                            <th>单价</th>
+                                            <th>数量</th>
+                                            <th>箱规</th>
+                                            <th>过期日期</th>
+                                            <th>货架地址</th>
+                                        </tr>
+                                        @foreach ($product as $key => $item)
+                                        <tr>
+                                            <td>
+                                                {{ $item['sku'] }}
+                                            </td>
+                                            <td>
+                                                {{--{{$item['innersku']}}--}} {{ !empty($item['innersku']) ? $item['innersku'] : '' }}
+                                            </td>
+                                            <td>{{ !empty($item['znName']) ? $item['znName'] : $item['name'] }}</td>
+                                            <td>{{ $item['singlePrice'] }}</td>
+                                            <td>{{ $item['count'] }}</td>
+                                            <td> {{ !empty($item['number']) ? $item['number'] : '' }} </td>
+                                            <td></td>
+                                            <td>{{ $item['shelves'] }}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                    {{--</div>--}} {{--
+                            </div>--}}
+                </div>
+                <tfoot>
+                    <tr>
+                        <td colspan="8" align="right " style="font-weight: bold; font-size: 24px; line-height: 100px;">
+                            <p style="text-align: right;">USD {{$data['total_price']}}</p>
+                        </td>
+                    </tr>
+                    <!--<div class="row" style="border-radius: 0px">-->
+                    <!--<div class="col-md-3 col-md-offset-9">
+
+                            <hr>
+                            <tr class="text-right"></h3>
+                        </div>-->
+                    <!--</div>-->
+                </tfoot>
+                <hr>
+                </table>
+                <!---eedprint-->
+                <div class="hidden-print">
+                    <div class="pull-right">
+                        @if ($status != 1)
+                        <a id="daochu" class="btn btn-inverse waves-effect waves-light"><i
+                                        class="fa fa-print"></i></a> @else
+                        <a id="invoice" class="btn btn-success waves-effect waves-light"><i
+                                        class="fa fa-print">invoice</i></a>
+                        <a id="packing" class="btn btn-success waves-effect waves-light"><i
+                                        class="fa fa-print">packing</i></a> {{-- <a href="#" class="btn btn-primary waves-effect waves-light">Submit</a> --}} @endif
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- 第2次 -->
+            <div class="panel-body" style="display: none">
+                <!--startprint-->
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <div class="clearfix">
+                                <div class="pull-left">
+                                    <tr style="font-size: 18px;">
+                                        <th colspan="4">PackingList</th>
+
+                                        <th colspan="5" align="right" style=" vertical-align: middle;">
+                                            <p style="text-align: right;">
+                                                <!-- Order # <br> -->
+                                                <strong>Snack Talk</strong>
+                                            </p>
+
+                                        </th>
                                     </tr>
-                                    @foreach ($product as $key => $item)
+                                </div>
+                            </div>
+
+                            <hr> {{--
+                            <div class="row">--}}
+                                <div class="col-md-12">
+                                    {{--
+                                    <div class="table-responsive">--}} {{--
+                                        <table id="biaoge" class="table">--}} {{--
+                                            <thead>--}}
+                                                <div class="pull-left">
+                                                    <th colspan="2" align="left">
+                                                        <address>
+                                    <strong>SnackTalk</strong><br>
+                                    4961 Santa Anita<br>
+                                    Ave unit i<br>
+                                    Temple city, CA 91780<br>
+                                    650-690-6666<br>
+                                    info@snacktalk.com
+                                </address>
+                                                    </th>
+                                                </div>
+                                                <div class="pull-left">
+                                                    <th colspan="2" align="left">
+                                                        <address>
+                                    <strong>{{$address['name']}}</strong><br>
+                                    {{$address['country']}}<br>
+                                    {{$address['detail']}}<br>
+                                    {{$address['city']}}, {{$address['province']}} {{$address['zip']}}<br>
+                                    {{$address['mobile']}}
+                                </address>
+                                                    </th>
+                                                </div>
+                                                <div class="pull-right ">
+                                                    <th colspan="2" align="right" style=" vertical-align: middle;">
+                                                        <p style="text-align: right;"><strong>create date: </strong> {{$data['created_at']}}</p>
+                                                        <p style="text-align: right;" class="m-t-10">
+                                                            <strong>Packing list#:</strong> {{$data['order_no']}}</p>
+                                                    </th>
+                                                </div>
+                                    </div>
+
+                                    </thead>
+
+                                    <tbody>
+                                        <tr>
+                                            <th>Terms</th>
+                                            <th>Due Date</th>
+                                            <th>Rep</th>
+                                            <th colspan="2">Account#</th>
+                                            <th>Ship Date</th>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6">&nbsp;</td>
+                                        </tr>
+                                        </tr>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>SKU</th>
+                                            <th>Product Name</th>
+                                            <th>Rate</th>
+                                            <th>Quantity</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                        @foreach ($product as $key => $item)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
 
@@ -218,306 +250,217 @@
                                             <td>{{ $item['count'] }}</td>
                                             <td>{{ $item['totalPrice'] }}</td>
                                         </tr>
-                                    @endforeach
+                                        @endforeach
                                     </tbody>
-                            {{--</div>--}}
-                        {{--</div>--}}
+                </div>
+                <tfoot>
+                    <tr>
+                        <td colspan="3">Pallets Out:</td>
+                        <td colspan="3">SIGN:</td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" align="right " style="font-weight: bold; font-size: 24px; line-height: 100px;">
+                            <p style="text-align: right;">Total: {{$data['total_price']}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" align="center ">
+                            <p style="text-align: center;">Make all checks payable to Snack Talk Inc. Thank you for your business!</p>
+                        </td>
+                    </tr>
+                </tfoot>
+                <hr>
+                </table>
+                <!---endprint-->
+                <div class="hidden-print">
+                    <div class="pull-right">
+                        {{-- <a href="#" class="btn btn-primary waves-effect waves-light">Submit</a> --}}
                     </div>
-                    <tfoot>
-                    		<tr>
-                    			<td colspan="6" align="right " style="font-weight: bold; font-size: 24px; line-height: 100px;">
-                    				<p style="text-align: right;">USD {{$data['total_price']}}</p></td>
-                    		</tr>
-                    <!--<div class="row" style="border-radius: 0px">-->
-                        <!--<div class="col-md-3 col-md-offset-9">
-
-                            <hr>
-                            <tr class="text-right"></h3>
-                        </div>-->
-                    <!--</div>-->
-                    </tfoot>
-                    <hr>
-                                </table>
-                    <!---endprint-->
-                    <div class="hidden-print">
-                        <div class="pull-right">
-                            @if ($status != 1)
-                            <a id="daochu" class="btn btn-inverse waves-effect waves-light"><i
-                                        class="fa fa-print"></i></a>
-                            @else
-                            <a id="Print_1" class="btn btn-success waves-effect waves-light"><i
-                                        class="fa fa-print">invoice</i></a>
-                            <a id="Print" class="btn btn-success waves-effect waves-light"><i
-                                        class="fa fa-print">packing</i></a>
-                            {{-- <a href="#" class="btn btn-primary waves-effect waves-light">Submit</a> --}}
-                                @endif
-                        </div>
-                    </div>
-                
-                
-                    </div>
-
-                <!-- 第二次 -->
-                <div class="panel-body" style="display: none">
-                    <!--startprint-->
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                    <div class="clearfix">
-                        <div class="pull-left">
-                            {{--<h4 class="text-right"><img width="80px" src="/uploads/logo5.png" alt="12buy"></h4>--}}
-
-                        {{--</div>--}}
-                        {{--<div class="pull-right">--}}
-                            {{--<h4>Order # <br>--}}
-                                {{--<strong>{{$data['order_no']}}</strong>--}}
-                            {{--</h4>--}}
-
-                            <tr style="font-size: 18px;" >
-                                <th colspan="4">PO</th>
-
-                                <th colspan="5"  align="right" style=" vertical-align: middle;">
-                                	<p style="text-align: right;">
-                                    <!-- Order # <br> -->
-                                    <strong>Snack Talk</strong>
-                                	</p>
-
-                                </th>
-                            </tr>
-                        </div>
-                    </div>
-
-                    <hr>
-                    {{--<div class="row">--}}
-                        <div class="col-md-12">
-                            {{--<div class="table-responsive">--}}
-                                {{--<table id="biaoge" class="table">--}}
-                                    {{--<thead>--}}
+                </div>
+            </div>
+        </div>
+        <!-- 第3次 -->
+        <div class="panel-body" style="display: none">
+            <!--ssartprint-->
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <div class="clearfix">
                             <div class="pull-left">
-                                <th colspan="4" align="left">
-                                <address>
+                                <tr style="font-size: 18px;">
+                                    <th colspan="4">Invoice</th>
+
+                                    <th colspan="5" align="right" style=" vertical-align: middle;">
+                                        <p style="text-align: right;">
+                                            <!-- Order # <br> -->
+                                            <strong>Snack Talk</strong>
+                                        </p>
+
+                                    </th>
+                                </tr>
+                            </div>
+                        </div>
+
+                        <hr> {{--
+                        <div class="row">--}}
+                            <div class="col-md-12">
+                                {{--
+                                <div class="table-responsive">--}} {{--
+                                    <table id="biaoge" class="table">--}} {{--
+                                        <thead>--}}
+                                            <div class="pull-left">
+                                                <th colspan="2" align="left">
+                                                    <address>
+                                    <strong>SnackTalk</strong><br>
+                                    4961 Santa Anita<br>
+                                    Ave unit i<br>
+                                    Temple city, CA 91780<br>
+                                    650-690-6666<br>
+                                    info@snacktalk.com
+                                </address>
+                                                </th>
+                                            </div>
+                                            <div class="pull-left">
+                                                <th colspan="2" align="left">
+                                                    <address>
                                     <strong>{{$address['name']}}</strong><br>
                                     {{$address['country']}}<br>
                                     {{$address['detail']}}<br>
                                     {{$address['city']}}, {{$address['province']}} {{$address['zip']}}<br>
                                     {{$address['mobile']}}
                                 </address>
-                                </th>
-                            </div>
-                            <div class="pull-right ">
-                                <th colspan="5" align="right" style=" vertical-align: middle;">
-                                <p style="text-align: right;"><strong>创建时间: </strong> {{$data['created_at']}}</p>
-                                {{-- <p class="m-t-10"><strong>订单状态: </strong> <span class="label label-pink">Pending</span></p> --}}
-                                <p style="text-align: right;" class="m-t-10">
-                                <!-- <strong>采购人: </strong>{{$address['user']}}<br> -->
-                                    <strong>订单编号:</strong> {{$data['order_no']}}</p>
-                                </th>
-                            </div>
-                        </div>
+                                                </th>
+                                            </div>
+                                            <div class="pull-right ">
+                                                <th colspan="2" align="right" style=" vertical-align: middle;">
+                                                    <p style="text-align: right;"><strong>create date: </strong> {{$data['created_at']}}</p>
+                                                    <p style="text-align: right;" class="m-t-10">
+                                                        <strong>Packing list#:</strong> {{$data['order_no']}}</p>
+                                                </th>
+                                            </div>
+                                </div>
 
-                    {{--</div>--}}
-                    {{--<div class="row">--}}
-                        {{--<div class="col-md-12">--}}
-                            {{--<div class="table-responsive">--}}
-                                {{--<table class="table">--}}
-                                    {{--<thead>--}}
-                                    {{--<tr>--}}
-                                        {{--<th>#</th>--}}
-                                        {{--<th>Item</th>--}}
-                                        {{--<th>Description</th>--}}
-                                        {{--<th>Unit Cost</th>--}}
-                                        {{--<th>Quantity</th>--}}
-                                        {{--<th>Total</th>--}}
-                                    {{--</tr>--}}
-                                    </thead>
+                                </thead>
 
-                                    <tbody>
+                                <tbody>
                                     <tr>
-                                    <th>#</th>
-                                    <th>SKU</th>
-                                    <!-- <th>Item</th> -->
-                                    <th>内部SKU</th>
-                                    <th>商品名称</th>
-                                    <th>单价</th>
-                                    <th>数量</th>
-                                    <th>箱规</th>
-                                    <th>过期时间</th>
-                                    <th>货架位置</th>
+                                        <th>Terms</th>
+                                        <th>Due Date</th>
+                                        <th>Rep</th>
+                                        <th  colspan="2">Account#</th>
+                                        <th>Ship Date</th>
+                                    </tr>
+
+                                    <tr>
+                                        <td  colspan="6">&nbsp;</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>#</th>
+                                        <th>SKU</th>
+                                        <th>Product Name</th>
+                                        <th>Rate</th>
+                                        <th>Quantity</th>
+                                        <th>Amount</th>
                                     </tr>
                                     @foreach ($product as $key => $item)
-                                        <tr>
-                                            <td>{{ $key + 1 }}</td>
-
-                                            <td>
-                                                {{ $item['sku'] }}
-                                            </td>
-                                            <td>
-                                                {{--{{$item['innersku']}}--}}
-                                                {{ !empty($item['innersku']) ? $item['innersku'] : '' }}
-                                            </td>
-                                            <td>{{ !empty($item['znName']) ? $item['znName'] : $item['name'] }}</td>
-                                            <td>{{ $item['singlePrice'] }}</td>
-                                            <td>{{ $item['count'] }}</td>
-                                            <td> {{ !empty($item['number']) ? $item['number'] : '' }} </td>
-                                            <td></td>
-                                            <td>{{ $item['shelves'] }}</td>
-                                        </tr>
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $item['sku'] }}</td>
+                                        <td>{{ !empty($item['znName']) ? $item['znName'] : $item['name'] }}</td>
+                                        <td>{{ $item['singlePrice'] }}</td>
+                                        <td>{{ $item['count'] }}</td>
+                                        <td>{{ $item['totalPrice'] }}</td>
+                                    </tr>
                                     @endforeach
-                                    </tbody>
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    </div>
-                    <tfoot>
-                    		<tr>
-                    			<td colspan="9" align="right " style="font-weight: bold; font-size: 24px; line-height: 100px;">
-                    				<p style="text-align: right;">USD {{$data['total_price']}}</p></td>
-                    		</tr>
-                    <!--<div class="row" style="border-radius: 0px">-->
-                        <!--<div class="col-md-3 col-md-offset-9">
+                                </tbody>
+                                {{--</div>--}} {{--
+                        </div>--}}
+            </div>
+            <tfoot>
+                <tr>
+                    <td colspan="3">Pallets Out:</td>
+                    <td colspan="3">SIGN:</td>
+                </tr>
+                <tr>
+                    <td colspan="6" align="right " style="font-weight: bold; font-size: 24px; line-height: 100px;">
+                        <p style="text-align: right;">Total: {{$data['total_price']}}</p>
+                    </td>
+                </tr>
+                <tr>
 
-                            <hr>
-                            <tr class="text-right"></h3>
-                        </div>-->
-                    <!--</div>-->
-                    </tfoot>
-                    <hr>
-                                </table>
-                    <!---endprint-->
-                    <div class="hidden-print">
-                        <div class="pull-right">
-                            {{-- <a href="#" class="btn btn-primary waves-effect waves-light">Submit</a> --}}
-                        </div>
-                    </div>
+                    <td colspan="6" align="center ">
+                        <p style="text-align: center;">Make all checks payable to Snack Talk Inc. Thank you for your business!</p>
+                    </td>
+                </tr>
+            </tfoot>
+            <hr>
+            </table>
+            <!---nndprint-->
+            <div class="hidden-print">
+                <div class="pull-right">
+                    {{-- <a href="#" class="btn btn-primary waves-effect waves-light">Submit</a> --}}
                 </div>
-            {{--</div>--}}
-
+            </div>
         </div>
-
     </div>
 
-    {{--<div class="row" style="background: white;margin: 0 50px;padding: 20px;">--}}
-        {{--<table id="biaoge" width="90%" border="0" cellspacing="0" cellpadding="0" style="background: white;margin: 0 5%;">--}}
-            {{--<thead style="margin-bottom: 50px;">--}}
-            {{--<tr style="font-size: 18px;border-bottom: 1px solid #eee;margin-bottom: 30px;" >--}}
-                {{--<th colspan="3"><img width="80px" src="/uploads/logo5.png" alt="12buy"></th>--}}
-                {{--<th colspan="3" align="right">--}}
-                    {{--Order # <br>--}}
-                    {{--<strong>{{$data['order_no']}}</strong>--}}
+</div>
 
-                {{--</th>--}}
-            {{--</tr>--}}
+</div>
 
-            {{--<tr >--}}
-                {{--<th colspan="3" align="left">--}}
-                    {{--<strong>{{$address['name']}}</strong><br>--}}
-                    {{--{{$address['country']}}<br>--}}
-                    {{--{{$address['detail']}}<br>--}}
-                    {{--{{$address['city']}}, {{$address['province']}} {{$address['zip']}}<br>--}}
-                    {{--{{$address['mobile']}}--}}
-                {{--</th >--}}
-                {{--<th align="right" colspan="3">--}}
-                    {{--<strong>Order Date: </strong> {{$data['created_at']}} <br />--}}
-                    {{--<strong>User: </strong>{{$address['user']}}--}}
-                    {{--<strong>Email:</strong> {{$address['email']}}--}}
-
-                {{--</th>--}}
-            {{--</tr>--}}
-            {{--<tr>--}}
-                {{--<th colspan="6"></th>--}}
-            {{--</tr>--}}
-            {{--</thead>--}}
-            {{--<tbody>--}}
-            {{--<tr style="border-bottom: 2px solid #666;">--}}
-                {{--<th style="align:center;" align="center">#</th>--}}
-                {{--<th align="center">Item</th>--}}
-                {{--<th align="center">Description</th>--}}
-                {{--<th align="center">Unit Cost</th>--}}
-                {{--<th style="align:center;" align="center">Quantity</th>--}}
-                {{--<th align="center">Total</th>--}}
-            {{--</tr>--}}
-            {{--@foreach ($product as $key => $item)--}}
-                {{--<tr>--}}
-                    {{--<td align="center">{{ $key + 1 }}</td>--}}
-                    {{--<td align="center"><img height="30px; align=" middle" src="{{ $item['image'] }}"--}}
-                        {{--alt="没有上传"/></td>--}}
-                    {{--<td align="center">{{ !empty($item['znName']) ? $item['znName'] : $item['name'] }}</td>--}}
-                    {{--<td align="center">{{ $item['singlePrice'] }}</td>--}}
-                    {{--<td align="center">{{ $item['count'] }}</td>--}}
-                    {{--<td align="center">{{ $item['totalPrice'] }}</td>--}}
-                {{--</tr>--}}
-            {{--@endforeach--}}
-            {{--</tbody>--}}
-            {{--<tfoot>--}}
-            {{--<tr><td  colspan="6" align="right"></td></tr>--}}
-            {{--<tr>--}}
-                {{--<td  colspan="6" align="right"><b>Shipping fee:</b> {{ $data['freight'] }}</td>--}}
-            {{--</tr>--}}
-            {{--<tr>--}}
-                {{--<td  colspan="6" align="right"><b>Tax:</b> {{ round(round(($data['total_price'] - $data['freight']) / (1 + $data['tax']), 2) * $data['tax'],2) }}</td>--}}
-            {{--</tr>--}}
-            {{--<tr>--}}
-                {{--<td  colspan="6" align="right">Sub-total: {{$data['total_price']}}</td>--}}
-            {{--</tr>--}}
-            {{--<tr>--}}
-                {{--<td  colspan="6" align="right">USD {{$data['total_price']}}</td>--}}
-            {{--</tr>--}}
-            {{--</tfoot>--}}
-        {{--</table>--}}
-        {{--<a id="daochu">导出</ a>--}}
-    {{--</div>--}}
-
-    <script>
-
-//        var html = "<html><head><meta charset='utf-8' /></head><body>" + document.getElementById("biaoge").outerHTML + "</body></html>";
-//        // 实例化一个Blob对象，其构造函数的第一个参数是包含文件内容的数组，第二个参数是包含文件类型属性的对象
-//        var blob = new Blob([html], { type: "application/vnd.ms-excel" });
-//        var a = document.getElementById("daochu");
-//        // 利用URL.createObjectURL()方法为a元素生成blob URL
-//        a.href = URL.createObjectURL(blob);
-//        // 设置文件名
-//        a.download = "商家订单表.xls";
-        $("#Print").click(
-			function () {   
-                $(".panel-body").eq(0).hide();
-                $(".panel-body").eq(1).show();
-                document.title="Snack Talk"
-			    bdhtml=window.document.body.innerHTML;   
-			    bdhtmll=window.document.body.innerHTML;   
-			    sprnstr="<!--startprint-->";   
-			    eprnstr="<!--endprint-->";   
-			    prnhtml=bdhtml.substr(bdhtml.indexOf(sprnstr)+17);   
-			    prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr));   
-			    window.document.body.innerHTML=prnhtml;  
-			    window.print();   
-			    window.location.reload()
-			})
-$("#Print_1").click(
-    function () {
-        $(".panel-body").eq(1).hide();
-        document.title="Snack Talk";
-        bdhtml=window.document.body.innerHTML;
-        bdhtmll=window.document.body.innerHTML;
-        sprnstr="<!--startprint_1-->";
-        eprnstr="<!--endprint-->";
-        prnhtml=bdhtml.substr(bdhtml.indexOf(sprnstr)+17);
-        prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr));
-        window.document.body.innerHTML=prnhtml;
-        window.print();
-        window.location.reload()
-    })
-$("#daochu").click(
-    function () {
-        $(".panel-body").eq(1).hide();
-        document.title="Snack Talk";
-        bdhtml=window.document.body.innerHTML;
-        bdhtmll=window.document.body.innerHTML;
-        sprnstr="<!--startprint_1-->";
-        eprnstr="<!--endprint-->";
-        prnhtml=bdhtml.substr(bdhtml.indexOf(sprnstr)+17);
-        prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr));
-        window.document.body.innerHTML=prnhtml;
-        window.print();
-        window.location.reload()
-    })
-    </script>
+<script>
+    //        var html = "<html><head><meta charset='utf-8' /></head><body>" + document.getElementById("biaoge").outerHTML + "</body></html>";
+    //        // 实例化一个Blob对象，其构造函数的第一个参数是包含文件内容的数组，第二个参数是包含文件类型属性的对象
+    //        var blob = new Blob([html], { type: "application/vnd.ms-excel" });
+    //        var a = document.getElementById("daochu");
+    //        // 利用URL.createObjectURL()方法为a元素生成blob URL
+    //        a.href = URL.createObjectURL(blob);
+    //        // 设置文件名
+    //        a.download = "商家订单表.xls";
+    $("#invoice").click(
+        function() {
+            // $(".panel-body").eq(0).hide();
+            // $(".panel-body").eq(1).show();
+            document.title = "Snack Talk"
+            bdhtml = window.document.body.innerHTML;
+            bdhtmll = window.document.body.innerHTML;
+            sprnstr = "<!--ssartprint-->";
+            eprnstr = "<!--nndprint-->";
+            prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
+            prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+            window.document.body.innerHTML = prnhtml;
+            window.print();
+            window.location.reload()
+        })
+    $("#packing").click(
+        function() {
+            // $(".panel-body").eq(0).hide();
+            // $(".panel-body").eq(2).show();
+            document.title = "Snack Talk";
+            bdhtml = window.document.body.innerHTML;
+            bdhtmll = window.document.body.innerHTML;
+            sprnstr = "<!--startprint-->";
+            eprnstr = "<!--endprint-->";
+            prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
+            prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+            window.document.body.innerHTML = prnhtml;
+            window.print();
+            window.location.reload()
+        })
+    $("#daochu").click(
+        function() {
+            $(".panel-body").eq(1).hide();
+            document.title = "Snack Talk";
+            bdhtml = window.document.body.innerHTML;
+            bdhtmll = window.document.body.innerHTML;
+            sprnstr = "<!--ttartprint-->";
+            eprnstr = "<!--eedprint-->";
+            prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
+            prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+            window.document.body.innerHTML = prnhtml;
+            window.print();
+            window.location.reload()
+        })
+</script>
 @endsection

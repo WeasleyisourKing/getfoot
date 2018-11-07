@@ -17,7 +17,7 @@ class AddressRule extends BaseRule
         'province' => 'required',
         'city' => 'required',
         'country' => 'required',
-        'email' => 'required|email',
+        'email' => 'email',
         'zip' => 'required|positive_integer'
 
     ];

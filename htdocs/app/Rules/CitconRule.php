@@ -14,7 +14,8 @@ class CitconRule extends BaseRule
     protected $rule = [
         'vendor' => 'required|in:alipay,wechatpay',
         'callback_url' => 'required',
-        'reference' => 'required'
+        'reference' => 'required',
+        'terminal' => 'required|in:ONLINE,WAP'
 
     ];
     //失败信息
@@ -23,7 +24,9 @@ class CitconRule extends BaseRule
         'vendor.required' => '支付类型不能为空',
         'vendor.in' => '支付类型不在指定中',
         'callback_url.required' => '支付跳转url不能为空',
-        'reference.required' => '订单单号不能为空'
+        'reference.required' => '订单单号不能为空',
+        'terminal.required' => '支付页面类型不能为空',
+        'terminal.in' => '支付页面不在指定中',
 
     ];
 

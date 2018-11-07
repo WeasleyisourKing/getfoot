@@ -358,7 +358,7 @@
         Language("选择支付方式","Select payment method")
       </script>
 			</div>
-			<div class="am-u-sm-3">
+			<div class="am-u-sm-3" style="display:none">
 				<div class="settlementPro">
 					<img src="/home/img/wxzf.png" alt="" />
 					<script>
@@ -1062,12 +1062,20 @@ securitycode.addEventListener('focus', function () {
 		                data: {
 		                    'vendor':'alipay',
 		                    'callback_url':'https://12buy.com/personal',
-		                    'reference':orderNo
+		                    'reference':orderNo,
+							'terminal':'ONLINE'
 		                },
 		                 success: function (data){
 		                 	if(data.status){
-		                 		window.location.href=data.data;
-		                 	}
+								$("body").html(data.data);
+		                 	}else{
+								swal({
+									title:data.msg,
+									type: 'info',
+									showConfirmButton: true,
+					
+								})
+							 }
 		                 },
 		                 error:function(){
 //		                 	alert("请求错误！")
@@ -1080,22 +1088,22 @@ securitycode.addEventListener('focus', function () {
 		                 }
 						})
 			};
-			function wechatpay(){
-				$.ajax({
-						url: '/api/citon/pay',
-			                method: 'get',
-			                data: {
-			                    'vendor':'wechatpay',
-			                    'callback_url':'https://12buy.com/personal',
-			                    'reference':orderNo
-			                },
-			                 success: function (data){
-			                 	if(data.status){
-			                 		window.location.href=data.data;
-			                 	}
-			                 }
-					})
-			};
+			// function wechatpay(){
+			// 	$.ajax({
+			// 			url: '/api/citon/pay',
+			//                 method: 'get',
+			//                 data: {
+			//                     'vendor':'wechatpay',
+			//                     'callback_url':'https://12buy.com/personal',
+			//                     'reference':orderNo
+			//                 },
+			//                  success: function (data){
+			//                  	if(data.status){
+			//                  		window.location.href=data.data;
+			//                  	}
+			//                  }
+			// 		})
+			// };
 			function vaisa(){
 			    		 $.ajax({
 			    	 		url: '/api/pal/authorize',

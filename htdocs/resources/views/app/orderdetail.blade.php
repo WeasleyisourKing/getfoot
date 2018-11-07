@@ -2,7 +2,7 @@
 
 @section('content')
 <!--信用卡验证插件-->
-<!--<script src="https://cdnjs.cloudfla.com/ajax/libs/imask/3.4.0/imask.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/imask/3.4.0/imask.min.js"></script>-->
 <script src="{{ asset('/js/jquery.mask.js') }}"></script>
         <style type="text/css">
             .float_left{
@@ -402,6 +402,7 @@
 				line-height: 30px;
 			}
 		</style>
+<div id="ppp" style="display: none;"></div>
 	<div class="container py-2 bg-light fixed-top">
 		<div class="d-flex justify-content-between align-items-center text-mute">
 			<a href="javascript:history.back(-1);"  class="top-nav-item"><i class="fa fa-angle-left"></i></a>
@@ -431,10 +432,10 @@
 								</div>
 								<div class="col-3 bg-white">
 									<div class="line-normal-wrapper clearfloat row bg-white">
-							            <!--<small class="px-2 py-3 text-muted addAddress" ><a>
+							            <small class="px-2 py-3 text-muted addAddress" ><a>
                 	<script type="text/javascript">
                 	Language("修改地址","Edit Address ")
-                </script></a></small>-->
+                </script></a></small>
 									</div>
 								</div>
 							</div>
@@ -475,7 +476,7 @@
                 	<script type="text/javascript">
                 	Language("paypal支付","Pay with PayPal")
                 </script></a>
-			    		<a class="btn  shaddow-dark my-2 bg-muted" id="wechatpay"  ><img class="icon_height mr-2" src="https://png.icons8.com/color/50/000000/weixing.png">
+			    		<a class="btn  shaddow-dark my-2 bg-muted" id="wechatpay" style="display" ><img class="icon_height mr-2" src="https://png.icons8.com/color/50/000000/weixing.png">
                 	<script type="text/javascript">
                 	Language("微信支付"," Pay with WeChat Pay")
                 </script></a>
@@ -1128,6 +1129,7 @@ securitycode.addEventListener('focus', function () {
 				        <input id = 'send_hptoken_btn' type="submit" value="立即支付" class="sbtn4" />
 					</form>	-->
 				</iframe>
+
             
 @endsection                    
 @section('scripts')
@@ -1217,7 +1219,6 @@ securitycode.addEventListener('focus', function () {
                 	$("#orderId span").html(OrderId.order_no);
                 	$("#totalPrice span").html(data.details.total_price);
                 	$(".Settlement").click(function(){
-                		return false
                 	//加载paypal支付按钮组件
                 		$("#pp").html(`
 															<form action="https://www.paypal.com/cgi-bin/webscr" method="post" name="paypal">
@@ -1262,15 +1263,26 @@ securitycode.addEventListener('focus', function () {
 					                data: {
 					                    'vendor':'alipay',
 					                    'callback_url':"https://12buy.com/apps/user/{{Auth()->guard('pc')->user()->id}}",
-					                    'reference':OrderId.order_no
+					                    'reference':OrderId.order_no,
+					                    'terminal' : 'WAP',
 					                },
 					                 success: function (data){
 					                 	if(data.status){
-					                 		window.location.href=data.data;
+
+											$('#ppp').html(data.data);
+//					                 		window.location.href=data.data;
 //					                 		window.open(data.data ,'_system')
 					                 	}
-					                 	console.log(data)
-					                 }
+
+					                 },
+									error:function(){
+										swal({
+											title:"请求错误！",
+											type: 'warning',
+											showConfirmButton: true,
+							
+										})
+									}
 							})
 						})
 						//点击微信支付
@@ -1403,7 +1415,7 @@ securitycode.addEventListener('focus', function () {
 						                error: function (data) {
 						                		onClick=1
 						                    swal({
-						                        title:  data.message ,
+						                        title: data.message ,
 						                        type: 'info',
 						                        showConfirmButton: true,
 						

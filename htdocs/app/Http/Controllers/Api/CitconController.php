@@ -28,35 +28,39 @@ class CitconController
         (new CitconRule)->goCheck(200);
 
         $params = $request->all();
-
+//        $params['reference'] = 'A514857904747684';
         $order = OrderModel::where('order_no', '=', $params['reference'])->first(['total_price']);
 
-//        $host = $params['vendor'] == 'alipay' ? config('custom.alipay_url') : config('custom.wxpay_url');
         $host = config('custom.citcon_status') != 'YES' ? config('custom.citcon_alipay_sandbox_url') : config('custom.citcon_alipay_accept_url');
-//        config('custom.alipay_url');
-        $url = sprintf($host,
-            $order['total_price'] * 100,
-            $params['vendor'],
-            $params['reference'],
-            urlencode(config('custom.img_url') . config('custom.callback_url')),
-            urlencode($params['callback_url'])
-        );
 
+//        $order['total_price'] = 0.0001;
+        $data = [
+            "amount" => $order['total_price'] * 100,
+            "currency" => "USD",
+            "vendor" => $params['vendor'],
+            "reference" =>  $params['reference'],
+            "ipn_url" => config('custom.img_url') . config('custom.callback_url'),
+            "callback_url" => $params['callback_url'],
+            "terminal" => $params['terminal']
+        ];
 
-        $res = $this->curlInfo($url, null, ['Authorization:' . config('custom.citon_token')]);
+        $data = json_encode($data);
 
+        $res = $this->curlInfo($host, $data, config('custom.citon_token'));
 
-        if (!strstr($res, 'https')) {
+        if (!is_null(json_decode($res,true))) {
 
-            Log::error('获取citcon支付数据失败', (array)$res);
+            Log::error('获取HantePay支付数据失败', json_decode($res,true));
             throw new ParamsException([
-                'message' => '获取citcon支付数据失败'
+                'message' => '获取HantePay支付数据失败'
             ]);
         }
 
         return Common::successData($res);
     }
-   public function curlInfo ($url, $data = null, $header = 0, $timeout = 30)
+
+
+    public function curlInfo ($url, $data = null, $header = 0, $timeout = 30)
     {
 
         $ch = curl_init();
@@ -64,7 +68,10 @@ class CitconController
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);// 跳过证书检查
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);// 从证书中检查SSL加密算法是否存在
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);//输出为数组形式，默认原样输出
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Authorization:Bearer ' .$header,
+            'Content-Type: application/json',
+        ]);
 //        curl_setopt($ch, CURLOPT_HEADER, true);//不输出头
         curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);//设置时间
 
@@ -76,7 +83,7 @@ class CitconController
         $output = curl_exec($ch);
 
         if ($error = curl_error($ch)) {
-            dd($error);
+
             return ($error);
         }
 
@@ -90,12 +97,15 @@ class CitconController
     public function payCallback (Request $request)
     {
 
-
         $params = $request->all();
+
+        Log::error('HantePay回调', $params);
+//        return;
 
         if ($params['status'] == 'success') {
             $orderNO = $params['reference'];
             $order = OrderModel::where('order_no', '=', $orderNO)->first();
+
             //未支付 修改相关表状态
             if ($order->status == 2) {
 
@@ -104,7 +114,7 @@ class CitconController
 
                 if (!$res) {
 
-                    Log::error('citcon订单状态修改失败', $params);
+                    Log::error('HantePay订单状态修改失败', $params);
 
                     return;
                 }
@@ -122,6 +132,7 @@ class CitconController
                 Common::sendEmail($userIfo->email, $userIfo->name, $userAddress->name, $userAddress->mobile, $order->order_no, $order->snap_name, $snapshootOrder);
 
             }
+            return "ok";
 
         }
     }

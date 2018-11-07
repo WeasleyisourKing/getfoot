@@ -32,10 +32,12 @@ return [
     'citcon_status' => 'NO',
 
     //支付宝支付URL 沙盒
-    'citcon_alipay_sandbox_url' => 'https://dev.citconpay.com/payment/pay?amount=%s&currency=USD&vendor=%s&reference=%s&ipn_url=%s&callback_url=%s&allow_duplicates=yes',
+//    'citcon_alipay_sandbox_url' => 'https://dev.citconpay.com/payment/pay?amount=%s&currency=USD&vendor=%s&reference=%s&ipn_url=%s&callback_url=%s&allow_duplicates=yes',
+    //支付宝支付URL 沙盒
+//    'citcon_alipay_accept_url' => 'https://api.hantepay.com/v1.3/transactions/securepay',
 
     //支付宝支付URL 线上
-    'citcon_alipay_accept_url' => 'https://citconpay.com/payment/pay?amount=%s&currency=USD&vendor=%s&reference=%s&ipn_url=%s&callback_url=%s&allow_duplicates=yes',
+    'citcon_alipay_sandbox_url' => 'https://api.hantepay.com/v1.3/transactions/securepay',
 
     //微信支付URL 沙盒
     'citcon_wxpay_sandbox_url' => 'https://dev.citconpay.com/payment/pay_qr?amount=%s&currency=USD&vendor=%s&reference=%s&ipn_url=%s&callback_url=%s&allow_duplicates=yes',
@@ -44,8 +46,8 @@ return [
     'citcon_wxpay_accept_url' => 'https://citconpay.com/payment/pay_qr?amount=%s&currency=USD&vendor=%s&reference=%s&ipn_url=%s&callback_url=%s&allow_duplicates=yes',
 
     //citon 令牌
-    'citon_token' => '540C7CADF0624930B04E23E2D279B858',
-
+//    'citon_token' => '540C7CADF0624930B04E23E2D279B858',
+    'citon_token' => '990cbf5e5b2f4f4a803fbce8541c4fe9f77d085bf5cf2c3343bc15643b26e665',
     //Authorize api login id
     'Authorize_login_id' => '8D5f4CYqjg',
 

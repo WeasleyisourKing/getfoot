@@ -264,11 +264,10 @@ Route::post('/postLogin', 'Admin\LoginController@postLogin');
 //修改admin密码
 Route::post('/admin/password', 'Admin\LoginController@adminUpdate');
 
+
 //TODO 仪表盘
 //后台登录处理
 Route::get('/dashboard', 'Admin\DashboardController@index');
-
-
 //TODO 后台系统
 Route::group(['middleware' => 'role'], function () {
 
@@ -390,7 +389,7 @@ Route::group(['middleware' => 'role'], function () {
         //订单列表页面*
         Route::get('/list/status/{status?}/limit/{limit?}', 'Admin\BusinessController@businessList');
         //某订单详情页面*
-        Route::get('/detail/id/{id?}', 'Admin\BusinessController@orderDetail');
+        Route::get('/detail/id/{id?}/status/{status?}', 'Admin\BusinessController@orderDetail');
         //删除接口
         Route::get('/order/del', 'Admin\BusinessController@orderDel');
 //        Route::get('/show', 'Admin\CatchController@payShow');

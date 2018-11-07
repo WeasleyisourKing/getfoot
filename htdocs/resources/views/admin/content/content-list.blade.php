@@ -161,6 +161,9 @@
                         <li>
                             <a href="#userterms" data-toggle="tab">app用户条款</a>
                         </li>
+                        <li>
+                            <a href="#stabout" data-toggle="tab">ST-关于我们</a>
+                        </li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
                         <div class="tab-pane fade in active" id="contact">
@@ -411,6 +414,31 @@
                             </div>
                         </div>
 
+                        <div class="tab-pane fade" id="stabout">
+                            <div class="form-group">
+                                <label class="control-label">详细描述（中）<span
+                                            style="color:red;">＊</span></label>
+                                <div class="controls">
+                                    <div id="steditor">
+                                        <p>{!! $stcontact->zn_content !!}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">详细描述（英）<span
+                                            style="color:red;">＊</span></label>
+                                <div class="controls">
+                                    <div id="steditors">
+                                        <p>{!! $stcontact->en_content !!}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="edit-save" data-id="14" onclick="stfunc(this);"
+                                        class="btn btn-primary waves-effect waves-light"><i class="fa fa-save"></i> Save
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -486,6 +514,68 @@
         };
         editor1.create();
 
+
+        var E = window.wangEditor;
+
+        var steditor = new E('#steditor');
+        //图片名
+        steditor.customConfig.uploadFileName = 'img';
+        //接口
+        steditor.customConfig.uploadImgServer = "/imgHandle";  // 上传图片
+        //传递参数 POST
+        steditor.customConfig.uploadImgParams = {
+            _token: '{{csrf_token()}}'
+        }
+        //监听
+        steditor.customConfig.uploadImgHooks = {
+            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
+            fail: function (xhr, editor, result) {
+                // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
+                editor.customConfig.customAlert(result.data[0]);
+
+            },
+            // 图片上传出错时触发
+            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
+            error: function (xhr, editor) {
+                editor.customConfig.customAlert(result.data[0]);
+            },
+        };
+        //自定义提示方法
+        steditor.customConfig.customAlert = function (info) {
+            alertify.alert(info);
+        };
+        steditor.create();
+
+        var E = window.wangEditor;
+
+        var steditors = new E('#steditors');
+        //图片名
+        steditors.customConfig.uploadFileName = 'img';
+        //接口
+        steditors.customConfig.uploadImgServer = "/imgHandle";  // 上传图片
+        //传递参数 POST
+        steditors.customConfig.uploadImgParams = {
+            _token: '{{csrf_token()}}'
+        }
+        //监听
+        steditors.customConfig.uploadImgHooks = {
+            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
+            fail: function (xhr, editor, result) {
+                // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
+                editor.customConfig.customAlert(result.data[0]);
+
+            },
+            // 图片上传出错时触发
+            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
+            error: function (xhr, editor) {
+                editor.customConfig.customAlert(result.data[0]);
+            },
+        };
+        //自定义提示方法
+        steditors.customConfig.customAlert = function (info) {
+            alertify.alert(info);
+        };
+        steditors.create();
     </script>
     <script>
             var editor = function (data) {
@@ -775,6 +865,30 @@
                 'en_name': 'App User terms',
                 'zn_content': usertermseditor.txt.html(),
                 'en_content': usertermseditors.txt.html(),
+                '_token': '{{csrf_token()}}'
+            };
+
+            $.post('/article/editor', datas, function (res) {
+                if (res.status) {
+                    alertify.success('修改文章成功');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1500);
+                } else {
+                    alertify.alert(res.message);
+                }
+            })
+        }
+
+        var stfunc = function (event) {
+
+
+            var datas = {
+                'id': $(event).attr('data-id'),
+                'zn_name': 'ST-关于我们',
+                'en_name': 'About us',
+                'zn_content': steditor.txt.html(),
+                'en_content': steditors.txt.html(),
                 '_token': '{{csrf_token()}}'
             };
 

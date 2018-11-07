@@ -70,28 +70,48 @@ class BusinessController extends Controller
     public function orderDetail ($id, $status)
     {
 
-//        $res = BusinessOrderModel::where('id', '=', $id)->with(['manys' => function ($q) {
-//            $q->with('shelves')->select('sku','en_name','zn_name','price','shelves','innersku');
-//        }])->get()->toArray();
+
+        $ress = BusinessOrderModel::with(['purchase' => function ($query) {
+
+            $query->with(['products' => function ($querys) {
+                $querys->with('shelves')
+                    ->select('id', 'product_image', 'sku', 'innersku', 'number', 'shelves', 'zn_name', 'en_name', 'stock', 'price');
+            }]);
+        }])
+            ->where('id', $id)
+            ->first()
+        ->toArray();
+//array_column($ress['purchase'],);
+
+
         $res = BusinessOrderModel::getOrderProduct($id);
 
         //数据太大 防止内存溢出
         $product = json_decode($res['snap_items'], true);
 
         $address = json_decode($res['snap_address'], true);
-
         unset($res['snap_items']);
         unset($res['snap_address']);
-
-//        dd($product);
 //        dump($product);
+
+
+        foreach ($ress['purchase'] as &$val) {
+            foreach ($product as $key) {
+                if ($val['product_id'] == $key['id']) {
+                    $val['singlePrice'] = $key['singlePrice'];
+                    $val['totalPrice'] = $key['totalPrice'];
+                }
+            }
+        }
+//        dump($ress);
+
 //        $originPrice = round(($res['total_price'] - $res['freight']) / (1 + $res['tax']), 2) * $res['tax'];
 
 
         return view('admin.business.order-detail',
             [
-                'data' => $res,
-                'product' => $product,
+                'data' => $ress,
+//                'product' => $product,
                 'address' => $address,
                 'status' => $status
             ]);

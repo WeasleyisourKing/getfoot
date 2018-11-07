@@ -210,11 +210,11 @@ class StockController extends Controller
     {
         $res = StockOrderModel::where('status', '=', 1)->get();
 
-        $auth = array_column(PrivilegeRoleModel::where('privilege_id','=',34)
+        $auth = array_column(PrivilegeRoleModel::where('privilege_id', '=', 34)
             ->get(['role_id'])
-            ->toArray(),'role_id');
+            ->toArray(), 'role_id');
 
-        return view('admin.inventory.instock', ['res' => $res,'auth' => $auth]);
+        return view('admin.inventory.instock', ['res' => $res, 'auth' => $auth]);
     }
 
     //出库 35
@@ -222,11 +222,11 @@ class StockController extends Controller
     {
         $res = StockOrderModel::where('status', '=', 2)->get();
 
-        $auth = array_column(PrivilegeRoleModel::where('privilege_id','=',35)
+        $auth = array_column(PrivilegeRoleModel::where('privilege_id', '=', 35)
             ->get(['role_id'])
-            ->toArray(),'role_id');
+            ->toArray(), 'role_id');
 //        dump($auth);
-        return view('admin.inventory.outstock', ['res' => $res,'auth' => $auth]);
+        return view('admin.inventory.outstock', ['res' => $res, 'auth' => $auth]);
     }
 
     //采购 36
@@ -234,11 +234,11 @@ class StockController extends Controller
     {
         $res = PurchaseOrderModel::get();
 
-        $auth = array_column(PrivilegeRoleModel::where('privilege_id','=',36)
+        $auth = array_column(PrivilegeRoleModel::where('privilege_id', '=', 36)
             ->get(['role_id'])
-            ->toArray(),'role_id');
+            ->toArray(), 'role_id');
 
-        return view('admin.inventory.purchase', ['res' => $res,'auth' => $auth]);
+        return view('admin.inventory.purchase', ['res' => $res, 'auth' => $auth]);
     }
 
     /**
@@ -433,7 +433,8 @@ class StockController extends Controller
         $res = PurchaseOrderModel::with(['purchase' => function ($query) {
 
             $query->with(['products' => function ($querys) {
-                $querys->select('id', 'product_image', 'sku', 'zn_name', 'en_name', 'stock', 'price');
+                $querys->with('shelves')
+                    ->select('id', 'product_image', 'sku', 'innersku', 'number', 'shelves', 'zn_name', 'en_name', 'stock', 'price');
             }]);
         }])
             ->where('id', $id)

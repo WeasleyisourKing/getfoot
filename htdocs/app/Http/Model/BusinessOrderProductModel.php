@@ -14,7 +14,7 @@ class BusinessOrderProductModel extends Model
     {
     	return $data = BusinessOrderProductModel::with(['products'=>function($query){
     		$query->with(['distributor'=>function($query){
-    			$query->select('product_id','level_four_price','level_one_price','level_two_price','level_three_price');
+    			$query->select('product_id','level_four_price');
     		}]);
     	}])
     	->select('product_id','count')
@@ -24,9 +24,8 @@ class BusinessOrderProductModel extends Model
 
     public function products ()
     {
-    	return $this->hasMany('App\Http\Model\ProductModel', 'id', 'product_id');
+        return $this->belongsTo('App\Http\Model\ProductModel', 'product_id', 'id');
     }
-
     public function distributor ()
     {
     	return $this->belongsTo('App\Http\Model\distributorModel', 'product_id', 'id');

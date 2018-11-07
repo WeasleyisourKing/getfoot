@@ -62,12 +62,16 @@ class ContentController extends Controller
         //app用户条款
         $userTerms = ArticleModel::getInfoById(13);
 
+        //联系我们
+        $STcontact = ArticleModel::getInfoById(14);
+
         return view('admin.content.content-list', [
             'contact' => $contact,
             'about' => $about,
             'terms' => $terms,
             'customer' => $customer,
-            'userTerms' => $userTerms
+            'userTerms' => $userTerms,
+            'stcontact' => $STcontact
         ]);
 
     }

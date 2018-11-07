@@ -33,6 +33,13 @@ class BusinessOrderModel extends Model
         return $this->belongsTo('App\Http\Model\UsersDiscountModel', 'discount_id', 'id');
     }
 
+    //关联商品和分类关系 一对多
+    public function purchase ()
+    {
+
+        return $this->hasMany('App\Http\Model\BusinessOrderProductModel', 'order_id', 'id');
+    }
+
     //获取订单产品
     public static function getProducts ($id)
     {

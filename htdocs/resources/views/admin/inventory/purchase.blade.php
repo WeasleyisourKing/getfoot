@@ -115,13 +115,14 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>商品图片</th>
                         <th>SKU</th>
+                        <th>内部SKU</th>
                         <th>商品名称</th>
-                        <th>数量</th>
                         <th>单价</th>
-                        <th>总价</th>
-                        <th>过期时间</th>
+                        <th>数量</th>
+                        <th>箱规</th>
+                        <th>过期日期</th>
+                        <th>货架地址</th>
                     </tr>
                     </thead>
                     <tbody id="orderDeal">
@@ -482,7 +483,7 @@
         var sse = function (event) {
 
             $.get('/shelves/order/deal', {'id': $(event).attr('data-id')}, function (res) {
-
+                console.log(res)
                 if (res.status) {
                     if (res.data.length == 0) {
                         alertify.alert('搜索不到数据');
@@ -497,14 +498,18 @@
                                 placeholder="批次过期时间 选填" value="" name="editdate" readonly="readonly" type="text">`: `<input class="form-control datepickers" data-date-format="yyyy-mm-dd"
                               name="editdate" value="${res.data.purchase[i].overdue}" readonly="readonly" id="datepicker" type="text">`;
 
+                            var innersku = res.data.purchase[i].products.innersku == null ? '' :res.data.purchase[i].products.innersku,
+                                numbers = res.data.purchase[i].products.number == null ? '' :res.data.purchase[i].products.number,
+                                shelves = res.data.purchase[i].products.shelves == null ? '' :res.data.purchase[i].products.shelves.name;
                             datas += `<tr>
-                                <td><img height="60px; align=" middle" src="${res.data.purchase[i].products.product_image}" alt="没有上传"></td>
-                                <td >${res.data.purchase[i].products.sku}</td>
+                                <td>${res.data.purchase[i].products.sku}</td>
+                                <td >${innersku}</td>
                                 <td>${res.data.purchase[i].products.zn_name}${res.data.purchase[i].products.en_name}</td>
                                <td><input type="text" data-id="${res.data.purchase[i].products.id}" name="editcount" class="form-control" readonly="readonly" value="${res.data.purchase[i].count}"></td>
                                 <td>$${res.data.purchase[i].products.price}</td>
-                                 <td>$${middle}</td>
+                                 <td>${numbers}</td>
                                   <td>${dates}</td>
+                                  <td>${shelves}</td>
                             </tr>`;
 
                         }

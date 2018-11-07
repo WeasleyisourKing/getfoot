@@ -194,7 +194,7 @@
                                         <table id="biaoge" class="table">
                                             <thead>
                                     <div class="pull-left">
-                                        <th colspan="2" align="left">
+                                        <th colspan="1" align="left">
                                             <address>
 
                                                 <strong>SnackTalk</strong><br>
@@ -235,7 +235,7 @@
                                     <th>Terms</th>
                                     <th>Due Date</th>
                                     <th>Rep</th>
-                                    <th colspan="2">Account#</th>
+                                    <th>Account#</th>
                                     <th>Ship Date</th>
                                 </tr>
                                 <tr>
@@ -243,7 +243,7 @@
                                 </tr>
                                 </tr>
                                 <tr>
-                                    <th>#</th>
+
                                     <th>SKU</th>
                                     <th>Product Name</th>
                                     <th>Rate</th>
@@ -252,7 +252,7 @@
                                 </tr>
                                 @foreach ($data['purchase'] as $key => $item)
                                     <tr>
-                                        <td>{{ $key + 1 }}</td>
+
 
                                         <td>
                                             {{ $item['products']['sku'] }}
@@ -325,7 +325,7 @@
                                     <table id="biaoge" class="table">
                                         <thead>
                                     <div class="pull-left">
-                                        <th colspan="2" align="left">
+                                        <th colspan="1" align="left">
                                             <address>
 
                                                 <strong>SnackTalk</strong><br>
@@ -367,7 +367,7 @@
                                     <th>Terms</th>
                                     <th>Due Date</th>
                                     <th>Rep</th>
-                                    <th colspan="2">Account#</th>
+                                    <th >Account#</th>
                                     <th>Ship Date</th>
                                 </tr>
 
@@ -376,7 +376,7 @@
                                 </tr>
 
                                 <tr>
-                                    <th>#</th>
+
                                     <th>SKU</th>
                                     <th>Product Name</th>
                                     <th>Rate</th>
@@ -385,7 +385,7 @@
                                 </tr>
                                 @foreach ($data['purchase'] as $key => $item)
                                     <tr>
-                                        <td>{{ $key + 1 }}</td>
+
                                         <td>{{ $item['products']['sku'] }}</td>
                                         <td>{{ $item['products']['zn_name'] }}</td>
                                         <td>{{ $item['singlePrice'] }}</td>
@@ -490,5 +490,6 @@
                 window.print();
                 window.location.reload()
             })
+
     </script>
 @endsection

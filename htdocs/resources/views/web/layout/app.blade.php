@@ -273,7 +273,7 @@
         <div class="am-u-sm-2">
             <ul class="bot_nav">
                 <li>关于我们</li>
-                <li class="btoNavPro" data-router="/company/6">关于我们</li>
+                <li class="btoNavPro" data-router="/company/14">关于我们</li>
                 <li class="btoNavPro" data-router="/company/5">联系我们</li>
             </ul>
             <ul class="bot_nav">

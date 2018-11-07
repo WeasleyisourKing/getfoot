@@ -238,7 +238,7 @@
 	  	<a href="##" class="btn btn-lg btn-circle btn-white shaddow-dark"><i class="fa fa-receipt"></i></a>
         <small class="d-block py-2">
                 	<script type="text/javascript">
-                	Language("待发货","Waiting for Shipment")
+                	Language("已完成"," ")
                 </script></small>
 	  </div>
 
@@ -246,7 +246,7 @@
 	  	<a href="##" class="btn btn-lg btn-circle btn-white shaddow-dark"><i class="fa fa-clock"></i></a>
         <small class="d-block py-2">
                 	<script type="text/javascript">
-                	Language("待支付","Waiting for Payment")
+                	Language("已下单"," ")
                 </script></small>
 	  </div>
 
@@ -254,7 +254,7 @@
 	  	<a href="##" class="btn btn-lg btn-circle btn-white shaddow-dark"><i class="fa fa-shipping-fast"></i></a>
         <small class="d-block py-2">
                 	<script type="text/javascript">
-                	Language("待收货","Waiting for Delivered")
+                	Language(" "," ")
                 </script></small>
 	  </div>
 
@@ -262,7 +262,7 @@
 	  	<a href="##" class="btn btn-lg btn-circle btn-white shaddow-dark"><i class="fa fa-comment-dots"></i></a>
         <small class="d-block py-2">
                 	<script type="text/javascript">
-                	Language("待评论","Waiting for Reviews")
+                	Language(" "," ")
                 </script></small>
 	  </div>
 
@@ -344,7 +344,7 @@
 		$(".oderList").click(function(){
 			var aa = <?php echo Auth()->guard("pc")->user()->id ?>;
 			var That=$(".oderList").index(this);
-			var xx=LanguageHtml(["待处理","待支付","已发货","待评论"],["Waiting for Shipment","Waiting for Payment","Waiting for Delivered"," Waiting for Reviews"]);
+			var xx=LanguageHtml(["已完成","已下单"," "," "],[" "," "," "," "]);
 				$.ajax({
 					 url: '/api/order/state',
 		                method: 'get',

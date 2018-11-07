@@ -340,31 +340,31 @@
 							<li >
 								<script>
 
-									Language("待发货","Unshipped")
+									Language("已完成","Completed")
 								</script>
 								<span></span>
 							</li>
 							<li>
 								<script>
-									Language("待支付","Unpaid")
+									Language("已下单","Unpaid")
 								</script>
 								<span></span>
 							</li>
 							<li >
 								<script>
-									Language("待收货","Delivered")
+									Language(" ","")
 								</script>
 								<span></span>
 							</li>
 							<li >
 								<script>
-									Language("已完成的订单"," Completed")
+									Language(" "," ")
 								</script>
 								<span></span>
 							</li>
 							<li><img src="" alt="" />
 								<script>
-									Language("回收站","Recycle bin")
+									Language(" "," ")
 								</script>
 							</li>
 						</ul>
@@ -404,30 +404,6 @@
 									</div>
 								</div>
 								<div class="oderPro_2_details" id="allOrderHtml">
-									{{--<div class="oderPro_2_box">--}}
-										{{--<div class=" clearfloat">--}}
-											{{--<div class="oderPro-2 float_left" style="width: 35%;">--}}
-													{{--<div class="float_left oderPro_2_img"><img src="home/img/r10.png" alt="" /></div>--}}
-													{{--<div class="float_left oderPro_2_text">--}}
-														{{--<p>小米锅巴</p>--}}
-														{{--<p>500g</p>--}}
-														{{--<span>待支付</span>--}}
-													{{--</div>--}}
-											{{--</div>--}}
-											{{--<div class="oderPro_2">$ <span>1.15</span></div>--}}
-											{{--<div class="oderPro_2">1</div>--}}
-											{{--<div class="oderPro_2">$ <span>0.00</span></div>--}}
-											{{--<div class="oderPro_2">$ <span>1.15</span></div>--}}
-											{{--<div class="oderPro_2 oderPro_2_but">--}}
-												{{--<div class="but1">立即付款</div>--}}
-												{{--<div class="but2">取消订单</div>--}}
-											{{--</div>--}}
-										{{--</div>--}}
-										{{--<div class="clearfloat oderPro_2_time">--}}
-											{{--<p class="float_left" >订单号：XXXXXXXXXXXX</p>--}}
-											{{--<p class="float_right" style="text-align: right;">2018-02-26</p>--}}
-										{{--</div>--}}
-									{{--</div>--}}
 								</div>
 							</li>
 						</ul>
@@ -849,7 +825,7 @@
 			$("#allOrderHtml").html(LanguageHtml("没有此类订单","No Result"));
 			return ;
 		}
-		var orderState=LanguageHtml(["","待发货","待支付", "待收货"," 已完成"],["","Unshipped","Unpaid", "Delivered "," Completed"]);
+		var orderState=LanguageHtml(["","已完成","已下单", ""," "],["","Unshipped","Unpaid", "Delivered "," Completed"]);
 		var orderStateId=[""," 1", " 2","3"," 4"];
 		$.ajax({
                 url: "/api/order/state",

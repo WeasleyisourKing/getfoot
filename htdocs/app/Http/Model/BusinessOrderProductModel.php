@@ -17,7 +17,7 @@ class BusinessOrderProductModel extends Model
     			$query->select('product_id','level_four_price');
     		}]);
     	}])
-    	->select('product_id','count')
+    	->select('product_id','count','product_image')
     	->where('order_id','=',$id)
     	->get();
     }

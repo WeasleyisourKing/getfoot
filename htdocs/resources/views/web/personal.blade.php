@@ -963,16 +963,16 @@
 								<div class="myOderDetail clearfloat">
 									<div class="am-u-sm-2 myOderDetailImg">
 										<div>
-											<img src="${products[i].products[0].product_image}" alt="#">
+											<img src="${products[i].products.product_image}" alt="#">
 										</div>
 									</div>
 									<div class="am-u-sm-8">
-										<p>${LanguageHtml(products[i].products[0].zn_name,products[i].products[0].en_name)}</p>
+										<p>${LanguageHtml(products[i].products.zn_name,products[i].products.en_name)}</p>
 									</div>
 									<div class="am-u-sm-2 myOderDetailText">
 										<p>${products[i].count}
 											<br>
-											<span>${products[i].products[0].distributor.level_four_price}</span>
+											<span>${products[i].products.distributor.level_four_price}</span>
 											<br>
 											<span>${LanguageHtml('待支付','Waiting for payment')}</span>
 										</p>

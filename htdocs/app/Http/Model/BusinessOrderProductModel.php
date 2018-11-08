@@ -13,9 +13,7 @@ class BusinessOrderProductModel extends Model
     public static function orderProduct ($id)
     {
     	return $data = BusinessOrderProductModel::with(['products'=>function($query){
-    		$query->with(['distributor'=>function($query){
-    			$query->select('product_id','level_four_price');
-    		}]);
+    		$query->with('distributor');
     	}])
     	->select('product_id','count')
     	->where('order_id','=',$id)

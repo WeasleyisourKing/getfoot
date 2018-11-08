@@ -825,7 +825,7 @@
 			$("#allOrderHtml").html(LanguageHtml("没有此类订单","No Result"));
 			return ;
 		}
-		var orderState=LanguageHtml(["","已完成","已下单", ""," "],["","Unshipped","Unpaid", "Delivered "," Completed"]);
+		var orderState=LanguageHtml(["","已完成","已下单", " "," "],["","Unshipped","Unpaid", " "," "]);
 		var orderStateId=[""," 1", " 2","3"," 4"];
 		$.ajax({
                 url: "/api/order/state",
@@ -843,6 +843,7 @@
 	                			$("#allOrderHtml").html(LanguageHtml("没有此类订单","No Result"));
 	                			return false;
 	                		}
+							console.log(res)
 	                	//有订单数据  循环绑定
                         for(let i = 0; i < allOrder.length; i++){
                             document.querySelector("#allOrderHtml").innerHTML += `

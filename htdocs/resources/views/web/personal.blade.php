@@ -825,7 +825,7 @@
 			$("#allOrderHtml").html(LanguageHtml("没有此类订单","No Result"));
 			return ;
 		}
-		var orderState=LanguageHtml(["","已完成","已下单", ""," "],["","Unshipped","Unpaid", "Delivered "," Completed"]);
+		var orderState=LanguageHtml(["","已完成","已下单", " "," "],["","Unshipped","Unpaid", " "," "]);
 		var orderStateId=[""," 1", " 2","3"," 4"];
 		$.ajax({
                 url: "/api/order/state",
@@ -843,6 +843,7 @@
 	                			$("#allOrderHtml").html(LanguageHtml("没有此类订单","No Result"));
 	                			return false;
 	                		}
+							console.log(res)
 	                	//有订单数据  循环绑定
                         for(let i = 0; i < allOrder.length; i++){
                             document.querySelector("#allOrderHtml").innerHTML += `
@@ -861,8 +862,6 @@
 											<div class="oderPro_2">$ <span>${allOrder[i].total_price}</span></div>
 											<div class="oderPro_2 oderPro_2_but">
 												<div class="but1" style="display :${(allOrder[i].status)=='2'?'auto':'none'}" onclick="comment(${allOrder[i].id})">${LanguageHtml("立即付款","Place Order")}</div>
-												<div class="but2"  onclick="orderdel(${allOrder[i].id})" orderid="${allOrder[i].id}"  style="display :${(allOrder[i].status)=='2'?'auto':'none'}" >${LanguageHtml("取消订单","Cancel Order")}</div>
-												<div class="but1" style="display :${(allOrder[i].status)=='4'?'auto':'none'}" onclick="commenter(${allOrder[i].id})">${LanguageHtml("评价","Ratings")}</div>
 											</div>
 										</div>
 										<div class="clearfloat oderPro_2_time">
@@ -928,6 +927,7 @@
                     id:data
                 },
                 success:function (res) {
+					console.log(res)
 					var orderstatus=LanguageHtml(["","待发货","待支付", "待收货"," 已完成"],["","Wait for Shipment","Waiting for Payment", "Waiting to Delivered"," Completed Order"]);
 					var projectlist = '';
 					var comment = '';
@@ -963,16 +963,16 @@
 								<div class="myOderDetail clearfloat">
 									<div class="am-u-sm-2 myOderDetailImg">
 										<div>
-											<img src="${products[i].products[0].product_image}" alt="#">
+											<img src="${products[i].products.product_image}" alt="#">
 										</div>
 									</div>
 									<div class="am-u-sm-8">
-										<p>${LanguageHtml(products[i].products[0].zn_name,products[i].products[0].en_name)}</p>
+										<p>${LanguageHtml(products[i].products.zn_name,products[i].products.en_name)}</p>
 									</div>
 									<div class="am-u-sm-2 myOderDetailText">
 										<p>${products[i].count}
 											<br>
-											<span>${products[i].products[0].distributor.level_four_price}</span>
+											<span>${products[i].products.distributor.level_four_price}</span>
 											<br>
 											<span>${LanguageHtml('待支付','Waiting for payment')}</span>
 										</p>

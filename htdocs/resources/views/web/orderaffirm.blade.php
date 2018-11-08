@@ -277,8 +277,6 @@
             'id':Http
         },
         success: function (data) {
-        		console.log(data);
-        		return;
         		var product=data.products
         		var text = '', number = 0;
             for (let i in product) {
@@ -287,12 +285,12 @@
             <label class="am-u-sm-4">
 
             <div class="cartImgBox float_left">
-                <img src="${product[i].products[0].product_image}" alt="" />
+                <img src="${product[i].products.product_image}" alt="" />
                 </div>
-                <p class="cartName float_left towLine">${LanguageHtml(product[i].products[0].zn_name,product[i].products[0].en_name)}</p>
+                <p class="cartName float_left towLine">${LanguageHtml(product[i].products.zn_name,product[i].products.en_name)}</p>
                 </label>
                 <div class="am-u-sm-4">
-                <p class="price unitPrice">$ <span>${Sprice1(product[i].products[0].distributor.level_four_price,product[i].products[0].distributor.level_two_price,product[i].products[0].distributor.level_one_price,product[i].products[0].distributor.level_three_price)}</span></p>
+                <p class="price unitPrice">$ <span>${Sprice1(product[i].products.distributor.level_four_price,product[i].products.distributor.level_two_price,product[i].products.distributor.level_one_price,product[i].products.distributor.level_three_price)}</span></p>
                 </div>
                 <div class="am-u-sm-4 cartBut clearfloat">
                   <p class="price unitPrice"><span>${product[i].count}</span></p>
@@ -302,11 +300,12 @@
             }
             $('.Amounts span').html(data.details.total_price);
             $('.totalGoods span').html(number);
-            $(".freight span").html(data.details.freight)
-            $(".tax span").html(((data.details.total_price-data.details.freight)/(data.details.tax*1+1)*data.details.tax).toFixed(2))
-             $(".totalAmount span").html(((data.details.total_price-data.details.freight)/(data.details.tax*1+1)).toFixed(2))
+            $(".freight span").html("")
+            $(".tax span").html("")
+             $(".totalAmount span").html(data.details.total_price)
             //show Settlement
             $('#end').show();
+            console.log(text)
             $('#content').append(text);
         		localStorage.setItem("totalPrice",data.details.total_price);
             localStorage.setItem("order_no",data.details.order_no);

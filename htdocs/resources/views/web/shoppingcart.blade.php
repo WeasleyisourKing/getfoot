@@ -148,7 +148,7 @@
             </div>
             <a > <button class="float_right  am-btn am-btn-danger  goShop" type="submit">
 							<script>
-								Language("结算","Check Out")
+								Language("下订单","下订单")
 							</script>
 						</button></a>
             <p class="float_right overtotal">

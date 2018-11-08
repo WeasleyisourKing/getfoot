@@ -209,7 +209,7 @@
                 </a>
                 <button class="float_right" type="submit" class="am-btn am-btn-primary">
             <script>
-            	Language("下订单","Place an order")
+            	Language("已下单","已下单")
             </script></button>
                 <!--<p  class="float_right totalAmount">
             <script>

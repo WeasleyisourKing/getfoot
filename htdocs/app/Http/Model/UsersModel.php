@@ -58,6 +58,11 @@ class UsersModel extends Model
         return $this->hasMany('App\Http\Model\OrderModel', 'users_id', 'id');
     }
 
+//一对多 用户和订单
+    public function bunsinessOrederManys ()
+    {
+        return $this->hasMany('App\Http\Model\bunsinessOrederModel', 'users_id', 'id');
+    }
     //获取用户地址信息
     public static function getUserAddress ($id)
     {
@@ -96,7 +101,30 @@ class UsersModel extends Model
         }
 
     }
+    //获取用户订单信息
+    public static function getUserBusinessOrder ($id, $status = null)
+    {
 
+        if (!empty($status)) {
+
+            return self::with(['bunsinessOrederManys' => function ($query) use ($status) {
+
+                $query->where('status', '=', $status)->orderBy('created_at', 'desc');
+            }])
+                ->where('id', '=', $id)
+                ->get()
+                ->toArray();
+
+        } else {
+            return self::with(['bunsinessOrederManys' => function ($query) {
+                $query->orderBy('created_at', 'desc');
+            }])
+                ->where('id', '=', $id)
+                ->get()
+                ->toArray();
+        }
+
+    }
 
     //添加用户
     public static function getUserAdd ($data)

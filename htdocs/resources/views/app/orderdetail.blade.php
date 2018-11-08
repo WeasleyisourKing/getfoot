@@ -1177,7 +1177,7 @@ securitycode.addEventListener('focus', function () {
                 success: function (data) {
                 	//订单所有商品
                 	var cart=data.products;
-                	var products=data.products;
+                	var product=data.products;
         			var cartText=""
 					for(var i=0;i<cart.length;i++){
 						var sl=cart[i].number;

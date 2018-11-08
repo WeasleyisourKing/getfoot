@@ -305,7 +305,6 @@
              $(".totalAmount span").html(data.details.total_price)
             //show Settlement
             $('#end').show();
-            console.log(text)
             $('#content').append(text);
         		localStorage.setItem("totalPrice",data.details.total_price);
             localStorage.setItem("order_no",data.details.order_no);

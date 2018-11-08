@@ -679,7 +679,7 @@ class NewOrderController extends Controller
             return "my({$json})";
         }
 
-        if (!$res[0]['oreder_manys']) {
+        if (!$res[0]['bunsiness_oreder_manys']) {
             $result = [
                 'status' => false,
                 'code' => 200,

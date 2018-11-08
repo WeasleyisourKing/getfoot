@@ -61,7 +61,7 @@ class UsersModel extends Model
 //一对多 用户和订单
     public function bunsinessOrederManys ()
     {
-        return $this->hasMany('App\Http\Model\bunsinessOrederModel', 'users_id', 'id');
+        return $this->hasMany('App\Http\Model\BusinessOrderModel', 'users_id', 'id');
     }
     //获取用户地址信息
     public static function getUserAddress ($id)

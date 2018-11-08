@@ -115,14 +115,14 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>SKU</th>
-                        <th>内部SKU</th>
+                        <th style=" min-width: 80px;">SKU</th>
+                        <th style=" min-width: 80px;">内部SKU</th>
                         <th>商品名称</th>
-                        <th>单价</th>
-                        <th>数量</th>
-                        <th>箱规</th>
-                        <th>过期日期</th>
-                        <th>货架地址</th>
+                        <th style=" min-width: 50px;">数量</th>
+                        <th style=" min-width: 50px;">单价</th>
+                        <th style=" min-width: 50px;">箱规</th>
+                        <th style=" min-width: 80px;">过期日期</th>
+                        <th style=" min-width: 80px;">货架地址</th>
                     </tr>
                     </thead>
                     <tbody id="orderDeal">

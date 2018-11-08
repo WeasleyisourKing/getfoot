@@ -28,6 +28,8 @@
                     <div id="myTabContent" class="tab-content">
                         <div class="tab-pane fade in active" id="shop">
 
+                            <div id="content" class="form-group">
+                            </div>
                             <div class="input-group">
                                 <input id="searchString" class="form-control"
                                        placeholder="请输入SKU或者商品中文名称" type="text">
@@ -45,8 +47,8 @@
                                 </table>
                             </div>
 
-                            <div id="content" class="form-group">
-                            </div>
+                            {{--<div id="content" class="form-group">--}}
+                            {{--</div>--}}
 
                         </div>
 

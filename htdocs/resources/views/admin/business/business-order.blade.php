@@ -5,7 +5,7 @@
 
     <!-- 添加 Modal -->
     <div id="add" class="modal fade" role="dialog">
-        <div class="modal-dialog" style="width: 800px;">
+        <div class="modal-dialog" style="width: 1000px;">
 
             <!-- Modal content-->
             <div class="modal-content">
@@ -27,7 +27,8 @@
                     </ul>
                     <div id="myTabContent" class="tab-content">
                         <div class="tab-pane fade in active" id="shop">
-
+                            <div id="content" class="form-group">
+                            </div>
                             <div class="input-group">
                                 <input id="searchString" class="form-control"
                                        placeholder="请输入SKU或者商品中文名称" type="text">
@@ -45,8 +46,8 @@
                                 </table>
                             </div>
 
-                            <div id="content" class="form-group">
-                            </div>
+                            {{--<div id="content" class="form-group">--}}
+                            {{--</div>--}}
 
                         </div>
 
@@ -391,7 +392,7 @@
                             ' <th class="col-md-2 col-lg-2 exce"> 商品名称</th>' +
                             ' <th class="col-md-2 col-lg-2 exce">  SKU</th>' +
                             '<th class="col-md-2 col-lg-2 exce"> 商品图片</th> ' +
-                            '<th class="col-md-2 col-lg-2 exce">成本价（$）</th>' +
+                            '<th class="col-md-2 col-lg-2 exce">价格（$）</th>' +
                             '<th class="col-md-2 col-lg-2 exce">库存</th>' +
                             '<th class="col-md-2 col-lg-2 exce">操作</th>' +
                             ' </tr>' +
@@ -406,7 +407,12 @@
                                                     src="${res.data[i].product_image}"
                                                     alt="没有上传"/>
                                                 </td>
-                                         <td class="exce">${res.data[i].price}
+                                         <td class="exce">
+                                            <b>成本价</b>：${res.data[i].price}</br>
+                                            <b>代理商</b>：${res.data[i].distributor.level_one_price}</br>
+                                            <b>分销商</b>：${res.data[i].distributor.level_two_price}</br>
+                                            <b>商业用户</b>：${res.data[i].distributor.level_three_price}</br>
+                                            <b>零售</b>：${res.data[i].distributor.level_four_price}
                                                 </td>
                                             <td class="exce">${res.data[i].stock}
                                                 </td>

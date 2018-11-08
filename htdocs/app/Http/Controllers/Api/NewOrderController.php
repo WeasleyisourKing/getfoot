@@ -662,9 +662,9 @@ class NewOrderController extends Controller
 
         if (!empty($status)) {
 
-            $res = UsersModel::getUserOrder($id, $status);
+            $res = UsersModel::getUserBusinessOrder($id, $status);
         } else {
-            $res = UsersModel::getUserOrder($id);
+            $res = UsersModel::getUserBusinessOrder($id);
         }
         //dd($res);
 

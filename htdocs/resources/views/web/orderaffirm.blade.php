@@ -302,11 +302,12 @@
             }
             $('.Amounts span').html(data.details.total_price);
             $('.totalGoods span').html(number);
-            $(".freight span").html(data.details.freight)
-            $(".tax span").html(((data.details.total_price-data.details.freight)/(data.details.tax*1+1)*data.details.tax).toFixed(2))
-             $(".totalAmount span").html(((data.details.total_price-data.details.freight)/(data.details.tax*1+1)).toFixed(2))
+            $(".freight span").html("")
+            $(".tax span").html("")
+             $(".totalAmount span").html(data.details.total_price)
             //show Settlement
             $('#end').show();
+            console.log(text)
             $('#content').append(text);
         		localStorage.setItem("totalPrice",data.details.total_price);
             localStorage.setItem("order_no",data.details.order_no);

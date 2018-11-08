@@ -862,8 +862,6 @@
 											<div class="oderPro_2">$ <span>${allOrder[i].total_price}</span></div>
 											<div class="oderPro_2 oderPro_2_but">
 												<div class="but1" style="display :${(allOrder[i].status)=='2'?'auto':'none'}" onclick="comment(${allOrder[i].id})">${LanguageHtml("立即付款","Place Order")}</div>
-												<div class="but2"  onclick="orderdel(${allOrder[i].id})" orderid="${allOrder[i].id}"  style="display :${(allOrder[i].status)=='2'?'auto':'none'}" >${LanguageHtml("取消订单","Cancel Order")}</div>
-												<div class="but1" style="display :${(allOrder[i].status)=='4'?'auto':'none'}" onclick="commenter(${allOrder[i].id})">${LanguageHtml("评价","Ratings")}</div>
 											</div>
 										</div>
 										<div class="clearfloat oderPro_2_time">
@@ -929,6 +927,7 @@
                     id:data
                 },
                 success:function (res) {
+					console.log(res)
 					var orderstatus=LanguageHtml(["","待发货","待支付", "待收货"," 已完成"],["","Wait for Shipment","Waiting for Payment", "Waiting to Delivered"," Completed Order"]);
 					var projectlist = '';
 					var comment = '';

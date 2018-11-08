@@ -277,8 +277,6 @@
             'id':Http
         },
         success: function (data) {
-        		console.log(data);
-        		return;
         		var product=data.products
         		var text = '', number = 0;
             for (let i in product) {

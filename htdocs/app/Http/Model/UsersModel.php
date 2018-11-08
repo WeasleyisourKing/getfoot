@@ -59,7 +59,7 @@ class UsersModel extends Model
     }
 
 //一对多 用户和订单
-    public function bunsinessOrederManys ()
+    public function bunsiness ()
     {
         return $this->hasMany('App\Http\Model\BusinessOrderModel', 'users_id', 'id');
     }
@@ -107,7 +107,7 @@ class UsersModel extends Model
 
         if (!empty($status)) {
 
-            return self::with(['bunsinessOrederManys' => function ($query) use ($status) {
+            return self::with(['bunsiness' => function ($query) use ($status) {
 
                 $query->where('status', '=', $status)->orderBy('created_at', 'desc');
             }])
@@ -116,7 +116,7 @@ class UsersModel extends Model
                 ->toArray();
 
         } else {
-            return self::with(['bunsinessOrederManys' => function ($query) {
+            return self::with(['bunsiness' => function ($query) {
                 $query->orderBy('created_at', 'desc');
             }])
                 ->where('id', '=', $id)

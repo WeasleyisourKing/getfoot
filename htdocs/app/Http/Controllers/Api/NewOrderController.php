@@ -679,7 +679,7 @@ class NewOrderController extends Controller
             return "my({$json})";
         }
 
-        if (!$res[0]['bunsiness_oreder_manys']) {
+        if (!$res[0]['bunsiness']) {
             $result = [
                 'status' => false,
                 'code' => 200,
@@ -691,7 +691,7 @@ class NewOrderController extends Controller
         }
 
 
-        $data = Common::screen($res[0]['oreder_manys'], ['snap_name', 'order_no', 'total_price', 'status', 'total_count', 'created_at', 'snap_img', 'id']);
+        $data = Common::screen($res[0]['bunsiness'], ['snap_name', 'order_no', 'total_price', 'status', 'total_count', 'created_at', 'snap_img', 'id']);
 //        return $data;
 
         return Common::successData($data, true);

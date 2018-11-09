@@ -40,7 +40,7 @@
             <div class="col-4 h-100 w-100">
                 <button class="btn btn-red rounded-0 btn-check-out Settlement"></i> 
                 	<script type="text/javascript">
-                	Language("结算","Checkout")
+                	Language("下订单","下订单")
                 </script></button>
 
 

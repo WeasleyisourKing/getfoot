@@ -27,6 +27,16 @@
                     </ul>
                     <div id="myTabContent" class="tab-content">
                         <div class="tab-pane fade in active" id="shop">
+                            <div class="form-group" style="width:100px;margin-bottom: 20px">
+                                <label class="control-label">价格类型<span style="color:red;">＊</span></label>
+                                <select class="form-control" id="pstatus">
+                                    <option value="1">成本价</option>
+                                    <option value="2">代理商</option>
+                                    <option value="3">分销商</option>
+                                    <option value="4">商业用户</option>
+                                    <option value="5">零售</option>
+                                </select>
+                            </div>
                             <div id="content" class="form-group">
                             </div>
                             <div class="input-group">
@@ -447,13 +457,22 @@
 
                 if (arr.indexOf($(event).attr('data-id')) == -1) {
 
-                    $('#content').append(` <div id="content" class="form-group">
+                    $('#content').append(` <div class="form-group DeleteThat panel" style="padding:20px;">
                         <div class="input-group">
-                            <text style="line-height: 34px;">${$(event).attr('data-name')}</text>
-                            <span style="width: 30%;" class="input-group-btn">
+                            <text style="line-height: 34px; width: 69%;">${$(event).attr('data-name')}</text>
+                            <span style="width: 30%; padding: 10px; " class="input-group-btn">
                                            <input name="productNumber" data-id="${$(event).attr('data-id')}"  class="form-control"
-                                                  placeholder="请输入数量"  type="text">
+                                                  placeholder="数量"  type="text">
                                                     </span>
+                                                    <span style="width: 30%;" class="input-group-btn">
+                                           <input class="form-control datepicker" data-date-format="yyyy-mm-dd"
+                                                  placeholder="批次过期时间 选填"  type="text">
+                                                    </span>
+                                                    <span style="padding: 10px; " class="input-group-btn ">
+                                                        <button class="btn-sm btn-danger waves-effect waves-light delete-item-btn DeleteThis " onclick="Delete1(this)"><i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </span>
+
                         </div>
 
                     </div>`);
@@ -464,35 +483,75 @@
 
 
             } else {
-                $('#content').append(` <div id="content" class="form-group">
+                $('#content').append(` <div class="form-group DeleteThat panel" style="padding:20px;">
                         <div class="input-group">
-                            <text style="line-height: 34px;">${$(event).attr('data-name')}</text>
-                            <span style="width: 30%;" class="input-group-btn">
+                            <text style="line-height: 34px; width: 69%;">${$(event).attr('data-name')}</text>
+                            <span style="width: 30%; padding: 10px; " class="input-group-btn">
                                            <input name="productNumber" data-id="${$(event).attr('data-id')}"  class="form-control"
-                                                  placeholder="请输入数量"  type="text">
+                                                  placeholder="数量"  type="text">
                                                     </span>
+                                                    <span style="width: 30%;" class="input-group-btn">
+                                           <input class="form-control datepicker" data-date-format="yyyy-mm-dd"
+                                                  placeholder="批次过期时间 选填"  type="text">
+                                                    </span>
+                                                    <span style="padding: 10px; " class="input-group-btn ">
+                                                        <button class="btn-sm btn-danger waves-effect waves-light delete-item-btn DeleteThis " onclick="Delete1(this)"><i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </span>
+
                         </div>
 
                     </div>`);
+
                 window.arr.push($(event).attr('data-id'));
             }
 
+            jQuery('.datepicker').datepicker({
+                numberOfMonths: 3,
+                showButtonPanel: true,
+            });
         }
 
         //点击添加
         $('#sa-save').click(function () {
 
             window.obj = [];
-            console.log(window.arr);
+            window.objs = [];
+
             var i = 0;
 
             $("input[name='productNumber']").each(function () {
 
                 window.obj.push({'product_id': window.arr[i], "count": $(this).val()});
                 i++;
+                window.objs.push({
+                    'product_id': $(this).attr('data-id'),
+                    'overdue': $(this).parent().next().find('input').val(),
+                    "count": $(this).val()
+                });
             });
+
+//            $("input[name='productNumber']").each(function () {
+//
+//                if ($(this).val() != 0) {
+//                    window.obj.push({
+//                        'product_id': $(this).attr('data-id'),
+//                        "count": $(this).val()
+//                    });
+//                    window.objs.push({
+//                        'product_id': $(this).attr('data-id'),
+//                        'overdue': $(this).parent().next().find('input').val(),
+//                        "count": $(this).val()
+//                    });
+//                    i += Number($(this).val());
+//                }
+//
+//
+//            });
             var datas = {
                 'products': window.obj,
+                'uproducts': window.objs,
+                'pstatus' : $('#pstatus').val(),
                 'name': $('#name').val(),
                 'mobile': $('#mobile').val(),
                 'province': $('#province').val(),
@@ -517,6 +576,20 @@
             })
 
         })
+
+        var Delete1 =function(aa){
+            var that=$(".DeleteThis").index(aa);
+            console.log(that);
+            var data_id_index
+            var data_id=$(".DeleteThat input").eq(0).attr('data-id')
+            $(".DeleteThat").eq(that).remove();
+            for(var i=0;i<window.arr.length;i++){
+                if(window.arr[i]==data_id){
+                    data_id_index=i
+                }
+            }
+            window.arr.splice(data_id_index+1, 1)
+        }
     </script>
 
 

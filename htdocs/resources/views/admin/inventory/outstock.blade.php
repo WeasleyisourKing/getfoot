@@ -10,7 +10,7 @@
             操作人
         </label> <small class="text-muted">必填</small>
 
-        <input type="text" id="operator" class="form-control" placeholder="操作人姓名">
+        <input type="text" id="operator"  class="form-control" placeholder="操作人姓名">
     </div>
 
     <div class="form-group col-lg-4">
@@ -264,7 +264,7 @@
                             <td>{{$item->pruchase_order_no}}
                             </td>
                             @if($item->state != 1 || $item->type != 2)
-                                <td>已审核</td>
+                                <td>已审核入库</td>
                             @else
                                 <td class="text-info">等待审核</td>
                         @endif
@@ -278,7 +278,9 @@
                                 <!---- 查看按钮 ---->
                                 <button data-id="{{$item->id}}" onclick="sse(this);" class="btn-sm btn-success waves-effect waves-light edit-item-btn"  ><i class="fa fa-eye"></i></button><!---- End 编辑按钮 ---->
                                 <!---- 删除按钮 ---->
-                                <button data-id="{{$item->id}}" onclick="del(this);" class="btn-sm btn-danger waves-effect waves-light delete-item-btn" ><i class="fa fa-trash"></i></button><!---- End 删除按钮 ---->
+                                    @if($item->state == 1 && $item->type == 2)
+                                        <button data-id="{{$item->id}}" onclick="del(this);" class="btn-sm btn-danger waves-effect waves-light delete-item-btn" ><i class="fa fa-trash"></i></button><!---- End 删除按钮 ---->
+                                    @endif
                             </td><!-- 操作按钮 -->
                         </tr>
                     @endforeach
@@ -353,7 +355,7 @@
 
 <!---- End 弹窗 ---->
 <script>
-    $('#operator').val('');
+    $('#operator').val('{{ Auth::user()->username }}');
     $('#orderId').val('');
     $('#remark').val('');
     $('#searchString').val('');
@@ -661,17 +663,22 @@
 
             if (arr.indexOf($(event).attr('data-id')) == -1) {
 
-                $('#content').append(` <div id="content" class="form-group">
-                              <div class="input-group">
+                $('#content').append(` <div class="form-group DeleteThat panel" style="padding:20px;">
+                        <div class="input-group">
                             <text style="line-height: 34px; width: 69%;">${$(event).attr('data-name')}</text>
-                            <span style="width: 30%; padding: 10px;" class="input-group-btn">
+                            <span style="width: 30%; padding: 10px; " class="input-group-btn">
                                            <input name="productNumber" data-id="${$(event).attr('data-id')}"  class="form-control"
-                                                  placeholder="出库数量"  type="text">
+                                                  placeholder="数量"  type="text">
                                                     </span>
                                                     <span style="width: 30%;" class="input-group-btn">
                                            <input class="form-control datepicker" data-date-format="yyyy-mm-dd"
                                                   placeholder="批次过期时间 选填"  type="text">
                                                     </span>
+                                                    <span style="padding: 10px; " class="input-group-btn ">
+                                                        <button class="btn-sm btn-danger waves-effect waves-light delete-item-btn DeleteThis " onclick="Delete1(this)"><i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </span>
+
                         </div>
 
                     </div>`);
@@ -682,17 +689,22 @@
 
 
         } else {
-            $('#content').append(` <div id="content" class="form-group">
+            $('#content').append(` <div class="form-group DeleteThat panel" style="padding:20px;">
                         <div class="input-group">
                             <text style="line-height: 34px; width: 69%;">${$(event).attr('data-name')}</text>
                             <span style="width: 30%; padding: 10px; " class="input-group-btn">
                                            <input name="productNumber" data-id="${$(event).attr('data-id')}"  class="form-control"
-                                                  placeholder="出库数量"  type="text">
+                                                  placeholder="数量"  type="text">
                                                     </span>
                                                     <span style="width: 30%;" class="input-group-btn">
                                            <input class="form-control datepicker" data-date-format="yyyy-mm-dd"
                                                   placeholder="批次过期时间 选填"  type="text">
                                                     </span>
+                                                    <span style="padding: 10px; " class="input-group-btn  ">
+                                                        <button class="btn-sm btn-danger waves-effect waves-light delete-item-btn DeleteThis"onclick="Delete1(this)" ><i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </span>
+
                         </div>
 
                     </div>`);
@@ -762,5 +774,19 @@
 //	    		$("#datatable-buttons_wrapper .dt-buttons a").eq(3).hide();
 //	    		console.log("chengg")
 //	    })
+
+    var Delete1 =function(aa){
+        var that=$(".DeleteThis").index(aa);
+        console.log(that);
+        var data_id_index
+        var data_id=$(".DeleteThat input").eq(0).attr('data-id')
+        $(".DeleteThat").eq(that).remove();
+        for(var i=0;i<window.arr.length;i++){
+            if(window.arr[i]==data_id){
+                data_id_index=i
+            }
+        }
+        window.arr.splice(data_id_index+1, 1)
+    }
 </script>
 @endsection

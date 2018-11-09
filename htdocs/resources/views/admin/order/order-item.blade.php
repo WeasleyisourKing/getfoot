@@ -455,12 +455,16 @@
 
                 if (arr.indexOf($(event).attr('data-id')) == -1) {
 
-                    $('#content').append(` <div id="content" class="form-group">
+                    $('#content').append(` <div class="form-group DeleteThat panel" style="padding:20px;">
                         <div class="input-group">
                             <text style="line-height: 34px;">${$(event).attr('data-name')}</text>
-                            <span style="width: 80%;" class="input-group-btn">
+                            <span style="width: 40%;" class="input-group-btn">
                                            <input name="productNumber" data-id="${$(event).attr('data-id')}"  class="form-control"
-                                                  placeholder="请输入数量"  type="text">
+                                                  placeholder="数量"  type="text">
+                                                    </span>
+                            <span style="padding: 10px; " class="input-group-btn ">
+                                                        <button class="btn-sm btn-danger waves-effect waves-light delete-item-btn DeleteThis " onclick="Delete1(this)"><i class="fa fa-trash"></i>
+                                                        </button>
                                                     </span>
                         </div>
 
@@ -472,12 +476,16 @@
 
 
             } else {
-                $('#content').append(` <div id="content" class="form-group">
+                $('#content').append(` <div class="form-group DeleteThat panel" style="padding:20px;">
                         <div class="input-group">
                             <text style="line-height: 34px;">${$(event).attr('data-name')}</text>
-                            <span style="width: 80%;" class="input-group-btn">
+                            <span style="width: 40%;" class="input-group-btn">
                                            <input name="productNumber" data-id="${$(event).attr('data-id')}"  class="form-control"
-                                                  placeholder="请输入数量"  type="text">
+                                                  placeholder="数量"  type="text">
+                                                    </span>
+                                   <span style="padding: 10px; " class="input-group-btn ">
+                                                        <button class="btn-sm btn-danger waves-effect waves-light delete-item-btn DeleteThis " onclick="Delete1(this)"><i class="fa fa-trash"></i>
+                                                        </button>
                                                     </span>
                         </div>
 
@@ -525,6 +533,19 @@
             })
 
         })
+        var Delete1 =function(aa){
+            var that=$(".DeleteThis").index(aa);
+            console.log(that);
+            var data_id_index
+            var data_id=$(".DeleteThat input").eq(0).attr('data-id')
+            $(".DeleteThat").eq(that).remove();
+            for(var i=0;i<window.arr.length;i++){
+                if(window.arr[i]==data_id){
+                    data_id_index=i
+                }
+            }
+            window.arr.splice(data_id_index+1, 1)
+        }
     </script>
 
 

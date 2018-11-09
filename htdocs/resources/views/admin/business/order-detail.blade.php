@@ -120,7 +120,7 @@
                                         <td>{{ $item['singlePrice'] }}</td>
                                         <td>{{ $item['count'] }}</td>
                                         <td> {{ !empty($item['products']['number']) ? $item['products']['number'] : '' }} </td>
-                                        <td></td>
+                                        <td>{{ $item['overdue'] }}</td>
                                         <td>{{ !empty($item['products']['shelves']) ? $item['products']['shelves']['name'] : ''  }}</td>
                                     </tr>
                                 @endforeach

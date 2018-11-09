@@ -11,7 +11,7 @@
         </label>
         <small class="text-muted">必填</small>
 
-        <input type="text" id="operator" class="form-control" placeholder="操作人姓名">
+        <input type="text" id="operator"  class="form-control" placeholder="操作人姓名">
     </div>
 
     <div class="form-group col-lg-4">
@@ -58,7 +58,7 @@
                 <h4 class="panel-title">添加商品</h4>
             </div>
             <div id="content" class="form-group" style="
-   			 padding: 10px;">
+   			 padding: 20px;">
             </div>
             <div class="panel-body">
                 <!---- 搜索并添加商品 ---->
@@ -301,9 +301,10 @@
                                              data-id="{{$item->id}}"
                                             onclick="sse(this);"><i class="fa fa-eye"></i></button><!---- End 编辑按钮 ---->
                                     <!---- 删除按钮 ---->
-                                    <button class="btn-sm btn-danger waves-effect waves-light delete-item-btn"
-                                            data-id="{{$item->id}}" onclick="del(this);"><i class="fa fa-trash"></i>
-                                    </button><!---- End 删除按钮 ---->
+                                        @if($item->state == 1 && $item->type == 2)
+                                            <button class="btn-sm btn-danger waves-effect waves-light delete-item-btn"
+                                                    data-id="{{$item->id}}" onclick="del(this);"><i class="fa fa-trash"></i>
+                                        @endif
                                 </td><!-- 操作按钮 -->
                             </tr>
                         @endforeach
@@ -361,10 +362,10 @@
                 </div><!--endprint-->
                 <div class="modal-footer">
                     <button type="button" onclick="dealStock(this);" data-status="1" id="sure"
-                            style="display: none;" class="btn btn-success waves-effect pull-left">确认出库
+                            style="display: none;" class="btn btn-success waves-effect pull-left">确认入库
                     </button>
                     <button type="button" id="not" onclick="dealStock(this);" data-status="2"
-                            style="display: none;" class="btn btn-danger waves-effect pull-left">修改出库信息
+                            style="display: none;" class="btn btn-danger waves-effect pull-left">修改入库信息
                     </button>
                     <button type="button" id="start" data-status="1"
                             style="display: none;" class="btn btn-small btn-info waves-effect pull-left"><i class="fa fa-unlock-alt"></i>
@@ -380,7 +381,7 @@
     <!---- End 弹窗 ---->
 
     <script>
-        $('#operator').val('');
+        $('#operator').val('{{ Auth::user()->username }}');
         $('#orderId').val('');
         $('#remark').val('');
         $('#searchString').val('');
@@ -680,17 +681,22 @@
 
                 if (arr.indexOf($(event).attr('data-id')) == -1) {
 
-                    $('#content').append(` <div id="content" class="form-group">
-                              <div class="input-group">
+                    $('#content').append(` <div class="form-group DeleteThat panel" style="padding:20px;">
+                        <div class="input-group">
                             <text style="line-height: 34px; width: 69%;">${$(event).attr('data-name')}</text>
-                            <span style="width: 30%; padding: 10px;" class="input-group-btn">
+                            <span style="width: 30%; padding: 10px; " class="input-group-btn">
                                            <input name="productNumber" data-id="${$(event).attr('data-id')}"  class="form-control"
-                                                  placeholder="入库数量"  type="text">
+                                                  placeholder="数量"  type="text">
                                                     </span>
                                                     <span style="width: 30%;" class="input-group-btn">
                                            <input class="form-control datepicker" data-date-format="yyyy-mm-dd"
                                                   placeholder="批次过期时间 选填"  type="text">
                                                     </span>
+                                                    <span style="padding: 10px; " class="input-group-btn ">
+                                                        <button class="btn-sm btn-danger waves-effect waves-light delete-item-btn DeleteThis " onclick="Delete1(this)"><i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </span>    
+
                         </div>
 
                     </div>`);
@@ -701,17 +707,21 @@
 
 
             } else {
-                $('#content').append(` <div id="content" class="form-group">
+                $('#content').append(` <div class="form-group DeleteThat panel" style="padding:20px;">
                         <div class="input-group">
                             <text style="line-height: 34px; width: 69%;">${$(event).attr('data-name')}</text>
                             <span style="width: 30%; padding: 10px; " class="input-group-btn">
                                            <input name="productNumber" data-id="${$(event).attr('data-id')}"  class="form-control"
-                                                  placeholder="入库数量"  type="text">
+                                                  placeholder="数量"  type="text">
                                                     </span>
                                                     <span style="width: 30%;" class="input-group-btn">
                                            <input class="form-control datepicker" data-date-format="yyyy-mm-dd"
                                                   placeholder="批次过期时间 选填"  type="text">
                                                     </span>
+                                                    <span style="padding: 10px; " class="input-group-btn  ">
+                                                        <button class="btn-sm btn-danger waves-effect waves-light delete-item-btn DeleteThis"onclick="Delete1(this)" ><i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </span>    
 
                         </div>
 
@@ -721,6 +731,11 @@
 
 
             }
+            // $(".DeleteThis").click(()=>{
+            //     $(this).parents(".DeleteThat").remove();
+            //     var data_id=$(this).parents(".DeleteThat")
+            //     console.log($(this).parents(".DeleteThat"))
+            // })
             jQuery('.datepicker').datepicker({
                 numberOfMonths: 3,
                 showButtonPanel: true,
@@ -781,5 +796,18 @@
 //	    		$("#datatable-buttons_wrapper .dt-buttons a").eq(3).hide();
 //	    		console.log("chengg")
 //	    })
+var Delete1 =function(aa){
+    var that=$(".DeleteThis").index(aa);
+    console.log(that);
+    var data_id_index
+    var data_id=$(".DeleteThat input").eq(0).attr('data-id')
+    $(".DeleteThat").eq(that).remove();
+    for(var i=0;i<window.arr.length;i++){
+        if(window.arr[i]==data_id){
+            data_id_index=i
+        }
+    }
+    window.arr.splice(data_id_index+1, 1)
+}
     </script>
 @endsection

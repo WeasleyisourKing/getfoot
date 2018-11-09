@@ -34,6 +34,7 @@ class BusinessController extends Controller
     //数据库商品信息
     protected $addressInfo;
 
+    protected $Plevel;
 
     /**
      * 订单列表页面
@@ -80,7 +81,7 @@ class BusinessController extends Controller
         }])
             ->where('id', $id)
             ->first()
-        ->toArray();
+            ->toArray();
 //array_column($ress['purchase'],);
 
 
@@ -143,10 +144,28 @@ class BusinessController extends Controller
         (new AddressRule)->goCheck(200);
 
         $params = $request->all();
-        $uProducts = $params['products'];
+        $uProducts = $params['uproducts'];
+
         unset($params['products']);
         unset($params['_token']);
 
+        switch ($params['pstatus']) {
+
+            case 1 :
+                $this->Plevel = 'price';
+                break;
+            case 2 :
+                $this->Plevel = 'level_one_price';
+                break;
+            case 3 :
+                $this->Plevel = 'level_two_price';
+                break;
+            case 4 :
+                $this->Plevel = 'level_three_price';
+                break;
+            default :
+                $this->Plevel = 'level_four_price';
+        }
         return $this->place($params, $uProducts);
     }
 
@@ -302,9 +321,9 @@ class BusinessController extends Controller
             $pStatus['enName'] = $product['en_name'];
             $pStatus['sku'] = $product['sku'];
             $pStatus['count'] = $uCount;
-            $pStatus['singlePrice'] = $product['price'];
+            $pStatus['singlePrice'] = $this->Plevel != 'price' ? $product['distributor'][$this->Plevel] : $product[$this->Plevel];
             $pStatus['image'] = $product['product_image'];
-            $pStatus['totalPrice'] = $uCount * $product['price'];
+            $pStatus['totalPrice'] = $this->Plevel != 'price' ? $product['distributor'][$this->Plevel] : $product[$this->Plevel];
             $pStatus['innersku'] = $product['innersku'];
             $pStatus['shelves'] = $product['shelves']['name'];
             $pStatus['number'] = $product['number'];

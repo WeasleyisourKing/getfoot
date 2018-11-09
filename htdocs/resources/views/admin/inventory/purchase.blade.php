@@ -42,7 +42,7 @@
         <label for="" class="control-label">
             备注
         </label>
-        <small class="text-muted">必填</small>
+        <small class="text-muted">选填</small>
 
         <textarea id="remark" class="form-control" name="" id="" cols="30" rows="4"></textarea>
     </div>
@@ -315,10 +315,10 @@
                 <div class="modal-footer">
 
                     <button type="button" onclick="dealStock(this);" data-status="1" id="sure"
-                            style="display: none;" class="btn btn-success waves-effect pull-left">确认出库
+                            style="display: none;" class="btn btn-success waves-effect pull-left">确认入库
                     </button>
                     <button type="button" id="not" onclick="dealStock(this);" data-status="2"
-                            style="display: none;" class="btn btn-danger waves-effect pull-left">修改出库信息
+                            style="display: none;" class="btn btn-danger waves-effect pull-left">修改入库信息
                     </button>
                     <button type="button" id="start" data-status="1"
                             style="display: none;" class="btn btn-small btn-info waves-effect pull-left"><i class="fa fa-unlock-alt"></i>
@@ -489,14 +489,15 @@
                         alertify.alert('搜索不到数据');
                         return;
                     } else {
-                        var datas = '', totalPrice = 0;
+                        var datas = '', Num ='', totalPrice = 0;
                         for (let i in res.data.purchase) {
 
                             var middle = (res.data.purchase[i].products.price * res.data.purchase[i].count).toFixed(2);
                             totalPrice += Number(middle);
-                            var dates = res.data.purchase[i].overdue == null ? `<input class="form-control datepickers" id="datepicker" data-date-format="yyyy-mm-dd"
+                            var dates = res.data.status == 1?(res.data.purchase[i].overdue == null ? `<input class="form-control datepickers" id="datepicker" data-date-format="yyyy-mm-dd"
                                 placeholder="批次过期时间 选填" value="" name="editdate" readonly="readonly" type="text">`: `<input class="form-control datepickers" data-date-format="yyyy-mm-dd"
-                              name="editdate" value="${res.data.purchase[i].overdue}" readonly="readonly" id="datepicker" type="text">`;
+                              name="editdate" value="${res.data.purchase[i].overdue}" readonly="readonly" id="datepicker" type="text">`):(res.data.purchase[i].overdue == null ?"":res.data.purchase[i].overdue);
+                            var Num = res.data.status == 1?`<input type="text" data-id="${res.data.purchase[i].products.id}" name="editcount" class="form-control" readonly="readonly" value="${res.data.purchase[i].count}">`:res.data.purchase[i].count;
 
                             var innersku = res.data.purchase[i].products.innersku == null ? '' :res.data.purchase[i].products.innersku,
                                 numbers = res.data.purchase[i].products.number == null ? '' :res.data.purchase[i].products.number,
@@ -505,7 +506,7 @@
                                 <td>${res.data.purchase[i].products.sku}</td>
                                 <td >${innersku}</td>
                                 <td>${res.data.purchase[i].products.zn_name}${res.data.purchase[i].products.en_name}</td>
-                               <td><input type="text" data-id="${res.data.purchase[i].products.id}" name="editcount" class="form-control" readonly="readonly" value="${res.data.purchase[i].count}"></td>
+                               <td>${Num}</td>
                                 <td>$${res.data.purchase[i].products.price}</td>
                                  <td>${numbers}</td>
                                   <td>${dates}</td>
@@ -674,21 +675,26 @@
 
                 if (arr.indexOf($(event).attr('data-id')) == -1) {
 
-                    $('#content').append(` <div id="content" class="form-group">
-                              <div class="input-group">
+                    $('#content').append(`  <div class="form-group DeleteThat panel" style="padding:20px;">
+                        <div class="input-group">
                             <text style="line-height: 34px; width: 69%;">${$(event).attr('data-name')}</text>
                             <span style="width: 30%; padding: 10px; " class="input-group-btn">
                                            <input name="productNumber" data-id="${$(event).attr('data-id')}"  class="form-control"
-                                                  placeholder="采购数量"  type="text">
+                                                  placeholder="数量"  type="text">
                                                     </span>
-                                                        <span style="width: 30%;" class="input-group-btn">
+                                                    <span style="width: 30%;" class="input-group-btn">
                                            <input class="form-control datepicker" data-date-format="yyyy-mm-dd"
                                                   placeholder="批次过期时间 选填"  type="text">
+                                                    </span>
+                                                    <span style="padding: 10px; " class="input-group-btn ">
+                                                        <button class="btn-sm btn-danger waves-effect waves-light delete-item-btn DeleteThis " onclick="Delete1(this)"><i class="fa fa-trash"></i>
+                                                        </button>
                                                     </span>
 
                         </div>
 
                     </div>`);
+
                     jQuery('.datepicker').datepicker({
                         numberOfMonths: 3,
                         showButtonPanel: true,
@@ -700,16 +706,20 @@
 
 
             } else {
-                $('#content').append(` <div id="content" class="form-group">
+                $('#content').append(` <div class="form-group DeleteThat panel" style="padding:20px;">
                         <div class="input-group">
                             <text style="line-height: 34px; width: 69%;">${$(event).attr('data-name')}</text>
                             <span style="width: 30%; padding: 10px; " class="input-group-btn">
                                            <input name="productNumber" data-id="${$(event).attr('data-id')}"  class="form-control"
-                                                  placeholder="采购数量"  type="text">
+                                                  placeholder="数量"  type="text">
                                                     </span>
-                                                        <span style="width: 30%;" class="input-group-btn">
+                                                    <span style="width: 30%;" class="input-group-btn">
                                            <input class="form-control datepicker" data-date-format="yyyy-mm-dd"
                                                   placeholder="批次过期时间 选填"  type="text">
+                                                    </span>
+                                                    <span style="padding: 10px; " class="input-group-btn  ">
+                                                        <button class="btn-sm btn-danger waves-effect waves-light delete-item-btn DeleteThis"onclick="Delete1(this)" ><i class="fa fa-trash"></i>
+                                                        </button>
                                                     </span>
 
                         </div>
@@ -731,5 +741,18 @@
 //	    		$("#datatable-buttons_wrapper .dt-buttons a").eq(3).hide();
 //	    		console.log("chengg")
 //	    })
+        var Delete1 =function(aa){
+            var that=$(".DeleteThis").index(aa);
+            console.log(that);
+            var data_id_index
+            var data_id=$(".DeleteThat input").eq(0).attr('data-id')
+            $(".DeleteThat").eq(that).remove();
+            for(var i=0;i<window.arr.length;i++){
+                if(window.arr[i]==data_id){
+                    data_id_index=i
+                }
+            }
+            window.arr.splice(data_id_index+1, 1)
+        }
     </script>
 @endsection

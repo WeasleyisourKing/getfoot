@@ -10,7 +10,7 @@
             操作人
         </label> <small class="text-muted">必填</small>
 
-        <input type="text" id="operator"  class="form-control" placeholder="操作人姓名">
+        <input type="text" id="operator" readonly="readonly" class="form-control" placeholder="操作人姓名">
     </div>
 
     <div class="form-group col-lg-4">
@@ -264,7 +264,7 @@
                             <td>{{$item->pruchase_order_no}}
                             </td>
                             @if($item->state != 1 || $item->type != 2)
-                                <td>已审核入库</td>
+                                <td>已审核出库</td>
                             @else
                                 <td class="text-info">等待审核</td>
                         @endif

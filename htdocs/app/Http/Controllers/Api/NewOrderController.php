@@ -832,7 +832,7 @@ class NewOrderController extends Controller
         } else {
             throw new ParamsException([
                 'code' => 200,
-                'message' => '获取税金接口失败'
+                'message' => '获取税金接口失败或者邮编无效'
             ]);
         }
     }

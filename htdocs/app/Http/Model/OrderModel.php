@@ -65,7 +65,8 @@ class OrderModel extends Model
             DB::raw("(CASE status WHEN '1' THEN '待处理' WHEN '2' THEN '未支付' WHEN '3' THEN '已发货' WHEN '4' THEN '待支付' WHEN '5' THEN '退货' END) as status"))
             ->whereIn('status', $status)
             ->orderBy('created_at', 'desc')
-            ->paginate($limit);
+            ->get();
+//            ->paginate($limit);
 
     }
 

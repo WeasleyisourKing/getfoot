@@ -27,7 +27,7 @@
                     </ul>
                     <div id="myTabContent" class="tab-content">
                         <div class="tab-pane fade in active" id="shop">
-                            <div class="form-group" style="width:100px;margin-bottom: 20px">
+                            <div class="form-group" style="width:100px;margin-bottom: 20px;display:none">
                                 <label class="control-label">价格类型<span style="color:red;">＊</span></label>
                                 <select class="form-control" id="pstatus">
                                     <option value="1">成本价</option>
@@ -37,6 +37,25 @@
                                     <option value="5">零售</option>
                                 </select>
                             </div>
+                            <div class="input-group">
+                                <label class="control-label">商家昵称:<span id="searchUserName"></span></label>
+                                <div class="input-group">
+                                    <input id="searchUser" class="form-control"
+                                        placeholder="请输入商家昵称" type="text">
+                                    <span class="input-group-btn">
+                                                        <button type="button" onClick="SearchUser()"
+                                                                class="btn waves-effect waves-light btn-primary">
+                                                            <i class="fa fa-search"></i>
+                                                        </button>
+
+                                                        </span>
+                                </div>
+                            </div>
+
+                            <div id="searchUserList" class="form-group">
+
+                            </div>
+
                             <div id="content" class="form-group">
                             </div>
                             <div class="input-group">
@@ -237,6 +256,7 @@
                                             <th class="col-md-2 col-lg-2 exce"> 订单号</th>
                                             <th class="col-md-2 col-lg-2 exce"> 总数量</th>
                                             <th class="col-md-2 col-lg-2 exce"> 总价格($)</th>
+                                            <th class="col-md-1 col-lg-2 exce"> 下单时间</th>
                                             <th class="col-md-2 col-lg-2 exce">
                                                 状态
                                                 {{--<div class="btn-group ">--}}
@@ -253,7 +273,6 @@
                                                 {{--</div>--}}
                                             </th>
 
-                                            <th class="col-md-1 col-lg-2 exce"> 下单时间</th>
                                             <th class="col-md-2 col-lg-2 exce" class="td-actions"> 操作</th>
                                         </tr>
                                         </thead>
@@ -265,8 +284,9 @@
                                                 <td class="exce">{{ $item->order_no }}</td>
                                                 <td class="exce">{{ $item->total_count }}</td>
                                                 <td class="exce">{{ $item->total_price }}</td>
-                                                <td class="exce">{{ $item->state }}</td>
                                                 <td class="exce">{{ $item->created_at }}</td>
+                                                <td class="exce">{{ $item->state }}</td>
+
 
                                                 <td class="exce">
                                                     <a title="查看订单" id="info" data-id="{{$item->id}}"
@@ -386,7 +406,103 @@
     </script>
 
     <script>
+        var SearchUserRole=(aa)=>{
+            console.log(aa)
+            if(aa==2){
+                return "分销商"
 
+            }else if(aa==3){
+
+                return "代理商"
+            }else{
+
+                return "商业用户"
+            }
+            // switch(aa)
+            // {
+            //     case 2:
+            // console.log(2)
+            //     break;
+            //     case 3:
+            // console.log(3)
+            //     break;
+            //     case 4:
+            // console.log(4)
+            //     break;
+
+            // console.log(5)
+            // }
+        }
+        //搜索用户
+         var SearchUserData
+         var SearchUserText
+         var SearchUser = ()=>{
+            if(SearchUserText==$("#searchUser").val()){
+                return false
+            }else{
+                SearchUserText=$("#searchUser").val()
+                $.get('/business/users', {'value': $('#searchUser').val()}, function (res) {
+                    console.log(res)
+                    if (res.status) {
+                        if (res.data.length == 0) {
+                            alertify.alert('搜索不到数据');
+                            return;
+                        } else {
+                            SearchUserData=res.data
+                            var datas = '<table class="table table-bordered" style="margin-top: 30px;"><thead >' +
+                                ' <tr>' +
+                                ' <th class="col-md-3 exce">商家昵称</th>' +
+                                ' <th class="col-md-3 exce">商家类型</th>' +
+                                '<th class="col-md-3 exce">商家邮箱</th> ' +
+                                '<th class="col-md-3 exce">操作</th>' +
+                                ' </tr>' +
+                                ' </thead><tbody id="searchUserNameListPro">';
+
+                            for (let i in res.data) {
+                                console.log(SearchUserRole(res.data[i].role))
+                                datas += `<tr>
+                                        <td class="exce">${res.data[i].name}</td>
+                                    <td class="exce">${SearchUserRole(res.data[i].role)}</td>
+                                            <td class="exce">${res.data[i].email}</td>
+                                           <td class="exce">
+                        <a title="添加商品"  data-name=""
+                                                       class="btn btn-small btn-success"
+                                                       href="javascript:void (0);"
+                                                       onclick="Usercode(${i})" >
+                                                        <i class="icon fa fa-check"> </i>
+                                                    </a>
+                                                </td>
+                                    </tr>`;
+                            }
+                            datas += '</tbody></table>';
+                            
+                            $("#searchUserList").html(datas)
+                        }
+                        alertify.success('获取成功');
+                    //                    $('#link').hide();
+                        // $('#table').html(datas);
+                    } else {
+                        alertify.alert(res.message);
+                    }
+                })
+            }
+        }
+        //选择商家用户
+        var Usercode=(i)=>{
+            $("#searchUserName").html(`${SearchUserData[i].name} (${SearchUserRole(SearchUserData[i].role)})`)
+
+            $("#searchUserList").html("");
+            $('#pstatus').val(SearchUserData[i].role)
+            $('#name').val(SearchUserData[i].manys[0].name)
+            $('#mobile').val(SearchUserData[i].manys[0].mobile)
+            $('#province').val(SearchUserData[i].manys[0].province)
+            $('#city').val(SearchUserData[i].manys[0].city)
+            $('#country').val(SearchUserData[i].manys[0].country)
+            $('#detail').val(SearchUserData[i].manys[0].detail)
+            $('#zip').val(SearchUserData[i].manys[0].zip)
+            $('#email').val(SearchUserData[i].email)
+            
+        }
         //搜索库存
         function doPostSearch() {
 

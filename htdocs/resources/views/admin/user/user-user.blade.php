@@ -469,9 +469,10 @@
                                             <th class="col-md-2 col-lg-2 exce"> 名称</th>
                                             <th class="col-md-1 col-lg-1 exce"> 性别</th>
                                             <th class="col-md-2 col-lg-2 exce"> 头像</th>
+                                            <th class="col-md-2 col-lg-2 exce"> 注册时间</th>
                                             <th class="col-md-2 col-lg-2 exce"> 邮箱</th>
                                             {{--<th class="col-md-1 col-lg-1 exce"> 积分</th>--}}
-                                            <th class="col-md-2 col-lg-2 exce"> 注册时间</th>
+
                                             <th class="col-md-1 col-lg-1 exce">
                                                 全部状态
                                                 {{--<div class="btn-group ">--}}
@@ -501,9 +502,9 @@
                                                 <td class="exce"><img height="100px; align=" middle" src="{{ $item->avatar }}"
                                                     alt="没有上传"/>
                                                 </td>
+                                                <td class="exce">{{ $item->created_at }}</td>
                                                 <td class="exce">{{ $item->email }}</td>
                                                 {{--<td class="exce">{{ $item->integral }}</td>--}}
-                                                <td class="exce">{{ $item->created_at }}</td>
                                                 @if ($item->status != 1)
                                                     <td class="exce">不激活</td>
                                                     {{--<td class="exce"><i class="icon fa fa-2x fa-times-circle"> </i></td>--}}

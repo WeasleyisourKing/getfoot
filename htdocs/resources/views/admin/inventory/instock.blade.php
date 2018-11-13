@@ -254,7 +254,7 @@
                         <thead>
                         <tr>
                             <th>库存编号</th>
-                            <th>出库类型</th>
+                            <th>入库类型</th>
                             <th>操作人</th>
                             <th>创建时间</th>
                             <th>关联订单</th>
@@ -301,7 +301,7 @@
                                              data-id="{{$item->id}}"
                                             onclick="sse(this);"><i class="fa fa-eye"></i></button><!---- End 编辑按钮 ---->
                                     <!---- 删除按钮 ---->
-                                        @if($item->state == 1 && $item->type == 2)
+                                        @if($item->state == 1 && $item->type == 2 && (Auth::user()->role == 1))
                                             <button class="btn-sm btn-danger waves-effect waves-light delete-item-btn"
                                                     data-id="{{$item->id}}" onclick="del(this);"><i class="fa fa-trash"></i>
                                         @endif
@@ -364,9 +364,9 @@
                     <button type="button" onclick="dealStock(this);" data-status="1" id="sure"
                             style="display: none;" class="btn btn-success waves-effect pull-left">确认入库
                     </button>
-                    <button type="button" id="not" onclick="dealStock(this);" data-status="2"
-                            style="display: none;" class="btn btn-danger waves-effect pull-left">修改入库信息
-                    </button>
+                    {{--<button type="button" id="not" onclick="dealStock(this);" data-status="2"--}}
+                            {{--style="display: none;" class="btn btn-danger waves-effect pull-left">修改入库信息--}}
+                    {{--</button>--}}
                     <button type="button" id="start" data-status="1"
                             style="display: none;" class="btn btn-small btn-info waves-effect pull-left"><i class="fa fa-unlock-alt"></i>
                     </button>
@@ -388,6 +388,7 @@
         $('#NowDate').val('当前时间');
         $('#inStock').val('手动入库');
 
+        window.count = 0;
         $('#start').click(function() {
             if ($(this).attr('data-status') != 2) {
                 $(this).find('i').removeClass('fa fa-unlock-alt').addClass('fa fa-unlock');
@@ -398,12 +399,14 @@
                     numberOfMonths: 3,
                     showButtonPanel: true,
                 });
+                ++window.count;
             } else {
                 $(this).find('i').removeClass('fa fa-unlock').addClass('fa fa-unlock-alt');
                 $(this).attr('data-status',1);
                 $('input[name=editcount]').attr('readonly','readonly');
                 $('input[name=editdate]').attr('readonly','');
                 $('.datepickers').unbind();
+                ++window.count;
             }
 
         })
@@ -750,10 +753,11 @@
 
             var datas = {
                 'id': $(event).attr('data-id'),
-                'status': $(event).attr('data-status')
+                'status': 1
             };
             //update in stock
-            if ($(event).attr('data-status') != 1) {
+            if (window.count > 0) {
+//            if ($(event).attr('data-status') != 1) {
                 window.obj = [];
                 window.objs = [];
                 var i = 0;
@@ -777,10 +781,13 @@
                 datas.products = window.obj;
                 datas.uproducts = window.objs;
                 datas.num = i;
+                datas.status = 2;
+
             }
 
             $.get('/stock/in/confirm', datas, function (res) {
                 if (res.status) {
+                    window.count = 0;
                     alertify.success('处理成功');
 
                     setTimeout(function () {
@@ -798,7 +805,7 @@
 //	    })
 var Delete1 =function(aa){
     var that=$(".DeleteThis").index(aa);
-    console.log(that);
+    // console.log(that);
     var data_id_index
     var data_id=$(".DeleteThat input").eq(0).attr('data-id')
     $(".DeleteThat").eq(that).remove();
@@ -809,5 +816,11 @@ var Delete1 =function(aa){
     }
     window.arr.splice(data_id_index+1, 1)
 }
+// $(function(){
+// var table=$("#datatable-buttons").dataTable()
+// table.order( [ 0, 'asc' ] ).draw();
+// })
+
+
     </script>
 @endsection

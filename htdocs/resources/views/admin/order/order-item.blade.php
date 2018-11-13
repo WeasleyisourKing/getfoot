@@ -203,49 +203,48 @@
                             <h3 class="panel-title">订单列表</h3>
                         </div>
                         <div class="panel-body">
-                            <div class="row">
+                            {{--<div class="row">--}}
 
-                                <div class="btn-group col-md-2">
-                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
-                                            aria-expanded="true">{{$limit}} <span class="caret"></span></button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a id="select" href="">20条</a></li>
-                                        <li><a id="select10" href="">50条</a></li>
-                                        <li><a id="select15" href="">100条</a></li>
+                                {{--<div class="btn-group col-md-2">--}}
+                                    {{--<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"--}}
+                                            {{--aria-expanded="true">{{$limit}} <span class="caret"></span></button>--}}
+                                    {{--<ul class="dropdown-menu" role="menu">--}}
+                                        {{--<li><a id="select" href="">20条</a></li>--}}
+                                        {{--<li><a id="select10" href="">50条</a></li>--}}
+                                        {{--<li><a id="select15" href="">100条</a></li>--}}
                                         {{--<li><a id="select20" href="">20条</a></li>--}}
-                                    </ul>
-                                </div>
-                                <div class="col-md-8"></div>
+                                    {{--</ul>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-md-8"></div>--}}
 
-                            </div>
+                            {{--</div>--}}
 
                             <div class="row m-t-10">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <table class="table table-bordered">
+                                    <table class="table table-bordered table-striped display" id="datatable-buttons">
                                         <thead>
                                         <tr>
                                             <th class="col-md-2 col-lg-2 exce"> 订单号</th>
                                             <th class="col-md-2 col-lg-2 exce"> 总数量</th>
                                             <th class="col-md-2 col-lg-2 exce"> 总价格($)</th>
-                                            <th class="col-md-2 col-lg-2 exce">
-                                                <div class="btn-group ">
-                                                    <button type="button"
-                                                            class="btn btn-default dropdown-toggle waves-effect"
-                                                            data-toggle="dropdown" aria-expanded="false">{{$title}}
-                                                        <span
-                                                                class="caret"></span></button>
-                                                    <ul class="dropdown-menu" role="menu">
-                                                        <li><a id="statusAll" href="javascript:void(0);">全部状态</a></li>
-                                                        <li><a id="status1" href="javascript:void(0);">待处理</a></li>
-                                                        <li><a id="status2" href="javascript:void(0);">未支付</a></li>
-                                                        <li><a id="status3" href="javascript:void(0);">已发货</a></li>
-                                                        <li><a id="status4" href="javascript:void(0);">已完成</a></li>
-                                                        <li><a id="status5" href="javascript:void(0);">退货</a></li>
-                                                    </ul>
-                                                </div>
-                                            </th>
-
                                             <th class="col-md-1 col-lg-2 exce"> 下单时间</th>
+                                            <th class="col-md-2 col-lg-2 exce">状态
+                                                {{--<div class="btn-group ">--}}
+                                                    {{--<button type="button"--}}
+                                                            {{--class="btn btn-default dropdown-toggle waves-effect"--}}
+                                                            {{--data-toggle="dropdown" aria-expanded="false">{{$title}}--}}
+                                                        {{--<span--}}
+                                                                {{--class="caret"></span></button>--}}
+                                                    {{--<ul class="dropdown-menu" role="menu">--}}
+                                                        {{--<li><a id="statusAll" href="javascript:void(0);">全部状态</a></li>--}}
+                                                        {{--<li><a id="status1" href="javascript:void(0);">待处理</a></li>--}}
+                                                        {{--<li><a id="status2" href="javascript:void(0);">未支付</a></li>--}}
+                                                        {{--<li><a id="status3" href="javascript:void(0);">已发货</a></li>--}}
+                                                        {{--<li><a id="status4" href="javascript:void(0);">已完成</a></li>--}}
+                                                        {{--<li><a id="status5" href="javascript:void(0);">退货</a></li>--}}
+                                                    {{--</ul>--}}
+                                                {{--</div>--}}
+                                            </th>
                                             <th class="col-md-2 col-lg-2 exce" class="td-actions"> 操作</th>
                                         </tr>
                                         </thead>
@@ -257,9 +256,9 @@
                                                 <td class="exce">{{ $item->order_no }}</td>
                                                 <td class="exce">{{ $item->total_count }}</td>
                                                 <td class="exce">{{ $item->total_price }}</td>
-                                                <td class="exce">{{ $item->status }}</td>
                                                 <td class="exce">{{ $item->created_at }}</td>
-
+                                                <td class="exce">{{ $item->status }}</td>
+                                                
                                                 <td class="exce">
                                                     <a title="查看订单" id="info" data-id="{{$item->id}}"
                                                        class="btn btn-small btn-success"
@@ -278,9 +277,9 @@
                                         @endforeach
                                         </tbody>
                                     </table>
-                                    <div style="clear: both;text-align: center;">
-                                        {{ $data->links() }}
-                                    </div>
+                                    {{--<div style="clear: both;text-align: center;">--}}
+                                        {{--{{ $data->links() }}--}}
+                                    {{--</div>--}}
 
                                 </div>
                                 @if(!$data->count())

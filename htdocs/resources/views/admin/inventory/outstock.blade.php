@@ -278,9 +278,92 @@
                                 <!---- 查看按钮 ---->
                                 <button data-id="{{$item->id}}" onclick="sse(this);" class="btn-sm btn-success waves-effect waves-light edit-item-btn"  ><i class="fa fa-eye"></i></button><!---- End 编辑按钮 ---->
                                 <!---- 删除按钮 ---->
-                                    @if($item->state == 1 && $item->type == 2)
+
+
+                                    @if($item->state == 1 && $item->type == 2  && (Auth::user()->role == 1))
                                         <button data-id="{{$item->id}}" onclick="del(this);" class="btn-sm btn-danger waves-effect waves-light delete-item-btn" ><i class="fa fa-trash"></i></button><!---- End 删除按钮 ---->
                                     @endif
+
+                            </td><!-- 操作按钮 -->
+                        </tr>
+                    @endforeach
+
+                    </tbody>
+                </table><!-- End 数据表 -->
+            </div>
+        </div>
+    </div>
+
+        <div class="col-lg-12">
+            <div class="panel">
+                <div class="panel-body">
+
+                    <div class="row">
+                        <h1>商业订单</h1>
+                    </div><!---- End row ---->
+
+                </div>
+            </div>
+        </div>
+
+    <div class="col-sm-12">
+        <div class="panel">
+            <div class="panel-body">
+                <!-- 数据表 -->
+                <table class="table table-bordered table-striped display" id="datatable1">
+                    <thead>
+                    <tr>
+                        <th>库存编号</th>
+                        <th>出库类型</th>
+                        <th>操作人</th>
+                        <th>创建时间</th>
+                        <th>关联订单</th>
+                        <th>审核状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($pruchase as $item)
+                        <tr>
+                            <!---- 选择框及编号 ---->
+                            <td>
+                                <div class="checkbox checkbox-success">
+                                    <input id="item-checkbox-id" type="checkbox" name="image_input" value="{{$item->id}}" class="item-checkbox">
+                                    <label for="item-checkbox-id">
+                                        {{$item->order_no}}
+                                    </label>
+                                </div>
+                            </td><!---- 选择框及编号 ---->
+                            @if($item->type != 1)
+                                <td>手动</td>
+                            @else
+                                <td>自动</td>
+                            @endif
+                            <td> {{$item->operator}}</td>
+                            <td>{{$item->created_at}}</td>
+                            <td>{{$item->pruchase_order_no}}
+                            </td>
+                            @if($item->state != 1 || $item->type != 2)
+                                <td>已审核出库</td>
+                            @else
+                                <td class="text-info">等待审核</td>
+                        @endif
+                        <!-- 操作按钮 -->
+                            <td class="actions">
+                            {{--@if ($item->state == 1 && $item->type == 2)--}}
+                            {{--<button class="btn-sm btn-success waves-effect waves-light btn-sm btn-info"--}}
+                            {{--data-id="{{$item->id}}" onclick="check(this);"><i--}}
+                            {{--class="fa fa-check"></i></button><!---- End 编辑按钮 ---->--}}
+                            {{--@endif--}}
+                            <!---- 查看按钮 ---->
+                                <button data-id="{{$item->id}}" onclick="sse(this);" class="btn-sm btn-success waves-effect waves-light edit-item-btn"  ><i class="fa fa-eye"></i></button><!---- End 编辑按钮 ---->
+                                <!---- 删除按钮 ---->
+
+
+                                @if($item->state == 1 && $item->type == 2  && (Auth::user()->role == 1))
+                                    <button data-id="{{$item->id}}" onclick="del(this);" class="btn-sm btn-danger waves-effect waves-light delete-item-btn" ><i class="fa fa-trash"></i></button><!---- End 删除按钮 ---->
+                                @endif
+
                             </td><!-- 操作按钮 -->
                         </tr>
                     @endforeach
@@ -314,7 +397,7 @@
                     <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-info waves-effect waves-light" id="save-item-btn"><i class="fa fa-save"></i> Save</button>
                 </div>
-            </div>
+            </div>f
         </div>
     </div><!---- End 添加 ---->
 
@@ -336,9 +419,9 @@
                     <button type="button" onclick="dealStock(this);" data-status="1" id="sure"
                            style="display: none;" class="btn btn-success waves-effect pull-left">确认出库
                     </button>
-                    <button type="button" id="not" onclick="dealStock(this);" data-status="2"
-                            style="display: none;" class="btn btn-danger waves-effect pull-left">修改出库信息
-                    </button>
+                    {{--<button type="button" id="not" onclick="dealStock(this);" data-status="2"--}}
+                            {{--style="display: none;" class="btn btn-danger waves-effect pull-left">修改出库信息--}}
+                    {{--</button>--}}
                     <button type="button" id="start" data-status="1"
                             style="display: none;" class="btn btn-small btn-info waves-effect pull-left"><i class="fa fa-unlock-alt"></i>
                     </button>
@@ -361,6 +444,7 @@
     $('#searchString').val('');
     $('#NowDate').val('当前时间');
     $('#inStock').val('手动出库');
+    window.count = 0;
 
     $('#start').click(function() {
         if ($(this).attr('data-status') != 2) {
@@ -372,12 +456,14 @@
                 numberOfMonths: 3,
                 showButtonPanel: true,
             });
+            ++window.count;
         } else {
             $(this).find('i').removeClass('fa fa-unlock').addClass('fa fa-unlock-alt');
             $(this).attr('data-status',1);
             $('input[name=editcount]').attr('readonly','readonly');
             $('input[name=editdate]').attr('readonly','');
             $('.datepickers').unbind();
+            ++window.count;
         }
 
     })
@@ -731,7 +817,8 @@
             'status': $(event).attr('data-status')
         };
         //update in stock
-        if ($(event).attr('data-status') != 1) {
+        if (window.count > 0) {
+//        if ($(event).attr('data-status') != 1) {
             window.obj = [];
             window.objs = [];
             var i = 0;
@@ -759,8 +846,8 @@
 
         $.get('/stock/out/confirm', datas, function (res) {
             if (res.status) {
+                window.count = 0;
                 alertify.success('处理成功');
-
                 setTimeout(function () {
                     location.reload();
                 }, 1500);

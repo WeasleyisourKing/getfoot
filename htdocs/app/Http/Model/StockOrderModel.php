@@ -405,7 +405,7 @@ class StockOrderModel extends Model
         try {
             $info = self::find($id);
 
-            if (substr($info->pruchase_order_no, 0, 1) === 'B') {
+            if (substr($info->pruchase_order_no, 0, 2) === 'ST') {
                 BusinessOrderModel::where('order_no','=',$info->pruchase_order_no)->update(['status' => 1]);
             }
             if ($status == 1) {

@@ -85,7 +85,7 @@ class ProductController extends Controller
             'limit' => '显示' . $limit . '条'
         ]);
     }
-//0f0a170177acd22c0793ef1b72f3170ddfa0102ea61070ed99d164f9c75d7934f9d9d5a0d79892c55c9bf4fd0fddd3eb82bd
+
     /**
      * 优惠活动页面
      * @param Request $request

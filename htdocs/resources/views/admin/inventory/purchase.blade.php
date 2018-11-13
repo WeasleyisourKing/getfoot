@@ -215,8 +215,8 @@
                         <tr>
                             <th>采购订单编号</th>
                             <th>采购人</th>
-                            <th>创建时间</th>
                             <th>供货商</th>
+                            <th>创建时间</th>
                             <th>总金额</th>
                             <th>订单状态</th>
                             <th>操作</th>
@@ -236,8 +236,8 @@
                                     </div>
                                 </td><!---- 选择框及编号 ---->
                                 <td> {{$item->name}}</td>
-                                <td> {{$item->created_at}}</td>
                                 <td> {{$item->supplier}}</td>
+                                <td> {{$item->created_at}}</td>
                                 <td><i class="fa fa-dollar"></i>{{$item->total_price}}</td>
                                 @if($item->status == 1)
                                     <td class="text-info">已下单</td>
@@ -251,9 +251,11 @@
                                             data-toggle="modal" data-target="#view-item-modal" data-id="{{$item->id}}"
                                             onclick="sse(this);"><i class="fa fa-eye"></i></button><!---- End 编辑按钮 ---->
                                     <!---- 删除按钮 ---->
+                                    @if((Auth::user()->role == 1))
                                     <button class="btn-sm btn-danger waves-effect waves-light delete-item-btn"
                                             data-id="{{$item->id}}" onclick="del(this);"><i class="fa fa-trash"></i>
                                     </button><!---- End 删除按钮 ---->
+                                    @endif
                                 </td><!-- 操作按钮 -->
                             </tr>
                         @endforeach
@@ -317,9 +319,9 @@
                     <button type="button" onclick="dealStock(this);" data-status="1" id="sure"
                             style="display: none;" class="btn btn-success waves-effect pull-left">确认入库
                     </button>
-                    <button type="button" id="not" onclick="dealStock(this);" data-status="2"
-                            style="display: none;" class="btn btn-danger waves-effect pull-left">修改入库信息
-                    </button>
+                    {{--<button type="button" id="not" onclick="dealStock(this);" data-status="2"--}}
+                            {{--style="display: none;" class="btn btn-danger waves-effect pull-left">修改入库信息--}}
+                    {{--</button>--}}
                     <button type="button" id="start" data-status="1"
                             style="display: none;" class="btn btn-small btn-info waves-effect pull-left"><i class="fa fa-unlock-alt"></i>
                     </button>
@@ -332,6 +334,7 @@
     <script type="text/javascript">
 
         $('#supplier').val('');
+        window.count = 0;
         $('#start').click(function() {
             if ($(this).attr('data-status') != 2) {
                 $(this).find('i').removeClass('fa fa-unlock-alt').addClass('fa fa-unlock');
@@ -342,12 +345,14 @@
 	                numberOfMonths: 3,
 	                showButtonPanel: true,
 	            });
+                ++window.count;
             } else {
                 $(this).find('i').removeClass('fa fa-unlock').addClass('fa fa-unlock-alt');
                 $(this).attr('data-status',1);
                 $('input[name=editcount]').attr('readonly','readonly');
                 $('input[name=editdate]').attr('readonly','');
 				$('.datepickers').unbind();
+                ++window.count;
             }
 
         })
@@ -570,7 +575,8 @@
                 'status': $(event).attr('data-status')
             };
             //update in stock
-            if ($(event).attr('data-status') != 1) {
+            if (window.count > 0) {
+//            if ($(event).attr('data-status') != 1) {
                 window.obj = [];
                 window.objs = [];
                 var i = 0;
@@ -598,6 +604,7 @@
 
             $.get('/stock/put', datas, function (res) {
                 if (res.status) {
+                    window.count = 0;
                     alertify.success('处理成功');
 
                     setTimeout(function () {

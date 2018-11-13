@@ -390,13 +390,18 @@ Route::group(['middleware' => 'role'], function () {
         Route::get('/list/status/{status?}/limit/{limit?}', 'Admin\BusinessController@businessList');
         //某订单详情页面*
         Route::get('/detail/id/{id?}/status/{status?}', 'Admin\BusinessController@orderDetail');
-        //删除接口
-        Route::get('/order/del', 'Admin\BusinessController@orderDel');
-//        Route::get('/show', 'Admin\CatchController@payShow');
-        Route::get('/show', 'api\AuthorizeController@authorizeToken');
+
+
     });
 });
 
+//TODO 商家订单管理接口
+//删除接口
+Route::get('/business/order/del', 'Admin\BusinessController@orderDel');
+//搜索商业用户
+Route::get('/business/users', 'Admin\BusinessController@users');
+//        Route::get('/show', 'Admin\CatchController@payShow');
+Route::get('/show', 'api\AuthorizeController@authorizeToken');
 
 //TODO 管理员管理接口
 ////修改管理员基本信息

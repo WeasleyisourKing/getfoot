@@ -40,6 +40,7 @@ class OrderController extends Controller
      */
     public function orderList ($status, $limit)
     {
+//        A2018111200001
 
         $statusData = ($status != -1) ? [$status] : [1, 2, 3, 4, 5];
         //默认显示已完成
@@ -208,8 +209,10 @@ class OrderController extends Controller
 
             $text = '';
             foreach ($status['pStatusArray'] as $item) {
+
                 if ($item['haveStock'] != true) {
-                    $text .= '商品'.$item['zn_name'] .'库存不足；';
+
+                    $text .= '商品'.$item['znName'] .'库存不足；';
                 }
 
             }
@@ -258,6 +261,7 @@ class OrderController extends Controller
         foreach ($Products as $item) {
             if ($item['status'] != 1) {
                 throw new ParamsException([
+                    'code' => 200,
                     'message' => $item['zn_name'] . '商品已经下架',
                     'errorCode' => 7001
                 ]);
@@ -401,11 +405,11 @@ class OrderController extends Controller
     {
         $num = OrderModel::orderBy('created_at', 'desc')->first(['order_no']);
 
-        $orderNo = Common::makeOrderNo(is_null($num) ? 'A2018101800001' : $num->order_no);
+        $orderNo = Common::makeOrderNo(is_null($num) ? '12BUY2018101800001' : $num->order_no);
         //构造数据
         $data = [];
         $data = [
-            'order_no' => $orderNo,
+            'order_no' => '12BUY' . $orderNo,
             'users_id' => 0,
             'total_price' => $orderSnap['orderPrice'],
             'total_count' => $orderSnap['allCount'],

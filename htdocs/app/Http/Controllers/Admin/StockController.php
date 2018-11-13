@@ -220,20 +220,35 @@ class StockController extends Controller
     //出库 35
     public function Stock4 ()
     {
+        //获取全部数据
         $res = StockOrderModel::where('status', '=', 2)->get();
+
+        $arr = [];
+        foreach ($res as &$val) {
+            $value = substr($val->pruchase_order_no,0,2);
+            if (!empty($value) && $value == 'ST') {
+                array_push($arr,$val);
+                unset($val);
+            }
+        }
 
         $auth = array_column(PrivilegeRoleModel::where('privilege_id', '=', 35)
             ->get(['role_id'])
             ->toArray(), 'role_id');
 //        dump($auth);
-        return view('admin.inventory.outstock', ['res' => $res, 'auth' => $auth]);
+        return view('admin.inventory.outstock', [
+            'res' => $res,
+            'pruchase' => $arr,
+            'auth' => $auth
+        ]);
     }
 
     //采购 36
     public function Stock5 ()
     {
-        $res = PurchaseOrderModel::get();
+        $res = PurchaseOrderModel::orderBy('order_no', 'desc')->get();
 
+//        dd($res->toArray());
         $auth = array_column(PrivilegeRoleModel::where('privilege_id', '=', 36)
             ->get(['role_id'])
             ->toArray(), 'role_id');
@@ -368,11 +383,11 @@ class StockController extends Controller
         $num = PurchaseOrderModel::orderBy('created_at', 'desc')->first(['order_no']);
 
 
-        $orderNo = Common::makeOrderNo(is_null($num) ? 'A2018101800001' : $num->order_no);
+        $orderNo = Common::makeOrderNo(is_null($num) ? 'PO2018101800001' : $num->order_no);
         //构造数据
         $data = [];
         $data = [
-            'order_no' => 'P' . substr($orderNo, 1),
+            'order_no' => 'PO' . $orderNo,
             'name' => htmlspecialchars(strip_tags(trim($orderSnap['name']))),
             'total_price' => $orderSnap['price'],
             'total_count' => $orderSnap['num'],
@@ -541,7 +556,7 @@ class StockController extends Controller
         //构造数据
         $data = [];
         $data = [
-            'order_no' => 'I' . substr($orderNo, 1),
+            'order_no' => 'I' . $orderNo,
             'operator' => '系统自动',
             'pruchase_order_no' => $orderId,
             'remark' => '自动入库',
@@ -588,7 +603,7 @@ class StockController extends Controller
         //构造数据
         $data = [];
         $data = [
-            'order_no' => 'I' . substr($orderNo, 1),
+            'order_no' => 'I' . $orderNo,
             'operator' => htmlspecialchars(strip_tags(trim($params['operator']))),
             'total_count' => $params['num'],
             'pruchase_order_no' => htmlspecialchars(strip_tags(trim($params['orderId']))),
@@ -628,7 +643,7 @@ class StockController extends Controller
         //构造数据
         $data = [];
         $data = [
-            'order_no' => 'I' . substr($orderNo, 1),
+            'order_no' => 'I' . $orderNo,
             'operator' => htmlspecialchars(strip_tags(trim($orderSnap['operator']))),
             'total_count' => $orderSnap['num'],
             'pruchase_order_no' => htmlspecialchars(strip_tags(trim($orderSnap['orderId']))),
@@ -737,7 +752,7 @@ class StockController extends Controller
         //构造数据
         $data = [];
         $data = [
-            'order_no' => 'O' . substr($orderNo, 1),
+            'order_no' => 'O' . $orderNo,
             'operator' => htmlspecialchars(strip_tags(trim($params['operator']))),
             'total_count' => $params['num'],
             'pruchase_order_no' => htmlspecialchars(strip_tags(trim($params['orderId']))),
@@ -783,7 +798,7 @@ class StockController extends Controller
         //构造数据
         $data = [];
         $data = [
-            'order_no' => 'O' . substr($orderNo, 1),
+            'order_no' => 'O' . $orderNo,
             'operator' => htmlspecialchars(strip_tags(trim($orderSnap['operator']))),
             'total_count' => $orderSnap['num'],
             'pruchase_order_no' => htmlspecialchars(strip_tags(trim($orderSnap['orderId']))),
@@ -853,7 +868,7 @@ class StockController extends Controller
         //构造数据
         $data = [];
         $data = [
-            'order_no' => 'O' . substr($orderNo, 1),
+            'order_no' => 'O' . $orderNo,
             'operator' => '系统',
             'total_count' => $totalCount,
             'pruchase_order_no' => $orderID,

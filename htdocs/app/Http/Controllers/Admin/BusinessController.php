@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Model\ShelvesModel;
+use App\Http\Model\UserModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Model\OrderModel;
@@ -384,7 +385,7 @@ class BusinessController extends Controller
     {
         $num = BusinessOrderModel::orderBy('created_at', 'desc')->first(['order_no']);
 
-        $orderNo = 'B' . substr(Common::makeOrderNo(is_null($num) ? 'A2018101800001' : $num->order_no), 1);
+        $orderNo = 'ST' . substr(Common::makeOrderNo(is_null($num) ? 'ST2018101800001' : $num->order_no), 1);
         //构造数据
         $data = [];
         $data = [
@@ -405,7 +406,7 @@ class BusinessController extends Controller
         //构造数据
         $datas = [];
         $datas = [
-            'order_no' => 'O' . substr($orderNos, 1),
+            'order_no' => 'O' . $orderNos,
             'operator' => 'Admin',
             'total_count' => $orderSnap['allCount'],
             'pruchase_order_no' => $orderNo,
@@ -424,6 +425,33 @@ class BusinessController extends Controller
             'create_time' => $res['created_at']
         ];
 
+    }
+
+    public function users (Request $request) {
+
+        $data = str_replace(' ', '', $request->input('value'));
+
+        $data = htmlspecialchars(strip_tags(trim($data)));
+
+        if (empty($data)) {
+            throw new ParamsException([
+                'code' => 200,
+                'message' => '搜索内容不能为空'
+            ]);
+        }
+
+        $res = \App\Http\Model\UsersModel::with(['manys' => function ($q) {
+            $q->where('default','=',1);
+        }])
+            ->select('id', 'name', 'email', 'role')
+            ->where('name', 'like','%'. $data . '%')
+            ->where('status','=',1)
+            ->whereIn('role',[2,3,4])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+
+        return Common::successData($res);
     }
 
 //    public function exportExcel ()

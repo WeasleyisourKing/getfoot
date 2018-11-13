@@ -536,7 +536,7 @@
                     $('#create').html(`<strong>创建时间: </strong> ${res.data.created_at}`);
                     $('#puser').html(`<strong>采购人: </strong> ${res.data.name}`);
                     $('#orderStatus').html(`<strong>订单状态: </strong><span class="label label-pink">${word}</span>`);
-                    $('#totalPrice').html(`$${totalPrice}`);
+                    $('#totalPrice').html(`$${totalPrice.toFixed(2)}`);
 
 
                     @if (in_array(Auth::user()->role,$auth))

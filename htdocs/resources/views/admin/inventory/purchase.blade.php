@@ -332,7 +332,7 @@
         </div>
     </div><!---- End 查看 ---->
     <script type="text/javascript">
-
+        $('#name').val('{{ Auth::user()->username }}');
         $('#supplier').val('');
         window.count = 0;
         $('#start').click(function() {

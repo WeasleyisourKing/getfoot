@@ -500,7 +500,7 @@
                             var middle = (res.data.purchase[i].products.price * res.data.purchase[i].count).toFixed(2);
                             totalPrice += Number(middle);
                             var dates = res.data.status == 1?(res.data.purchase[i].overdue == null ? `<input class="form-control datepickers" id="datepicker" data-date-format="yyyy-mm-dd"
-                                placeholder="批次过期时间 选填" value="" name="editdate" readonly="readonly" type="text">`: `<input class="form-control datepickers" data-date-format="yyyy-mm-dd"
+                                 value="" name="editdate" readonly="readonly" type="text">`: `<input class="form-control datepickers" data-date-format="yyyy-mm-dd"
                               name="editdate" value="${res.data.purchase[i].overdue}" readonly="readonly" id="datepicker" type="text">`):(res.data.purchase[i].overdue == null ?"":res.data.purchase[i].overdue);
                             var Num = res.data.status == 1?`<input type="text" data-id="${res.data.purchase[i].products.id}" name="editcount" class="form-control" readonly="readonly" value="${res.data.purchase[i].count}">`:res.data.purchase[i].count;
 

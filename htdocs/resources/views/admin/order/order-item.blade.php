@@ -258,7 +258,7 @@
                                                 <td class="exce">{{ $item->total_price }}</td>
                                                 <td class="exce">{{ $item->created_at }}</td>
                                                 <td class="exce">{{ $item->status }}</td>
-                                                
+
                                                 <td class="exce">
                                                     <a title="查看订单" id="info" data-id="{{$item->id}}"
                                                        class="btn btn-small btn-success"

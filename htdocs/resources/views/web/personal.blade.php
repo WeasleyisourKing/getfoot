@@ -861,7 +861,7 @@
 											<div class="oderPro_2">$ <span></span></div>
 											<div class="oderPro_2">$ <span>${allOrder[i].total_price}</span></div>
 											<div class="oderPro_2 oderPro_2_but">
-												<div class="but1" style="display :${(allOrder[i].status)=='2'?'auto':'none'}" onclick="comment(${allOrder[i].id})">${LanguageHtml("立即付款","Place Order")}</div>
+												<div class="but1" style="display :${(allOrder[i].status)=='2'?'auto':'none'}" onclick="comment(${allOrder[i].id})">${LanguageHtml("查看订单","view order")}</div>
 											</div>
 										</div>
 										<div class="clearfloat oderPro_2_time">
@@ -1001,7 +1001,7 @@
 						<div>
 							${projectlist}
 						</div>
-                        <div class="payment am-u-sm-12 clearfloat">
+                        <div class="payment am-u-sm-12 clearfloat"style="display:none">
                         <button type="button"data_router="${'/order/confirm/'+{{Auth()->guard("pc")->user()->id}}}"  data-order_no="${res.details.order_no}" data-totalprice="${res.details.total_price}" id="buttonpay" onclick="buttonpay('${data}')" class="am-btn am-btn-danger btn-loading-example">${LanguageHtml('付款','payment')}</button>
                         </div>
                         <div class="receivingAddress">
@@ -1469,7 +1469,7 @@
     		});
 	}
 	$("#myOderStatus").click(function(){
-		$(".personalList li").eq(5).click()
+		$(".personalList li").eq(2).click()
 	})
 </script>
 

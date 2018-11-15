@@ -173,10 +173,18 @@ class StockController extends Controller
         if (preg_match('/^[\x7f-\xff]+$/', $data)) {
 
             $res = ProductModel::searchName($data);
+
+        } else if (preg_match('/^[0-9]*$/', $data)) {
+
+            $res = ProductModel::searchSKU($data);
+
         } else {
 
-            //sku
-            $res = ProductModel::searchSKU($data);
+            $res = ProductModel::with('distributor')
+                ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'shelves','price')
+                ->where('en_name', 'like','%'. $data . '%')
+                ->orderBy('created_at', 'desc')
+                ->get();
         }
 
 

@@ -12,7 +12,7 @@
         </label>
         <small class="text-muted">必填</small>
 
-        <input type="text" id="name" class="form-control" placeholder="采购人姓名">
+        <input type="text" id="name" readonly="readonly" class="form-control" placeholder="采购人姓名">
     </div>
 
     <div class="form-group col-lg-4">

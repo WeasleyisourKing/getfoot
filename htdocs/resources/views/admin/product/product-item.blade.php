@@ -108,6 +108,20 @@
                             <text style="font-weight: 400;" id="psummary"></text>
                         </label>
                     </div>
+                    <div class="form-group" style="width:300px;margin-bottom: 20px;">
+                        <label class="control-label">批次：<span style="color:red;"></span></label>
+                        <select class="form-control" id="datede" onchange="funci(this);">
+                            {{--<option value="1">1</option>--}}
+                            {{--<option value="2">2</option>--}}
+                            {{--<option value="3">3</option>--}}
+                            {{--<option value="4">4</option>--}}
+                            {{--<option value="5">5</option>--}}
+                        </select>
+                        <label class="control-label">过期时间：
+
+                            <text style="font-weight: 400;"id="datedeText" ></text>
+                        </label>
+                    </div>
                 </div>
 
             </div>
@@ -1018,6 +1032,7 @@
                                                        data-number="每箱数量{{$item->number}}"
                                                        data-company="{{ $item->zn_number }}（{{ $item->en_number }}）"
                                                        data-weight="{{$item->weight}} {{ $item->zn_weight }}（{{ $item->en_weight }}）"
+                                                       data-date="{{$item->date}}"
                                                             {{--data-netWeight="{{$item->net_weight}} 克（g）"--}}
                                                             {{--  data-attr="{{$item->attr}} "--}}
                                                     >
@@ -1094,11 +1109,34 @@
             $('#pterm').text($(event).attr('data-term'));
             $('#pcreated_at').text($(event).attr('data-created_at'));
             $('#pcompany').text($(event).attr('data-company'));
+
+            var dates = '', dd = JSON.parse($(event).attr('data-date'));
+
+            if (dd > 0) {
+
+                for (let i in dd) {
+                    var mid = dd[i].overdue != null ? dd[i].overdue : '未填写';
+                    dates += `<option value="${mid}">${dd[i].info.order_no}</option>`;
+                }
+
+                $('#datede').html(dates);
+                $('#datedeText').html(dd[0].overdue != null ? dd[0].overdue : '未填写');
+
+            } else {
+                $('#datede').html('');
+                $('#datedeText').text('');
+            }
+
+
 //            $('#pnet_weight').text($(event).attr('data-netWeight'));
             $('#view-product').modal('toggle');
 
 
         }
+        var funci = function (event) {
+            $('#datedeText').text($(event).val());
+        }
+
     </script>
 
     <script>

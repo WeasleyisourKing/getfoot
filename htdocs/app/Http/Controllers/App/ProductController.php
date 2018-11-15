@@ -292,14 +292,14 @@ class ProductController extends Controller
             return view('app.productList', ['product' => '']);
         }
 
-        if (preg_match('/^[0-9a-zA_Z]+$/', $search)) {
+        if (!preg_match('/^[\x7f-\xff]+$/', $search)) {
             // 1 英文
             $data = ProductModel::with(['distributor', 'category'])
                 ->select(DB::raw("CASE stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name'"),
                     'id','en_name','product_image','stock','category_id','status')
                 ->where('en_name', 'like', '%' . $search . '%')
                 ->where('status', '=', 1)
-                ->orderBy('created_at', 'desc')
+                ->orderBy('stock', 'desc')
                 ->get();
         } else {
             // 0 中文
@@ -308,7 +308,7 @@ class ProductController extends Controller
                     'id','en_name','product_image','stock','category_id','status')
                 ->where('zn_name', 'like', '%' . $search . '%')
                 ->where('status', '=', 1)
-                ->orderBy('created_at', 'desc')
+                ->orderBy('stock', 'desc')
                 ->get();
         }
 

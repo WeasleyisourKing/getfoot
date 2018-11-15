@@ -275,14 +275,25 @@ class ProductController extends Controller
     {
         $search = htmlspecialchars(strip_tags(trim($request->input('search'))));
 
-        $data = ProductModel::with(['distributor', 'category'])
-            ->select(DB::raw("CASE stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name',
-                CASE stock WHEN 0 THEN CONCAT('【Sold out】',en_name) ELSE en_name END as 'en_name'"),
-                'id', 'category_id', 'product_image', 'status', 'stock')
-            ->where('zn_name', 'like', '%' . $search . '%')
-            ->where('status', '=', 1)
-            ->orderBy('created_at', 'desc')
-            ->get();
+        if (!preg_match('/^[\x7f-\xff]+$/', $search)) {
+            // 1 英文
+            $data = ProductModel::with(['distributor', 'category'])
+                ->select(DB::raw("CASE stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name'"),
+                    'id','en_name','product_image','stock','category_id','status')
+                ->where('en_name', 'like', '%' . $search . '%')
+                ->where('status', '=', 1)
+                ->orderBy('stock', 'desc')
+                ->get();
+        } else {
+            // 0 中文
+            $data = ProductModel::with(['distributor', 'category'])
+                ->select(DB::raw("CASE stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name'"),
+                    'id','en_name','product_image','stock','category_id','status')
+                ->where('zn_name', 'like', '%' . $search . '%')
+                ->where('status', '=', 1)
+                ->orderBy('stock', 'desc')
+                ->get();
+        }
 //        dd($data->toArray());
 
         return view('web.together', ['product' => $data]);

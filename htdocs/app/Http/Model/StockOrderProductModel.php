@@ -21,6 +21,11 @@ class StockOrderProductModel extends Model
     	return $this->belongsTo('App\Http\Model\distributorModel', 'product_id', 'id');
     }
 
+    //关联商品和品牌关系 一对一
+    public function info ()
+    {
+        return $this->belongsTo('App\Http\Model\StockOrderModel', 'order_id', 'id');
+    }
 
 
 }

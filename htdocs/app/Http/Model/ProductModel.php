@@ -19,54 +19,55 @@ class ProductModel extends Model
 
 
     //关联主题区和图片关系 一对一
-    public function hot ()
+    public function hot()
     {
 
         return $this->belongsTo('App\Http\Model\FineProductModel', 'id', 'product_id');
     }
 
     //关联主题区和图片关系 一对一
-    public function shelves ()
+    public function shelves()
     {
 
-        return $this->belongsTo('App\Http\Model\ShelvesModel', 'shelves','id');
+        return $this->belongsTo('App\Http\Model\ShelvesModel', 'shelves', 'id');
     }
 
     //关联商品和分类关系 一对一
-    public function category ()
+    public function category()
     {
 
         return $this->belongsTo('App\Http\Model\CategoryModel', 'category_id', 'id');
     }
 
     //关联商品和分类关系 一对一
-    public function info ()
+    public function info()
     {
         return $this->belongsTo('App\Http\Model\StockOrderProductModel', 'id', 'product_id');
     }
+
     //关联商品和分类关系 一对多
-    public function image ()
+    public function image()
     {
 
         return $this->hasMany('App\Http\Model\ImageProductModel', 'product_id', 'id');
     }
 
     //关联商品和品牌关系 一对一
-    public function brand ()
+    public function brand()
     {
 
         return $this->belongsTo('App\Http\Model\BrandModel', 'brand_id', 'id');
     }
 
     //关联商品和分销商关系 一对一
-    public function distributor ()
+    public function distributor()
     {
 
         return $this->belongsTo('App\Http\Model\DistributorModel', 'id', 'product_id');
     }
 
     //关联主题和商品关系 多对多
-    public function products ()
+    public function products()
     {
 
         return $this->belongsToMany('App\Http\Model\ThemeModel', 'theme_product',
@@ -75,20 +76,27 @@ class ProductModel extends Model
     }
 
     //关联商品和属性关系 一对多
-    public function attr ()
+    public function attr()
     {
 
         return $this->hasMany('App\Http\Model\AttrProductModel', 'product_id', 'id');
     }
 
     //评论回复 一对多
-    public function message ()
+    public function message()
     {
         return $this->hasMany('App\Http\Model\MessageModel', 'product_id', 'id');
     }
 
+    // 一对多
+    public function date()
+    {
+
+        return $this->hasMany('App\Http\Model\StockOrderProductModel', 'product_id', 'id');
+    }
+
     //获取商品列表
-    public static function getCategoryProductList ($id)
+    public static function getCategoryProductList($id)
     {
 
         return self::with(['distributor', 'category'])
@@ -101,7 +109,7 @@ class ProductModel extends Model
     }
 
     //获取某商品全部信息
-    public static function getShopById ($id)
+    public static function getShopById($id)
     {
 
         return self::with(['attr' => function ($query) {
@@ -115,8 +123,8 @@ class ProductModel extends Model
         }])
             ->select(DB::raw("CASE stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name',
                 CASE stock WHEN 0 THEN CONCAT('【Sold out】',en_name) ELSE en_name END as 'en_name'"),
-                'id','product_image','stock','sku','price','status','summary','category_id','brand_id','en_describe',
-                'zn_describe','number','zn_weight','en_weight','zn_number','en_number','weight','shelves','term','net_weight','zn_net_weight',
+                'id', 'product_image', 'stock', 'sku', 'price', 'status', 'summary', 'category_id', 'brand_id', 'en_describe',
+                'zn_describe', 'number', 'zn_weight', 'en_weight', 'zn_number', 'en_number', 'weight', 'shelves', 'term', 'net_weight', 'zn_net_weight',
                 'en_net_weight')
             ->where('id', '=', $id)
             ->where('status', '=', 1)
@@ -124,17 +132,17 @@ class ProductModel extends Model
     }
 
     //获取某些商品信息
-    public static function getProduct ($arr)
+    public static function getProduct($arr)
     {
-        return self::with('distributor','shelves')
-            ->select(['id', 'sku', 'price', 'stock', 'zn_name','en_name', 'product_image', 'status', 'shelves','innersku','number'])
+        return self::with('distributor', 'shelves')
+            ->select(['id', 'sku', 'price', 'stock', 'zn_name', 'en_name', 'product_image', 'status', 'shelves', 'innersku', 'number'])
             ->whereIn('id', $arr)
             ->get()
             ->toArray();
     }
 
     //获取库存商品列表
-    public static function getStockProduct ($limit)
+    public static function getStockProduct($limit)
     {
 
         return self::select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'shelves')
@@ -145,12 +153,17 @@ class ProductModel extends Model
 
 
     //获取商品列表
-    public static function getProductList ($status, $arr, $limit)
+    public static function getProductList($status, $arr, $limit)
     {
-        return self::with(['category', 'brand', 'distributor'])
+        return self::with(['category', 'brand', 'distributor', 'date' => function ($q) {
+            $q->with(['info' => function ($qu) {
+                $qu->select('id', 'order_no');
+            }])->select('product_id', 'order_id', 'overdue')
+                ->where('status', '=', 1)
+                ->orderBy('created_at', 'desc');
+        }])
             ->select('id', 'sku', 'zn_name', 'price', 'en_name', 'product_image', 'stock',
-                'innersku','status', 'summary', 'number', 'zn_number', 'en_number', 'weight', 'zn_weight', 'en_weight', 'net_weight', 'zn_net_weight', 'en_net_weight', 'created_at', 'category_id', 'brand_id', 'term', 'created_at')
-            ->where($arr)
+                'innersku', 'status', 'summary', 'number', 'zn_number', 'en_number', 'weight', 'zn_weight', 'en_weight', 'net_weight', 'zn_net_weight', 'en_net_weight', 'created_at', 'category_id', 'brand_id', 'term', 'created_at')->where($arr)
             ->where('status', '=', $status)
             ->orderBy('created_at', 'desc')
             ->paginate($limit);
@@ -158,11 +171,18 @@ class ProductModel extends Model
     }
 
     //获取全部商品列表
-    public static function getProductAll ($arr, $limit)
+    public static function getProductAll($arr, $limit)
     {
-        return self::with(['category', 'brand', 'distributor'])
+        return self::with(['category', 'brand', 'distributor', 'date' => function ($q) {
+            $q->with(['info' => function ($qu) {
+                $qu->select('id', 'order_no');
+            }])->select('product_id', 'order_id', 'overdue')
+                ->where('status', '=', 1)
+                ->orderBy('created_at', 'desc');
+
+        }])
             ->select('id', 'sku', 'zn_name', 'price', 'en_name', 'product_image', 'stock',
-                'innersku','status', 'summary', 'number', 'zn_number', 'en_number', 'weight', 'zn_weight', 'en_weight', 'net_weight', 'zn_net_weight', 'en_net_weight', 'created_at', 'category_id', 'brand_id', 'term', 'created_at')
+                'innersku', 'status', 'summary', 'number', 'zn_number', 'en_number', 'weight', 'zn_weight', 'en_weight', 'net_weight', 'zn_net_weight', 'en_net_weight', 'created_at', 'category_id', 'brand_id', 'term', 'created_at')
             ->where($arr)
             ->orderBy('created_at', 'desc')
             ->paginate($limit);
@@ -170,7 +190,7 @@ class ProductModel extends Model
     }
 
     //获取商品列表
-    public static function getProductListTheme ($status, $arr, $limit)
+    public static function getProductListTheme($status, $arr, $limit)
     {
         return self::with(['category', 'brand', 'products'])
             ->select('id', 'sku', 'zn_name', 'price', 'en_name', 'product_image', 'stock',
@@ -183,7 +203,7 @@ class ProductModel extends Model
     }
 
     //获取全部商品列表
-    public static function getProductAllTheme ($arr, $limit)
+    public static function getProductAllTheme($arr, $limit)
     {
         return self::with(['category', 'brand', 'products'])
             ->select('id', 'sku', 'zn_name', 'price', 'en_name', 'product_image', 'stock',
@@ -195,7 +215,7 @@ class ProductModel extends Model
     }
 
     //获取某些商品信息
-    public static function getProductById ($id)
+    public static function getProductById($id)
     {
         return self::with(['attr' => function ($query) {
             $query->with('attrValue');
@@ -205,21 +225,21 @@ class ProductModel extends Model
     }
 
     //商品名唯一
-    public static function uniqueProduct ($name)
+    public static function uniqueProduct($name)
     {
         return self::where('zn_name', '=', $name)->first();
 
     }
 
     //商品名唯一
-    public static function uniqueSKU ($sku)
+    public static function uniqueSKU($sku)
     {
         return self::where('sku', '=', $sku)->first();
 
     }
 
     //商品名唯一
-    public static function uniqueP ($id, $name)
+    public static function uniqueP($id, $name)
     {
         return self::where('zn_name', '=', $name)
             ->where('id', '!=', $id)
@@ -228,7 +248,7 @@ class ProductModel extends Model
     }
 
     //商品名唯一
-    public static function uniqueS ($id, $sku)
+    public static function uniqueS($id, $sku)
     {
         return self::where('sku', '=', $sku)
             ->where('id', '!=', $id)
@@ -237,7 +257,7 @@ class ProductModel extends Model
     }
 
     //插入新的商品
-    public static function insertProduct ($data, $arr, $res)
+    public static function insertProduct($data, $arr, $res)
     {
         //涉及多表 使用事务控制
         DB::beginTransaction();
@@ -273,7 +293,7 @@ class ProductModel extends Model
     }
 
     //修改商品
-    public static function updateProductInfo ($id, $data, $distributor)
+    public static function updateProductInfo($id, $data, $distributor)
     {
         DB::beginTransaction();
         try {
@@ -290,7 +310,7 @@ class ProductModel extends Model
     }
 
     //修改商品
-    public static function updateProductAndImgInfo ($id, $data, $arr, $distributor)
+    public static function updateProductAndImgInfo($id, $data, $arr, $distributor)
     {
         //涉及多表 使用事务控制
         DB::beginTransaction();
@@ -325,7 +345,7 @@ class ProductModel extends Model
     }
 
     //批量上下架商品
-    public static function batchProduct ($arr, $data)
+    public static function batchProduct($arr, $data)
     {
 
         return self::whereIn('id', $arr)
@@ -333,7 +353,7 @@ class ProductModel extends Model
     }
 
     //删除商品
-    public static function delProduct ($id)
+    public static function delProduct($id)
     {
 
         //涉及多表 使用事务控制
@@ -368,7 +388,7 @@ class ProductModel extends Model
     }
 
     //修改商品库存
-    public static function updateStock ($data)
+    public static function updateStock($data)
     {
 
         DB::beginTransaction();
@@ -403,7 +423,7 @@ class ProductModel extends Model
     }
 
     //修改商品库存
-    public static function updateStockSub ($data)
+    public static function updateStockSub($data)
     {
 
         DB::beginTransaction();
@@ -427,34 +447,34 @@ class ProductModel extends Model
     }
 
     //查询商品
-    public static function searchName ($data)
+    public static function searchName($data)
     {
         return self::with('distributor')
-            ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'shelves','price')
-            ->where('zn_name', 'like','%'. $data . '%')
+            ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'shelves', 'price')
+            ->where('zn_name', 'like', '%' . $data . '%')
             ->orderBy('created_at', 'desc')
             ->get();
     }
 
     //查询商品
-    public static function searchSKU ($data)
+    public static function searchSKU($data)
     {
         return self::with('distributor')
-            ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'shelves','price')
-            ->where('sku', 'like', '%'.$data . '%')
+            ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'shelves', 'price')
+            ->where('sku', 'like', '%' . $data . '%')
             ->orderBy('created_at', 'desc')
             ->get();
     }
 
 
     //修改货架
-    public static function updateShelves ($id, $data)
+    public static function updateShelves($id, $data)
     {
         return self::where('id', '=', $id)->update($data);
     }
 
     //商品货架唯一
-    public static function uniqueShelves ($id, $shelves)
+    public static function uniqueShelves($id, $shelves)
     {
         return self::where('shelves', '=', $shelves)
             ->where('id', '!=', $id)
@@ -463,7 +483,7 @@ class ProductModel extends Model
     }
 
     //修改商品库存
-    public static function updateProductStock ($orderId)
+    public static function updateProductStock($orderId)
     {
 
         DB::beginTransaction();

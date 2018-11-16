@@ -109,6 +109,34 @@
         </div>
     </div>
 
+    <div id="admin" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Admin密码修改</h4>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label class="control-label">密码 </label>
+                        <input type="password" id="epasswdAdmin" class="form-control" required="required" value=""/>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                        <button type="button"  data-id="1" onclick="efunb1(this);"
+                                class="btn btn-primary waves-effect waves-light"><i class="fa fa-save"></i> Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-sm-12">
             <h4 class="pull-left page-title">用户管理</h4>
@@ -256,6 +284,7 @@
                                                             <i class="icon fa fa-trash-o"> </i>
                                                         </a>
                                                     @else
+                                                        @if ((Auth::user()->role != 1))
                                                         <a disabled="disabled" title="修改信息"
                                                            href="javascript:return false;" onclick="return false;"
                                                            class="btn btn-small btn-info"
@@ -271,6 +300,23 @@
                                                            style="cursor: not-allowed;">
                                                             <i class="icon fa fa-trash-o"> </i>
                                                         </a>
+                                                        @else
+                                                            <a title="修改信息" onclick="edit1(this);"
+                                                               class="btn btn-small btn-info"
+                                                               data-id="{{$item->id}}"
+                                                               data-name="{{$item->username}}" data-role="{{$item->role}}"
+                                                               data-status="{{$item->status}}"
+                                                               href="javascript:void(0);">
+                                                                <i class="icon fa fa-pencil"> </i>
+                                                            </a>
+                                                            <a disabled="disabled" title="删除"
+                                                               class="btn btn-small btn-danger"
+                                                               href="javascript:return false;" onclick="return false;"
+                                                               data-id="{{$item->id}}"
+                                                               style="cursor: not-allowed;">
+                                                                <i class="icon fa fa-trash-o"> </i>
+                                                            </a>
+                                                        @endif
                                                     @endif
 
 
@@ -433,6 +479,10 @@
 
             $('#edit').modal('toggle');
         }
+
+        var edit1 = function (event) {
+            $('#admin').modal('toggle');
+        }
         //修改
         var efunb = function (event) {
 
@@ -458,7 +508,29 @@
                 }
             })
         }
+        //修改
+        var efunb1= function (event) {
 
+
+            var datas = {
+                'id': 1,
+                'passwd': $('#epasswdAdmin').val(),
+                '_token': '{{csrf_token()}}'
+            };
+
+            $.post('/manager/modify/admin', datas, function (res) {
+
+                if (res.status) {
+                    alertify.success('修改成功');
+                    window.location.href='/admin';
+//                    setTimeout(function () {
+//                        location.reload();
+//                    }, 1500);
+                } else {
+                    alertify.alert(res.message);
+                }
+            })
+        }
         //删除
         var del = function (event) {
 

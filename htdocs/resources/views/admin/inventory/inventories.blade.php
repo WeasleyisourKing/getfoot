@@ -135,7 +135,7 @@
             <div class="panel">
                 <div class="panel-body">
                     <!-- 数据表 -->
-                    <table class="table table-bordered table-striped display" id="datatable-buttons">
+                    <table class="table table-bordered table-striped display" id="example">
                         <thead>
                         <tr>
                             <th class="exce">商品名称</th>
@@ -191,12 +191,12 @@
                                 </td>
                                 {{--<!-- 操作按钮 -->--}}
                                 {{--<td class="actions exce">--}}
-                                    {{--<!---- 查看按钮 ---->--}}
-                                    {{--<button class="btn-sm btn-success waves-effect waves-light edit-item-btn"--}}
-                                            {{--data-toggle="modal" data-target="#view-item-modal" data-id="{{$item->id}}"--}}
-                                            {{--onclick="sse(this);"><i class="fa fa-eye"></i></button><!---- End 编辑按钮 ---->--}}
-                                    {{--<!---- 删除按钮 ---->--}}
-                                    {{--<button class="btn-sm btn-danger waves-effect waves-light delete-item-btn" data-id="{{$item->id}}" onclick="del(this);"><i class="fa fa-trash"></i></button><!---- End 删除按钮 ---->--}}
+                                {{--<!---- 查看按钮 ---->--}}
+                                {{--<button class="btn-sm btn-success waves-effect waves-light edit-item-btn"--}}
+                                {{--data-toggle="modal" data-target="#view-item-modal" data-id="{{$item->id}}"--}}
+                                {{--onclick="sse(this);"><i class="fa fa-eye"></i></button><!---- End 编辑按钮 ---->--}}
+                                {{--<!---- 删除按钮 ---->--}}
+                                {{--<button class="btn-sm btn-danger waves-effect waves-light delete-item-btn" data-id="{{$item->id}}" onclick="del(this);"><i class="fa fa-trash"></i></button><!---- End 删除按钮 ---->--}}
                                 {{--</td><!-- 操作按钮 -->--}}
                             </tr>
                         @endforeach
@@ -349,7 +349,7 @@
                 var code = e.keyCode || e.charCode;
                 if (code == 13) {
                     window.data = [];
-                     window.sum = 0;
+                    window.sum = 0;
 
 //                    window.shelve = [];
                     $("input[name='dataStock']").each(function () {
@@ -389,7 +389,7 @@
 
                         $.post('/stock/product/deal', {
                             'data': window.data,
-                            'count' : window.sum,
+                            'count': window.sum,
 //                            'shelve': window.shelve,
                             '_token': '{{csrf_token()}}'
                         }, function (res) {
@@ -413,11 +413,17 @@
             }
         });
 
-//PDF打印按钮
-//	    $("datatable-buttons_wrapper").ready(()=>{
-//	    		$("#datatable-buttons_wrapper .dt-buttons a").eq(3).hide();
-//	    		console.log("chengg")
-//	    })
+        //PDF打印按钮
+        //	    $("datatable-buttons_wrapper").ready(()=>{
+        //	    		$("#datatable-buttons_wrapper .dt-buttons a").eq(3).hide();
+        //	    		console.log("chengg")
+        //	    })
     </script>
 
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+
+    </script>
 @endsection

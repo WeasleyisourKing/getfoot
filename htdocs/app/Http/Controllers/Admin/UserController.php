@@ -483,6 +483,28 @@ class UserController extends Controller
         return Common::successData();
     }
 
+    public function managerModifyAdmin (Request $request)
+    {
+
+        $params = $request->all();
+
+        //修改了密码
+        if (!empty($password = htmlspecialchars(strip_tags(trim($params['passwd']))))) {
+            $data['password'] = bcrypt($password);
+        }
+
+        //修改信息
+        $res = AdminModel::updateAdminInfo($params['id'], $data);
+
+        if (!$res) {
+            throw new ParamsException([
+                'code' => 200,
+                'message' => '密码不能与原先一致'
+            ]);
+        }
+        Auth()->logout();
+        return Common::successData();
+    }
     /**
      * //删除管理员接口
      * @param Request $request

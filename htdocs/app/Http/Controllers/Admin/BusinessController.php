@@ -57,6 +57,7 @@ class BusinessController extends Controller
 
         $res = BusinessOrderModel::getOrderList($statusData, $limit);
 
+//        dump($res->toArray());
         return view('admin.business.business-order', [
             'data' => $res,
             'title' => $title,
@@ -109,7 +110,7 @@ class BusinessController extends Controller
 
 //        $originPrice = round(($res['total_price'] - $res['freight']) / (1 + $res['tax']), 2) * $res['tax'];
 
-
+//dump($ress);
         return view('admin.business.order-detail',
             [
                 'data' => $ress,
@@ -156,10 +157,10 @@ class BusinessController extends Controller
                 $this->Plevel = 'price';
                 break;
             case 2 :
-                $this->Plevel = 'level_one_price';
+                $this->Plevel = 'level_two_price';
                 break;
             case 3 :
-                $this->Plevel = 'level_two_price';
+                $this->Plevel = 'level_one_price';
                 break;
             case 4 :
                 $this->Plevel = 'level_three_price';
@@ -167,6 +168,7 @@ class BusinessController extends Controller
             default :
                 $this->Plevel = 'level_four_price';
         }
+
         return $this->place($params, $uProducts);
     }
 
@@ -324,7 +326,7 @@ class BusinessController extends Controller
             $pStatus['count'] = $uCount;
             $pStatus['singlePrice'] = $this->Plevel != 'price' ? $product['distributor'][$this->Plevel] : $product[$this->Plevel];
             $pStatus['image'] = $product['product_image'];
-            $pStatus['totalPrice'] = $this->Plevel != 'price' ? $product['distributor'][$this->Plevel] : $product[$this->Plevel];
+            $pStatus['totalPrice'] =  $this->Plevel != 'price' ? $uCount * $product['distributor'][$this->Plevel] : $uCount * $product[$this->Plevel];
             $pStatus['innersku'] = $product['innersku'];
             $pStatus['shelves'] = $product['shelves']['name'];
             $pStatus['number'] = $product['number'];
@@ -385,11 +387,11 @@ class BusinessController extends Controller
     {
         $num = BusinessOrderModel::orderBy('created_at', 'desc')->first(['order_no']);
 
-        $orderNo = 'ST' . substr(Common::makeOrderNo(is_null($num) ? 'ST2018101800001' : $num->order_no), 1);
+        $orderNo =  Common::makeOrderNo(is_null($num) ? 'ST2018101800001' : $num->order_no);
         //构造数据
         $data = [];
         $data = [
-            'order_no' => $orderNo,
+            'order_no' => 'ST' . $orderNo,
             'users_id' => 0,
             'total_price' => $orderSnap['orderPrice'],
             'total_count' => $orderSnap['allCount'],

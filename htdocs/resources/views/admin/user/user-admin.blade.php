@@ -259,7 +259,7 @@
                                             <tr>
 
                                                 <td class="exce">{{ $item->username }}</td>
-                                                <td class="exce">{{ $item->manys->name }}</td>
+                                                <td class="exce">{{ !empty($item->manys) ? $item->manys->name : '空'}}</td>
                                                 <td class="exce">{{ $item->login_time }}</td>
                                                 <td class="exce">{{ $item->last_ip }}</td>
                                                 @if ($item->status == 1)

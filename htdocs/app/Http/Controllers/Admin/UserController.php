@@ -70,7 +70,7 @@ class UserController extends Controller
         }
 
         $role = AdminRoleModel::get();
-
+//dump($res->toArray());
         //数据 类型  标题 状态
         return view('admin.user.user-admin', [
             'data' => $res,

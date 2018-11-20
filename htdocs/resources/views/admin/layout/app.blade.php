@@ -253,12 +253,17 @@
             use App\Http\Controllers\Common;
             use App\Http\Model\PrivilegeModel;
 
-            $role = AdminRoleModel::with('auth')->where('id', '=', Auth::user()->role)->first()->toArray();
-            $all = PrivilegeModel::whereBetween('id',[1,6])->get()->toArray();
+            $role = AdminRoleModel::with('auth')->where('id', '=', Auth::user()->role)->first();
 
+            if (!is_null($role)) {
+                $role = $role->toArray();
 
-            $role = Common::getTree(array_merge($all,$role['auth']), 0);
-//            dump($role);
+                $all = PrivilegeModel::whereBetween('id',[1,6])->get()->toArray();
+                $role = Common::getTree(array_merge($all,$role['auth']), 0);
+            } else {
+                $role = [];
+            }
+
 
             ?>
             <div id="sidebar-menu">

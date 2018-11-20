@@ -139,10 +139,10 @@
                         <thead>
                         <tr>
                             <th class="exce">商品名称</th>
-                            <th class="exce">SKU</th>
-                            <th class="exce">商品图片</th>
                             <th class="exce">最近库存变更日期</th>
                             <th class="exce">最近库存变更数量</th>
+                            <th class="exce">SKU</th>
+                            <th class="exce">商品图片</th>
                             <th class="exce">库存数量</th>
                             {{--<th class="exce">操作</th>--}}
                         </tr>
@@ -160,11 +160,6 @@
                                 {{--</div>--}}
                                 {{--</td><!---- 选择框及编号 ---->--}}
                                 <td class="exce">{{ $item->zn_name }} <br/>{{ $item->en_name }}</td>
-                                <td class="exce">{{ $item->sku }}</td>
-                                <td class="exce"><img height="100px; align=" middle"
-                                    src="{{ $item->product_image }}"
-                                    alt="没有上传"/>
-                                </td>
                                 @if(!empty($item->info))
                                     <td class="exce">{{ $item->info->created_at }}</td>
                                     @if ($item->info->status != 1)
@@ -176,6 +171,12 @@
                                     <td class="exce">暂时没有变更</td>
                                     <td class="exce">暂时没有变更</td>
                                 @endif
+                                <td class="exce">{{ $item->sku }}</td>
+                                <td class="exce"><img height="100px; align=" middle"
+                                    src="{{ $item->product_image }}"
+                                    alt="没有上传"/>
+                                </td>
+
 
                                 <td class="exce">
                                     <div class="col-md-12">

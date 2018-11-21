@@ -136,14 +136,14 @@
 
                     <ul class="nav navbar-nav navbar-right pull-right">
                         <li class="dropdown hidden-xs">
-                            <a href="#" data-target="#" class="dropdown-toggle waves-effect" data-toggle="dropdown"
-                               aria-expanded="true">
-                                <i class="md md-notifications"></i>
+                            {{--<a href="#" data-target="#" class="dropdown-toggle waves-effect" data-toggle="dropdown"--}}
+                               {{--aria-expanded="true">--}}
+                                {{--<i class="md md-notifications"></i>--}}
 
-                                <!-- Notification 数量 -->
-                                <span class="badge badge-xs badge-danger">数量</span>
+                                {{--<!-- Notification 数量 -->--}}
+                                {{--<span class="badge badge-xs badge-danger">数量</span>--}}
 
-                            </a>
+                            {{--</a>--}}
                             <ul class="dropdown-menu dropdown-menu-lg">
                                 <li class="text-center notifi-title">消息</li>
                                 <li class="list-group">
@@ -286,7 +286,7 @@
                                <?php continue; ?>
                                 @else
                                 <li>
-                                    <a id="select{{$item['id']}}" href="{{$item['origin_route']}}" class="waves-effect waves-light "><i class="md md-home"></i>
+                                    <a id="select{{$item['id']}}" href="{{$item['origin_route']}}" class="waves-effect waves-light "><i class="{{$item['icon']}}"></i>
                                         <span>{{$item['name']}}</span>
                                     </a>
                                 </li>

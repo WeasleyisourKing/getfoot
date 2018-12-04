@@ -39,7 +39,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function productCategory ($status, $limit)
+    public function productCategory($status, $limit)
     {
 
 
@@ -71,7 +71,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function categoryLevel ($id, $status, $limit)
+    public function categoryLevel($id, $status, $limit)
     {
 
         $statusData = ($status != -1) ? [$status] : [1, 2];
@@ -91,13 +91,13 @@ class ProductController extends Controller
      * @param Request $request
      * @return null
      */
-    public function discount ($status, $limit)
+    public function discount($status, $limit)
     {
 
         $statusData = ($status != -1) ? [$status] : [1, 2];
 
-        $data = DiscountModel::with(['info' => function($query) {
-            $query->select('discount_id')->where('status','=',1);
+        $data = DiscountModel::with(['info' => function ($query) {
+            $query->select('discount_id')->where('status', '=', 1);
         }])->whereIn('status', $statusData)->orderBy('created_at', 'desc')->paginate($limit);
 
 //        ->select('discount.id,discount.zn_name,discount.stock,discount.status,discount.type,discount.rcent')
@@ -124,7 +124,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function productBrand ($status, $limit)
+    public function productBrand($status, $limit)
     {
 
         $statusData = ($status != -1) ? [$status] : [1, 2];
@@ -147,7 +147,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function productMessage ($status, $limit)
+    public function productMessage($status, $limit)
     {
 
 //        dd(23);
@@ -169,7 +169,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function productList ($status, $category, $brand, $limit)
+    public function productList($status, $category, $brand, $limit)
     {
 
         $arr = [
@@ -245,7 +245,7 @@ class ProductController extends Controller
 
 
     //递归
-    public function getTree ($data, $pId, $level = 0, $html = '---')
+    public function getTree($data, $pId, $level = 0, $html = '---')
     {
 
         $tree = [];
@@ -267,7 +267,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function productModify (Request $request)
+    public function productModify(Request $request)
     {
 
         $id = $request->input('id');
@@ -311,7 +311,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function categoryEditor (Request $request)
+    public function categoryEditor(Request $request)
     {
 
         (new CategoryRule)->goCheck(200);
@@ -348,7 +348,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function categoryInsert (Request $request)
+    public function categoryInsert(Request $request)
     {
 
         (new CategoryRule)->goCheck(200);
@@ -385,7 +385,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function categoryDel (Request $request)
+    public function categoryDel(Request $request)
     {
 
         $id = $request->input('id');
@@ -401,7 +401,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function brandEditor (Request $request)
+    public function brandEditor(Request $request)
     {
 
         (new BrandRule)->goCheck(200);
@@ -436,7 +436,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function brandInsert (Request $request)
+    public function brandInsert(Request $request)
     {
 
         (new BrandRule)->goCheck(200);
@@ -473,7 +473,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function brandDel (Request $request)
+    public function brandDel(Request $request)
     {
 
         $id = $request->input('id');
@@ -486,7 +486,7 @@ class ProductController extends Controller
     /**
      * 回复用户留言
      */
-    public function replyMessage (Request $request)
+    public function replyMessage(Request $request)
     {
 
         (new ReplyRule)->goCheck(200);
@@ -509,7 +509,7 @@ class ProductController extends Controller
     /**
      * 获取用户全部留言
      */
-    public function replyList (Request $request)
+    public function replyList(Request $request)
     {
 
         $params = $request->all();
@@ -526,7 +526,7 @@ class ProductController extends Controller
     /**
      * 删除留言接口
      */
-    public function messageDel (Request $request)
+    public function messageDel(Request $request)
     {
 
         $params = $request->all();
@@ -559,7 +559,7 @@ class ProductController extends Controller
     }
 
     //获取留言未读条数
-    public function unread ()
+    public function unread()
     {
         $res = MessageModel::unread();
 
@@ -571,7 +571,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function productRevise (Request $request)
+    public function productRevise(Request $request)
     {
 
         (new ProductRule)->goCheck(200);
@@ -612,7 +612,7 @@ class ProductController extends Controller
             'number' => $params['number'],
             'weight' => $params['weight'],
             'status' => $params['status'],
-            'shelves' => $params['shelves'],
+//            'shelves' => $params['shelves'],
 //            'net_weight' => $params['net_weight'],
 //            'zn_net_weight' => '克',
 //            'en_net_weight' => 'g',
@@ -640,11 +640,19 @@ class ProductController extends Controller
                 $arr[]['link'] = $items[0];
             }
 
+                $shelves = !empty($params['shelves']) ? array_column($params['shelves'], 'shelves_id') : null;
 
-            ProductModel::updateProductAndImgInfo($params['id'], $data, $arr, $distributor);
+
+                ProductModel::updateProductAndImgInfo($params['id'], $data,$arr, $distributor, $shelves);
+
+
         } else {
-            ProductModel::updateProductInfo($params['id'], $data, $distributor);
+
+            $shelves = !empty($params['shelves']) ? array_column($params['shelves'], 'shelves_id') : null;
+            ProductModel::updateProductInfo($params['id'], $data, $distributor, $shelves);
+
         }
+
 
         //商品属性
         if (!empty($params['attribute'])) {
@@ -664,7 +672,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function productEstablish (Request $request)
+    public function productEstablish(Request $request)
     {
 
 
@@ -708,7 +716,7 @@ class ProductController extends Controller
             'number' => $params['number'],
             'weight' => $params['weight'],
             'status' => $params['status'],
-            'shelves' => $params['shelves'],
+//            'shelves' => $params['shelves'],
 //            'net_weight' => $params['net_weight'],
 //            'zn_net_weight' => '克',
 //            'en_net_weight' => 'g',
@@ -718,6 +726,10 @@ class ProductController extends Controller
             'en_number' => ltrim(strstr($params['numberUnit'], '|'), '|')
 
         ];
+
+//        if (!empty($params['shelves'])) {
+//            $data['shelves'] =  $params['shelves'];
+//        }
 
 //        dd($data);
         //判断图片
@@ -737,8 +749,12 @@ class ProductController extends Controller
             'level_three_price' => $params['three_price'],
             'level_four_price' => $params['four_price']
         ];
-        $pId = ProductModel::insertProduct($data, $arr, $distributor);
+        if (!empty($params['shelves'])) {
 
+            $pId = ProductModel::insertProduct($data, $arr, $distributor, array_column($params['shelves'], 'shelves_id'));
+        } else {
+            $pId = ProductModel::insertProduct($data, $arr, $distributor, $shelves = null);
+        }
         //商品属性
         if (!empty($params['attribute'])) {
 
@@ -750,7 +766,7 @@ class ProductController extends Controller
     }
 
     //递归过滤xss
-    public function dataFilter ($arr)
+    public function dataFilter($arr)
     {
         if (!is_array($arr))
             return '';
@@ -771,7 +787,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function productUp (Request $request)
+    public function productUp(Request $request)
     {
 
         $arr = $request->input('arr');
@@ -791,7 +807,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function productDown (Request $request)
+    public function productDown(Request $request)
     {
 
         $arr = $request->input('arr');
@@ -811,7 +827,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function productDel (Request $request)
+    public function productDel(Request $request)
     {
 
         $id = $request->input('id');
@@ -826,7 +842,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function categoryLevelInsert (Request $request)
+    public function categoryLevelInsert(Request $request)
     {
 
         (new CategoryRule)->goCheck(200);
@@ -867,7 +883,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function categoryLevelEditor (Request $request)
+    public function categoryLevelEditor(Request $request)
     {
 
         (new CategoryRule)->goCheck(200);
@@ -905,7 +921,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function discountInsert (Request $request)
+    public function discountInsert(Request $request)
     {
 
 
@@ -941,8 +957,7 @@ class ProductController extends Controller
 
         }
 
-         DiscountModel::insertDiscount($data, $data['stock']);
-
+        DiscountModel::insertDiscount($data, $data['stock']);
 
 
         return Common::successData();
@@ -953,7 +968,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function discountEditor (Request $request)
+    public function discountEditor(Request $request)
     {
 
         (new DiscountRule)->goCheck(200);
@@ -1002,13 +1017,13 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function discountSee (Request $request)
+    public function discountSee(Request $request)
     {
 
         $id = $request->input('id');
 
-        $data = UsersDiscountModel::with(['order' => function($query){
-            $query->select('discount_id','order_no');
+        $data = UsersDiscountModel::with(['order' => function ($query) {
+            $query->select('discount_id', 'order_no');
         }])->where('discount_id', '=', $id)->get();
 
 //        dd($data->toArray());
@@ -1020,7 +1035,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function discountDel (Request $request)
+    public function discountDel(Request $request)
     {
 
         $id = $request->input('id');
@@ -1035,7 +1050,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function scoreCategory (Request $request)
+    public function scoreCategory(Request $request)
     {
 
         $data = $request->input('data');
@@ -1054,7 +1069,7 @@ class ProductController extends Controller
                 ]);
             }
         }
-         CategoryModel::updateScoreCategory($data);
+        CategoryModel::updateScoreCategory($data);
 
         return Common::successData();
     }

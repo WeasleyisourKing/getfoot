@@ -288,6 +288,7 @@ class StockController extends Controller
         $data = [
             'name' => $name,
             'number' => htmlspecialchars(strip_tags(trim($params['number']))),
+            'remark' => $params['remark'],
             'status' => $params['status']
         ];
 
@@ -325,6 +326,7 @@ class StockController extends Controller
             'name' => $name,
             'number' => htmlspecialchars(strip_tags(trim($params['number']))),
             'status' => $params['status'],
+            'remark' => $params['remark'],
         ];
 
 

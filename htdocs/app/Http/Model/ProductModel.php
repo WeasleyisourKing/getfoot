@@ -26,11 +26,11 @@ class ProductModel extends Model
     }
 
     //关联主题区和图片关系 一对一
-    public function shelves()
-    {
-
-        return $this->belongsTo('App\Http\Model\ShelvesModel', 'shelves', 'id');
-    }
+//    public function shelves()
+//    {
+//
+//        return $this->belongsTo('App\Http\Model\ShelvesModel', 'shelves', 'id');
+//    }
 
     //关联商品和分类关系 一对一
     public function category()
@@ -72,6 +72,14 @@ class ProductModel extends Model
 
         return $this->belongsToMany('App\Http\Model\ThemeModel', 'theme_product',
             'product_id', 'theme_id');
+
+    }
+
+    //关联主题和商品关系 多对多
+    public function shelves()
+    {
+        return $this->belongsToMany('App\Http\Model\ShelvesModel', 'product_shelves',
+            'product_id', 'shelves_id');
 
     }
 
@@ -217,7 +225,7 @@ class ProductModel extends Model
     //获取某些商品信息
     public static function getProductById($id)
     {
-        return self::with(['attr' => function ($query) {
+        return self::with(['shelves', 'attr' => function ($query) {
             $query->with('attrValue');
         }])
             ->where('id', '=', $id)
@@ -257,11 +265,12 @@ class ProductModel extends Model
     }
 
     //插入新的商品
-    public static function insertProduct($data, $arr, $res)
+    public static function insertProduct($data, $arr, $res, $shelves)
     {
         //涉及多表 使用事务控制
         DB::beginTransaction();
         try {
+
             //插入product表
             $obj = new self($data);
             $obj->save();
@@ -275,6 +284,16 @@ class ProductModel extends Model
                 $p['updated_at'] = date('Y-m-d H:i:s', time());
             }
             (new ImageProductModel)->insert($arr);
+
+            if (!is_null($shelves)) {
+                $she = [];
+                foreach ($shelves as $ps) {
+                    array_push($she, ['product_id' => $obj->id, 'shelves_id' => $ps]);
+
+                }
+                (new ProductShelvesModel)->insert($she);
+            }
+
 
             //插入distributor表
             $res['product_id'] = $obj->id;
@@ -293,7 +312,7 @@ class ProductModel extends Model
     }
 
     //修改商品
-    public static function updateProductInfo($id, $data, $distributor)
+    public static function updateProductInfo($id, $data, $distributor, $shelves)
     {
         DB::beginTransaction();
         try {
@@ -301,7 +320,18 @@ class ProductModel extends Model
 
             self::where('id', '=', $id)->update($data);
 
+
+            if (!is_null($shelves)) {
+                ProductShelvesModel::where('product_id', '=', $id)->delete();
+                $she = [];
+                foreach ($shelves as $ps) {
+                    array_push($she, ['product_id' => $id, 'shelves_id' => $ps]);
+
+                }
+                (new ProductShelvesModel)->insert($she);
+            }
             DB::commit();
+
         } catch (\Exception $ex) {
             DB::rollBack();
             //记录日志
@@ -310,11 +340,12 @@ class ProductModel extends Model
     }
 
     //修改商品
-    public static function updateProductAndImgInfo($id, $data, $arr, $distributor)
+    public static function updateProductAndImgInfo($id, $data, $arr, $distributor, $shelves)
     {
         //涉及多表 使用事务控制
         DB::beginTransaction();
         try {
+
             //插入product表
             self::where('id', '=', $id)->update($data);
 
@@ -331,6 +362,16 @@ class ProductModel extends Model
                 $p['updated_at'] = date('Y-m-d H:i:s', time());
             }
             $obj->insert($arr);
+
+            if (!is_null($shelves)) {
+                ProductShelvesModel::where('product_id', '=', $id)->delete();
+                $she = [];
+                foreach ($shelves as $ps) {
+                    array_push($she, ['product_id' => $id, 'shelves_id' => $ps]);
+
+                }
+                (new ProductShelvesModel)->insert($she);
+            }
 
             (new DistributorModel)->where('product_id', '=', $id)->update($distributor);
 

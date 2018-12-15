@@ -103,6 +103,12 @@ class ProductModel extends Model
         return $this->hasMany('App\Http\Model\StockOrderProductModel', 'product_id', 'id');
     }
 
+    //商品过期日期 一对一
+    public function overdue()
+    {
+        return $this->belongsTo('App\Http\Model\stockOrderProductModel', 'id', 'product_id');
+    }
+
     //获取商品列表
     public static function getCategoryProductList($id)
     {
@@ -490,7 +496,9 @@ class ProductModel extends Model
     //查询商品
     public static function searchName($data)
     {
-        return self::with('distributor')
+        return self::with(['shelves' => function ($q){
+            $q->select('name');
+        }],'distributor')
             ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'shelves', 'price')
             ->where('zn_name', 'like', '%' . $data . '%')
             ->orderBy('created_at', 'desc')
@@ -500,7 +508,9 @@ class ProductModel extends Model
     //查询商品
     public static function searchSKU($data)
     {
-        return self::with('distributor')
+        return self::with(['shelves' => function ($q){
+            $q->select('name');
+        }],'distributor')
             ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'shelves', 'price')
             ->where('sku', 'like', '%' . $data . '%')
             ->orderBy('created_at', 'desc')

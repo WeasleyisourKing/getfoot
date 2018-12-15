@@ -17,6 +17,15 @@ class ShelvesModel extends Model
 
         return $this->hasMany('App\Http\Model\ProductModel', 'brand_id', 'id');
     }
+    // 多对多
+    public function goods()
+    {
+
+        return $this->belongsToMany('App\Http\Model\ProductModel', 'product_shelves',
+            'shelves_id', 'product_id');
+
+    }
+
 
     //获取品牌列表
     public static function getBrandList ($status, $limit)
@@ -37,11 +46,61 @@ class ShelvesModel extends Model
             ->first();
 
     }
+    public static function updateShelveInfo ($shelves,$productId) {
+
+
+        DB::beginTransaction();
+        try {
+
+                ProductShelvesModel::whereIn('product_id', $productId)->delete();
+
+                $she = [];
+
+                foreach ($shelves as $ps) {
+                    foreach ($ps['data'] as $pso) {
+                        array_push($she, ['product_id' => $ps['id'], 'shelves_id' => $pso['shelves_id']]);
+                    }
+                }
+
+                (new ProductShelvesModel)->insert($she);
+
+            DB::commit();
+        }catch (\Exception $ex) {
+            DB::rollBack();
+            //记录日志
+            throw $ex;
+        }
+    }
 
     //修改品牌
-    public static function updateBrandInfo ($id, $data)
+    public static function updateBrandInfo ($id, $data,$shelves,$productId)
     {
-        return self::where('id', '=', $id)->update($data);
+
+        DB::beginTransaction();
+        try {
+            self::where('id', '=', $id)->update($data);
+
+        if (!is_null($shelves)) {
+            ProductShelvesModel::whereIn('product_id', $productId)->delete();
+
+            $she = [];
+
+            foreach ($shelves as $ps) {
+                foreach ($ps['data'] as $pso) {
+                    array_push($she, ['product_id' => $ps['id'], 'shelves_id' => $pso['shelves_id']]);
+                }
+            }
+
+            (new ProductShelvesModel)->insert($she);
+        }
+            DB::commit();
+
+
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            //记录日志
+            throw $ex;
+        }
     }
 
     //插入新的品牌

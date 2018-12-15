@@ -28,11 +28,11 @@
             入库类型
         </label>
 
-        <input type="text" id="inStock" class="form-control" readonly="readonly" value="手动入库">
-        {{-- <select class="form-control" name="" id="">
-            <option value="">入库</option>
-            <option value="">出库</option>
-        </select> --}}
+        <select class="form-control" id="inStock">
+            <option selected="selected" value="1">手动入库</option>
+            <option value="2">退货入库</option>
+        </select>
+
     </div>
 
     <div class="form-group col-lg-4">
@@ -381,12 +381,26 @@
     <!---- End 弹窗 ---->
 
     <script>
+        window.eseshelve = [];
+        window.shelves = [];
+        window.dta = '';
+            @foreach($shelves as $item) {
+            window.shelves.push({!! $item !!});
+        }
+        @endforeach
+
+
+//console.log(window.shelves);
+            for (let i in window.shelves) {
+
+            window.dta += `<option  value="${window.shelves[i].id}">${window.shelves[i].name}（${window.shelves[i].number}）</option>`;
+        }
         $('#operator').val('{{ Auth::user()->username }}');
         $('#orderId').val('');
         $('#remark').val('');
         $('#searchString').val('');
         $('#NowDate').val('当前时间');
-        $('#inStock').val('手动入库');
+
 
         window.count = 0;
         $('#start').click(function() {
@@ -414,7 +428,7 @@
         var check = function (evnet) {
             alertify.confirm("确认入库吗？", function (e) {
                 if (e) {
-                    $.get('/stock/check', {'id' : $(evnet).attr('data-id'),'status' : 1}, function (res) {
+                    $.get('/stock/check', {'id' : $(evnet).attr('data-id'),'status' : 1 }, function (res) {
                         if (res.status) {
 
                             alertify.success('入库成功');
@@ -465,9 +479,12 @@
                 'num': i,
                 'orderId': $('#orderId').val(),
                 'remark': $('#remark').val(),
+                'inStock' : $('#inStock').val(),
                 '_token': '{{csrf_token()}}'
             };
 
+            if (window.eseshelve.length > 0)
+                datas.shelves = window.eseshelve;
             $.post('/enter/stock/deal/order', datas, function (res) {
                 if (res.status) {
                     alertify.success('创建入库订单成功');
@@ -554,11 +571,17 @@
                                   <td><input type="text" data-id="${res.data.purchase[i].products.id}" name="editcount" class="form-control" readonly="readonly" value="${res.data.purchase[i].count}"></td>
                                  <td><p class="text-center "style="padding-top:5px">${res.data.purchase[i].products.stock}</p></td>
                                <td>${dates}</td>
-                            </tr>`;
+                            </tr>
 
+                `;
                         }
 
                     }
+//                <input type="text" id="etype" class="form-control" readonly="readonly" value="">
+//                <select class="form-control" id="inStock">
+//                        <option selected="selected" value="1">手动入库</option>
+//                        <option value="2">退货入库</option>
+//                        </select>
                     $('#eoperator').val(res.data.operator);
                     $('#eorderId').val(res.data.pruchase_order_no);
                     $('#date').val(res.data.created_at);
@@ -569,12 +592,19 @@
                     $('#date').attr('value',res.data.created_at);
 
                     if (res.data.type == 1) {
+
                         $('#etype').val('自动入库');
                         $('#etype').attr('value','自动入库');
                     } else {
-                        $('#etype').val('手动入库');
-                        $('#etype').attr('value','手动入库');
 
+                      if (res.data.return == 1) {
+                          $('#etype').val('手动入库');
+                          $('#etype').attr('value','手动入库');
+
+                      } else {
+                          $('#etype').val('退货入库');
+                          $('#etype').attr('value','退货入库');
+                      }
                     }
 
                     @if (in_array(Auth::user()->role,$auth))
@@ -640,6 +670,10 @@
                             ' </thead><tbody id="postContainer">';
 
                         for (let i in res.data) {
+                            var mm = '';
+                            for (let j in res.data[i].shelves) {
+                                mm +=res.data[i].shelves[j].name+ '，';
+                            }
 
                             datas += `<tr>
                                      <td class="exce">${res.data[i].zn_name}<br/>${res.data[i].en_name}</td>
@@ -653,6 +687,8 @@
                                                    <td class="exce">${res.data[i].stock}</td>
                                            <td class="exce">
                         <a title="添加商品" data-id="${res.data[i].id}" data-name="${res.data[i].zn_name}（${res.data[i].en_name}）"
+                        data-shelve="${mm}"
+
                                                        class="btn btn-small btn-success"
                                                        href="javascript:void (0);"
                                                        onclick="funOrder(this)">
@@ -675,7 +711,110 @@
                 }
             })
         }
+        window.fu = [];
+        var eshelves = function (event) {
 
+            if (window.eseshelve.length == 0) {
+                //第一次
+                var cent = '',
+                    arr = {};
+                arr = {
+                    id :  $(event).attr('data-id'),
+                    data : []
+                };
+                arr.data.push({
+                    'shelves_id': $(event).val(),
+                    'name': $(event).find("option:selected").text()
+                });
+
+                window.fu.push($(event).attr('data-id'));
+                window.eseshelve.push(arr);
+
+                for (let i in window.eseshelve[0].data) {
+                    cent += `<li id="ese${0}${i}" style="padding:10px 5px;margin:5px;flex: 1;min-width: 20%;max-width: 19%; text-align:center;background: #eee;border-radius: 5px;">${window.eseshelve[0].data[i].name} <i class="fa fa-times"onclick="deleseshelve(0,${i},${$(event).attr('data-id')})"></i></li>`;
+                }
+                $('#eselectshelve' + $(event).attr('data-id')).html(cent);
+                console.log(window.eseshelve);
+            } else {
+
+                //存在
+                //获取下标
+                var indexs = window.fu.indexOf($(event).attr('data-id')),
+                    cent = '';
+                //已经存在
+
+                if (indexs > -1) {
+                    //去重
+//                    for (let f in window.eseshelve[indexs].data) {
+//                        if (window.eseshelve[indexs].data[f].shelves_id == $(event).val()) {
+//                            console.log(window.eseshelve[indexs]);
+//                            alertify.alert('不能重复选择');
+//                            return;
+//                        }
+//                    }
+                    window.eseshelve[indexs].data.push({
+                        'shelves_id': $(event).val(),
+                        'name': $(event).find("option:selected").text()
+                    })
+
+                    for (let i in window.eseshelve[indexs].data) {
+                        cent += `<li id="ese${indexs}${i}" style="padding:10px 5px;margin:5px;flex: 1;min-width: 20%;max-width: 19%; text-align:center;background: #eee;border-radius: 5px;">${window.eseshelve[indexs].data[i].name} <i class="fa fa-times"onclick="deleseshelve(${indexs},${i},${$(event).attr('data-id')})"></i></li>`;
+                    }
+
+                    $('#eselectshelve' + $(event).attr('data-id')).html(cent);
+//                    console.log(window.eseshelve);
+
+
+                } else {
+
+                    //新一类 存在
+                    var cent = '',
+                        arrs = {};
+                    arrs = {
+                        id :  $(event).attr('data-id'),
+                        data : []
+                    };
+                    arrs.data.push({
+                        'shelves_id': $(event).val(),
+                        'name': $(event).find("option:selected").text()
+                    });
+
+                    window.fu.push($(event).attr('data-id'));
+                    window.eseshelve.push(arrs);
+
+                    for (let g in window.eseshelve) {
+                        if (window.eseshelve[g].id == $(event).attr('data-id')) {
+                            var ind = g;
+                        }
+                    }
+
+                    for (let i in window.eseshelve[ind].data) {
+                        cent += `<li  id="ese${ind}${i}" style="padding:10px 5px;margin:5px;flex: 1;min-width: 20%;max-width: 19%; text-align:center;background: #eee;border-radius: 5px;">${window.eseshelve[ind].data[i].name} <i class="fa fa-times"onclick="deleseshelve(${ind},${i},${$(event).attr('data-id')})"></i></li>`;
+                    }
+                    $('#eselectshelve' + $(event).attr('data-id')).html(cent);
+//                    console.log(window.eseshelve);
+                }
+
+            }
+
+
+        }
+        //删除选中的货架
+        var deleseshelve = function (index, i,id) {
+
+            if (window.eseshelve[index].data.length == 1) {
+
+                window.eseshelve.splice(index, 1);
+//                $("#eselectshelve" + id + ' li').remove();
+
+            } else {
+                window.eseshelve[index].data.splice(i, 1)
+
+            }
+
+            $("#ese" + index + i).remove()
+            console.log( window.eseshelve);
+        }
         window.arr = [];
         var funOrder = function (event) {
 
@@ -683,7 +822,7 @@
                 //重复添加
 
                 if (arr.indexOf($(event).attr('data-id')) == -1) {
-
+                    
                     $('#content').append(` <div class="form-group DeleteThat panel" style="padding:20px;" id='list${$(event).attr('data-id')}'>
                         <div class="input-group" >
                             <text style="line-height: 34px; width: 69%;">${$(event).attr('data-name')}</text>
@@ -702,7 +841,14 @@
 
                         </div>
 
-                    </div>`);
+                    <ul id="eselectshelve${$(event).attr('data-id')}" style="display:flex; display: -webkit-flex; flex-wrap:wrap; ">
+                        ${$(event).attr('data-shelve')}
+                      </ul>
+                       <select class="form-control" data-id='${$(event).attr('data-id')}'  onchange="eshelves(this)" >
+                        ${window.dta}
+                       </select> </div>
+
+`);
                     window.arr.push($(event).attr('data-id'));
 
                 } else {
@@ -713,6 +859,7 @@
 
 
             } else {
+
                 $('#content').append(` <div class="form-group DeleteThat panel" style="padding:20px;" id='list${$(event).attr('data-id')}'>
                         <div class="input-group" >
                             <text style="line-height: 34px; width: 69%;">${$(event).attr('data-name')}</text>
@@ -730,13 +877,19 @@
                                                     </span>    
 
                         </div>
-
+                            <ul id="eselectshelve${$(event).attr('data-id')}" style="display:flex; display: -webkit-flex; flex-wrap:wrap; ">
+                      ${$(event).attr('data-shelve')}
+                      </ul>
+                       <select class="form-control" data-id='${$(event).attr('data-id')}'  onchange="eshelves(this)" >
+                        ${window.dta}
+                       </select>
                     </div>`);
 
                 window.arr.push($(event).attr('data-id'));
 
 
             }
+
             // $(".DeleteThis").click(()=>{
             //     $(this).parents(".DeleteThat").remove();
             //     var data_id=$(this).parents(".DeleteThat")

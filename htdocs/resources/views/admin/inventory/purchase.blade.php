@@ -506,7 +506,14 @@
 
                             var innersku = res.data.purchase[i].products.innersku == null ? '' :res.data.purchase[i].products.innersku,
                                 numbers = res.data.purchase[i].products.number == null ? '' :res.data.purchase[i].products.number,
-                                shelves = res.data.purchase[i].products.shelves == null ? '' :res.data.purchase[i].products.shelves.name;
+                                shelves = '';
+
+                            if (res.data.purchase[i].products.shelves .length > 0) {
+                                for (let j in res.data.purchase[i].products.shelves) {
+                                    shelves += res.data.purchase[i].products.shelves[j].name + '，';
+                                }
+                            }
+
                             datas += `<tr>
                                 <td>${res.data.purchase[i].products.sku}</td>
                                 <td >${innersku}</td>

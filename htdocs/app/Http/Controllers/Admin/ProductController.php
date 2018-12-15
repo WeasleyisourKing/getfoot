@@ -171,7 +171,7 @@ class ProductController extends Controller
      */
     public function productList($status, $category, $brand, $limit)
     {
-
+dd(2);
         $arr = [
             'category_id' => $category,
             'brand_id' => $brand
@@ -191,7 +191,7 @@ class ProductController extends Controller
             //获取全部数据
             $res = ProductModel::getProductAll($arr, $limit);
         }
-//dump($res->toArray());
+//dd($res->toArray());
         //获取商品列表
         //获取商品分类列表
         $categorys = CategoryModel::where('id', '!=', 1)->where('status', '=', 1)->get();

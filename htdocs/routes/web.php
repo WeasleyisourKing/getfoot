@@ -436,6 +436,8 @@ Route::get('/user/role/del', 'Admin\UserController@userRoleDel');
 
 //修改管理员基本信息接口*
 Route::post('/manager/modify', 'Admin\UserController@managerModify');
+//修改Admin基本信息接口*
+Route::post('/manager/modify/admin', 'Admin\UserController@managerModifyAdmin');
 //添加管理员接口*
 Route::post('/manager/insert', 'Admin\UserController@managerInsert');
 //删除管理员接口*
@@ -560,6 +562,9 @@ Route::post('/stock/product/sub', 'Admin\StockController@productStockSub');
 Route::get('/stock/search', 'Admin\StockController@searchStock');
 //修改商品货架接口*
 Route::post('/edit/shelves', 'Admin\StockController@editShelves');
+//获取货架下所有商品接口*
+Route::get('/shelves/product', 'Admin\StockController@shelfGood');
+
 
 //修改库存接口*
 Route::post('/shelves/editor', 'Admin\StockController@shelveEditor');
@@ -613,76 +618,6 @@ Route::get('/catch/order', 'Admin\CatchController@catchOrder');
 Route::post('/catch/status', 'Admin\CatchController@catchStatus');
 //关闭或者刷新订单接口*
 Route::get('/catch/reduction', 'Admin\CatchController@catchReduction');
-
-////搜索案例信息
-//Route::get('/search/case', 'Admin\MyController@searchCase');
-//
-////获取某速配案例信息
-//Route::get('/editor/{id}', 'Admin\MyController@editorCase');
-//
-////获取智库专家某案例信息
-//Route::get('/editor/expert/{id}', 'Admin\MyController@expert');
-//
-//
-//
-////保存速配案例案例
-//Route::post('/modify', 'Admin\MyController@caseModify');
-//
-////保存专家信息
-//Route::post('/expert/modify', 'Admin\MyController@expertModify');
-//
-////获取某专家案例列表
-//Route::get('/expert', 'Admin\MyController@expertList');
-//
-////新建案例
-//Route::post('/case/insert', 'Admin\MyController@insertCase');
-//
-////新建专家
-//Route::post('/expert/insert', 'Admin\MyController@insertexpert');
-//
-////获取全部专家
-//Route::get('/expert/name', 'Admin\MyController@getExpertAll');
-//
-////TODO 活动管理
-////搜索日历活动
-//Route::get('/search/calendar', 'Admin\MyController@searchCalendar');
-//
-////获取某日历活动信息
-//Route::get('/calendar/{id}', 'Admin\MyController@getCalendar');
-//
-////修改日历活动
-//Route::post('/calendar/modify', 'Admin\MyController@modifyCalendar');
-//
-////新建日历活动
-//Route::post('/calendar/insert', 'Admin\MyController@insertCalendar');
-//
-////活动报名情况
-//Route::get('/details', 'Admin\MyController@calendarDetails');
-//
-////TODO 互动管理
-//
-////搜索福利或增值服务
-//Route::get('/welfare/search', 'Admin\MyController@searchWelfare');
-//
-////获取福利或增值服务页面
-//Route::get('/welfare/editor/{id}', 'Admin\MyController@editorWelfare');
-//
-//
-////TODO 留言管理
-//
-////获取用户全部留言
-//Route::post('/search/history', 'Admin\MyController@replyList');
-//
-////获取用户留言
-//Route::post('/user/message', 'Admin\MyController@getUserMessage');
-//
-////获取用户留言列表
-//Route::get('/search/message', 'Admin\MyController@searchMessage');
-//
-
-//
-////获取留言未读条数
-//Route::get('/unread', 'Admin\MyController@unread');
 
 
 //没有权限页面

@@ -34,7 +34,7 @@ class StockController extends Controller
      * @param Request $request
      * @return null
      */
-    public function addLibrary ($limit)
+    public function addLibrary($limit)
     {
 
         $res = ProductModel::getStockProduct($limit);
@@ -67,7 +67,7 @@ class StockController extends Controller
      * @param Request $request
      * @return null
      */
-    public function stockShelves ($limit)
+    public function stockShelves($limit)
     {
 
         $res = ProductModel::getStockProduct($limit);
@@ -84,7 +84,7 @@ class StockController extends Controller
      * @param Request $request
      * @return null
      */
-    public function productStock (Request $request)
+    public function productStock(Request $request)
     {
 
         (new StockRule)->goCheck(200);
@@ -104,7 +104,7 @@ class StockController extends Controller
      * @param Request $request
      * @return null
      */
-    public function productStockSub (Request $request)
+    public function productStockSub(Request $request)
     {
 
         (new StockRule)->goCheck(200);
@@ -157,7 +157,7 @@ class StockController extends Controller
      * @param Request $request
      * @return null
      */
-    public function searchStock (Request $request)
+    public function searchStock(Request $request)
     {
         $data = str_replace(' ', '', $request->input('value'));
 
@@ -179,10 +179,12 @@ class StockController extends Controller
             $res = ProductModel::searchSKU($data);
 
         } else {
-
-            $res = ProductModel::with('distributor')
-                ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'shelves','price')
-                ->where('en_name', 'like','%'. $data . '%')
+//            'shelves'
+            $res = ProductModel::with(['shelves' => function ($q){
+                $q->select('name');
+            }],'distributor')
+                ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'shelves', 'price')
+                ->where('en_name', 'like', '%' . $data . '%')
                 ->orderBy('created_at', 'desc')
                 ->get();
         }
@@ -193,15 +195,39 @@ class StockController extends Controller
     }
 
     //货架管理
-    public function Stock1 ()
+    public function Stock1()
     {
         $res = ShelvesModel::get();
+        $shelves = ShelvesModel::select('id', 'name', 'number')->get();
+//        dump($shelves);
+        return view('admin.inventory.shelves',
+            [
+                'res' => $res,
+                'shelves' => $shelves
+            ]
+        );
+    }
 
-        return view('admin.inventory.shelves', ['res' => $res]);
+    //货架商品接口
+    public function shelfGood(Request $request)
+    {
+
+        $id = $request->get('id');
+        $res = ShelvesModel::with(['goods' => function ($q) {
+            $q->with(['overdue' => function ($qe) {
+                $qe->select('product_id', 'overdue')
+                    ->where('status', '=', 1)
+                    ->orderBy('created_at', 'desc');
+            }, 'shelves'])->select('en_name', 'zn_name', 'stock', 'id', 'sku');
+        }])->where('id', '=', $id)->first();
+
+//        dd($res);
+        return Common::successData($res);
+
     }
 
     //库存列表
-    public function Stock2 ()
+    public function Stock2()
     {
         $res = ProductModel::with('info')
             ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock')
@@ -214,28 +240,29 @@ class StockController extends Controller
     }
 
     //入库 34
-    public function Stock3 ()
+    public function Stock3()
     {
         $res = StockOrderModel::where('status', '=', 1)->get();
+        $shelves = ShelvesModel::get();
 
         $auth = array_column(PrivilegeRoleModel::where('privilege_id', '=', 34)
             ->get(['role_id'])
             ->toArray(), 'role_id');
 
-        return view('admin.inventory.instock', ['res' => $res, 'auth' => $auth]);
+        return view('admin.inventory.instock', ['res' => $res, 'auth' => $auth, 'shelves' => $shelves]);
     }
 
     //出库 35
-    public function Stock4 ()
+    public function Stock4()
     {
         //获取全部数据
         $res = StockOrderModel::where('status', '=', 2)->get();
 
         $arr = [];
         foreach ($res as &$val) {
-            $value = substr($val->pruchase_order_no,0,2);
+            $value = substr($val->pruchase_order_no, 0, 2);
             if (!empty($value) && $value == 'ST') {
-                array_push($arr,$val);
+                array_push($arr, $val);
                 unset($val);
             }
         }
@@ -252,7 +279,7 @@ class StockController extends Controller
     }
 
     //采购 36
-    public function Stock5 ()
+    public function Stock5()
     {
         $res = PurchaseOrderModel::orderBy('order_no', 'desc')->get();
 
@@ -269,7 +296,7 @@ class StockController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function shelveEditor (Request $request)
+    public function shelveEditor(Request $request)
     {
 
         (new ShelveRule)->goCheck(200);
@@ -292,11 +319,10 @@ class StockController extends Controller
             'status' => $params['status']
         ];
 
-        $res = ShelvesModel::updateBrandInfo($params['id'], $data);
+//        dd($params['shelves']);
+        $shelves = !empty($params['shelves']) ? array_column($params['shelves'], 'id') : null;
 
-        if (!$res) {
-            throw new \Exception('服务器内部错误');
-        }
+        ShelvesModel::updateBrandInfo($params['id'], $data, $params['shelves'], $shelves);
 
         return Common::successData();
     }
@@ -306,7 +332,7 @@ class StockController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function shelveInsert (Request $request)
+    public function shelveInsert(Request $request)
     {
 
         (new ShelveRule)->goCheck(200);
@@ -345,7 +371,7 @@ class StockController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function shelveDel (Request $request)
+    public function shelveDel(Request $request)
     {
 
         $id = $request->input('id');
@@ -357,7 +383,7 @@ class StockController extends Controller
 
 
     //创建订单接口
-    public function placeOrder (Request $request)
+    public function placeOrder(Request $request)
     {
 
         (new OrderRule)->goCheck(200);
@@ -387,7 +413,7 @@ class StockController extends Controller
     // 创建订单时没有预扣除库存量，简化处理
     // 如果预扣除了库存量需要队列支持，且需要使用锁机制
     //因为插入2张表 使用事务
-    private function createOrder ($orderSnap, $uProducts)
+    private function createOrder($orderSnap, $uProducts)
     {
 
         $num = PurchaseOrderModel::orderBy('created_at', 'desc')->first(['order_no']);
@@ -416,7 +442,7 @@ class StockController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function orderDel (Request $request)
+    public function orderDel(Request $request)
     {
 
         $id = $request->input('id');
@@ -431,7 +457,7 @@ class StockController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function orderBatchDel (Request $request)
+    public function orderBatchDel(Request $request)
     {
         $arr = $request->input('arr');
 
@@ -450,7 +476,7 @@ class StockController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function orderDeal (Request $request)
+    public function orderDeal(Request $request)
     {
 
         $id = $request->input('id');
@@ -477,7 +503,7 @@ class StockController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function stockPut (Request $request)
+    public function stockPut(Request $request)
     {
 
         $params = $request->all();
@@ -555,7 +581,7 @@ class StockController extends Controller
     }
 
     //写入数据库
-    private function createStockOrder ($id, $orderId, $uProducts, $number, $state = null)
+    private function createStockOrder($id, $orderId, $uProducts, $number, $state = null)
     {
 
         $num = StockOrderModel::where('status', '=', 1)->orderBy('created_at', 'desc')->first(['order_no']);
@@ -587,7 +613,7 @@ class StockController extends Controller
     }
 
     //创建订单接口
-    public function enterPlaceOrder (Request $request)
+    public function enterPlaceOrder(Request $request)
     {
 
         (new OrderRule)->goCheck(200);
@@ -619,8 +645,15 @@ class StockController extends Controller
             'pruchase_order_no' => htmlspecialchars(strip_tags(trim($params['orderId']))),
             'remark' => htmlspecialchars(strip_tags(trim($params['remark']))),
             'status' => 1,
-            'type' => 2
+            'type' => 2,
+            'return' => $params['inStock']
         ];
+        $shelves = !empty($params['shelves']) ? array_column($params['shelves'], 'id') : null;
+
+        if (!is_null($shelves)) {
+            ShelvesModel::updateShelveInfo($params['shelves'], $shelves);
+        }
+
 
         $res = StockOrderModel::insertInOrder(null, $data, $params['uproducts']);
 
@@ -633,7 +666,7 @@ class StockController extends Controller
     // 创建订单时没有预扣除库存量，简化处理
     // 如果预扣除了库存量需要队列支持，且需要使用锁机制
     //因为插入2张表 使用事务
-    private function entercreateOrder ($orderSnap, $uProducts)
+    private function entercreateOrder($orderSnap, $uProducts)
     {
 
         $num = StockOrderModel::where('status', '=', 1)->orderBy('created_at', 'desc')->first(['order_no']);
@@ -673,7 +706,7 @@ class StockController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function enterOrderDel (Request $request)
+    public function enterOrderDel(Request $request)
     {
 
         $id = $request->input('id');
@@ -688,7 +721,7 @@ class StockController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function enterOrderBatchDel (Request $request)
+    public function enterOrderBatchDel(Request $request)
     {
         $arr = $request->input('arr');
 
@@ -707,7 +740,7 @@ class StockController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function enterOrderDeal (Request $request)
+    public function enterOrderDeal(Request $request)
     {
 
         $id = $request->input('id');
@@ -730,7 +763,7 @@ class StockController extends Controller
     }
 
     //创建订单接口
-    public function outPlaceOrder (Request $request)
+    public function outPlaceOrder(Request $request)
     {
 
         (new OrderRule)->goCheck(200);
@@ -781,7 +814,7 @@ class StockController extends Controller
     // 创建订单时没有预扣除库存量，简化处理
     // 如果预扣除了库存量需要队列支持，且需要使用锁机制
     //因为插入2张表 使用事务
-    private function outcreateOrder ($orderSnap, $uProducts)
+    private function outcreateOrder($orderSnap, $uProducts)
     {
 
         $num = StockOrderModel::where('status', '=', 2)->orderBy('created_at', 'desc')->first(['order_no']);
@@ -829,7 +862,7 @@ class StockController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function outOrderDeal (Request $request)
+    public function outOrderDeal(Request $request)
     {
 
         $id = $request->input('id');
@@ -852,7 +885,7 @@ class StockController extends Controller
     }
 
     //自动出库
-    public static function stockOut ($id, $orderID, $totalCount)
+    public static function stockOut($id, $orderID, $totalCount)
     {
 
         $productId = OrderProductModel::where('order_id', '=', $id)->get(['product_id', 'count'])->toArray();
@@ -896,7 +929,7 @@ class StockController extends Controller
      * @param Request $request
      * @return null
      */
-    public function productStockDeal (Request $request)
+    public function productStockDeal(Request $request)
     {
 
         (new StockRule)->goCheck(200);
@@ -944,7 +977,7 @@ class StockController extends Controller
      * @param Request $request
      * @return null
      */
-    public function stockCheck ($id, $status, $num)
+    public function stockCheck($id, $status, $num)
     {
         //入库确定
         $data = StockOrderProductModel::where('order_id', '=', $id)->get(['product_id', 'count'])->toArray();
@@ -992,7 +1025,7 @@ class StockController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function stockInConfirm (Request $request)
+    public function stockInConfirm(Request $request)
     {
 
         $params = $request->all();
@@ -1043,7 +1076,7 @@ class StockController extends Controller
     }
 
 
-    public function stockOutConfirm (Request $request)
+    public function stockOutConfirm(Request $request)
     {
 
         $params = $request->all();

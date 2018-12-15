@@ -519,8 +519,7 @@
                         <div class="form-group">
                             <label class="control-label">商品所属货架</label>
                             <ul id="eselectshelve" style="display:flex; display: -webkit-flex; flex-wrap:wrap; ">
-                                <li>1</li>
-                                <li>2</li>
+
                             </ul>
                             <select class="form-control" id="eshelves">
 
@@ -1665,7 +1664,7 @@
                 //
                 var data6 = '';
                 for (let i in res.data.res.shelves) {
-                    data6 += `<li>${res.data.res.shelves[i].name}</li>`;
+                    data6 += `<li>${res.data.res.shelves[i].name}，</li>`;
                 }
                 $('#eselectshelve').html(data6);
                 //                    var data5 = '';

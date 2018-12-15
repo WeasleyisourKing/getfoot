@@ -39,7 +39,7 @@
                                     class="red">＊</span></label>
                         <select class="form-control" id="role" onchange="change(this);">
                             @foreach($arr as $item)
-                                <option  value="{{$item->id}}">{{$item->name}}</option>
+                                <option value="{{$item->id}}">{{$item->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -54,15 +54,15 @@
                     </div>
 
                     {{--<div class="form-group">--}}
-                        {{--<label class="control-label" for="integral">积分<span--}}
-                                    {{--class="red">＊</span></label>--}}
-                        {{--<div class="controls">--}}
-                            {{--<input type="text" name="integral" id="integral" class="form-control"--}}
-                                   {{--value="" required="required"/>--}}
-                        {{--</div>--}}
+                    {{--<label class="control-label" for="integral">积分<span--}}
+                    {{--class="red">＊</span></label>--}}
+                    {{--<div class="controls">--}}
+                    {{--<input type="text" name="integral" id="integral" class="form-control"--}}
+                    {{--value="" required="required"/>--}}
+                    {{--</div>--}}
                     {{--</div>--}}
 
-                    <div class="form-group" >
+                    <div class="form-group">
                         <label class="col-sm-2 control-label" style="padding-left: 0;padding-top:8px; ">头像</label>
                         <div class="controls">
                             <input type="file" name="img" id="uploadfile" multiple class="file-loading"/>
@@ -217,7 +217,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group" >
+                    <div class="form-group">
                         <label class="col-sm-2 control-label" style="padding-left: 0;padding-top:8px; ">头像</label>
                         <div class="controls" id="control">
 
@@ -421,16 +421,16 @@
                         </div>
 
                         {{--<div class="col-sm-3 col-md-offset-6">--}}
-                            {{--<div class="input-group">--}}
-                                {{--<input id="example-input2-group2" name="example-input2-group2" class="form-control"--}}
-                                       {{--placeholder="Search" type="email">--}}
-                                {{--<span class="input-group-btn">--}}
-                                                    {{--<button type="button"--}}
-                                                            {{--class="btn waves-effect waves-light btn-primary">--}}
-                                                        {{--<i class="fa fa-search"></i>--}}
-                                                    {{--</button>--}}
-                                                    {{--</span>--}}
-                            {{--</div>--}}
+                        {{--<div class="input-group">--}}
+                        {{--<input id="example-input2-group2" name="example-input2-group2" class="form-control"--}}
+                        {{--placeholder="Search" type="email">--}}
+                        {{--<span class="input-group-btn">--}}
+                        {{--<button type="button"--}}
+                        {{--class="btn waves-effect waves-light btn-primary">--}}
+                        {{--<i class="fa fa-search"></i>--}}
+                        {{--</button>--}}
+                        {{--</span>--}}
+                        {{--</div>--}}
                         {{--</div>--}}
                     </div>
                     <!-- 搜索 -->
@@ -444,129 +444,283 @@
                             <h3 class="panel-title">用户列表</h3>
                         </div>
                         <div class="panel-body">
-                            <div class="row">
+                            <div class="form-group">
+                                <ul id="myTab" class="nav nav-tabs navtab-bg ">
+                                    <li class="active">
+                                        <a href="#ordinary" data-toggle="tab">普通用户</a>
+                                    </li>
 
-                                {{--<div class="btn-group col-md-2">--}}
-                                    {{--<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"--}}
+                                    <li>
+                                        <a href="#business" data-toggle="tab">商业用户</a>
+                                    </li>
+
+                                </ul>
+
+                                <div id="myTabContent" class="tab-content">
+                                    <div class="tab-pane fade in active" id="ordinary">
+
+                                        <div class="row">
+
+                                            {{--<div class="btn-group col-md-2">--}}
+                                            {{--<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"--}}
                                             {{--aria-expanded="true">{{$limit}} <span class="caret"></span></button>--}}
-                                    {{--<ul class="dropdown-menu" role="menu">--}}
-                                        {{--<li><a id="select" href="">5条</a></li>--}}
-                                        {{--<li><a id="select10" href="">10条</a></li>--}}
-                                        {{--<li><a id="select15" href="">15条</a></li>--}}
-                                        {{--<li><a id="select20" href="">20条</a></li>--}}
-                                    {{--</ul>--}}
-                                {{--</div>--}}
-                                <div class="col-md-8"></div>
+                                            {{--<ul class="dropdown-menu" role="menu">--}}
+                                            {{--<li><a id="select" href="">5条</a></li>--}}
+                                            {{--<li><a id="select10" href="">10条</a></li>--}}
+                                            {{--<li><a id="select15" href="">15条</a></li>--}}
+                                            {{--<li><a id="select20" href="">20条</a></li>--}}
+                                            {{--</ul>--}}
+                                            {{--</div>--}}
+                                            <div class="col-md-8"></div>
 
-                            </div>
+                                        </div>
 
-                            <div class="row m-t-10">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    {{--<table class="table table-bordered">--}}
-                                    <table class="table table-bordered table-striped display" id="datatable-buttons">
-                                        <thead>
-                                        <tr>
-                                            <th class="col-md-2 col-lg-2 exce"> 名称</th>
-                                            <th class="col-md-1 col-lg-1 exce"> 性别</th>
-                                            <th class="col-md-2 col-lg-2 exce"> 头像</th>
-                                            <th class="col-md-2 col-lg-2 exce"> 注册时间</th>
-                                            <th class="col-md-2 col-lg-2 exce"> 邮箱</th>
-                                            {{--<th class="col-md-1 col-lg-1 exce"> 积分</th>--}}
+                                        <div class="row m-t-10">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                {{--<table class="table table-bordered">--}}
+                                                <table class="table table-bordered table-striped display"
+                                                       id="datatable-buttons">
+                                                    <thead>
+                                                    <tr>
+                                                        <th class="col-md-2 col-lg-2 exce"> 名称</th>
+                                                        <th class="col-md-1 col-lg-1 exce"> 性别</th>
+                                                        <th class="col-md-2 col-lg-2 exce"> 头像</th>
+                                                        <th class="col-md-2 col-lg-2 exce"> 注册时间</th>
+                                                        <th class="col-md-2 col-lg-2 exce"> 邮箱</th>
+                                                        {{--<th class="col-md-1 col-lg-1 exce"> 积分</th>--}}
 
-                                            <th class="col-md-1 col-lg-1 exce">
-                                                全部状态
-                                                {{--<div class="btn-group ">--}}
-                                                    {{--<button type="button"--}}
+                                                        <th class="col-md-1 col-lg-1 exce">
+                                                            全部状态
+                                                            {{--<div class="btn-group ">--}}
+                                                            {{--<button type="button"--}}
                                                             {{--class="btn btn-default dropdown-toggle waves-effect"--}}
                                                             {{--data-toggle="dropdown" aria-expanded="false">{{$status}}--}}
-                                                        {{--<span--}}
-                                                                {{--class="caret"></span></button>--}}
-                                                    {{--<ul class="dropdown-menu" role="menu">--}}
-                                                        {{--<li><a id="statusAll" href="javascript:void(0);">全部状态</a></li>--}}
-                                                        {{--<li><a id="statusShow" href="javascript:void(0);">激活</a></li>--}}
-                                                        {{--<li><a id="statusHide" href="javascript:void(0);">不激活</a></li>--}}
+                                                            {{--<span--}}
+                                                            {{--class="caret"></span></button>--}}
+                                                            {{--<ul class="dropdown-menu" role="menu">--}}
+                                                            {{--<li><a id="statusAll" href="javascript:void(0);">全部状态</a></li>--}}
+                                                            {{--<li><a id="statusShow" href="javascript:void(0);">激活</a></li>--}}
+                                                            {{--<li><a id="statusHide" href="javascript:void(0);">不激活</a></li>--}}
 
-                                                    {{--</ul>--}}
+                                                            {{--</ul>--}}
+                                                            {{--</div>--}}
+                                                        </th>
+                                                        <th class="col-md-2 col-lg-2 exce"> 操作</th>
+                                                    </tr>
+                                                    </thead>
+
+                                                    <tbody id="postContainer">
+                                                    @foreach ($data as $item)
+                                                        <tr>
+
+                                                            <td class="exce">{{ $item->name }}</td>
+                                                            <td class="exce">{{$item->sex}}</td>
+                                                            <td class="exce"><img height="100px; align=" middle"
+                                                                src="{{ $item->avatar }}"
+                                                                alt="没有上传"/>
+                                                            </td>
+                                                            <td class="exce">{{ $item->created_at }}</td>
+                                                            <td class="exce">{{ $item->email }}</td>
+                                                            {{--<td class="exce">{{ $item->integral }}</td>--}}
+                                                            @if ($item->status != 1)
+                                                                <td class="exce">不激活</td>
+                                                                {{--<td class="exce"><i class="icon fa fa-2x fa-times-circle"> </i></td>--}}
+                                                            @else
+                                                                {{--<td class="exce"><i class="icon fa fa-2x fa-check-circle"> </i></td>--}}
+                                                                <td class="exce">激活</td>
+                                                            @endif
+
+                                                            <td class="exce">
+
+                                                                <a title="查看用户订单" data-id="{{$item->id}}"
+                                                                   data-name="{{$item->name}}"
+                                                                   class="btn btn-small btn-success"
+                                                                   href="javascript:void (0);"
+                                                                   onclick="funOrder(this)">
+                                                                    <i class="icon fa fa-shopping-basket"> </i>
+                                                                </a>
+                                                                <a title="查看用户地址" data-id="{{$item->id}}"
+                                                                   data-name="{{$item->name}}"
+                                                                   class="btn btn-small btn-success"
+                                                                   href="javascript:void (0);"
+                                                                   onclick="funAddress(this)">
+                                                                    <i class="icon fa fa-bars"> </i>
+                                                                </a>
+                                                                <a title="修改" href="javascript:void(0); "
+                                                                   class="btn btn-small btn-info"
+                                                                   data-id="{{$item->id}}"
+                                                                   data-name="{{$item->name}}"
+                                                                   data-sex="{{$item->sex}}"
+                                                                   data-avatar="{{$item->avatar}}"
+                                                                   data-email="{{$item->email}}"
+                                                                   data-integral="{{$item->integral}}"
+                                                                   data-role="{{$item->role}}"
+
+                                                                   {{--{{dd($item->manys)}}--}}
+                                                                   data-enames="{{!empty($item->manys[0]->name) ? $item->manys[0]->name  :'' }}"
+                                                                   data-emobile="{{!empty($item->manys[0]->mobile ) ? $item->manys[0]->mobile :'' }}"
+                                                                   data-eprovince="{{!empty($item->manys[0]->province)? $item->manys[0]->province:'' }}"
+                                                                   data-ecity="{{!empty($item->manys[0]->city )? $item->manys[0]->city:'' }}"
+                                                                   data-ecountry="{{!empty($item->manys[0]->country )? $item->manys[0]->country:'' }}"
+                                                                   data-edetail="{{!empty($item->manys[0]->detail )?$item->manys[0]->detail :'' }}"
+                                                                   data-ezip="{{!empty($item->manys[0]->zip )?$item->manys[0]->zip:'' }}"
+                                                                   onclick="edit(this);">
+                                                                    <i class="icon fa fa-pencil"> </i>
+                                                                </a>
+                                                                <a title="删除" class="btn btn-small btn-danger"
+                                                                   href="javascript:void(0);" data-id="{{$item->id}}"
+                                                                   onclick="del(this);">
+                                                                    <i class="icon fa fa-trash-o"> </i>
+                                                                </a>
+
+                                                            </td>
+
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                                {{--<div style="clear: both;text-align: center;">--}}
+                                                {{--{{ $data->links() }}--}}
                                                 {{--</div>--}}
-                                            </th>
-                                            <th class="col-md-2 col-lg-2 exce"> 操作</th>
-                                        </tr>
-                                        </thead>
 
-                                        <tbody id="postContainer">
-                                        @foreach ($data as $item)
-                                            <tr>
+                                            </div>
+                                            @if(!$data->count())
+                                                <div class="col-md-12" style="text-align: center;">暂时没有数据</div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade " id="business">
+                                        <div class="row">
 
-                                                <td class="exce">{{ $item->name }}</td>
-                                                <td class="exce">{{$item->sex}}</td>
-                                                <td class="exce"><img height="100px; align=" middle" src="{{ $item->avatar }}"
-                                                    alt="没有上传"/>
-                                                </td>
-                                                <td class="exce">{{ $item->created_at }}</td>
-                                                <td class="exce">{{ $item->email }}</td>
-                                                {{--<td class="exce">{{ $item->integral }}</td>--}}
-                                                @if ($item->status != 1)
-                                                    <td class="exce">不激活</td>
-                                                    {{--<td class="exce"><i class="icon fa fa-2x fa-times-circle"> </i></td>--}}
-                                                @else
-                                                    {{--<td class="exce"><i class="icon fa fa-2x fa-check-circle"> </i></td>--}}
-                                                    <td class="exce">激活</td>
-                                                @endif
+                                            {{--<div class="btn-group col-md-2">--}}
+                                            {{--<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"--}}
+                                            {{--aria-expanded="true">{{$limit}} <span class="caret"></span></button>--}}
+                                            {{--<ul class="dropdown-menu" role="menu">--}}
+                                            {{--<li><a id="select" href="">5条</a></li>--}}
+                                            {{--<li><a id="select10" href="">10条</a></li>--}}
+                                            {{--<li><a id="select15" href="">15条</a></li>--}}
+                                            {{--<li><a id="select20" href="">20条</a></li>--}}
+                                            {{--</ul>--}}
+                                            {{--</div>--}}
+                                            <div class="col-md-8"></div>
 
-                                                <td class="exce">
+                                        </div>
 
-                                                    <a title="查看用户订单" data-id="{{$item->id}}" data-name="{{$item->name}}"
-                                                       class="btn btn-small btn-success"
-                                                       href="javascript:void (0);"
-                                                       onclick="funOrder(this)">
-                                                        <i class="icon fa fa-shopping-basket"> </i>
-                                                    </a>
-                                                    <a title="查看用户地址" data-id="{{$item->id}}" data-name="{{$item->name}}"
-                                                       class="btn btn-small btn-success"
-                                                       href="javascript:void (0);"
-                                                       onclick="funAddress(this)">
-                                                        <i class="icon fa fa-bars"> </i>
-                                                    </a>
-                                                    <a title="修改" href="javascript:void(0); "class="btn btn-small btn-info"
-                                                       data-id="{{$item->id}}"
-                                                       data-name="{{$item->name}}"
-                                                       data-sex="{{$item->sex}}"
-                                                       data-avatar="{{$item->avatar}}"
-                                                       data-email="{{$item->email}}"
-                                                       data-integral="{{$item->integral}}"
-                                                       data-role="{{$item->role}}"
+                                        <div class="row m-t-10">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                {{--<table class="table table-bordered">--}}
+                                                <table class="table table-bordered table-striped display"
+                                                       id="datatable1">
+                                                    <thead>
+                                                    <tr>
+                                                        <th class="col-md-2 col-lg-2 exce"> 名称</th>
+                                                        <th class="col-md-1 col-lg-1 exce"> 性别</th>
+                                                        <th class="col-md-2 col-lg-2 exce"> 头像</th>
+                                                        <th class="col-md-2 col-lg-2 exce"> 注册时间</th>
+                                                        <th class="col-md-2 col-lg-2 exce"> 邮箱</th>
+                                                        {{--<th class="col-md-1 col-lg-1 exce"> 积分</th>--}}
 
-                                                       {{--{{dd($item->manys)}}--}}
-                                                       data-enames="{{!empty($item->manys[0]->name) ? $item->manys[0]->name  :'' }}"
-                                                       data-emobile="{{!empty($item->manys[0]->mobile ) ? $item->manys[0]->mobile :'' }}"
-                                                       data-eprovince="{{!empty($item->manys[0]->province)? $item->manys[0]->province:'' }}"
-                                                       data-ecity="{{!empty($item->manys[0]->city )? $item->manys[0]->city:'' }}"
-                                                       data-ecountry="{{!empty($item->manys[0]->country )? $item->manys[0]->country:'' }}"
-                                                       data-edetail="{{!empty($item->manys[0]->detail )?$item->manys[0]->detail :'' }}"
-                                                       data-ezip="{{!empty($item->manys[0]->zip )?$item->manys[0]->zip:'' }}"
-                                                       onclick="edit(this);">
-                                                        <i class="icon fa fa-pencil"> </i>
-                                                    </a>
-                                                    <a title="删除" class="btn btn-small btn-danger"
-                                                       href="javascript:void(0);" data-id="{{$item->id}}"
-                                                       onclick="del(this);">
-                                                        <i class="icon fa fa-trash-o"> </i>
-                                                    </a>
+                                                        <th class="col-md-1 col-lg-1 exce">
+                                                            全部状态
+                                                            {{--<div class="btn-group ">--}}
+                                                            {{--<button type="button"--}}
+                                                            {{--class="btn btn-default dropdown-toggle waves-effect"--}}
+                                                            {{--data-toggle="dropdown" aria-expanded="false">{{$status}}--}}
+                                                            {{--<span--}}
+                                                            {{--class="caret"></span></button>--}}
+                                                            {{--<ul class="dropdown-menu" role="menu">--}}
+                                                            {{--<li><a id="statusAll" href="javascript:void(0);">全部状态</a></li>--}}
+                                                            {{--<li><a id="statusShow" href="javascript:void(0);">激活</a></li>--}}
+                                                            {{--<li><a id="statusHide" href="javascript:void(0);">不激活</a></li>--}}
 
-                                                </td>
+                                                            {{--</ul>--}}
+                                                            {{--</div>--}}
+                                                        </th>
+                                                        <th class="col-md-2 col-lg-2 exce"> 操作</th>
+                                                    </tr>
+                                                    </thead>
 
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                    {{--<div style="clear: both;text-align: center;">--}}
-                                        {{--{{ $data->links() }}--}}
-                                    {{--</div>--}}
+                                                    <tbody id="postContainer1">
+                                                    @foreach ($business as $item)
+                                                        <tr>
 
+                                                            <td class="exce">{{ $item->name }}</td>
+                                                            <td class="exce">{{$item->sex}}</td>
+                                                            <td class="exce"><img height="100px; align=" middle"
+                                                                src="{{ $item->avatar }}"
+                                                                alt="没有上传"/>
+                                                            </td>
+                                                            <td class="exce">{{ $item->created_at }}</td>
+                                                            <td class="exce">{{ $item->email }}</td>
+                                                            {{--<td class="exce">{{ $item->integral }}</td>--}}
+                                                            @if ($item->status != 1)
+                                                                <td class="exce">不激活</td>
+                                                                {{--<td class="exce"><i class="icon fa fa-2x fa-times-circle"> </i></td>--}}
+                                                            @else
+                                                                {{--<td class="exce"><i class="icon fa fa-2x fa-check-circle"> </i></td>--}}
+                                                                <td class="exce">激活</td>
+                                                            @endif
+
+                                                            <td class="exce">
+
+                                                                <a title="查看用户订单" data-id="{{$item->id}}"
+                                                                   data-name="{{$item->name}}"
+                                                                   class="btn btn-small btn-success"
+                                                                   href="javascript:void (0);"
+                                                                   onclick="funOrder(this)">
+                                                                    <i class="icon fa fa-shopping-basket"> </i>
+                                                                </a>
+                                                                <a title="查看用户地址" data-id="{{$item->id}}"
+                                                                   data-name="{{$item->name}}"
+                                                                   class="btn btn-small btn-success"
+                                                                   href="javascript:void (0);"
+                                                                   onclick="funAddress(this)">
+                                                                    <i class="icon fa fa-bars"> </i>
+                                                                </a>
+                                                                <a title="修改" href="javascript:void(0); "
+                                                                   class="btn btn-small btn-info"
+                                                                   data-id="{{$item->id}}"
+                                                                   data-name="{{$item->name}}"
+                                                                   data-sex="{{$item->sex}}"
+                                                                   data-avatar="{{$item->avatar}}"
+                                                                   data-email="{{$item->email}}"
+                                                                   data-integral="{{$item->integral}}"
+                                                                   data-role="{{$item->role}}"
+
+                                                                   {{--{{dd($item->manys)}}--}}
+                                                                   data-enames="{{!empty($item->manys[0]->name) ? $item->manys[0]->name  :'' }}"
+                                                                   data-emobile="{{!empty($item->manys[0]->mobile ) ? $item->manys[0]->mobile :'' }}"
+                                                                   data-eprovince="{{!empty($item->manys[0]->province)? $item->manys[0]->province:'' }}"
+                                                                   data-ecity="{{!empty($item->manys[0]->city )? $item->manys[0]->city:'' }}"
+                                                                   data-ecountry="{{!empty($item->manys[0]->country )? $item->manys[0]->country:'' }}"
+                                                                   data-edetail="{{!empty($item->manys[0]->detail )?$item->manys[0]->detail :'' }}"
+                                                                   data-ezip="{{!empty($item->manys[0]->zip )?$item->manys[0]->zip:'' }}"
+                                                                   onclick="edit(this);">
+                                                                    <i class="icon fa fa-pencil"> </i>
+                                                                </a>
+                                                                <a title="删除" class="btn btn-small btn-danger"
+                                                                   href="javascript:void(0);" data-id="{{$item->id}}"
+                                                                   onclick="del(this);">
+                                                                    <i class="icon fa fa-trash-o"> </i>
+                                                                </a>
+
+                                                            </td>
+
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                                {{--<div style="clear: both;text-align: center;">--}}
+                                                {{--{{ $data->links() }}--}}
+                                                {{--</div>--}}
+
+                                            </div>
+                                            @if(!$data->count())
+                                                <div class="col-md-12" style="text-align: center;">暂时没有数据</div>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
-                                @if(!$data->count())
-                                    <div class="col-md-12" style="text-align: center;">暂时没有数据</div>
-                                @endif
                             </div>
                         </div>
                     </div>
@@ -582,10 +736,10 @@
 
     <script>
 
-        $(function(){
+        $(function () {
             if ($('#role').val() != 1) {
-            $('#info').show();
-        } else {
+                $('#info').show();
+            } else {
                 $('#info').hide();
             }
 
@@ -596,7 +750,7 @@
             if ($(event).val() != 1) {
                 $('#info').show();
 
-            } else{
+            } else {
                 $('#info').hide();
             }
         }
@@ -605,16 +759,16 @@
             if ($(event).val() != 1) {
                 $('#einfo').show();
 
-            } else{
+            } else {
                 $('#einfo').hide();
             }
         }
     </script>
     <script>
 
-//        var a = 'b';
-//       var b = 'c';
-//        console.log(eval(a));
+        //        var a = 'b';
+        //       var b = 'c';
+        //        console.log(eval(a));
         //添加编辑器
         window.imgAddress = '';
         window.imgId = '';
@@ -727,7 +881,7 @@
 //                return;
 //            }
             var datas = {
-                'img_id':window.imgId,
+                'img_id': window.imgId,
                 'name': $('#name').val(),
                 'sex': $('#sex').val(),
                 'email': $('#email').val(),
@@ -739,13 +893,13 @@
 
             //加入数据
             if (datas.role != 1) {
-                    datas.names = $('#names').val();
-                    datas.mobile = $('#mobile').val();
-                    datas.province = $('#province').val();
-                    datas.city = $('#city').val();
-                    datas.country = $('#country').val();
-                    datas.detail = $('#detail').val();
-                    datas.zip = $('#zip').val();
+                datas.names = $('#names').val();
+                datas.mobile = $('#mobile').val();
+                datas.province = $('#province').val();
+                datas.city = $('#city').val();
+                datas.country = $('#country').val();
+                datas.detail = $('#detail').val();
+                datas.zip = $('#zip').val();
             }
             $.post('/user/add', datas, function (res) {
                 if (res.status) {
@@ -807,11 +961,11 @@
             var res = [];
 
             if ($(event).attr('data-avatar').length != 1) {
-                res.push (`<img class='file-preview-frame' data-fileindex='0' data-template='image' src='${$(event).attr('data-avatar')}'/>`);
+                res.push(`<img class='file-preview-frame' data-fileindex='0' data-template='image' src='${$(event).attr('data-avatar')}'/>`);
             }
 
 
-            showImage($(event).attr('data-id'),res);
+            showImage($(event).attr('data-id'), res);
 
             $('#ename').val($(event).attr('data-name'));
             $('#eemail').val($(event).attr('data-email'));
@@ -830,56 +984,56 @@
             } else {
                 $('#einfo').hide();
             }
-            $('#edit-save').attr('data-id',$(event).attr('data-id'));
+            $('#edit-save').attr('data-id', $(event).attr('data-id'));
             $('#edit').modal('toggle');
         }
         //修改
-       var efunb = function (event) {
+        var efunb = function (event) {
 
-           var datas = {
-               'id':$(event).attr('data-id'),
-               'name': $('#ename').val(),
-               'sex': $('#esex').val(),
-               'email': $('#eemail').val(),
-               'role': $('#erole').val(),
-               'integral': $('#eintegral').val(),
-               '_token': '{{csrf_token()}}'
-           };
+            var datas = {
+                'id': $(event).attr('data-id'),
+                'name': $('#ename').val(),
+                'sex': $('#esex').val(),
+                'email': $('#eemail').val(),
+                'role': $('#erole').val(),
+                'integral': $('#eintegral').val(),
+                '_token': '{{csrf_token()}}'
+            };
 
-           if ($('#epasswd').val().length > 1) {
-               res = check({'password': $('#epasswd').val()});
-               if (!res.status) {
-                   alertify.alert('密码中必须包含字母、数字、特称字符，至少8个字符');
-                   return;
-               }
-               datas.password = $('#epasswd').val();
-           }
+            if ($('#epasswd').val().length > 1) {
+                res = check({'password': $('#epasswd').val()});
+                if (!res.status) {
+                    alertify.alert('密码中必须包含字母、数字、特称字符，至少8个字符');
+                    return;
+                }
+                datas.password = $('#epasswd').val();
+            }
 
-           if (eimgAddress.length != 0) {
-               datas.img_id = eimgAddress;
+            if (eimgAddress.length != 0) {
+                datas.img_id = eimgAddress;
 
-           }
+            }
 
-           if (datas.role != 1) {
-               datas.names = $('#enames').val();
-               datas.mobile = $('#emobile').val();
-               datas.province = $('#eprovince').val();
-               datas.city = $('#ecity').val();
-               datas.country = $('#ecountry').val();
-               datas.detail = $('#edetail').val();
-               datas.zip = $('#ezip').val();
-           }
-           $.post('/user/update', datas, function (res) {
+            if (datas.role != 1) {
+                datas.names = $('#enames').val();
+                datas.mobile = $('#emobile').val();
+                datas.province = $('#eprovince').val();
+                datas.city = $('#ecity').val();
+                datas.country = $('#ecountry').val();
+                datas.detail = $('#edetail').val();
+                datas.zip = $('#ezip').val();
+            }
+            $.post('/user/update', datas, function (res) {
 
-               if (res.status) {
-                   alertify.success('修改成功');
-                   setTimeout(function () {
-                       location.reload();
-                   }, 1500);
-               } else {
-                   alertify.alert(res.message);
-               }
-           })
+                if (res.status) {
+                    alertify.success('修改成功');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1500);
+                } else {
+                    alertify.alert(res.message);
+                }
+            })
         }
 
         //删除
@@ -907,7 +1061,7 @@
     </script>
 
     <script>
-        var showImage = function (ctrlName,eimage) {
+        var showImage = function (ctrlName, eimage) {
 
             window.control = $('#euploadfile' + ctrlName);
             //添加编辑器
@@ -974,20 +1128,24 @@
 
                 if (res.status) {
                     if (res.data == null) {
-                      var j = 1;
+                        var j = 1;
                         var datas = '<div><h5 style="color: red;">该客户没有订单信息</h5></div>';
                     } else {
                         var j = 1;
                         for (let i in res.data) {
 
                             switch (res.data[i].status) {
-                                case 1 : res.data[i].status = '已支付';
+                                case 1 :
+                                    res.data[i].status = '已支付';
                                     break;
-                                case 2 : res.data[i].status = '未支付';
+                                case 2 :
+                                    res.data[i].status = '未支付';
                                     break;
-                                case 3 : res.data[i].status = '已发货';
+                                case 3 :
+                                    res.data[i].status = '已发货';
                                     break;
-                                default : res.data[i].status = '已完成';
+                                default :
+                                    res.data[i].status = '已完成';
                             }
                             datas += `<tr>
                                     <td class="exce">${j}</td>
@@ -1020,7 +1178,7 @@
                 if (res.status) {
                     if (res.data.length == 0) {
 
-                        var datas =`<th width="100%" style="text-align:center;" colspan="7">该客户没有填写地址信息</th>`;
+                        var datas = `<th width="100%" style="text-align:center;" colspan="7">该客户没有填写地址信息</th>`;
                         $('#count').text(0);
                     } else {
                         var j = 1;
@@ -1047,7 +1205,7 @@
                     $('#address').html(datas);
                     $('#addressModal').modal('toggle');
                 } else {
-                    var datas =`<th width="100%" style="text-align:center;" colspan="7">该客户没有填写地址信息</th>`;
+                    var datas = `<th width="100%" style="text-align:center;" colspan="7">该客户没有填写地址信息</th>`;
                     $('#count').text(0);
                     $('#address').html(datas);
                     $('#addressModal').modal();

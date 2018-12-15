@@ -80,6 +80,35 @@
 
         <textarea class="form-control" id="eremark" cols="30" rows="4"></textarea>
     </div>
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">货架商品</h4>
+            </div>
+            <div class="panel-body">
+
+                <!---- 添加的商品 ---->
+                <div>
+
+                    <table id="table" class="table table-bordered table-striped display">
+                        <thead>
+                        <tr>
+                            <th class=" col-md-3 col-lg-3 exce"> 商品名称</th>
+                            <th class=" col-md-2 col-lg-2 exce"> SKU</th>
+                            <th class=" col-md-1 col-lg-1 exce"> 数量</th>
+                            <th class=" col-md-2 col-lg-2 exce"> 过期时间</th>
+                            <th class=" col-md-4 col-lg-4 exce"> 商品所属货架</th>
+                        </tr>
+                        </thead>
+                        <tbody id="shelf-product-rows">
+
+                        </tbody>
+                    </table>
+                </div><!---- End 添加的商品 ---->
+
+            </div><!---- end panel-body ---->
+        </div>
+    </div>
 @endsection
 
 
@@ -237,6 +266,23 @@
     <!---- End 弹窗 ---->
 
     <script>
+
+        window.eseshelve = [];
+        window.shelves = [];
+        window.dta = '';
+            @foreach($shelves as $item) {
+            window.shelves.push({!! $item !!});
+        }
+        @endforeach
+
+
+
+            for (let i in window.shelves) {
+
+            window.dta += `<option  value="${window.shelves[i].id}">${window.shelves[i].name}（${window.shelves[i].number}）</option>`;
+        }
+
+
         //点击添加
         $('#save-item-btn').click(function () {
 
@@ -267,6 +313,39 @@
             $('#enumber').val($(event).attr('data-number'));
             $('#eremark').text($(event).attr('data-remark'));
             $('#edit-save').attr('data-id', $(event).attr('data-id'));
+            $.get('/shelves/product', {id: $(event).attr('data-id')}, function (res) {
+                if (res.status) {
+
+                    var doc = '';
+
+
+                    for (let i in res.data.goods) {
+                        var sho = '';
+                        for (let p in res.data.goods[i].shelves) {
+                            sho += `${(res.data.goods[i].shelves[p].name)}，`;
+
+                        }
+                        var midd = (res.data.goods[i].overdue == null || res.data.goods[i].overdue.overdue == null) ? '未填写' : res.data.goods[i].overdue.overdue;
+                        doc += `<tr><td class="exce">${res.data.goods[i].zn_name }</br>${res.data.goods[i].en_name}</td>
+                     <td class="exce">${res.data.goods[i].sku}</td>
+                      <td class="exce">${res.data.goods[i].stock}</td>
+                     <td class="exce">${midd}</td>
+
+
+                    <td>  <ul id="eselectshelve${res.data.goods[i].id}" style="display:flex; display: -webkit-flex; flex-wrap:wrap; ">
+                      ${sho}
+                      </ul>
+                       <select class="form-control" data-id='${res.data.goods[i].id}'  onchange="eshelves(this)" >
+                       ${window.dta}
+                       </select>
+                    </td>
+`;
+                    }
+                    $('#shelf-product-rows').html(doc);
+                } else {
+                    alertify.alert(res.message);
+                }
+            })
 
             if (1 != $(event).attr('data-status')) {
 
@@ -274,9 +353,122 @@
             } else {
                 var data = ' <option value="1" selected="selected">已满</option><option value="2">未满</option>'
             }
+
             $('#estatus').html(data);
 //        $('#edit-item-modal').modal('toggle');
         }
+
+        window.fu = [];
+        var eshelves = function (event) {
+
+            if (window.eseshelve.length == 0) {
+                //第一次
+                var cent = '',
+                    arr = {};
+                arr = {
+                    id :  $(event).attr('data-id'),
+                    data : []
+                };
+                arr.data.push({
+                    'shelves_id': $(event).val(),
+                    'name': $(event).find("option:selected").text()
+                });
+
+                window.fu.push($(event).attr('data-id'));
+                window.eseshelve.push(arr);
+
+                for (let i in window.eseshelve[0].data) {
+                    cent += `<li id="ese${0}${i}" style="padding:10px 5px;margin:5px;width: 100%; text-align:center;background: #eee;border-radius: 5px;">${window.eseshelve[0].data[i].name} <i class="fa fa-times"onclick="deleseshelve(0,${i},${$(event).attr('data-id')})"></i></li>`;
+                }
+                $('#eselectshelve' + $(event).attr('data-id')).html(cent);
+                console.log(window.eseshelve);
+            } else {
+
+                //存在
+                //获取下标
+                var indexs = window.fu.indexOf($(event).attr('data-id')),
+                cent = '';
+                //已经存在
+
+                if (indexs > -1) {
+                    //去重
+//                    for (let f in window.eseshelve[indexs].data) {
+//                        if (window.eseshelve[indexs].data[f].shelves_id == $(event).val()) {
+//                            console.log(window.eseshelve[indexs]);
+//                            alertify.alert('不能重复选择');
+//                            return;
+//                        }
+//                    }
+                    window.eseshelve[indexs].data.push({
+                        'shelves_id': $(event).val(),
+                        'name': $(event).find("option:selected").text()
+                    })
+
+                    for (let i in window.eseshelve[indexs].data) {
+                        cent += `<li id="ese${indexs}${i}" style="padding:10px 5px;margin:5px;width: 100%; text-align:center;background: #eee;border-radius: 5px;">${window.eseshelve[indexs].data[i].name} <i class="fa fa-times"onclick="deleseshelve(${indexs},${i},${$(event).attr('data-id')})"></i></li>`;
+                    }
+
+                    $('#eselectshelve' + $(event).attr('data-id')).html(cent);
+//                    console.log(window.eseshelve);
+
+
+                } else {
+
+                    //新一类 存在
+                    var cent = '',
+                        arrs = {};
+                    arrs = {
+                        id :  $(event).attr('data-id'),
+                        data : []
+                    };
+                    arrs.data.push({
+                        'shelves_id': $(event).val(),
+                        'name': $(event).find("option:selected").text()
+                    });
+
+                    window.fu.push($(event).attr('data-id'));
+                    window.eseshelve.push(arrs);
+
+                    for (let g in window.eseshelve) {
+                        if (window.eseshelve[g].id == $(event).attr('data-id')) {
+                            var ind = g;
+                        }
+                    }
+
+                    for (let i in window.eseshelve[ind].data) {
+                        cent += `<li  id="ese${ind}${i}" style="padding:10px 5px;margin:5px;width: 100%; text-align:center;background: #eee;border-radius: 5px;">${window.eseshelve[ind].data[i].name} <i class="fa fa-times"onclick="deleseshelve(${ind},${i},${$(event).attr('data-id')})"></i></li>`;
+                    }
+                    $('#eselectshelve' + $(event).attr('data-id')).html(cent);
+//                    console.log(window.eseshelve);
+                }
+
+            }
+
+
+//
+//            for (let i in window.eseshelve) {
+//                cent += `<li  style="padding:10px 5px;margin:5px;width: 100%; text-align:center;background: #eee;border-radius: 5px;">${eseshelve[i].name} <i class="fa fa-times"onclick="deleseshelve(${i},${$(event).attr('data-id')})"></i></li>`;
+//            }
+//            $('#eselectshelve' + $(event).attr('data-id')).html(cent);
+//            console.log( window.eseshelve);
+        }
+        //删除选中的货架
+        var deleseshelve = function (index, i,id) {
+
+            if (window.eseshelve[index].data.length == 1) {
+
+                window.eseshelve.splice(index, 1);
+//                $("#eselectshelve" + id + ' li').remove();
+
+            } else {
+                window.eseshelve[index].data.splice(i, 1)
+
+            }
+
+            $("#ese" + index + i).remove()
+            console.log( window.eseshelve);
+        }
+
         //修改
         var efunb = function (event) {
 
@@ -289,6 +481,11 @@
                 '_token': '{{csrf_token()}}'
             };
 
+//            console.log(window.eseshelve.length);
+//            alertwindow.eseshelve);
+            if (window.eseshelve.length > 0)
+                datas.shelves = window.eseshelve;
+//            console.log(datas);
             $.post('/shelves/editor', datas, function (res) {
                 if (res.status) {
                     alertify.success('修改货架成功');

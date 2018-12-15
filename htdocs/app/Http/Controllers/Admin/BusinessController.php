@@ -318,6 +318,7 @@ class BusinessController extends Controller
             ]);
         } else {
 
+
             $product = $products[$pIdex];
             $pStatus['id'] = $product['id'];
             $pStatus['znName'] = $product['zn_name'];
@@ -328,7 +329,7 @@ class BusinessController extends Controller
             $pStatus['image'] = $product['product_image'];
             $pStatus['totalPrice'] =  $this->Plevel != 'price' ? $uCount * $product['distributor'][$this->Plevel] : $uCount * $product[$this->Plevel];
             $pStatus['innersku'] = $product['innersku'];
-            $pStatus['shelves'] = $product['shelves']['name'];
+            $pStatus['shelves'] = $product['shelves'][0]['name'];
             $pStatus['number'] = $product['number'];
             $pStatus['haveStock'] = $product['stock'] >= $uCount ? true : false;
         }

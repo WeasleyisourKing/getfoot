@@ -18,6 +18,7 @@ use App\Rules\IdAndRoleRule;
 use App\Rules\ManagerInfoRule;
 use App\Rules\AddressRule;
 use App\Exceptions\ParamsException;
+use Illuminate\Support\Facades\DB;
 
 /**
  * 用户管理类
@@ -38,13 +39,35 @@ class UserController extends Controller
         $statusData = ($status != -1) ? [$status] : [1, 2];
 
 
-        $res = UsersModel::getUserList($statusData, $limit);
+        $res = UsersModel::with(['manys' => function ($q) {
+            $q->where('default', '=', 1);
+        }])
+            ->select('id', 'name', 'role', 'status',
+                DB::raw("(CASE sex WHEN '1' THEN '男' WHEN '2' THEN '女' END) as sex"),
+                'email', 'avatar', 'integral', 'created_at')
+            ->whereIn('status', [1, 2])
+            ->where('role','=',1)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
+
+        $business = UsersModel::with(['manys' => function ($q) {
+            $q->where('default', '=', 1);
+        }])
+            ->select('id', 'name', 'role', 'status',
+                DB::raw("(CASE sex WHEN '1' THEN '男' WHEN '2' THEN '女' END) as sex"),
+                'email', 'avatar', 'integral', 'created_at')
+            ->whereIn('status', [1, 2])
+            ->whereIn('role',[2,3,4])
+            ->orderBy('created_at', 'desc')
+            ->get();
+        //        $res = UsersModel::getUserList($statusData, $limit);
 //dd($res[0]->manys->flatten()->toArray());
         $arr = UsersRoleModel::get();
         return view('admin.user.user-user', [
             'arr' => $arr,
             'data' => $res,
+            'business' => $business,
             'status' => $status == -1 ? '全部状态' : ($status == 1 ? '激活' : '不激活'),
             'limit' => '显示' . $limit . '条'
         ]);

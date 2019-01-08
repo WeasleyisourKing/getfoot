@@ -510,7 +510,7 @@ class BusinessOrderController extends Controller
     private function createOrder ($orderSnap)
     {
         $num = BusinessOrderModel::orderBy('created_at', 'desc')->first(['order_no']);
-        $orderNo = 'B' . substr(Common::makeOrderNo(is_null($num) ? 'A2018101800001' : $num->order_no), 1);
+        $orderNo = 'ST' . substr(Common::makeOrderNo(is_null($num) ? 'ST2018101800001' : $num->order_no), 1);
 
         //构造数据
         $data = [];

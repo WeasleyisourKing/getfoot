@@ -35,9 +35,8 @@ class ProductController extends Controller
 
         //获取商品分类数据
 //        $categorys = array_slice(Common::getTree(CategoryModel::getHomePage()->toArray(), 0),0,5);
-
+//        dd(CategoryModel::getHomePage()->toArray());
         $categorys = Common::getTree(CategoryModel::getHomePage()->toArray(), 0);
-//        dd($categorys);
         //获取热销和秒杀
 //        $res = ThemeModel::getPcHomePage()->toArray();
         $res = ThemeModel::with(['products' => function ($query) {

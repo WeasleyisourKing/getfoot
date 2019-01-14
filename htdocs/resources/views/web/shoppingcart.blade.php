@@ -349,8 +349,9 @@
 		function(isConfirm){
 			if (isConfirm) {
 				delFunction(event)
+				console.log(123)
+				Valuation()
 			}
-			Valuation();
 		}
 		)
 

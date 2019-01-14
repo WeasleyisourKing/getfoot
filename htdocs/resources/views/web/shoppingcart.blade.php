@@ -6,7 +6,7 @@
         <div class="cartTitle">
             <p>
 							<script>
-								Language("我的商品!","My Product(s)")
+								Language("我的商品","My Product(s)")
 							</script>
 						</p>
         </div>
@@ -317,9 +317,9 @@
                 <p class="price unitPrice myPrice">$ <span>${product[i].price}</span></p>
                 </div>
                 <div class="am-u-sm-2 cartBut clearfloat">
-			        <div class="float_left increase but" >＋</div>
+			        <div class="float_left increase but" style="cursor:pointer " >＋</div>
                  		 <p class="productNumber myNumber number float_left ">${product[i].count}</p>
-			        <div class="float_left reduce but">－</div>
+			        <div class="float_left reduce but" style="cursor:pointer " >－</div>
             </div>
                 <div class="am-u-sm-2 cartCzBut">
                 <div class="but delete" data-id="${product[i].product_id}" onclick="delFunc(this);" style="margin-bottom: 20px;"><img src="/home/img/cart.png" alt="" /><br />${LanguageHtml('删除','Delete')}</div>
@@ -352,6 +352,8 @@
 			}
 		}
 		)
+
+		Valuation();
 //		.then((value)=>{
 //			if (value) {
 //				delFunction(event)

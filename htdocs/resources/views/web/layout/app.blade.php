@@ -417,6 +417,7 @@
 
             }
             localStorage.setItem("myCart", JSON.stringify(shop));
+            CartNumber();
 //          alert("商品已添加");
             swal({
                 title: LanguageHtml("商品已添加", "Item(s) Added"),

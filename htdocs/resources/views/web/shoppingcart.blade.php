@@ -293,6 +293,7 @@
 				$(".totalGoods").find("span").html(totalnumber)
 				$(".overtotal").find("span").html((total*1+freightActual()*1).toFixed(2))
 			}
+		};
 //		获取localStorage中的购物车数据
         var product = localStorage.getItem("myCart") ? JSON.parse(localStorage.getItem("myCart")) : '';
         var text = '';
@@ -330,7 +331,6 @@
         }
         $('#content').append(text);
 
-	};
     </script>
 
     <script>

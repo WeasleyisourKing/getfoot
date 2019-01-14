@@ -171,10 +171,11 @@
                     </a></li>
             @else
                 <li class=" navIcon float_right"><a href="/shop/cart/-1" onclick="shopping();">
-                        <p class="navIcon2">
+                        <p class="navIcon2" style="position:relative">
                             <script>
                                 Language("购物车 ", "Shopping cart")
                             </script>
+                            <span class="badge" id="cartNumber" style="position: absolute;top: 0;left: 0;">1</span>
                         </p>
                     </a></li>
             @endif

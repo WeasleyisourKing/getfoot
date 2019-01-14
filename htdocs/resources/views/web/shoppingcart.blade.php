@@ -303,8 +303,8 @@
 			}
 		};
 //		获取localStorage中的购物车数据
-	function productList(){
         var product = localStorage.getItem("myCart") ? JSON.parse(localStorage.getItem("myCart")) : '';
+	function productList(){
         var text = '';
         if (product.length == 0) {
             //没有购物车
@@ -343,7 +343,7 @@
 	};
 	productList()
 
-	
+
         //localStorage delete product
         var delFunc =function(event){
         	swal({ 
@@ -370,7 +370,6 @@
 //		})
        };
          function delFunction(event) {
-        var product = localStorage.getItem("myCart") ? JSON.parse(localStorage.getItem("myCart")) : '';
             for (var item in product) {
                 var status = -1;
                 //判断是否有相同的

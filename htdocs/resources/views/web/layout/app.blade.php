@@ -449,6 +449,7 @@
 	var CartNumber=function(){
 		var shopCartLength=localStorage.getItem("myCart") ? JSON.parse(localStorage.getItem("myCart")) : '';
 		console.log(shopCartLength)
+		console.log(shopCartLength.length)
 		if(shopCartLength.length<1 ){
 			// console.log("1121")
 			$("#CartNumber").hide();

@@ -153,15 +153,34 @@
         </div>
 
         <ul class="topNav float_right">
-            <li class="float_left"><a href="/categorys">
-                    <p>
+            <!--<li class="navIcon float_left"><a href="##">
+                    <p class="navIcon1">
                         <script>
-                            Language("所有分类", "All Categories")
+                            Language("消息通知", "Notification")
                         </script>
                     </p>
-                </a></li>
+                </a></li>-->
+            @if (!empty(Auth::guard("pc")->user()->id))
+                <li class=" navIcon float_right"><a href="/shop/cart/{{Auth::guard('pc')->user()->id}}"
+                                                   onclick="shopping();">
+                        <p class="navIcon2">
+                            <script>
+                                Language("购物车 ", "Shopping Cart")
+                            </script>
+                        </p>
+                    </a></li>
+            @else
+                <li class=" navIcon float_right"><a href="/shop/cart/-1" onclick="shopping();">
+                        <p class="navIcon2">
+                            <script>
+                                Language("购物车 ", "Shopping cart")
+                            </script>
+                        </p>
+                    </a></li>
+            @endif
+
             @if (!empty(Auth::guard("pc")->user()->name))
-                <li class="float_left">
+                <li class="float_right">
                     <a href="/personal"><p class="float_left"> Hi，{{Auth::guard("pc")->user()->name}}</p></a>
                     <a class="exit float_left" href="{{ route('logout') }}"
                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">
@@ -178,7 +197,7 @@
                     {{ csrf_field() }}
                 </form>
             @else
-                <li class="float_left"><a href="/users">
+                <li class="float_right"><a href="/users">
                         <p>
                             <script>
                                 Language("注册/登录", "Registered/Log In")
@@ -186,31 +205,14 @@
                         </p>
                     </a></li>
             @endif
-            <!--<li class="navIcon float_left"><a href="##">
-                    <p class="navIcon1">
+
+            <li class="float_right"><a href="/categorys">
+                    <p>
                         <script>
-                            Language("消息通知", "Notification")
+                            Language("所有分类", "All Categories")
                         </script>
                     </p>
-                </a></li>-->
-            @if (!empty(Auth::guard("pc")->user()->id))
-                <li class=" navIcon float_left"><a href="/shop/cart/{{Auth::guard('pc')->user()->id}}"
-                                                   onclick="shopping();">
-                        <p class="navIcon2">
-                            <script>
-                                Language("购物车 ", "Shopping Cart")
-                            </script>
-                        </p>
-                    </a></li>
-            @else
-                <li class=" navIcon float_left"><a href="/shop/cart/-1" onclick="shopping();">
-                        <p class="navIcon2">
-                            <script>
-                                Language("购物车 ", "Shopping cart")
-                            </script>
-                        </p>
-                    </a></li>
-            @endif
+                </a></li>
         </ul>
     </div>
 </div>

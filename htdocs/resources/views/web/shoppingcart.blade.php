@@ -372,6 +372,7 @@
 //		})
        };
          function delFunction(event) {
+        var product = localStorage.getItem("myCart") ? JSON.parse(localStorage.getItem("myCart")) : '';
             for (var item in product) {
                 var status = -1;
                 //判断是否有相同的

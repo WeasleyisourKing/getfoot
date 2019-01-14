@@ -450,12 +450,7 @@
 		var shopCartLength=localStorage.getItem("myCart") ? JSON.parse(localStorage.getItem("myCart")) : '';
 		console.log(shopCartLength)
 		console.log(shopCartLength.length)
-		if(!shopCartLength.length>0 ){
-			// console.log("1121")
-			$("#CartNumber").hide();
-			console.log(shopCartLength)
-		}else{
-			$("#CartNumber").show();
+		if(shopCartLength.length>0 ){
 			// console.log("2212")
 			var nu=0;
 			// console.log(shopCartLength);
@@ -464,6 +459,9 @@
 			}
 			// console.log(nu)
 			$("#cartNumber").html(nu);
+
+		}else{
+            $("#cartNumber").html('0');
 		}
     }
     CartNumber()

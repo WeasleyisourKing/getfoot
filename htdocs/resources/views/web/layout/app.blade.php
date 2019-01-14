@@ -444,6 +444,28 @@
         window.location.href = Router;
     })
     $(".Drinks .am-u-sm-3:last-child").addClass("am-u-end")
+    //购物车数量
+
+	var CartNumber=function(){
+		var shopCartLength=JSON.parse(localStorage.getItem("shopcart"));
+		console.log(shopCartLength)
+		if($.isEmptyObject(shopCartLength) ){
+			// console.log("1121")
+			$("#CartNumber1").hide();
+			console.log(shopCartLength)
+		}else{
+			$("#CartNumber1").show();
+			// console.log("2212")
+			var nu=0;
+			// console.log(shopCartLength);
+			for(var i=shopCartLength.length;i--;){
+				nu+=parseInt(shopCartLength[i].number)
+			}
+			// console.log(nu)
+			$("#cartNumber").html(nu);
+		}
+    }
+    CartNumber()
 </script>
 
 </html>

@@ -6,7 +6,7 @@
         <div class="cartTitle">
             <p>
 							<script>
-								Language("我的商品","My Product(s)")
+								Language("我的商品!","My Product(s)")
 							</script>
 						</p>
         </div>

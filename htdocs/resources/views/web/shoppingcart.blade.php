@@ -338,10 +338,11 @@
             //show Settlement
             $('#end').show();
         }
-        $('#content').html(text);
+		$('#content').html(text);
+		console.log('渲染')
 		
 	};
-	productList()
+	productList();
 
 
         //localStorage delete product

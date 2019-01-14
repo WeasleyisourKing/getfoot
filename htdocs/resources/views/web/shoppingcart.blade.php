@@ -303,6 +303,7 @@
 			}
 		};
 //		获取localStorage中的购物车数据
+	function productList(){
         var product = localStorage.getItem("myCart") ? JSON.parse(localStorage.getItem("myCart")) : '';
         var text = '';
         if (product.length == 0) {
@@ -337,7 +338,10 @@
             //show Settlement
             $('#end').show();
         }
-        $('#content').append(text);
+        $('#content').html(text);
+		
+	};
+	productList()
 
     </script>
 
@@ -381,7 +385,8 @@
                product.splice(item,1);
                localStorage.setItem("myCart", JSON.stringify(product));
 		       $(event).parents(".labelbox").remove();
-		       Valuation();
+				productList()
+		       	Valuation();
 	            swal({
 	                title:"删除成功",
 	                type: 'success',

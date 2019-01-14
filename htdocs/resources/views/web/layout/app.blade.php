@@ -455,7 +455,7 @@
 			var nu=0;
             // console.log(shopCartLength);
             shopCartLength.forEach((item,index)=>{
-                nu+=parseInt(shopCartLength[index].number)
+                nu+=parseInt(shopCartLength[index].count)
             })
 			// console.log(nu)
 			$("#cartNumber").html(nu);

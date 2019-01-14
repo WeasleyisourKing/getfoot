@@ -255,43 +255,51 @@
     	function Valuation() {
 			var total = 0;
 			var totalnumber = 0;
-			for (var i = 0; i < $(".cartBox .labelbox").length; i++) {
-				if ($(".cartBox .labelbox").eq(i).find(".joinChoice").hasClass("joinChoiceShow")) {
-					totalnumber++;
-					var Price = $(".cartBox .labelbox").eq(i).find(".unitPrice").find("span").html();
-					var Num = $(".cartBox .labelbox").eq(i).find(".productNumber").html();
-		//          var Freight = $(".cartBox .labelbox").eq(i).find(".freight").find("span").html();
-		//          total += Price * Num + parseInt(Freight);
-					total += Price * Num ;
+			if( $(".cartBox .labelbox").length>0){
+				for (var i = 0; i < $(".cartBox .labelbox").length; i++) {
+					if ($(".cartBox .labelbox").eq(i).find(".joinChoice").hasClass("joinChoiceShow")) {
+						totalnumber++;
+						var Price = $(".cartBox .labelbox").eq(i).find(".unitPrice").find("span").html();
+						var Num = $(".cartBox .labelbox").eq(i).find(".productNumber").html();
+			//          var Freight = $(".cartBox .labelbox").eq(i).find(".freight").find("span").html();
+			//          total += Price * Num + parseInt(Freight);
+						total += Price * Num ;
+					}
+					var freightNew=total>threshold?0:freight;
+					function freightActual(){
+							if(freightNew>0){
+								return `${freightNew.toFixed(2)}`
+							}else{
+								return ""
+							}
+					};
+					total=function(){
+							if(couponType==1){
+								return parseFloat(total)-parseFloat(concessionalRate)>0?parseFloat(total)-parseFloat(concessionalRate):0
+							}else if(couponType==2){
+								return total*(1-parseFloat(concessionalRate)/100)
+							}else{
+								return parseFloat(total)
+							}
+						}();
+			//       console.log(total)
+			//       total=totalEnd();
+					$("#totalAmount").html(total.toFixed(2))
+					$("#freight").html(freightActual())
+					if(freightActual()==""){
+							$(".freight").hide()
+					}else{
+							$(".freight").show()
+					}
+					$("#totalGoods").html(totalnumber)
+					$("#overtotal").html((total*1+freightActual()*1).toFixed(2))
 				}
-				var freightNew=total>threshold?0:freight;
-				function freightActual(){
-						if(freightNew>0){
-							return `${freightNew.toFixed(2)}`
-						}else{
-							return ""
-						}
-				};
-				total=function(){
-						if(couponType==1){
-							return parseFloat(total)-parseFloat(concessionalRate)>0?parseFloat(total)-parseFloat(concessionalRate):0
-						}else if(couponType==2){
-							return total*(1-parseFloat(concessionalRate)/100)
-						}else{
-							return parseFloat(total)
-						}
-					}();
-		//       console.log(total)
-		//       total=totalEnd();
-				$("#totalAmount").html(total.toFixed(2))
-				$("#freight").html(freightActual())
-				if(freightActual()==""){
-						$(".freight").hide()
-				}else{
-						$(".freight").show()
-				}
-				$("#totalGoods").html(totalnumber)
-				$("#overtotal").html((total*1+freightActual()*1).toFixed(2))
+			}else{
+
+				$("#totalAmount").html('0.00')
+				$("#freight").hide()
+				$("#totalGoods").html('0.00')
+				$("#overtotal").html(('0.00')
 			}
 		};
 //		获取localStorage中的购物车数据

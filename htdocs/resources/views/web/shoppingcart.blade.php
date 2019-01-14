@@ -350,10 +350,10 @@
 			if (isConfirm) {
 				delFunction(event)
 			}
+			Valuation();
 		}
 		)
 
-		Valuation();
 //		.then((value)=>{
 //			if (value) {
 //				delFunction(event)
@@ -380,7 +380,7 @@
 	                showConfirmButton: true,
 	
 	            })
-		       Valuation();
+		    //    Valuation();
             } else {
 //              alert("无法通过ID找到产品");
 	            swal({

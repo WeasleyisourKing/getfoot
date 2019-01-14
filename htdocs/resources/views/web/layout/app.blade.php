@@ -451,9 +451,7 @@
 		console.log(shopCartLength)
 		console.log(shopCartLength.length)
 		if(shopCartLength.length>0 ){
-			// console.log("2212")
 			var nu=0;
-            // console.log(shopCartLength);
             shopCartLength.forEach((item,index)=>{
                 nu+=parseInt(shopCartLength[index].count)
             })

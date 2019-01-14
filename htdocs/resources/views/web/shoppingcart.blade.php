@@ -326,9 +326,9 @@
                 <p class="price unitPrice myPrice">$ <span>${product[i].price}</span></p>
                 </div>
                 <div class="am-u-sm-2 cartBut clearfloat">
-			        <div class="float_left increase but" style="cursor:pointer " >＋</div>
+			        <div class="float_left increase but" style="cursor:pointer " onclick="addNumverProduct(${i})" >＋</div>
                  		 <p class="productNumber myNumber number float_left ">${product[i].count}</p>
-			        <div class="float_left reduce but" style="cursor:pointer " >－</div>
+			        <div class="float_left reduce but" style="cursor:pointer "onclick="removeNumverProduct(${i})" >－</div>
             </div>
                 <div class="am-u-sm-2 cartCzBut">
                 <div class="but delete" data-id="${product[i].product_id}" onclick="delFunc(this);" style="margin-bottom: 20px;"><img src="/home/img/cart.png" alt="" /><br />${LanguageHtml('删除','Delete')}</div>
@@ -401,7 +401,17 @@
 	
 	            })
             }
-        }
+		}
+		//购物车加减
+
+		var addNumverProduct=(index)=>{
+			product[index].count=product[index].count*1+1;
+			$(".productNumber").eq(index).html($(".productNumber").eq(index).html()*1+1)
+		}
+		var removeNumverProduct=(index)=>{
+			product[index].count=product[index].count*1-1;
+			$(".productNumber").eq(index).html($(".productNumber").eq(index).html()*1-1)
+		}
     </script>
     <script>
     	var func = function() {

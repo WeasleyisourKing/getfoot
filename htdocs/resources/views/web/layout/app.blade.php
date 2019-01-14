@@ -454,7 +454,7 @@
 			// console.log("2212")
 			var nu=0;
 			// console.log(shopCartLength);
-			for(var i=shopCartLength.length;i--;){
+			for(var i=0;i<shopCartLength.length;i++;){
 				nu+=parseInt(shopCartLength[i].number)
 			}
 			// console.log(nu)

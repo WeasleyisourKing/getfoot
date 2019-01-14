@@ -453,10 +453,10 @@
 		if(shopCartLength.length>0 ){
 			// console.log("2212")
 			var nu=0;
-			// console.log(shopCartLength);
-			for(var i=0;i<shopCartLength.length;i++;){
-				nu+=parseInt(shopCartLength[i].number)
-			}
+            // console.log(shopCartLength);
+            shopCartLength.forEach((item,index)=>{
+                nu+=parseInt(shopCartLength[index].number)
+            })
 			// console.log(nu)
 			$("#cartNumber").html(nu);
 

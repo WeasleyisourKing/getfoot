@@ -343,9 +343,7 @@
 	};
 	productList()
 
-    </script>
-
-    <script>
+	
         //localStorage delete product
         var delFunc =function(event){
         	swal({ 
@@ -386,7 +384,7 @@
                product.splice(item,1);
                localStorage.setItem("myCart", JSON.stringify(product));
 		       $(event).parents(".labelbox").remove();
-				productList()
+				productList();
 		       	Valuation();
 	            swal({
 	                title:"删除成功",

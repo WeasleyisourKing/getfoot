@@ -381,13 +381,13 @@
                product.splice(item,1);
                localStorage.setItem("myCart", JSON.stringify(product));
 		       $(event).parents(".labelbox").remove();
+		       Valuation();
 	            swal({
 	                title:"删除成功",
 	                type: 'success',
 	                showConfirmButton: true,
 	
 	            })
-		    //    Valuation();
             } else {
 //              alert("无法通过ID找到产品");
 	            swal({

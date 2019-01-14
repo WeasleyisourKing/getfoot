@@ -447,14 +447,14 @@
     //购物车数量
 
 	var CartNumber=function(){
-		var shopCartLength=JSON.parse(localStorage.getItem("shopcart"));
+		var shopCartLength=localStorage.getItem("myCart") ? JSON.parse(localStorage.getItem("myCart")) : '';
 		console.log(shopCartLength)
 		if($.isEmptyObject(shopCartLength) ){
 			// console.log("1121")
-			$("#CartNumber1").hide();
+			$("#CartNumber").hide();
 			console.log(shopCartLength)
 		}else{
-			$("#CartNumber1").show();
+			$("#CartNumber").show();
 			// console.log("2212")
 			var nu=0;
 			// console.log(shopCartLength);

@@ -299,7 +299,7 @@
 				$("#totalAmount").html('0.00')
 				$("#freight").hide()
 				$("#totalGoods").html('0.00')
-				$("#overtotal").html(('0.00')
+				$("#overtotal").html('0.00')
 			}
 		};
 //		获取localStorage中的购物车数据

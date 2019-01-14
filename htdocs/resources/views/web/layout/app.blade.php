@@ -168,7 +168,7 @@
                                 <script>
                                     Language("购物车 ", "Shopping Cart")
                                 </script>
-                                <span class="badge" id="cartNumber" style="position: absolute;top: 0;left: 0;">1</span>
+                                <span class="badge" id="cartNumber" style="position: absolute;top: -8px;left: -31px;background:#fff;color:#4982a3;">1</span>
                             </span>
                         </p>
                     </a></li>

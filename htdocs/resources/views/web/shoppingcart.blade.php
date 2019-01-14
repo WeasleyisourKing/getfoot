@@ -155,7 +155,7 @@
 							<script>
 								Language("应付总额","Amounts payable")
 							</script>
-							$<span>0.00</span>
+							$<span id="overtotal">0.00</span>
 						</p>
             <p class="float_right freight">
 							<script>
@@ -173,13 +173,13 @@
 							<script>
 								Language("商品总额","Total")
 							</script>
-							$<span>0.00</span>
+							$<span id="totalAmount">0.00</span>
 						</p>
             <p class="float_right totalGoods">
 							<script>
 								Language("选择商品","Selected Item(s) ")
 							</script>
-						<span>0</span>
+						<span id="totalGoods">0</span>
 							<script>
 								Language("件","Item(s)")
 							</script>
@@ -283,15 +283,15 @@
 					}();
 		//       console.log(total)
 		//       total=totalEnd();
-				$(".totalAmount").find("span").html(total.toFixed(2))
-				$(".freight").find("span").html(freightActual())
+				$("#totalAmount").html(total.toFixed(2))
+				$("#freight").html(freightActual())
 				if(freightActual()==""){
 						$(".freight").hide()
 				}else{
 						$(".freight").show()
 				}
-				$(".totalGoods").find("span").html(totalnumber)
-				$(".overtotal").find("span").html((total*1+freightActual()*1).toFixed(2))
+				$("#totalGoods").html(totalnumber)
+				$("#overtotal").html((total*1+freightActual()*1).toFixed(2))
 			}
 		};
 //		获取localStorage中的购物车数据

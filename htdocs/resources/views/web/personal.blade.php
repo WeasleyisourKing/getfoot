@@ -975,7 +975,7 @@
 									<div class="am-u-sm-2 myOderDetailText">
 										<p>${products[i].count}
 											<br>
-											<span>${Sprice1(products[i].poducts[distributor][level_four_price]  , products[i].products[distributor][level_two_price] , products[i].products[distributor][level_one_price] , products[i].products[distributor][level_three_price])}</span>
+											<span>${Sprice1(products[i].products[distributor][level_four_price]  , products[i].products[distributor][level_two_price] , products[i].products[distributor][level_one_price] , products[i].products[distributor][level_three_price])}</span>
 
 											<br>
 											<span>${LanguageHtml('待支付','Waiting for payment')}</span>

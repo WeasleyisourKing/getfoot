@@ -930,14 +930,14 @@
                 },
                 success:function (res) {
 					console.log(res)
-					var orderstatus=LanguageHtml(["","待发货","待支付", "待收货"," 已完成"],["","Wait for Shipment","Waiting for Payment", "Waiting to Delivered"," Completed Order"]);
+					var orderstatus=LanguageHtml(["","待发货","已下单", "待收货"," 已完成"],["","Wait for Shipment","Waiting for Payment", "Waiting to Delivered"," Completed Order"]);
 					var projectlist = '';
 					var comment = '';
 					var orderdetails = JSON.parse(res.details.snap_address)
 					switch(res.details.status){
 						case '2': orderstatus = LanguageHtml("待发货","Wait for Shipment");
 							break;
-						case '1': orderstatus = LanguageHtml("待支付","Waiting for Payment");
+						case '1': orderstatus = LanguageHtml("已下单","Waiting for Payment");
 							break;
 						case '3': orderstatus = LanguageHtml("待收货","Waiting to Delivered");
 							break;
@@ -974,7 +974,7 @@
 									<div class="am-u-sm-2 myOderDetailText">
 										<p>${products[i].count}
 											<br>
-											<span>${products[i].products.distributor.level_four_price}</span>
+											<span>${Sprice1(product[i].products.distributor.level_four_price,product[i].products.distributor.level_two_price,product[i].products.distributor.level_one_price,product[i].products.distributor.level_three_price)}</span>
 											<br>
 											<span>${LanguageHtml('待支付','Waiting for payment')}</span>
 										</p>
@@ -993,7 +993,7 @@
                         <div class="information clearfloat myOderTop" style="magin-top:20px !important;">
                         <div class="text clearfloat " style="border-bottom: 1px solid #cfcfcf; width:100%;" >
                         <p class="am-u-sm-5">${LanguageHtml("订单号","Order Number")}：<span>${res.details.order_no}</span></p>
-                        <p class="am-u-sm-7">${LanguageHtml("订单状态"," Order Status")}：<span>${LanguageHtml("待支付","Waiting for Payment")}</span></p>
+                        <p class="am-u-sm-7">${LanguageHtml("订单状态"," Order Status")}：<span>${LanguageHtml("已下单","Waiting for Payment")}</span></p>
                         <!--<p class="am-u-sm-4">浏览时间:<span></span></p>-->
                         </div>
                         <div class="text " style="width:100%;">

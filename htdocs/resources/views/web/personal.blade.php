@@ -381,6 +381,7 @@
 										<script>
 											// Language("单价","Price")
 										</script>
+										&nbsp;
 									</div>
 									<div >
 										<script>
@@ -856,7 +857,7 @@
 														<span>${orderState[allOrder[i].status]}</span>
 													</div>
 											</div>
-											<div class="oderPro_2">  <span></span></div>
+											<div class="oderPro_2">&nbsp;  <span>&nbsp;</span></div>
 											<div class="oderPro_2">${allOrder[i].total_count}</div>
 											<div class="oderPro_2"> <span>0</span></div>
 											<div class="oderPro_2">$ <span>${allOrder[i].total_price}</span></div>

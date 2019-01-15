@@ -960,7 +960,6 @@
 						totalPrice : res.details.total_price
 					}
 					for(let i = 0; i < products.length; i++ ){
-					console.log(products[i].products.distributor)
 						projectlist += `
 						<div class="myOder">
 								<div class="myOderDetail clearfloat">
@@ -975,7 +974,7 @@
 									<div class="am-u-sm-2 myOderDetailText">
 										<p>${products[i].count}
 											<br>
-											<span>${Sprice1(products[i].products[distributor][level_four_price]  , products[i].products[distributor][level_two_price] , products[i].products[distributor][level_one_price] , products[i].products[distributor][level_three_price])}</span>
+											<span>${Sprice1(products[i].products.distributor.level_four_price  , products[i].products.distributor.level_two_price , products[i].products.distributor.level_one_price , products[i].products.distributor.level_three_price)}</span>
 
 											<br>
 											<span>${LanguageHtml('待支付','Waiting for payment')}</span>

@@ -139,7 +139,7 @@
 							<li><img src="" alt="" /></li>
 							<li><img src="" alt="" /></li>
 						</ul>
-					<div class="myOder">
+					<div class="myOder hide">
 						<ul class="clearfloat" id="myOderStatus">
 							<li>
 								<script>
@@ -828,7 +828,7 @@
 		var orderState=LanguageHtml(["","已完成","已下单", " "," "],["","Unshipped","Unpaid", " "," "]);
 		var orderStateId=[""," 1", " 2","3"," 4"];
 		$.ajax({
-                url: "/api/order/state",
+                url: "/api/order/bunsiess/state",
                 method: "GET",
                 dataType:"jsonp",
                 jsonpCallback: "my",

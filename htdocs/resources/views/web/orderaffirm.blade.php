@@ -272,7 +272,7 @@
 //  	请求订单信息
 	$.ajax({
         // url: '/api/users/order/details',
-        url: '/business/order/details',
+        url: '/api/business/order/details',
         method: 'get',
         data: {
             'id':Http

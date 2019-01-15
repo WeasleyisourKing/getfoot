@@ -960,7 +960,7 @@
 						totalPrice : res.details.total_price
 					}
 					for(let i = 0; i < products.length; i++ ){
-					console.log(products[i].products)
+					console.log(products[i].products.distributor)
 						projectlist += `
 						<div class="myOder">
 								<div class="myOderDetail clearfloat">

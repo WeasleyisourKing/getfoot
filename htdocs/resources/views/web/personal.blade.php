@@ -379,7 +379,7 @@
 									</div>
 									<div >
 										<script>
-											Language("单价","Price")
+											// Language("单价","Price")
 										</script>
 									</div>
 									<div >
@@ -856,9 +856,9 @@
 														<span>${orderState[allOrder[i].status]}</span>
 													</div>
 											</div>
-											<div class="oderPro_2">$ <span></span></div>
+											<div class="oderPro_2">  <span></span></div>
 											<div class="oderPro_2">${allOrder[i].total_count}</div>
-											<div class="oderPro_2">$ <span></span></div>
+											<div class="oderPro_2"> <span>0</span></div>
 											<div class="oderPro_2">$ <span>${allOrder[i].total_price}</span></div>
 											<div class="oderPro_2 oderPro_2_but">
 												<div class="but1" style="display :${(allOrder[i].status)=='2'?'auto':'none'}" onclick="comment(${allOrder[i].id})">${LanguageHtml("查看订单","view order")}</div>

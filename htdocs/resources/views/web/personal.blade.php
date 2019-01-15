@@ -828,7 +828,7 @@
 		var orderState=LanguageHtml(["","已完成","已下单", " "," "],["","Unshipped","Unpaid", " "," "]);
 		var orderStateId=[""," 1", " 2","3"," 4"];
 		$.ajax({
-                url: "/api/order/state",
+                url: "/order/state",
                 method: "GET",
                 dataType:"jsonp",
                 jsonpCallback: "my",

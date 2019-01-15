@@ -921,7 +921,8 @@
 //订单列表页点击 未支付 显示订单详情
         function comment(data){
             $.ajax({
-                url: '/api/users/order/details',
+                // url: '/api/users/order/details',
+                url: '/business/order/details',
                 method:'get',
                 data:{
                     id:data

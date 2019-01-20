@@ -968,10 +968,10 @@
 											<img src="${products[i].products.product_image}" alt="#">
 										</div>
 									</div>
-									<div class="am-u-sm-8">
+									<div class="am-u-sm-7">
 										<p>${LanguageHtml(products[i].products.zn_name,products[i].products.en_name)}</p>
 									</div>
-									<div class="am-u-sm-2 myOderDetailText">
+									<div class="am-u-sm-3 myOderDetailText">
 										<p>数量：${products[i].count}
 											<br>
 											<span>单价：$${products[i].products.distributor.level_four_price}</span>

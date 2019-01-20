@@ -1327,7 +1327,7 @@
 													<div class="am-u-sm-3 towLine" >${json.data[i].country}</div>
 													<div class="am-u-sm-2">${json.data[i].zip}</div>
 													<div class="am-u-sm-2">${json.data[i].mobile}</div>
-													<div class="am-u-sm-1 but1"style="padding: 0;">
+													<div class="am-u-sm-1 but1"style="cursor:default;padding: 0;">
 														<!--<p><a class="address_pro_edit_bnt" href="##" addid="${json.data[i].id}" onclick="edit(${json.data[i].id})">${LanguageHtml('编辑','Edit')}</a></p>
 														<p><button class="Delete am-btn am-btn-primary" data-am-modal="{target: '#my-alert'}" addid="${json.data[i].id}" style="border: 0;background-color: #fff;color: #666666;">${LanguageHtml('删除','Delete')}
 														</button></p>-->

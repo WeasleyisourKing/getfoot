@@ -976,7 +976,7 @@
 											<br>
 											<span>单价：$${products[i].products.distributor.level_four_price}</span>
 											<br>
-											<span>${LanguageHtml('待支付','Waiting for payment')}</span>
+											<span>状态：${LanguageHtml('待支付','Waiting for payment')}</span>
 										</p>
 									</div>
 								</div>

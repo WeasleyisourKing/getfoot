@@ -496,7 +496,9 @@ class BusinessOrderController extends Controller
             $pStatus['singlePrice'] = $product['distributor'][$this->Plevel];
             $pStatus['image'] = $product['product_image'];
             $pStatus['totalPrice'] = $uCount * $product['distributor'][$this->Plevel];
+            $pStatus['innersku'] = $product['innersku'];
             $pStatus['shelves'] = $product['shelves'];
+            $pStatus['number'] = $product['number'];
             $pStatus['haveStock'] = $product['stock'] >= $uCount ? true : false;
 
         }
@@ -512,6 +514,7 @@ class BusinessOrderController extends Controller
         $num = BusinessOrderModel::orderBy('created_at', 'desc')->first(['order_no']);
         $orderNo = 'ST' . substr(Common::makeOrderNo(is_null($num) ? 'ST2018101800001' : $num->order_no), 1);
 
+dd($orderNo);
         //构造数据
         $data = [];
         $data = [

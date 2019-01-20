@@ -970,9 +970,9 @@
 										<p>${LanguageHtml(products[i].products.zn_name,products[i].products.en_name)}</p>
 									</div>
 									<div class="am-u-sm-2 myOderDetailText">
-										<p>${products[i].count}
+										<p>数量：${products[i].count}
 											<br>
-											<span>${products[i].products.distributor.level_four_price}</span>
+											<span>单价：$${products[i].products.distributor.level_four_price}</span>
 											<br>
 											<span>${LanguageHtml('待支付','Waiting for payment')}</span>
 										</p>

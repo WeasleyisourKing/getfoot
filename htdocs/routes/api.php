@@ -84,6 +84,9 @@ Route::get('/tax/zip/{zip}/city/{city}', 'Api\ShopController@tax');
 //获取用户某订单详情
 Route::get('/users/order/details', 'Api\NewOrderController@getOrderDetails');
 
+Route::get('/business/order/details', 'Api\NewOrderController@getBusinessDetails');
+
+
 //TODO App订单详情地址
 
 //查看折扣码接口

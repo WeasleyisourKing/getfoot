@@ -862,7 +862,7 @@
 											<div class="oderPro_2"> <span>0</span></div>
 											<div class="oderPro_2">$ <span>${allOrder[i].total_price}</span></div>
 											<div class="oderPro_2 oderPro_2_but">
-												<div class="but1" style="display :${(allOrder[i].status)=='2'?'auto':'none'}" onclick="comment(${allOrder[i].id})">${LanguageHtml("查看订单","view order")}</div>
+												<div class="but1" style="cursor:default;display :${(allOrder[i].status)=='2'?'auto':'none'}" onclick="comment(${allOrder[i].id})">${LanguageHtml("查看订单","view order")}</div>
 											</div>
 										</div>
 										<div class="clearfloat oderPro_2_time">

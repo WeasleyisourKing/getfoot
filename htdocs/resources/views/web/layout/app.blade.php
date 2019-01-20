@@ -153,15 +153,37 @@
         </div>
 
         <ul class="topNav float_right">
-            <li class="float_left"><a href="/categorys">
-                    <p>
+            <!--<li class="navIcon float_left"><a href="##">
+                    <p class="navIcon1">
                         <script>
-                            Language("所有分类", "All Categories")
+                            Language("消息通知", "Notification")
                         </script>
                     </p>
-                </a></li>
+                </a></li>-->
+            @if (!empty(Auth::guard("pc")->user()->id))
+                <li class=" navIcon float_right"><a href="/shop/cart/{{Auth::guard('pc')->user()->id}}"
+                                                   onclick="shopping();">
+                        <p class="navIcon2">
+                            <span style="position:relative">
+                                <script>
+                                    Language("购物车 ", "Shopping Cart")
+                                </script>
+                                <span class="badge" id="cartNumber" style="position: absolute;top: -8px;left: -31px;background:#fff;color:#4982a3;">1</span>
+                            </span>
+                        </p>
+                    </a></li>
+            @else
+                <li class=" navIcon float_right"><a href="/shop/cart/-1" onclick="shopping();">
+                        <p class="navIcon2">
+                            <script>
+                                Language("购物车 ", "Shopping cart")
+                            </script>
+                        </p>
+                    </a></li>
+            @endif
+
             @if (!empty(Auth::guard("pc")->user()->name))
-                <li class="float_left">
+                <li class="float_right">
                     <a href="/personal"><p class="float_left"> Hi，{{Auth::guard("pc")->user()->name}}</p></a>
                     <a class="exit float_left" href="{{ route('logout') }}"
                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">
@@ -178,7 +200,7 @@
                     {{ csrf_field() }}
                 </form>
             @else
-                <li class="float_left"><a href="/users">
+                <li class="float_right"><a href="/users">
                         <p>
                             <script>
                                 Language("注册/登录", "Registered/Log In")
@@ -186,31 +208,14 @@
                         </p>
                     </a></li>
             @endif
-            <!--<li class="navIcon float_left"><a href="##">
-                    <p class="navIcon1">
+
+            <li class="float_right"><a href="/categorys">
+                    <p>
                         <script>
-                            Language("消息通知", "Notification")
+                            Language("所有分类", "All Categories")
                         </script>
                     </p>
-                </a></li>-->
-            @if (!empty(Auth::guard("pc")->user()->id))
-                <li class=" navIcon float_left"><a href="/shop/cart/{{Auth::guard('pc')->user()->id}}"
-                                                   onclick="shopping();">
-                        <p class="navIcon2">
-                            <script>
-                                Language("购物车 ", "Shopping Cart")
-                            </script>
-                        </p>
-                    </a></li>
-            @else
-                <li class=" navIcon float_left"><a href="/shop/cart/-1" onclick="shopping();">
-                        <p class="navIcon2">
-                            <script>
-                                Language("购物车 ", "Shopping cart")
-                            </script>
-                        </p>
-                    </a></li>
-            @endif
+                </a></li>
         </ul>
     </div>
 </div>
@@ -412,6 +417,7 @@
 
             }
             localStorage.setItem("myCart", JSON.stringify(shop));
+            CartNumber();
 //          alert("商品已添加");
             swal({
                 title: LanguageHtml("商品已添加", "Item(s) Added"),
@@ -439,6 +445,25 @@
         window.location.href = Router;
     })
     $(".Drinks .am-u-sm-3:last-child").addClass("am-u-end")
+    //购物车数量
+
+	var CartNumber=function(){
+		var shopCartLength=localStorage.getItem("myCart") ? JSON.parse(localStorage.getItem("myCart")) : '';
+		console.log(shopCartLength)
+		console.log(shopCartLength.length)
+		if(shopCartLength.length>0 ){
+			var nu=0;
+            shopCartLength.forEach((item,index)=>{
+                nu+=parseInt(shopCartLength[index].count)
+            })
+			// console.log(nu)
+			$("#cartNumber").html(nu);
+
+		}else{
+            $("#cartNumber").html('0');
+		}
+    }
+    CartNumber()
 </script>
 
 </html>

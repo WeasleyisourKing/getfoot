@@ -155,7 +155,7 @@
 							<script>
 								Language("应付总额","Amounts payable")
 							</script>
-							$<span>0.00</span>
+							$<span id="overtotal">0.00</span>
 						</p>
             <p class="float_right freight">
 							<script>
@@ -173,13 +173,13 @@
 							<script>
 								Language("商品总额","Total")
 							</script>
-							$<span>0.00</span>
+							$<span id="totalAmount">0.00</span>
 						</p>
             <p class="float_right totalGoods">
 							<script>
 								Language("选择商品","Selected Item(s) ")
 							</script>
-						<span>0</span>
+						<span id="totalGoods">0</span>
 							<script>
 								Language("件","Item(s)")
 							</script>
@@ -253,49 +253,58 @@
     var freight =0;
 //  计算总金额函数
     	function Valuation() {
-    var total = 0;
-    var totalnumber = 0;
-    for (var i = 0; i < $(".cartBox .labelbox").length; i++) {
-        if ($(".cartBox .labelbox").eq(i).find(".joinChoice").hasClass("joinChoiceShow")) {
-            totalnumber++;
-            var Price = $(".cartBox .labelbox").eq(i).find(".unitPrice").find("span").html();
-            var Num = $(".cartBox .labelbox").eq(i).find(".productNumber").html();
-//          var Freight = $(".cartBox .labelbox").eq(i).find(".freight").find("span").html();
-//          total += Price * Num + parseInt(Freight);
-            total += Price * Num ;
-        }
-        var freightNew=total>threshold?0:freight;
-        function freightActual(){
-	        	if(freightNew>0){
-	        		return `${freightNew.toFixed(2)}`
-	        	}else{
-	        		return ""
-	        	}
-        };
-        total=function(){
-        		if(couponType==1){
-        			return parseFloat(total)-parseFloat(concessionalRate)>0?parseFloat(total)-parseFloat(concessionalRate):0
-        		}else if(couponType==2){
-        			return total*(1-parseFloat(concessionalRate)/100)
-        		}else{
-        			return parseFloat(total)
-        		}
-        	}();
-//       console.log(total)
-//       total=totalEnd();
-        $(".totalAmount").find("span").html(total.toFixed(2))
-        $(".freight").find("span").html(freightActual())
-        if(freightActual()==""){
-        		$(".freight").hide()
-        }else{
-        		$(".freight").show()
-        }
-        $(".totalGoods").find("span").html(totalnumber)
-        $(".overtotal").find("span").html((total*1+freightActual()*1).toFixed(2))
-    }
-};
+			var total = 0;
+			var totalnumber = 0;
+			if( $(".cartBox .labelbox").length>0){
+				for (var i = 0; i < $(".cartBox .labelbox").length; i++) {
+					if ($(".cartBox .labelbox").eq(i).find(".joinChoice").hasClass("joinChoiceShow")) {
+						totalnumber++;
+						var Price = $(".cartBox .labelbox").eq(i).find(".unitPrice").find("span").html();
+						var Num = $(".cartBox .labelbox").eq(i).find(".productNumber").html();
+			//          var Freight = $(".cartBox .labelbox").eq(i).find(".freight").find("span").html();
+			//          total += Price * Num + parseInt(Freight);
+						total += Price * Num ;
+					}
+					var freightNew=total>threshold?0:freight;
+					function freightActual(){
+							if(freightNew>0){
+								return `${freightNew.toFixed(2)}`
+							}else{
+								return ""
+							}
+					};
+					total=function(){
+							if(couponType==1){
+								return parseFloat(total)-parseFloat(concessionalRate)>0?parseFloat(total)-parseFloat(concessionalRate):0
+							}else if(couponType==2){
+								return total*(1-parseFloat(concessionalRate)/100)
+							}else{
+								return parseFloat(total)
+							}
+						}();
+			//       console.log(total)
+			//       total=totalEnd();
+					$("#totalAmount").html(total.toFixed(2))
+					$("#freight").html(freightActual())
+					if(freightActual()==""){
+							$(".freight").hide()
+					}else{
+							$(".freight").show()
+					}
+					$("#totalGoods").html(totalnumber)
+					$("#overtotal").html((total*1+freightActual()*1).toFixed(2))
+				}
+			}else{
+
+				$("#totalAmount").html('0.00')
+				$("#freight").hide()
+				$("#totalGoods").html('0.00')
+				$("#overtotal").html('0.00')
+			}
+		};
 //		获取localStorage中的购物车数据
         var product = localStorage.getItem("myCart") ? JSON.parse(localStorage.getItem("myCart")) : '';
+	function productList(){
         var text = '';
         if (product.length == 0) {
             //没有购物车
@@ -317,9 +326,9 @@
                 <p class="price unitPrice myPrice">$ <span>${product[i].price}</span></p>
                 </div>
                 <div class="am-u-sm-2 cartBut clearfloat">
-			        <div class="float_left increase but" >＋</div>
+			        <div class="float_left increase but" style="cursor:pointer " onclick="addNumverProduct(${i})" >＋</div>
                  		 <p class="productNumber myNumber number float_left ">${product[i].count}</p>
-			        <div class="float_left reduce but">－</div>
+			        <div class="float_left reduce but" style="cursor:pointer "onclick="removeNumverProduct(${i})" >－</div>
             </div>
                 <div class="am-u-sm-2 cartCzBut">
                 <div class="but delete" data-id="${product[i].product_id}" onclick="delFunc(this);" style="margin-bottom: 20px;"><img src="/home/img/cart.png" alt="" /><br />${LanguageHtml('删除','Delete')}</div>
@@ -329,11 +338,13 @@
             //show Settlement
             $('#end').show();
         }
-        $('#content').append(text);
+		$('#content').html(text);
+		console.log('渲染')
+		
+	};
+	productList();
 
-    </script>
 
-    <script>
         //localStorage delete product
         var delFunc =function(event){
         	swal({ 
@@ -352,6 +363,7 @@
 			}
 		}
 		)
+
 //		.then((value)=>{
 //			if (value) {
 //				delFunction(event)
@@ -372,13 +384,14 @@
                product.splice(item,1);
                localStorage.setItem("myCart", JSON.stringify(product));
 		       $(event).parents(".labelbox").remove();
+				productList();
+		       	Valuation();
 	            swal({
 	                title:"删除成功",
 	                type: 'success',
 	                showConfirmButton: true,
 	
 	            })
-		       Valuation();
             } else {
 //              alert("无法通过ID找到产品");
 	            swal({
@@ -388,7 +401,22 @@
 	
 	            })
             }
-        }
+		}
+		//购物车加减
+
+		var addNumverProduct=(index)=>{
+				product[index].count=product[index].count*1+1;
+				$(".productNumber").eq(index).html($(".productNumber").eq(index).html()*1+1)
+               	localStorage.setItem("myCart", JSON.stringify(product));
+		}
+		var removeNumverProduct=(index)=>{
+			if(product[index].count>1){
+				product[index].count=product[index].count*1-1;
+				$(".productNumber").eq(index).html($(".productNumber").eq(index).html()*1-1)
+               localStorage.setItem("myCart", JSON.stringify(product));
+
+			}
+		}
     </script>
     <script>
     	var func = function() {

@@ -139,7 +139,7 @@
 							<li><img src="" alt="" /></li>
 							<li><img src="" alt="" /></li>
 						</ul>
-					<div class="myOder">
+					<div class="myOder hide">
 						<ul class="clearfloat" id="myOderStatus">
 							<li>
 								<script>
@@ -379,8 +379,9 @@
 									</div>
 									<div >
 										<script>
-											Language("单价","Price")
+											// Language("单价","Price")
 										</script>
+										&nbsp;
 									</div>
 									<div >
 										<script>
@@ -828,7 +829,7 @@
 		var orderState=LanguageHtml(["","已完成","已下单", " "," "],["","Unshipped","Unpaid", " "," "]);
 		var orderStateId=[""," 1", " 2","3"," 4"];
 		$.ajax({
-                url: "/api/order/state",
+                url: "/api/order/bunsiess/state",
                 method: "GET",
                 dataType:"jsonp",
                 jsonpCallback: "my",
@@ -856,9 +857,9 @@
 														<span>${orderState[allOrder[i].status]}</span>
 													</div>
 											</div>
-											<div class="oderPro_2">$ <span></span></div>
+											<div class="oderPro_2">&nbsp;  <span>&nbsp;</span></div>
 											<div class="oderPro_2">${allOrder[i].total_count}</div>
-											<div class="oderPro_2">$ <span></span></div>
+											<div class="oderPro_2"> <span>0</span></div>
 											<div class="oderPro_2">$ <span>${allOrder[i].total_price}</span></div>
 											<div class="oderPro_2 oderPro_2_but">
 												<div class="but1" style="display :${(allOrder[i].status)=='2'?'auto':'none'}" onclick="comment(${allOrder[i].id})">${LanguageHtml("查看订单","view order")}</div>
@@ -921,21 +922,22 @@
 //订单列表页点击 未支付 显示订单详情
         function comment(data){
             $.ajax({
-                url: '/api/users/order/details',
+                // url: '/api/users/order/details',
+                url: '/api/business/order/details',
                 method:'get',
                 data:{
                     id:data
                 },
                 success:function (res) {
 					console.log(res)
-					var orderstatus=LanguageHtml(["","待发货","待支付", "待收货"," 已完成"],["","Wait for Shipment","Waiting for Payment", "Waiting to Delivered"," Completed Order"]);
+					var orderstatus=LanguageHtml(["","待发货","已下单", "待收货"," 已完成"],["","Wait for Shipment","Waiting for Payment", "Waiting to Delivered"," Completed Order"]);
 					var projectlist = '';
 					var comment = '';
 					var orderdetails = JSON.parse(res.details.snap_address)
 					switch(res.details.status){
 						case '2': orderstatus = LanguageHtml("待发货","Wait for Shipment");
 							break;
-						case '1': orderstatus = LanguageHtml("待支付","Waiting for Payment");
+						case '1': orderstatus = LanguageHtml("已下单","Waiting for Payment");
 							break;
 						case '3': orderstatus = LanguageHtml("待收货","Waiting to Delivered");
 							break;
@@ -991,7 +993,7 @@
                         <div class="information clearfloat myOderTop" style="magin-top:20px !important;">
                         <div class="text clearfloat " style="border-bottom: 1px solid #cfcfcf; width:100%;" >
                         <p class="am-u-sm-5">${LanguageHtml("订单号","Order Number")}：<span>${res.details.order_no}</span></p>
-                        <p class="am-u-sm-7">${LanguageHtml("订单状态"," Order Status")}：<span>${LanguageHtml("待支付","Waiting for Payment")}</span></p>
+                        <p class="am-u-sm-7">${LanguageHtml("订单状态"," Order Status")}：<span>${LanguageHtml("已下单","Waiting for Payment")}</span></p>
                         <!--<p class="am-u-sm-4">浏览时间:<span></span></p>-->
                         </div>
                         <div class="text " style="width:100%;">

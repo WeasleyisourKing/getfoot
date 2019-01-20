@@ -271,7 +271,8 @@
 	var Http= localStorage.getItem("order_id") 
 //  	请求订单信息
 	$.ajax({
-        url: '/api/users/order/details',
+        // url: '/api/users/order/details',
+        url: '/api/business/order/details',
         method: 'get',
         data: {
             'id':Http

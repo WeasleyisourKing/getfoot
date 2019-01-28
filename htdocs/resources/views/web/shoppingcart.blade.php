@@ -411,9 +411,9 @@
                	localStorage.setItem("myCart", JSON.stringify(product));
 		}
 		var vNumverProduct=(index)=>{
-				product[index].count=thisValue
 				var thisValue=$(".productNumber").eq(index).attr('value')*1;
 				if(thisValue){
+					product[index].count=thisValue
 					$(".productNumber").eq(index).attr('value',thisValue)
 				}else{
 					$(".productNumber").eq(index).attr('value',product[index].count)

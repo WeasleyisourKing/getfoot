@@ -412,7 +412,8 @@
 		}
 		var ccNumverProduct=(index)=>{
 				var thisValue=$(".productNumber").eq(index).attr('value')*1;
-				if(thisValue){
+				console.log(thisValue)
+				if(thisValue>0){
 					product[index].count=thisValue
 					$(".productNumber").eq(index).attr('value',thisValue)
 					$(".productNumber").eq(index).val(thisValue)

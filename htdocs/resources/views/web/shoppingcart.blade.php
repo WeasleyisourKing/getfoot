@@ -411,7 +411,7 @@
                	localStorage.setItem("myCart", JSON.stringify(product));
 		}
 		var ccNumverProduct=(index)=>{
-				var thisValue=$(".productNumber").eq(index).attr('value')*1;
+				var thisValue=$(".productNumber").eq(index).val()*1;
 				console.log(thisValue)
 				if(thisValue>0){
 					product[index].count=thisValue

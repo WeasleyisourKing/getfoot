@@ -916,3 +916,7 @@ a:link , a:visited , a:hover , a:active {
 .pointer{
 	cursor: pointer;
 }
+
+.mouse-style{
+    cursor:pointer 
+}

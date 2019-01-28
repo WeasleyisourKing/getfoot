@@ -407,6 +407,7 @@
 		var addNumverProduct=(index)=>{
 				product[index].count=product[index].count*1+1;
 				// $(".productNumber").eq(index).html($(".productNumber").eq(index).html()*1+1);
+				console.log($(".productNumber").eq(index).data('value'))
 				$(".productNumber").eq(index).data('value',$(".productNumber").eq(index).data('value')*1+1)
                	localStorage.setItem("myCart", JSON.stringify(product));
 		}

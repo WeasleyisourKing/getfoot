@@ -416,8 +416,10 @@
 				if(thisValue){
 					product[index].count=thisValue
 					$(".productNumber").eq(index).attr('value',thisValue)
+					$(".productNumber").eq(index).val(thisValue)
 				}else{
 					$(".productNumber").eq(index).attr('value',product[index].count)
+					$(".productNumber").eq(index).val(product[index].count)
 				}
 		}
 		var removeNumverProduct=(index)=>{

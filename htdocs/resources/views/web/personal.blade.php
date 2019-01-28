@@ -33,7 +33,7 @@
 						<li class=" clearfloat" onclick="orderStatus()">
 							<img src="home/img/1personal.png" alt="" />
 							<img src="home/img/11personal.png" alt="" />
-							<p>
+							<p  class="mouse-style">
 							<script>
 				                Language("个人中心","My Account")
 				            </script>
@@ -52,7 +52,7 @@
 							<img src="home/img/3personal.png" alt="" />
 							<img src="home/img/33personal.png" alt="" />
 							<p>
-							<script>
+							<script  class="mouse-style">
 								Language("修改密码","Change Password")
 							</script>
 							</p>
@@ -80,7 +80,7 @@
 						<li class=" clearfloat" onclick="showOrder()">
 							<img src="home/img/6personal.png" alt="" />
 							<img src="home/img/66personal.png" alt="" />
-							<p>
+							<p  class="mouse-style">
 							<script>
 								Language("我的订单","My order")
 							</script>
@@ -90,7 +90,7 @@
 							<img src="home/img/7personal.png" alt="" />
 							<img src="home/img/77personal.png" alt="" />
 							<p>
-							<script>
+							<script  class="mouse-style">
 								Language("地址管理","Manage Address")
 							</script>
 							</p>
@@ -331,20 +331,20 @@
 					<!--我的订单-->
 					<div class="personalPro" >
 						<ul class="oderNav clearfloat" id="oderNav">
-							<li>
+							<li class="mouse-style">
 								<script>
 									Language("所有订单","All orders")
 								</script>
 								<span></span>
 							</li>
-							<li >
+							<li  class="mouse-style">
 								<script>
 
 									Language("已完成","Completed")
 								</script>
 								<span></span>
 							</li>
-							<li>
+							<li class="mouse-style">
 								<script>
 									Language("已下单","Unpaid")
 								</script>

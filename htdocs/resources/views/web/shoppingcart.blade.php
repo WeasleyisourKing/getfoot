@@ -420,6 +420,7 @@
 					$(".productNumber").eq(index).attr('value',product[index].count)
 					$(".productNumber").eq(index).val(product[index].count)
 				}
+               	localStorage.setItem("myCart", JSON.stringify(product));
 		}
 		var removeNumverProduct=(index)=>{
 			if(product[index].count>1){

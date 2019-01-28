@@ -920,3 +920,10 @@ a:link , a:visited , a:hover , a:active {
 .mouse-style{
     cursor:pointer 
 }
+
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{
+	-webkit-appearance:textfield;
+}
+input[type="number"]{
+	-moz-appearance:textfield;
+}

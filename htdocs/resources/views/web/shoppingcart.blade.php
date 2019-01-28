@@ -327,7 +327,7 @@
                 </div>
                 <div class="am-u-sm-2 cartBut clearfloat">
 			        <div class="float_left increase but" style="cursor:pointer " onclick="addNumverProduct(${i})" >＋</div>
-                 		 <input class="productNumber myNumber number float_left " style="width:60px" type="number" value="${product[i].count}">
+                 		 <input class="productNumber myNumber number float_left " style="width:60px;padding:0;font-size:16px" type="number" value="${product[i].count}">
 			        <div class="float_left reduce but" style="cursor:pointer "onclick="removeNumverProduct(${i})" >－</div>
             </div>
                 <div class="am-u-sm-2 cartCzBut">
@@ -406,13 +406,14 @@
 
 		var addNumverProduct=(index)=>{
 				product[index].count=product[index].count*1+1;
-				$(".productNumber").eq(index).html($(".productNumber").eq(index).html()*1+1)
+				// $(".productNumber").eq(index).html($(".productNumber").eq(index).html()*1+1);
+				$(".productNumber").eq(index).data('value',$(".productNumber").eq(index).data('value')*1+1)
                	localStorage.setItem("myCart", JSON.stringify(product));
 		}
 		var removeNumverProduct=(index)=>{
 			if(product[index].count>1){
 				product[index].count=product[index].count*1-1;
-				$(".productNumber").eq(index).html($(".productNumber").eq(index).html()*1-1)
+				$(".productNumber").eq(index).data('value',$(".productNumber").eq(index).data('value')*1-1)
                localStorage.setItem("myCart", JSON.stringify(product));
 
 			}

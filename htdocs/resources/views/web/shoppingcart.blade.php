@@ -327,7 +327,7 @@
                 </div>
                 <div class="am-u-sm-2 cartBut clearfloat">
 			        <div class="float_left increase but" style="cursor:pointer " onclick="addNumverProduct(${i})" >＋</div>
-                 		 <input class="productNumber myNumber number float_left " style="width:60px;padding:0;font-size:16px" onchange="vNumverProduct(${i})" min="1" type="number" value="${product[i].count}">
+                 		 <input class="productNumber myNumber number float_left " style="width:60px;padding:0;font-size:16px" onblur="vNumverProduct(${i})" min="1" type="number" value="${product[i].count}">
 			        <div class="float_left reduce but" style="cursor:pointer "onclick="removeNumverProduct(${i})" >－</div>
             </div>
                 <div class="am-u-sm-2 cartCzBut">
@@ -411,10 +411,13 @@
                	localStorage.setItem("myCart", JSON.stringify(product));
 		}
 		var vNumverProduct=(index)=>{
-				product[index].count=$(".productNumber").eq(index).attr('value')*1;
-				console.log(123)
-				// $(".productNumber").eq(index).attr('value',$(".productNumber").eq(index).attr('value')*1+1)
-               	localStorage.setItem("myCart", JSON.stringify(product));
+				product[index].count=thisValue
+				var thisValue=$(".productNumber").eq(index).attr('value')*1;
+				if(thisValue){
+					$(".productNumber").eq(index).attr('value',thisValue)
+				}else{
+					$(".productNumber").eq(index).attr('value',product[index].count)
+				}
 		}
 		var removeNumverProduct=(index)=>{
 			if(product[index].count>1){

@@ -51,8 +51,8 @@
 						<li class=" clearfloat">
 							<img src="home/img/3personal.png" alt="" />
 							<img src="home/img/33personal.png" alt="" />
-							<p>
-							<script  class="mouse-style">
+							<p class="mouse-style">
+							<script  >
 								Language("修改密码","Change Password")
 							</script>
 							</p>
@@ -89,8 +89,8 @@
 						<li class=" clearfloat" id="addressText" onclick="showAddress()">
 							<img src="home/img/7personal.png" alt="" />
 							<img src="home/img/77personal.png" alt="" />
-							<p>
-							<script  class="mouse-style">
+							<p class="mouse-style">
+							<script>
 								Language("地址管理","Manage Address")
 							</script>
 							</p>

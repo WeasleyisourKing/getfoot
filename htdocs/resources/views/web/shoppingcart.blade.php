@@ -327,7 +327,7 @@
                 </div>
                 <div class="am-u-sm-2 cartBut clearfloat">
 			        <div class="float_left increase but" style="cursor:pointer " onclick="addNumverProduct(${i})" >＋</div>
-                 		 <p class="productNumber myNumber number float_left ">${product[i].count}</p>
+                 		 <input class="productNumber myNumber number float_left " value="${product[i].count}">
 			        <div class="float_left reduce but" style="cursor:pointer "onclick="removeNumverProduct(${i})" >－</div>
             </div>
                 <div class="am-u-sm-2 cartCzBut">

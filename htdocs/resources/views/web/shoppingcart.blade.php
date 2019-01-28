@@ -463,7 +463,7 @@
 			    	//判断是否选中
 		    		if($(".labelbox").eq(i).find(".joinChoice").hasClass("joinChoiceShow")){
 					    var shop = {
-					        'count' : $(".labelbox").eq(i).find(".myNumber").html(),
+					        'count' : $(".labelbox").eq(i).find(".myNumber").val(),
 			          		'product_id' : $(".labelbox").eq(i).find(".delete").attr('data-id'),
 			                }
 		                data.push(shop);

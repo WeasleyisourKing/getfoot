@@ -406,22 +406,17 @@
 
 		var addNumverProduct=(index)=>{
 				product[index].count=product[index].count*1+1;
-				console.log($(".productNumber").eq(index).attr('value'))
-				$(".productNumber").eq(index).attr('value',$(".productNumber").eq(index).attr('value')*1+1)
+				$(".productNumber").eq(index).attr('value',product[index].count)
+				$(".productNumber").eq(index).val(product[index].count)
                	localStorage.setItem("myCart", JSON.stringify(product));
 		}
 		var ccNumverProduct=(index)=>{
-			console.log(index)
 				var thisValue=$(".productNumber").eq(index).attr('value')*1;
-				console.log($(".productNumber").eq(index).attr('value'))
-				console.log(thisValue)
 				if(thisValue){
-					console.log('t')
 					product[index].count=thisValue
 					$(".productNumber").eq(index).attr('value',thisValue)
 					$(".productNumber").eq(index).val(thisValue)
 				}else{
-					console.log('f')
 					$(".productNumber").eq(index).attr('value',product[index].count)
 					$(".productNumber").eq(index).val(product[index].count)
 				}
@@ -429,10 +424,10 @@
 		var removeNumverProduct=(index)=>{
 			if(product[index].count>1){
 				product[index].count=product[index].count*1-1;
-				$(".productNumber").eq(index).attr('value',$(".productNumber").eq(index).attr('value')*1-1)
+				$(".productNumber").eq(index).attr('value',product[index].count)
+				$(".productNumber").eq(index).val(product[index].count)
                localStorage.setItem("myCart", JSON.stringify(product));
 
-			   console.log($(".productNumber").eq(index).attr('value'))
 			}
 		}
     </script>

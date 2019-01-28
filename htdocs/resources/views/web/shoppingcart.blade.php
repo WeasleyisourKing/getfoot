@@ -483,7 +483,7 @@
 //					    			删除并存储选中的商品
 					    			product.splice( i, 1 )
 					    			doto = {
-				                        'count': $(".labelbox").eq(i).find(".myNumber").html(),
+				                        'count': $(".labelbox").eq(i).find(".myNumber").val(),
 				                        'product_id': $(".labelbox").eq(i).find(".delete").attr('data-id'),
 //				                        'name':  $(".labelbox").eq(i).find(".cartName").html(),
 //				                        'price': $(".labelbox").eq(i).find(".myPrice").find("span").html(),

@@ -520,7 +520,7 @@
 				                } else {
 //				                    alert(res.message);
 						            swal({
-						                title:res.message,
+						                title:eval(res.message),
 						                type: 'warning',
 						                showConfirmButton: true,
 						
@@ -528,10 +528,11 @@
 				                }
 			            });
 			            //
-//          				window.open("/order/confirm/{{Auth::guard("pc")->user()->id}}",'_self') ;
+
 						}else{
+
 				            swal({
-				                title:res.message,
+				                title:eval(res.message),
 				                type: 'warning',
 				                showConfirmButton: true,
 				

@@ -696,11 +696,12 @@
                     var datas = '<thead>' +
                         ' <tr>' +
                         ' <th class="col-md-2 col-lg-2 exce"> 商品名称</th>' +
-                        ' <th class="col-md-2 col-lg-2 exce">  SKU</th>' +
+                        ' <th class="col-md-1 col-lg-1 exce">  SKU</th>' +
                         '<th class="col-md-2 col-lg-2 exce"> 商品图片</th> ' +
                         '<th class="col-md-2 col-lg-2 exce">成本价（$）</th>' +
-                        '<th class="col-md-2 col-lg-2 exce"> 商品库存</th> ' +
-                        '<th class="col-md-2 col-lg-2 exce">操作</th>' +
+                        '<th class="col-md-2 col-lg-2 exce"> 实际库存</th> ' +
+                        '<th class="col-md-2 col-lg-2 exce"> 冻结库存</th> ' +
+                        '<th class="col-md-1 col-lg-1 exce">操作</th>' +
                         ' </tr>' +
                         ' </thead><tbody id="postContainer">';
 
@@ -714,8 +715,10 @@
                                                     alt="没有上传"/>
                                                 </td>
                                          <td class="exce">${res.data[i].price}
+                                                 <td class="exce">${res.data[i].stock + res.data[i].frozen_stock}
                                                 </td>
-                                                   <td class="exce">${res.data[i].stock}</td>
+                                                  <td class="exce">${res.data[i].frozen_stock}
+                                                </td>
                                            <td class="exce">
                         <a title="添加商品" data-id="${res.data[i].id}" data-name="${res.data[i].zn_name}（${res.data[i].en_name}）"
                                                        class="btn btn-small btn-success"

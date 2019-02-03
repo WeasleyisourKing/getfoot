@@ -134,7 +134,7 @@ class StockController extends Controller
         } else {
 //            'shelves'
             $res = ProductModel::with('distributor')
-                ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'price', 'innersku', 'number')
+                ->select('id', 'product_image', 'sku', 'en_name','frozen_stock', 'zn_name', 'stock', 'price', 'innersku', 'number')
                 ->where('en_name', 'like', '%' . $data . '%')
                 ->orderBy('created_at', 'desc')
                 ->get();
@@ -155,10 +155,9 @@ class StockController extends Controller
             $q->select('en_name', 'zn_name', 'product_image', 'id', 'sku');
 
         }])
-            ->get()
-            ->toArray();
-//        dump($res);
-//dump($res->toArray());
+            ->get();
+
+
 //        $res = ShelvesModel::with(['goods' => function ($q) {
 //            $q->with(['overdue' => function ($qe) {
 //                $qe->select('product_id', 'overdue')

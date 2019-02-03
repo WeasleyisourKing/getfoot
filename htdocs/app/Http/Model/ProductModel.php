@@ -184,7 +184,7 @@ class ProductModel extends Model
     public static function getProduct($arr)
     {
         return self::with('distributor', 'shelves')
-            ->select(['id', 'sku', 'price', 'stock', 'zn_name', 'en_name', 'product_image', 'status', 'innersku', 'number'])
+            ->select(['id', 'sku', 'price', 'stock','frozen_stock', 'zn_name', 'en_name', 'product_image', 'status', 'innersku', 'number'])
             ->whereIn('id', $arr)
             ->get()
             ->toArray();
@@ -532,7 +532,7 @@ class ProductModel extends Model
     public static function searchName($data)
     {
         return self::with('distributor')
-            ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'price', 'innersku', 'number')
+            ->select('id', 'product_image', 'sku', 'en_name', 'frozen_stock','zn_name', 'stock', 'price', 'innersku', 'number')
             ->where('zn_name', 'like', '%' . $data . '%')
             ->orderBy('created_at', 'desc')
             ->get();
@@ -542,7 +542,7 @@ class ProductModel extends Model
     public static function searchSKU($data)
     {
         return self::with('distributor')
-            ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'price', 'innersku', 'number')
+            ->select('id', 'product_image', 'sku', 'en_name', 'frozen_stock','zn_name', 'stock', 'price', 'innersku', 'number')
             ->where('sku', 'like', '%' . $data . '%')
             ->orderBy('created_at', 'desc')
             ->get();

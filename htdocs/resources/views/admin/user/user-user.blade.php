@@ -109,8 +109,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label" for="detail">地址2<span
-                                        style="color:red;">＊</span></label>
+                            <label class="control-label" for="detail">地址2</label>
                             <div class="controls">
                                 <input type="text" name="detail" id="detail"
                                        class="form-control"
@@ -262,8 +261,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label" for="edetail">地址2<span
-                                        style="color:red;">＊</span></label>
+                            <label class="control-label" for="edetail">地址2</label>
                             <div class="controls">
                                 <input type="text" name="edetail" id="edetail"
                                        class="form-control"
@@ -532,13 +530,13 @@
 
                                                             <td class="exce">
 
-                                                                <a title="查看用户订单" data-id="{{$item->id}}"
-                                                                   data-name="{{$item->name}}"
-                                                                   class="btn btn-small btn-success"
-                                                                   href="javascript:void (0);"
-                                                                   onclick="funOrder(this)">
-                                                                    <i class="icon fa fa-shopping-basket"> </i>
-                                                                </a>
+                                                                {{--<a title="查看用户订单" data-id="{{$item->id}}"--}}
+                                                                   {{--data-name="{{$item->name}}"--}}
+                                                                   {{--class="btn btn-small btn-success"--}}
+                                                                   {{--href="javascript:void (0);"--}}
+                                                                   {{--onclick="funOrder(this)">--}}
+                                                                    {{--<i class="icon fa fa-shopping-basket"> </i>--}}
+                                                                {{--</a>--}}
                                                                 <a title="查看用户地址" data-id="{{$item->id}}"
                                                                    data-name="{{$item->name}}"
                                                                    class="btn btn-small btn-success"
@@ -663,13 +661,13 @@
 
                                                             <td class="exce">
 
-                                                                <a title="查看用户订单" data-id="{{$item->id}}"
-                                                                   data-name="{{$item->name}}"
-                                                                   class="btn btn-small btn-success"
-                                                                   href="javascript:void (0);"
-                                                                   onclick="funOrder(this)">
-                                                                    <i class="icon fa fa-shopping-basket"> </i>
-                                                                </a>
+                                                                {{--<a title="查看用户订单" data-id="{{$item->id}}"--}}
+                                                                   {{--data-name="{{$item->name}}"--}}
+                                                                   {{--class="btn btn-small btn-success"--}}
+                                                                   {{--href="javascript:void (0);"--}}
+                                                                   {{--onclick="funOrder(this)">--}}
+                                                                    {{--<i class="icon fa fa-shopping-basket"> </i>--}}
+                                                                {{--</a>--}}
                                                                 <a title="查看用户地址" data-id="{{$item->id}}"
                                                                    data-name="{{$item->name}}"
                                                                    class="btn btn-small btn-success"

@@ -295,11 +295,13 @@
                                                     >
                                                         <i class="icon fa fa-file-text"> </i>
                                                     </a>
+                                                    @if($item->status != 1)
                                                     <a title="删除" class="btn btn-small btn-danger"
                                                        href="javascript:void(0);" data-id="{{$item->id}}"
                                                        onclick="del(this);">
                                                         <i class="icon fa fa-trash-o"> </i>
                                                     </a>
+                                                    @endif
                                                 </td>
 
                                             </tr>
@@ -516,12 +518,11 @@
                         var datas = '<thead>' +
                             ' <tr>' +
                             ' <th class="col-md-2 col-lg-2 exce"> 商品名称</th>' +
-                            ' <th class="col-md-2 col-lg-1 exce">  SKU</th>' +
+                            ' <th class="col-md-2 col-lg-2 exce">  SKU</th>' +
                             '<th class="col-md-2 col-lg-2 exce"> 商品图片</th> ' +
                             '<th class="col-md-2 col-lg-2 exce">价格（$）</th>' +
-                            '<th class="col-md-2 col-lg-2 exce">实际库存</th>' +
-                            '<th class="col-md-2 col-lg-2 exce">冻结库存</th>' +
-                            '<th class="col-md-2 col-lg-1 exce">操作</th>' +
+                            '<th class="col-md-2 col-lg-2 exce">库存</th>' +
+                            '<th class="col-md-2 col-lg-2 exce">操作</th>' +
                             ' </tr>' +
                             ' </thead><tbody id="postContainer">';
 
@@ -541,9 +542,7 @@
                                             <b>商业用户</b>：${res.data[i].distributor.level_three_price}</br>
                                             <b>零售</b>：${res.data[i].distributor.level_four_price}
                                                 </td>
-                                            <td class="exce">${res.data[i].stock + res.data[i].frozen_stock}
-                                                </td>
-                                                  <td class="exce">${res.data[i].frozen_stock}
+                                            <td class="exce">${res.data[i].stock}
                                                 </td>
                                            <td class="exce">
                         <a title="添加商品" data-id="${res.data[i].id}" data-name="${res.data[i].zn_name}（${res.data[i].en_name}）"
@@ -670,15 +669,15 @@
             var datas = {
                 'products': window.obj,
                 'uproducts': window.objs,
-                'pstatus' : $('#pstatus').val(),
-                'name': $('#name').val(),
-                'mobile': $('#mobile').val(),
-                'province': $('#province').val(),
-                'city': $('#city').val(),
-                'country': $('#country').val(),
-                'detail': $('#detail').val(),
-                'zip': $('#zip').val(),
-                'email':$('#email').val(),
+                    'pstatus' : $('#pstatus').val(),
+                    'name': $('#name').val(),
+                    'mobile': $('#mobile').val(),
+                    'province': $('#province').val(),
+                    'city': $('#city').val(),
+                    'country': $('#country').val(),
+                    'detail': $('#detail').val(),
+                    'zip': $('#zip').val(),
+                    'email':$('#email').val(),
                 '_token': '{{csrf_token()}}'
 
             }

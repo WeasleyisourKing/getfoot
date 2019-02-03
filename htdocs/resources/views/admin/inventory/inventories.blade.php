@@ -177,19 +177,20 @@
                                     alt="没有上传"/>
                                 </td>
 
+                                <td class="exce">{{ $item->stock }}</td>
+                                {{--<td class="exce">--}}
+                                    {{--<div class="col-md-12">--}}
+                                        {{--<div class="col-md-1"></div>--}}
+                                        {{--<div class="col-md-4"--}}
+                                             {{--style="border: 1px solid #ddd;height:24px ">{{ $item->stock }}</div>--}}
+                                        {{--<div class="col-md-5" style="padding:0px;"><input--}}
+                                                    {{--data-id="{{ $item->id }}"--}}
+                                                    {{--data-data="{{ $item->stock }}" name="dataStock"--}}
+                                                    {{--style="width:100%;border: 1px solid #ddd"/></div>--}}
+                                        {{--<div class="col-md-2"></div>--}}
+                                    {{--</div>--}}
+                                {{--</td>--}}
 
-                                <td class="exce">
-                                    <div class="col-md-12">
-                                        <div class="col-md-1"></div>
-                                        <div class="col-md-4"
-                                             style="border: 1px solid #ddd;height:24px ">{{ $item->stock }}</div>
-                                        <div class="col-md-5" style="padding:0px;"><input
-                                                    data-id="{{ $item->id }}"
-                                                    data-data="{{ $item->stock }}" name="dataStock"
-                                                    style="width:100%;border: 1px solid #ddd"/></div>
-                                        <div class="col-md-2"></div>
-                                    </div>
-                                </td>
                                 {{--<!-- 操作按钮 -->--}}
                                 {{--<td class="actions exce">--}}
                                 {{--<!---- 查看按钮 ---->--}}

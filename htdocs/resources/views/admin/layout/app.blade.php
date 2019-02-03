@@ -36,7 +36,6 @@
     <link href="{{ asset('lib/css/sweetalert.css') }}" rel="stylesheet">
 
     <!-- Styles -->
-
     <link href="{{ asset('/css/pages.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/components.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/menu.css') }}" rel="stylesheet">
@@ -47,8 +46,10 @@
           type="text/css">
     <link href="{{ asset('lib/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}"
           rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 
     <!-- Javascript Lib -->
+    <script src="{{ asset('js/vue.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('lib/js/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('lib/js/bootstrap.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('lib/js/alertify.js') }}" type="text/javascript"></script>
@@ -59,6 +60,7 @@
     <script src="{{ asset('lib/js/check.js') }}" type="text/javascript"></script>
     <script src="{{ asset('lib/js/sweetalert.min.js') }}"></script>
     <script src="{{ asset('lib/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('js/element.js') }}" type="text/javascript"></script>
 
 {{--<script src="{{ asset('/js/detect.js') }}"></script>--}}
 {{--<script src="{{ asset('/js/fastclick.js') }}"></script>--}}
@@ -111,7 +113,7 @@
         <!-- LOGO -->
         <div class="topbar-left">
             <div class="text-center">
-                <a href="index.html" class="logo">
+                <a href="/dashboard" class="logo">
                     <i class="md md-dashboard"></i>
                     <span>12Buy</span>
                 </a>

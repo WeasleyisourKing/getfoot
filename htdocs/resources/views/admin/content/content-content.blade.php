@@ -813,10 +813,10 @@
 
                                                             @if ($item->status == 1)
 
-                                                                <td class="exce"><i class=" icon fa fa-2x fa-check-circle"> </i>
+                                                                <td class="exce">上架</i>
                                                                 </td>
                                                             @else
-                                                                <td class="exce">下架<i class=" icon fa fa-2x fa-times-circle"> </i>
+                                                                <td class="exce">下架 </i>
                                                                 </td>
                                                             @endif
                                                             <td class="exce">

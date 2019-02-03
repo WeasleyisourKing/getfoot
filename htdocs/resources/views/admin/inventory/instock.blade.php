@@ -282,8 +282,11 @@
                                 @endif
                                 <td> {{$item->operator}}</td>
                                 <td>{{$item->created_at}}</td>
-                                <td>{{$item->pruchase_order_no}}
-                                </td>
+                                @if ($item->pruchase_order_no  == -1 || $item->pruchase_order_no  == -2)
+                                    <td></td>
+                                @else
+                                    <td>{{$item->pruchase_order_no}}</td>
+                                @endif
                                 @if($item->state != 1 || $item->type != 2)
                                     <td>已审核入库</td>
                                 @else
@@ -390,7 +393,7 @@
         @endforeach
 
 
-//console.log(window.shelves);
+
             for (let i in window.shelves) {
 
             window.dta += `<option  value="${window.shelves[i].id}">${window.shelves[i].name}（${window.shelves[i].number}）</option>`;
@@ -625,7 +628,7 @@
                     $('#view-item-modal').modal('show');
 
                     $("#Print").click(
-                        function Printing() {
+                        function() {
                             bdhtml = window.document.body.innerHTML;
                             sprnstr = "<!--startprint-->";
                             eprnstr = "<!--endprint-->";
@@ -661,12 +664,11 @@
                         var datas = '<thead>' +
                             ' <tr>' +
                             ' <th class="col-md-2 col-lg-2 exce"> 商品名称</th>' +
-                            ' <th class="col-md-1 col-lg-1 exce">  SKU</th>' +
+                            ' <th class="col-md-2 col-lg-2 exce">  SKU</th>' +
                             '<th class="col-md-2 col-lg-2 exce"> 商品图片</th> ' +
                             '<th class="col-md-2 col-lg-2 exce">成本价（$）</th>' +
-                            '<th class="col-md-2 col-lg-2 exce"> 实际库存</th> ' +
-                            '<th class="col-md-2 col-lg-2 exce"> 冻结库存</th> ' +
-                            '<th class="col-md-1 col-lg-1 exce">操作</th>' +
+                            '<th class="col-md-2 col-lg-2 exce"> 商品库存</th> ' +
+                            '<th class="col-md-2 col-lg-2 exce">操作</th>' +
                             ' </tr>' +
                             ' </thead><tbody id="postContainer">';
 
@@ -685,10 +687,7 @@
                                                 </td>
                                          <td class="exce">${res.data[i].price}
                                                 </td>
-                                                  <td class="exce">${res.data[i].stock + res.data[i].frozen_stock}
-                                                </td>
-                                                  <td class="exce">${res.data[i].frozen_stock}
-                                                </td>
+                                                   <td class="exce">${res.data[i].stock}</td>
                                            <td class="exce">
                         <a title="添加商品" data-id="${res.data[i].id}" data-name="${res.data[i].zn_name}（${res.data[i].en_name}）"
                         data-shelve="${mm}"
@@ -826,7 +825,7 @@
                 //重复添加
 
                 if (arr.indexOf($(event).attr('data-id')) == -1) {
-                    
+
                     $('#content').append(` <div class="form-group DeleteThat panel" style="padding:20px;" id='list${$(event).attr('data-id')}'>
                         <div class="input-group" >
                             <text style="line-height: 34px; width: 69%;">${$(event).attr('data-name')}</text>
@@ -856,7 +855,6 @@
                     window.arr.push($(event).attr('data-id'));
 
                 } else {
-                    console.log('重复添加');
 
                     return;
                 }
@@ -867,24 +865,29 @@
                 $('#content').append(` <div class="form-group DeleteThat panel" style="padding:20px;" id='list${$(event).attr('data-id')}'>
                         <div class="input-group" >
                             <text style="line-height: 34px; width: 69%;">${$(event).attr('data-name')}</text>
-                            <span style="width: 30%; padding: 10px; " class="input-group-btn">
-                                           <input name="productNumber" data-id="${$(event).attr('data-id')}"  class="form-control"
-                                                  placeholder="数量"  type="text">
-                                                    </span>
-                                                    <span style="width: 30%;" class="input-group-btn">
-                                           <input class="form-control datepicker" data-date-format="yyyy-mm-dd"
-                                                  placeholder="批次过期时间 选填"  type="text">
-                                                    </span>
-                                                    <span style="padding: 10px; " class="input-group-btn  ">
-                                                        <button class="btn-sm btn-danger waves-effect waves-light delete-item-btn DeleteThis" data-id="${$(event).attr('data-id')}" onclick="Delete1(this)" ><i class="fa fa-trash"></i>
-                                                        </button>
-                                                    </span>    
+                            <span style="width: 24%; padding: 10px; " class="input-group-btn">
+                                <input name="productNumber" data-id="${$(event).attr('data-id')}"  class="form-control"
+                                        placeholder="数量"  type="text">
+                            </span>
+                            <span style="width: 24%;" class="input-group-btn">
+                                <select class="form-control selectpicker" data-id='${$(event).attr('data-id')}'  onchange="eshelves(this)" >
+                                    ${window.dta}
+                                </select>
+                            </span>
+                            <span style="width: 24%;" class="input-group-btn">
+                                <input class="form-control datepicker" data-date-format="yyyy-mm-dd"
+                                        placeholder="批次过期时间 选填"  type="text">
+                            </span>
+                            <span style="padding: 10px; " class="input-group-btn  ">
+                                <button class="btn-sm btn-danger waves-effect waves-light delete-item-btn DeleteThis" data-id="${$(event).attr('data-id')}" onclick="Delete1(this)" ><i class="fa fa-trash"></i>
+                                </button>
+                            </span>    
 
                         </div>
                             <ul id="eselectshelve${$(event).attr('data-id')}" style="display:flex; display: -webkit-flex; flex-wrap:wrap; ">
                       ${$(event).attr('data-shelve')}
                       </ul>
-                       <select class="form-control" data-id='${$(event).attr('data-id')}'  onchange="eshelves(this)" >
+                       <select class="form-control selectpicker" data-id='${$(event).attr('data-id')}'  onchange="eshelves(this)" >
                         ${window.dta}
                        </select>
                     </div>`);
@@ -905,7 +908,6 @@
             });
 
         }
-
     </script>
     <script>
         //处理订单

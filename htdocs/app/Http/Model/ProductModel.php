@@ -106,9 +106,20 @@ class ProductModel extends Model
     //商品过期日期 一对一
     public function overdue()
     {
-        return $this->belongsTo('App\Http\Model\stockOrderProductModel', 'id', 'product_id');
+        return $this->belongsTo('App\Http\Model\StockOrderProductModel', 'id', 'product_id');
     }
 
+    //实际库存
+    public function getStockAttribute($value)
+    {
+        if (!empty($this->attributes['frozen_stock'])) {
+
+            $nus = $this->attributes['stock'] - $this->attributes['frozen_stock'];
+            return $nus < 0 ? 0 : $nus;
+        } else {
+            return $value;
+        }
+    }
     //获取商品列表
     public static function getCategoryProductList($id)
     {
@@ -139,7 +150,7 @@ class ProductModel extends Model
                 CASE stock WHEN 0 THEN CONCAT('【Sold out】',en_name) ELSE en_name END as 'en_name'"),
                 'id', 'product_image', 'stock', 'sku', 'price', 'status', 'summary', 'category_id', 'brand_id', 'en_describe',
                 'zn_describe', 'number', 'zn_weight', 'en_weight', 'zn_number', 'en_number', 'weight', 'shelves', 'term', 'net_weight', 'zn_net_weight',
-                'en_net_weight')
+                'en_net_weight','frozen_stock')
             ->where('id', '=', $id)
             ->where('status', '=', 1)
             ->first();
@@ -149,7 +160,7 @@ class ProductModel extends Model
     public static function getProduct($arr)
     {
         return self::with('distributor', 'shelves')
-            ->select(['id', 'sku', 'price', 'stock', 'zn_name', 'en_name', 'product_image', 'status', 'shelves', 'innersku', 'number'])
+            ->select(['id', 'sku', 'price', 'stock', 'zn_name', 'en_name', 'product_image', 'status', 'innersku', 'number'])
             ->whereIn('id', $arr)
             ->get()
             ->toArray();
@@ -496,10 +507,8 @@ class ProductModel extends Model
     //查询商品
     public static function searchName($data)
     {
-        return self::with(['shelves' => function ($q){
-            $q->select('name');
-        }],'distributor')
-            ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'shelves', 'price')
+        return self::with('distributor')
+            ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'price','innersku','number')
             ->where('zn_name', 'like', '%' . $data . '%')
             ->orderBy('created_at', 'desc')
             ->get();
@@ -508,10 +517,8 @@ class ProductModel extends Model
     //查询商品
     public static function searchSKU($data)
     {
-        return self::with(['shelves' => function ($q){
-            $q->select('name');
-        }],'distributor')
-            ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'shelves', 'price')
+        return self::with('distributor')
+            ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'price','innersku','number')
             ->where('sku', 'like', '%' . $data . '%')
             ->orderBy('created_at', 'desc')
             ->get();

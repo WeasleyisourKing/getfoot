@@ -45,7 +45,7 @@ class BusinessOrderModel extends Model
     {
         return self::with(['manys' => function ($query) {
             $query->with('distributor')
-                ->select(DB::raw("CASE stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name'"),
+                ->select('zn_name',
                     'id','en_name','product_image','stock','count')
 //                ->select('id', 'zn_name', 'product_image','count')
                 ->wherePivot('status', '=', 2);

@@ -110,17 +110,36 @@ class ProductModel extends Model
     }
 //
     //实际库存
-    public function getStockAttribute($value)
+    public function getStockAttribute()
     {
         if (!empty($this->attributes['frozen_stock'])) {
 
             $nus = $this->attributes['stock'] - $this->attributes['frozen_stock'];
             return $nus < 0 ? 0 : $nus;
-        } else {
-            return $value;
         }
-
     }
+
+    //实际库存
+    public function getznNameAttribute($value)
+    {
+        if (!empty($this->attributes['frozen_stock'])) {
+
+            $nus = $this->attributes['stock'] - $this->attributes['frozen_stock'];
+            return $nus > 0 ? $value : '【已售罄】' . $value;
+        }
+    }
+
+    //实际库存
+    public function getenNameAttribute($value)
+    {
+        if (!empty($this->attributes['frozen_stock'])) {
+
+            $nus = $this->attributes['stock'] - $this->attributes['frozen_stock'];
+            return $nus > 0 ? $value : '【Sold out】' . $value;
+
+        }
+    }
+
     //获取商品列表
     public static function getCategoryProductList($id)
     {
@@ -147,11 +166,9 @@ class ProductModel extends Model
         }, 'distributor', 'image', 'message' => function ($query) {
             $query->select('product_id');
         }])
-            ->select(DB::raw("CASE stock - frozen_stock WHEN 0 THEN CONCAT('【已售罄】',zn_name)  ELSE zn_name END as 'zn_name',
-                CASE stock - frozen_stock WHEN 0 THEN CONCAT('【Sold out】',en_name) ELSE en_name END as 'en_name'"),
-                'id', 'product_image', 'stock', 'sku', 'price', 'status', 'summary', 'category_id', 'brand_id', 'en_describe',
+            ->select('zn_name', 'en_name', 'id', 'product_image', 'stock', 'sku', 'price', 'status', 'summary', 'category_id', 'brand_id', 'en_describe',
                 'zn_describe', 'number', 'zn_weight', 'en_weight', 'zn_number', 'en_number', 'weight', 'shelves', 'term', 'net_weight', 'zn_net_weight',
-                'en_net_weight','frozen_stock')
+                'en_net_weight', 'frozen_stock')
             ->where('id', '=', $id)
             ->where('status', '=', 1)
             ->first();
@@ -509,7 +526,7 @@ class ProductModel extends Model
     public static function searchName($data)
     {
         return self::with('distributor')
-            ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'price','innersku','number')
+            ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'price', 'innersku', 'number')
             ->where('zn_name', 'like', '%' . $data . '%')
             ->orderBy('created_at', 'desc')
             ->get();
@@ -519,7 +536,7 @@ class ProductModel extends Model
     public static function searchSKU($data)
     {
         return self::with('distributor')
-            ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'price','innersku','number')
+            ->select('id', 'product_image', 'sku', 'en_name', 'zn_name', 'stock', 'price', 'innersku', 'number')
             ->where('sku', 'like', '%' . $data . '%')
             ->orderBy('created_at', 'desc')
             ->get();

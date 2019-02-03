@@ -42,7 +42,7 @@ class MessageModel extends Model
     public static function getProduct ($id)
     {
         return self::with(['messageImg' => function ($query) {
-            $query->select(DB::raw("CASE stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name'"),
+            $query->select('zn_name',
                 'id','en_name','product_image','stock');
         }, 'users' => function ($query) {
             $query->select('id', 'name', 'avatar');
@@ -80,7 +80,7 @@ class MessageModel extends Model
     {
 
         return self::with(['messageImg' => function ($query) {
-            $query->select(DB::raw("CASE stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name'"),
+            $query->select('zn_name',
                 'id','en_name','product_image','stock');
         }, 'distributor', 'reply'])
             ->where('user_id', '=', $id)

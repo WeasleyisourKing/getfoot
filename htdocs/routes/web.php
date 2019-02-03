@@ -564,7 +564,10 @@ Route::get('/stock/search', 'Admin\StockController@searchStock');
 Route::post('/edit/shelves', 'Admin\StockController@editShelves');
 //获取货架下所有商品接口*
 Route::get('/shelves/product', 'Admin\StockController@shelfGood');
-
+//调拨货架接口
+Route::post('/shelves/allocation', 'Admin\StockController@shelfAllocation');
+//搜索货架接口
+Route::get('/shelves/search', 'Admin\StockController@shelfSearch');
 
 //修改库存接口*
 Route::post('/shelves/editor', 'Admin\StockController@shelveEditor');
@@ -582,12 +585,14 @@ Route::get('/shelves/Batch/del', 'Admin\StockController@orderBatchDel');
 //获取某订单详情接口*
 Route::get('/shelves/order/deal', 'Admin\StockController@orderDeal');
 
-//采购订单入库接口*
-Route::get('/stock/put', 'Admin\StockController@stockPut');
+//采购订单修改接口*
+Route::post('/stock/put', 'Admin\StockController@stockPut');
 //入库确认接口
 Route::get('/stock/in/confirm', 'Admin\StockController@stockInConfirm');
-
-Route::get('/stock/out/confirm', 'Admin\StockController@stockOutConfirm');
+//添加商品货架选择接口
+Route::get('/select/shelves', 'Admin\StockController@selectShelves');
+//商业订单确认接口
+Route::post('/stock/out/confirm', 'Admin\StockController@stockOutConfirm');
 //入库下订单接口
 Route::post('/enter/stock/deal/order', 'Admin\StockController@enterPlaceOrder');
 //删除入库订单接口*
@@ -611,6 +616,9 @@ Route::post('/stock/product/deal', 'Admin\StockController@productStockDeal');
 //确认订单接口*
 Route::get('/stock/check', 'Admin\StockController@stockCheck');
 
+//托盘货架选择接口
+Route::post('/pallet/select', 'Admin\StockController@palletSelect');
+
 //TODO 抓货打包接口
 //随机获取订单接口*
 Route::get('/catch/order', 'Admin\CatchController@catchOrder');
@@ -619,6 +627,8 @@ Route::post('/catch/status', 'Admin\CatchController@catchStatus');
 //关闭或者刷新订单接口*
 Route::get('/catch/reduction', 'Admin\CatchController@catchReduction');
 
+//upper接口*
+Route::get('/get/upper', 'Admin\StockController@getUpper');
 
 //没有权限页面
 Route::get('error', 'Admin\MyController@error');

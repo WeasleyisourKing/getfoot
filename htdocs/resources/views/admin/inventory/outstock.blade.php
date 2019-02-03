@@ -784,6 +784,7 @@
                     }
                 }
                 if(a){
+
                     $.get('/select/shelves', {'id': item.id}, function (res) {
                         if (res.status) {
                             if (res.data.length == 0) {

@@ -149,9 +149,9 @@ class ThemeModel extends Model
         return self::with(['products' => function ($query) {
 
             $query->select(
-                DB::raw("CASE stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name',
-                CASE stock WHEN 0 THEN CONCAT('【Sold out】',en_name) ELSE en_name END as 'en_name'"),
-                'id', 'product_image', 'stock')
+                DB::raw("CASE stock - frozen_stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name',
+                CASE stock - frozen_stock WHEN 0 THEN CONCAT('【Sold out】',en_name) ELSE en_name END as 'en_name'"),
+                'id', 'product_image', 'stock','frozen_stock')
                 ->where('status', '=', 1)
                 ->with('distributor');
         }])

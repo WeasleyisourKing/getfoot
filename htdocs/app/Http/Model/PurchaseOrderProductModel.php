@@ -21,6 +21,16 @@ class PurchaseOrderProductModel extends Model
     	return $this->belongsTo('App\Http\Model\distributorModel', 'product_id', 'id');
     }
 
+    //关联商品和分类关系 一对多
+    public function pallets ()
+    {
+
+        return $this->hasMany('App\Http\Model\PalletProductModel', 'order_id', 'order_id');
+    }
+
+
+
+
 
 
 }

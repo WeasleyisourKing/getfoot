@@ -108,7 +108,7 @@ class ProductModel extends Model
     {
         return $this->belongsTo('App\Http\Model\StockOrderProductModel', 'id', 'product_id');
     }
-
+//
     //实际库存
     public function getStockAttribute($value)
     {
@@ -119,6 +119,7 @@ class ProductModel extends Model
         } else {
             return $value;
         }
+
     }
     //获取商品列表
     public static function getCategoryProductList($id)
@@ -146,8 +147,8 @@ class ProductModel extends Model
         }, 'distributor', 'image', 'message' => function ($query) {
             $query->select('product_id');
         }])
-            ->select(DB::raw("CASE stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name',
-                CASE stock WHEN 0 THEN CONCAT('【Sold out】',en_name) ELSE en_name END as 'en_name'"),
+            ->select(DB::raw("CASE stock - frozen_stock WHEN 0 THEN CONCAT('【已售罄】',zn_name)  ELSE zn_name END as 'zn_name',
+                CASE stock - frozen_stock WHEN 0 THEN CONCAT('【Sold out】',en_name) ELSE en_name END as 'en_name'"),
                 'id', 'product_image', 'stock', 'sku', 'price', 'status', 'summary', 'category_id', 'brand_id', 'en_describe',
                 'zn_describe', 'number', 'zn_weight', 'en_weight', 'zn_number', 'en_number', 'weight', 'shelves', 'term', 'net_weight', 'zn_net_weight',
                 'en_net_weight','frozen_stock')

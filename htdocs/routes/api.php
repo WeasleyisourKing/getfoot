@@ -21,7 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //商品下订单
 Route::post('/order', 'Api\NewOrderController@placeOrder');
 
-//商家商品下订单
+//snack下商业订单
 Route::post('/business/order', 'Api\BusinessOrderController@placeOrder');
 
 //TODO 商品类
@@ -35,6 +35,8 @@ Route::get('/check/product', 'Api\NewOrderController@checkProductStock');
 //获取订单状态接口
 Route::get('/order/state', 'Api\NewOrderController@orderState');
 
+//获取商业订单状态接口
+Route::get('/order/bunsiess/state', 'Api\NewOrderController@orderBunsiessState');
 //app商品下订单
 Route::get('/shop/order', 'Api\AppOrderController@placeOrder');
 
@@ -85,7 +87,6 @@ Route::get('/tax/zip/{zip}/city/{city}', 'Api\ShopController@tax');
 Route::get('/users/order/details', 'Api\NewOrderController@getOrderDetails');
 
 Route::get('/business/order/details', 'Api\NewOrderController@getBusinessDetails');
-
 
 //TODO App订单详情地址
 

@@ -33,12 +33,13 @@ class OrderController extends Controller
     protected $addressInfo;
 
     protected $zax;
+
     /**
      * 订单列表页面
      * @param Request $request
      * @return null
      */
-    public function orderList ($status, $limit)
+    public function orderList($status, $limit)
     {
 //        A2018111200001
 
@@ -66,6 +67,7 @@ class OrderController extends Controller
 
         $res = OrderModel::getOrderList($statusData, $limit);
 
+//        dd($res->toArray());
 
         //数据 类型 标题
         return view('admin.order.order-item', [
@@ -81,7 +83,7 @@ class OrderController extends Controller
      * @param Request $request
      * @return null
      */
-    public function mail ()
+    public function mail()
     {
 
         //数据 类型 标题
@@ -95,7 +97,7 @@ class OrderController extends Controller
      * @param Request $request
      * @return null
      */
-    public function orderDetail ($id)
+    public function orderDetail($id)
     {
 
         $res = OrderModel::getOrderProduct($id);
@@ -116,7 +118,7 @@ class OrderController extends Controller
      * @param Request $request
      * @return null
      */
-    public function freight ()
+    public function freight()
     {
 
         $res = GeneralModel::getGeneral(1);
@@ -129,7 +131,7 @@ class OrderController extends Controller
      * @param Request $request
      * @return null
      */
-    public function orderFreight (Request $request)
+    public function orderFreight(Request $request)
     {
 
         (new FreightRule)->goCheck(200);
@@ -160,7 +162,7 @@ class OrderController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function orderDel (Request $request)
+    public function orderDel(Request $request)
     {
 
         $id = $request->input('id');
@@ -171,7 +173,7 @@ class OrderController extends Controller
     }
 
 
-    public function placeOrder (Request $request)
+    public function placeOrder(Request $request)
     {
 
 
@@ -192,8 +194,9 @@ class OrderController extends Controller
      * @param  string $uProducts 数据库商品信息
      * @return $order 订单号
      */
-    public function place ($addressInfo, $uProducts)
+    public function place($addressInfo, $uProducts)
     {
+
 
         //属性赋值
         $this->uProducts = $uProducts;
@@ -212,13 +215,13 @@ class OrderController extends Controller
 
                 if ($item['haveStock'] != true) {
 
-                    $text .= '商品'.$item['znName'] .'库存不足；';
+                    $text .= '商品' . $item['znName'] . '库存不足；';
                 }
 
             }
             throw new ParamsException([
                 'code' => 200,
-                'message' =>$text
+                'message' => $text
             ]);
         }
 
@@ -226,6 +229,7 @@ class OrderController extends Controller
         $snapshootOrder = $this->snapshootOrder($status);
 
         $freight = GeneralModel::select('threshold', 'freight')->where('id', '=', 1)->first()->toarray();
+
         $backup = $snapshootOrder['orderPrice'];
         //运费
         if ($snapshootOrder['orderPrice'] <= $freight['threshold']) {
@@ -246,7 +250,7 @@ class OrderController extends Controller
 
 
     //根据用户订单查找数据库商品信息
-    private function getProductsByOrder ($uProducts)
+    private function getProductsByOrder($uProducts)
     {
 
         $opIds = [];
@@ -272,7 +276,7 @@ class OrderController extends Controller
     }
 
     //与数据库比较库存量结果
-    private function getOrderStatus ()
+    private function getOrderStatus()
     {
 
         //用户一次下订单属性
@@ -309,7 +313,7 @@ class OrderController extends Controller
 
     //判断某一件商品是否有货及各项属性
     //用户某件商品id 用户某件商品总数 数据库数据
-    private function getProductStatus ($uPID, $uCount, $products)
+    private function getProductStatus($uPID, $uCount, $products)
     {
 
         //某商品详细信息
@@ -336,6 +340,7 @@ class OrderController extends Controller
             ]);
         } else {
 
+
             $product = $products[$pIdex];
             $pStatus['id'] = $product['id'];
             $pStatus['znName'] = $product['zn_name'];
@@ -345,14 +350,14 @@ class OrderController extends Controller
             $pStatus['singlePrice'] = $product['distributor']['level_four_price'];
             $pStatus['image'] = $product['product_image'];
             $pStatus['totalPrice'] = $uCount * $product['distributor']['level_four_price'];
-            $pStatus['shelves'] = $product['shelves'];
+//            $pStatus['shelves'] = $product['shelves'];
             $pStatus['haveStock'] = $product['stock'] >= $uCount ? true : false;
         }
         return $pStatus;
     }
 
     //订单其他信息快照
-    private function snapshootOrder ($status)
+    private function snapshootOrder($status)
     {
 
         $snapshoot = [
@@ -373,8 +378,9 @@ class OrderController extends Controller
         $snapshoot['orderPrice'] = $status['orderPrice'];
         $snapshoot['allCount'] = $status['totalCount'];
         $snapshoot['pStatus'] = $status['pStatusArray'];
+
         $snapshoot['snapshootAddress'] = json_encode($this->getUserAddress());
-        //商品大于1显示第一件商品加等
+
         $snapshoot['snapshootName'] = count($this->products) > 1 ?
             json_encode(['zn' => $this->products[0]['zn_name'] . '等', 'en' => $this->products[0]['en_name'] . ', etc']) :
             json_encode(['zn' => $this->products[0]['zn_name'], 'en' => $this->products[0]['en_name']]);
@@ -385,7 +391,7 @@ class OrderController extends Controller
     }
 
     //查询用户地址
-    private function getUserAddress ()
+    private function getUserAddress()
     {
 
         //添加邮箱
@@ -401,7 +407,7 @@ class OrderController extends Controller
     // 创建订单时没有预扣除库存量，简化处理
     // 如果预扣除了库存量需要队列支持，且需要使用锁机制
     //因为插入2张表 使用事务
-    private function createOrder ($orderSnap)
+    private function createOrder($orderSnap)
     {
         $num = OrderModel::orderBy('created_at', 'desc')->first(['order_no']);
 
@@ -438,6 +444,7 @@ class OrderController extends Controller
     //获取税金
     public function getZax ($zip, $city)
     {
+
         $city = str_replace(' ', '', $city);
         $city = htmlspecialchars(strip_tags(trim($city)));
         $url = sprintf(config('custom.tax_url'),
@@ -447,7 +454,8 @@ class OrderController extends Controller
 
         $res = Common::curlInfo($url);
 
-        if ($res['rCode'] == 100) {
+
+        if ($res['rCode'] == 100 && !empty($res['results'])) {
 
             $this->zax = $res['results'][0]['taxSales'];
 //            return Common::successData(['tax' => $res['results'][0]['taxSales']]);
@@ -461,7 +469,7 @@ class OrderController extends Controller
         } else {
             throw new ParamsException([
                 'code' => 200,
-                'message' => '获取税金接口失败'
+                'message' => '获取税金接口失败或者邮编无效'
             ]);
         }
     }

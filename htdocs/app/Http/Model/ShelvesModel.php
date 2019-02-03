@@ -22,7 +22,15 @@ class ShelvesModel extends Model
     {
 
         return $this->belongsToMany('App\Http\Model\ProductModel', 'product_shelves',
-            'shelves_id', 'product_id');
+            'shelves_id', 'product_id')
+            ->as('info')
+            ->withPivot('count','overdue','product_id','shelves_id');
+
+    }
+    // 一对多
+    public function shelve()
+    {
+        return $this->hasMany('App\Http\Model\ProductShelvesModel', 'shelves_id', 'id');
 
     }
 
@@ -72,27 +80,15 @@ class ShelvesModel extends Model
         }
     }
 
-    //修改品牌
-    public static function updateBrandInfo ($id, $data,$shelves,$productId)
+    //
+    public static function updateBrandInfo ($id, $data)
     {
 
         DB::beginTransaction();
         try {
+
             self::where('id', '=', $id)->update($data);
 
-        if (!is_null($shelves)) {
-            ProductShelvesModel::whereIn('product_id', $productId)->delete();
-
-            $she = [];
-
-            foreach ($shelves as $ps) {
-                foreach ($ps['data'] as $pso) {
-                    array_push($she, ['product_id' => $ps['id'], 'shelves_id' => $pso['shelves_id']]);
-                }
-            }
-
-            (new ProductShelvesModel)->insert($she);
-        }
             DB::commit();
 
 

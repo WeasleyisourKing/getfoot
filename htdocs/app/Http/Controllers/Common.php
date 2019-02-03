@@ -240,7 +240,7 @@ class Common
         }
         //后缀名
         $ext = $img->getClientOriginalExtension();
-        $fileTypes = ['png', 'jpg', 'gif', 'jpeg'];
+        $fileTypes = ['png', 'jpg', 'gif', 'jpeg','ico'];
 
         if (!in_array($ext, $fileTypes)) {
             return response()->json([
@@ -288,20 +288,21 @@ class Common
     {
 //        $num = 'A2018091711118';
 //        dump($num);
-        $yCode = array('A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J');
+//        $yCode = array('A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J');
 
-        if (($date = date('Ymd')) != substr($num, 1, 8)) {
+        if (($date = date('Ymd')) != substr($num,strpos ($num,'0') - 1,8)) {
             //不是同一天 重新计算
-            $orderSn = $yCode[intval(date('Y')) - 2018] . date('Ymd') . '00001';
-
+//            $orderSn = $yCode[intval(date('Y')) - 2018] . date('Ymd') . '00001';
+            $orderSn = date('Ymd') . '00001';
         } else {
-            $nums = substr($num, -(mb_strlen($num) - 9)) + 1;
-//            dump($nums);
+            $nums = sprintf("%05d", substr($num,-5) + 1);
+
 //            dump(substr($num, -(mb_strlen($num) - 9)));
 //            dump(mb_strlen(substr($num, -(mb_strlen($num) - 9)) + 1));
 //
 //            dump(str_repeat('0', 5 - (mb_strlen(substr($num, -(mb_strlen($num) - 9)) + 1))));
-            $orderSn = $yCode[intval(date('Y')) - 2018] . date('Ymd') .  str_repeat('0', 5 - (mb_strlen(substr($num, -(mb_strlen($num) - 9)) + 1))) . $nums;
+//            $orderSn = date('Ymd') .  str_repeat('0', 5 - (mb_strlen(substr($num, -(mb_strlen($num) - 9)) + 1))) . $nums;
+            $orderSn = date('Ymd') . $nums;
         }
 
 //        dd($orderSn);

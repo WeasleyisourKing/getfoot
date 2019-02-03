@@ -39,9 +39,9 @@ class CategoryModel extends Model
     {
         return CategoryModel::with(['product' => function ($query) {
             $query->with('distributor')
-                ->select(DB::raw("CASE stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name',
-                CASE stock WHEN 0 THEN CONCAT('【Sold out】',en_name) ELSE en_name END as 'en_name'"),
-                    'id', 'category_id', 'brand_id', 'product_image', 'stock')
+                ->select(DB::raw("CASE stock - frozen_stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name',
+                CASE stock - frozen_stock WHEN 0 THEN CONCAT('【Sold out】',en_name) ELSE en_name END as 'en_name'"),
+                    'id', 'category_id', 'brand_id', 'product_image', 'stock','frozen_stock')
                 ->where('status', '=', 1)
                 ->orderBy('stock', 'desc')
                 ->with('brand');
@@ -190,9 +190,9 @@ class CategoryModel extends Model
     public static function getHomePage ()
     {
         return self::with(['product' => function ($query) {
-            $query->select(DB::raw("CASE stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name',
-                CASE stock WHEN 0 THEN CONCAT('【Sold out】',en_name) ELSE en_name END as 'en_name'"),
-                'id', 'product_image', 'category_id', 'stock')
+            $query->select(DB::raw("CASE stock - frozen_stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name',
+                CASE stock - frozen_stock WHEN 0 THEN CONCAT('【Sold out】',en_name) ELSE en_name END as 'en_name'"),
+                'id', 'product_image', 'category_id', 'stock','frozen_stock')
                 ->where('status', '=', 1)
                 ->orderBy('stock', 'desc')
                 ->with('distributor');
@@ -210,9 +210,9 @@ class CategoryModel extends Model
     {
         return self::with(['product' => function ($query) {
 
-            $query->select(DB::raw("CASE stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name',
-                CASE stock WHEN 0 THEN CONCAT('【Sold out】',en_name) ELSE en_name END as 'en_name'"),
-                'id', 'product_image', 'stock', 'category_id', 'brand_id')
+            $query->select(DB::raw("CASE stock - frozen_stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name',
+                CASE stock - frozen_stock WHEN 0 THEN CONCAT('【Sold out】',en_name) ELSE en_name END as 'en_name'"),
+                'id', 'product_image', 'stock', 'category_id', 'brand_id','frozen_stock')
                 ->where('status', '=', 1)
                 ->orderBy('stock', 'desc')
                 ->with(['brand', 'distributor']);

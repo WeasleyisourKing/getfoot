@@ -34,6 +34,7 @@ class RoleMiddleware
 
 
         $current = explode('/',\Request::getRequestUri());
+
         $currents = '';
             if (count($current) > 3) {
                 $currents = '/'.$current[1].'/'.$current[2].'/'.$current[3];
@@ -44,7 +45,7 @@ class RoleMiddleware
                 }
                 $currents = rtrim($currents,'/');
             }
-
+//        dd($current);
 
         $arr = array_column($role, 'route');
 

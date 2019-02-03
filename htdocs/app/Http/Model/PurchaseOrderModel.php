@@ -14,50 +14,58 @@ class PurchaseOrderModel extends Model
 
     //多对多 从表 中间表 主表外键 从表外键
     //订单和商品
-    public function manys ()
+    public function manys()
     {
         return $this->belongsToMany('App\Http\Model\ProductModel', 'purchase_order_product', 'order_id', 'product_id');
     }
 
     //关联商品和分销商关系 一对一
-    public function distributor ()
+    public function distributor()
     {
 
         return $this->belongsTo('App\Http\Model\DistributorModel', 'product_id', 'product_id');
     }
 
     //关联商品和分销商关系 一对一
-    public function discounts ()
+    public function discounts()
     {
 
         return $this->belongsTo('App\Http\Model\UsersDiscountModel', 'discount_id', 'id');
     }
 
     //关联商品和分类关系 一对多
-    public function purchase ()
+    public function purchase()
     {
 
         return $this->hasMany('App\Http\Model\PurchaseOrderProductModel', 'order_id', 'id');
     }
 
+    // 一对多
+    public function pallet()
+    {
+        return $this->hasMany('App\Http\Model\PalletProductModel', 'order_id', 'id');
+
+
+    }
+
     //获取订单产品
-    public static function getProducts ($id)
+    public static function getProducts($id)
     {
         return self::with(['manys' => function ($query) {
             $query->with('distributor')
-                ->select(DB::raw("CASE stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name'"),
-                    'id','en_name','product_image','stock','count')
+                ->select(DB::raw("CASE stock - frozen_stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name'"),
+                    'id', 'en_name', 'product_image', 'stock', 'count','frozen_stock')
 //                ->select('id', 'zn_name', 'product_image','count')
                 ->wherePivot('status', '=', 2);
         }])
             ->where('id', '=', $id)
-            ->select('id','order_no')
+            ->select('id', 'order_no')
             ->first();
 
     }
 
     //生成预定单
-    public static function newOrder ($arr)
+    public static function newOrder($arr)
     {
         $obj = new self($arr);
         $obj->save();
@@ -66,7 +74,7 @@ class PurchaseOrderModel extends Model
     }
 
     //获取订单列表
-    public static function getOrderList ($status, $limit)
+    public static function getOrderList($status, $limit)
     {
         return self::select('id', 'order_no', 'total_price', 'snap_img', 'total_count', 'created_at', 'snap_name',
             DB::raw("(CASE status WHEN '1' THEN '待处理' WHEN '2' THEN '未支付' WHEN '3' THEN '已发货' WHEN '4' THEN '待支付' WHEN '5' THEN '退货' END) as status"))
@@ -77,10 +85,10 @@ class PurchaseOrderModel extends Model
     }
 
     //获取订单商品
-    public static function getOrderProduct ($id)
+    public static function getOrderProduct($id)
     {
 
-        return self::with(['discounts' => function($query) {
+        return self::with(['discounts' => function ($query) {
             $query->with('discount');
         }])->where('id', '=', $id)
             ->first()
@@ -89,7 +97,7 @@ class PurchaseOrderModel extends Model
     }
 
     //写入订单和相关商品信息
-    public static function insertOrder ($data, $arr)
+    public static function insertOrder($data, $arr)
     {
 
         //涉及多表 使用事务控制
@@ -103,10 +111,19 @@ class PurchaseOrderModel extends Model
             foreach ($arr as &$p) {
 
                 $p['order_id'] = $orderId->id;
-                $p['created_at'] = date('Y-m-d H:i:s', time());
-                $p['updated_at'] = date('Y-m-d H:i:s', time());
+                $obj = new PurchaseOrderProductModel($p);
+                $obj->save();
+
+//                dump($obj->order_id);
+//                foreach ($pallet as &$items) {
+//                    $items['product_id'] = $obj->product_id;
+//                    $items['order_id'] = $obj->order_id;
+//                    $items['created_at'] = date('Y-m-d H:i:s', time());
+//                    $items['updated_at'] = date('Y-m-d H:i:s', time());
+//                }
+//
+//                PalletProductModel::insert($pallet);
             }
-            (new PurchaseOrderProductModel)->insert($arr);
 
             DB::commit();
 
@@ -122,8 +139,56 @@ class PurchaseOrderModel extends Model
 
     }
 
+    //采购订单审核确认
+    public static function updateOrder($id, $arr, $price,$sum)
+    {
+
+        //涉及多表 使用事务控制
+        DB::beginTransaction();
+        try {
+            PurchaseOrderProductModel::where('order_id', '=', $id)->delete();
+            PalletProductModel::where('order_id', '=', $id)->delete();
+
+            //修改成已审核状态
+            self::where('id', '=', $id)->update(['status' => 2, 'total_price' => $price,'total_count' => $sum]);
+
+            foreach ($arr as &$p) {
+
+                $pallet = $p['pallet'];
+                unset($p['pallet']);
+
+
+                $p['order_id'] = $id;
+                $obj = new PurchaseOrderProductModel($p);
+                $obj->save();
+
+//                dump($obj->order_id);
+                foreach ($pallet as &$items) {
+                    $items['product_id'] = $obj->product_id;
+                    $items['order_id'] = $obj->order_id;
+                    $items['created_at'] = date('Y-m-d H:i:s', time());
+                    $items['updated_at'] = date('Y-m-d H:i:s', time());
+                }
+//                dump($pallet);
+//                dd($arr);
+                PalletProductModel::insert($pallet);
+            }
+//dd($arr);
+            DB::commit();
+
+            //返回订单数据
+
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            //记录日志
+            throw $ex;
+        }
+
+
+    }
+
     //删除订单
-    public static function delOrder ($id)
+    public static function delOrder($id)
     {
 
         //涉及多表 使用事务控制
@@ -134,9 +199,10 @@ class PurchaseOrderModel extends Model
                 ->delete();
 
             (new PurchaseOrderProductModel)->where('order_id', '=', $id)->delete();
-
+//            $arr = (new PalletProductModel)->where('order_id', '=', $id)->get(['pallet_id']);
+//            (new PalletProductModel)->where('order_id', '=', $id)->delete();
+//            (new PalletModel)->whereIn('id', $arr)->delete();
             DB::commit();
-            return true;
 
         } catch (\Exception $ex) {
             DB::rollBack();
@@ -148,7 +214,7 @@ class PurchaseOrderModel extends Model
 
 
     //删除订单
-    public static function delSow ($arr)
+    public static function delSow($arr)
     {
 
         //涉及多表 使用事务控制
@@ -172,9 +238,8 @@ class PurchaseOrderModel extends Model
     }
 
 
-
     //获取订单数据
-    public static function catchOrder ()
+    public static function catchOrder()
     {
 
 //        return $obj = self::where('status', '=', 1)
@@ -200,16 +265,16 @@ class PurchaseOrderModel extends Model
     }
 
     //修改状态
-    public static function updateStatus ($id, $data, $arr)
+    public static function updateStatus($id, $data, $arr)
     {
 
         //涉及多表 使用事务控制
         DB::beginTransaction();
         try {
 
-           $info = self::find($id);
+            $info = self::find($id);
             $info->total_price = $data['total_price'];
-            $info->total_count =$data['total_count'];
+            $info->total_count = $data['total_count'];
             $info->save();
 
 //            dd($info);
@@ -238,7 +303,7 @@ class PurchaseOrderModel extends Model
     }
 
     //生成预定单
-    public static function getOrderInfo ($id)
+    public static function getOrderInfo($id)
     {
         return self::select('id', 'total_price', 'status')
             ->where('order_no', '=', $id)

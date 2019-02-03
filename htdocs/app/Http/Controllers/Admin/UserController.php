@@ -11,8 +11,10 @@ use App\Http\Model\AdminModel;
 use App\Http\Model\UsersRoleModel;
 use App\Http\Model\AdminRoleModel;
 use App\Http\Model\PrivilegeModel;
+use App\Http\Model\SupplierModel;
 use App\Http\Controllers\Common;
 use App\Rules\IdRule;
+use App\Rules\SupplierRule;
 use App\Rules\UserInfoRule;
 use App\Rules\IdAndRoleRule;
 use App\Rules\ManagerInfoRule;
@@ -33,7 +35,7 @@ class UserController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function userList ($status, $limit)
+    public function userList($status, $limit)
     {
 
         $statusData = ($status != -1) ? [$status] : [1, 2];
@@ -46,7 +48,7 @@ class UserController extends Controller
                 DB::raw("(CASE sex WHEN '1' THEN '男' WHEN '2' THEN '女' END) as sex"),
                 'email', 'avatar', 'integral', 'created_at')
             ->whereIn('status', [1, 2])
-            ->where('role','=',1)
+            ->where('role', '=', 1)
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -58,7 +60,7 @@ class UserController extends Controller
                 DB::raw("(CASE sex WHEN '1' THEN '男' WHEN '2' THEN '女' END) as sex"),
                 'email', 'avatar', 'integral', 'created_at')
             ->whereIn('status', [1, 2])
-            ->whereIn('role',[2,3,4])
+            ->whereIn('role', [2, 3, 4])
             ->orderBy('created_at', 'desc')
             ->get();
         //        $res = UsersModel::getUserList($statusData, $limit);
@@ -75,11 +77,26 @@ class UserController extends Controller
     }
 
     /**
+     * 供应商管理页面
+     * @param Request $request
+     * @return null
+     */
+    public function supplierList()
+    {
+
+        $res = SupplierModel::get();
+
+        return view('admin.supplier.supplier-user', [
+            'data' => $res
+        ]);
+    }
+
+    /**
      * 管理员列表页面
      * @param Request $request
      * @return null
      */
-    public function managerList ($type, $status, $limit)
+    public function managerList($type, $status, $limit)
     {
 
         $statusData = ($status != -1) ? [$status] : [1, 2];
@@ -125,7 +142,7 @@ class UserController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function userRole ($limit)
+    public function userRole($limit)
     {
 
         $res = UsersRoleModel::getRole($limit);
@@ -138,7 +155,7 @@ class UserController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function managerRole ($limit)
+    public function managerRole($limit)
     {
 
 
@@ -169,7 +186,7 @@ class UserController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function addressList (Request $request)
+    public function addressList(Request $request)
     {
 
         (new IdRule)->goCheck(200);
@@ -196,7 +213,7 @@ class UserController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function orderList (Request $request)
+    public function orderList(Request $request)
     {
         (new IdRule)->goCheck(200);
 
@@ -215,7 +232,7 @@ class UserController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function userAdd (Request $request)
+    public function userAdd(Request $request)
     {
 
         (new UserInfoRule)->goCheck(200);
@@ -277,7 +294,7 @@ class UserController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function userUpdate (Request $request)
+    public function userUpdate(Request $request)
     {
 
         (new UserInfoRule)->goCheck(200);
@@ -336,7 +353,7 @@ class UserController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function userDel (Request $request)
+    public function userDel(Request $request)
     {
 
         $id = $request->input('id');
@@ -356,7 +373,7 @@ class UserController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function userRoleUpdate (Request $request)
+    public function userRoleUpdate(Request $request)
     {
 
         (new IdAndRoleRule)->goCheck(200);
@@ -385,7 +402,7 @@ class UserController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function userRoleAppend (Request $request)
+    public function userRoleAppend(Request $request)
     {
 
         (new IdAndRoleRule)->goCheck(200);
@@ -412,7 +429,7 @@ class UserController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function userRoleDel (Request $request)
+    public function userRoleDel(Request $request)
     {
 
         $id = $request->input('id');
@@ -431,7 +448,7 @@ class UserController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function role ()
+    public function role()
     {
         $res = UsersRoleModel::get();
 
@@ -447,7 +464,7 @@ class UserController extends Controller
      * @param Request $request
      * @return null
      */
-    public function managerInsert (Request $request)
+    public function managerInsert(Request $request)
     {
 
         (new ManagerInfoRule)->goCheck(200);
@@ -475,7 +492,7 @@ class UserController extends Controller
      * @param Request $request
      * @return null
      */
-    public function managerModify (Request $request)
+    public function managerModify(Request $request)
     {
 
         (new ManagerInfoRule)->goCheck(200);
@@ -506,7 +523,7 @@ class UserController extends Controller
         return Common::successData();
     }
 
-    public function managerModifyAdmin (Request $request)
+    public function managerModifyAdmin(Request $request)
     {
 
         $params = $request->all();
@@ -528,12 +545,13 @@ class UserController extends Controller
         Auth()->logout();
         return Common::successData();
     }
+
     /**
      * //删除管理员接口
      * @param Request $request
      * @return mixed
      */
-    public function managerDel (Request $request)
+    public function managerDel(Request $request)
     {
 
         $id = $request->input('id');
@@ -552,7 +570,7 @@ class UserController extends Controller
      * @param Request $request
      * @return null
      */
-    public function managerAdd (Request $request)
+    public function managerAdd(Request $request)
     {
 
         (new IdAndRoleRule)->goCheck(200);
@@ -579,7 +597,7 @@ class UserController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function managerRoleUpdate (Request $request)
+    public function managerRoleUpdate(Request $request)
     {
 
         (new IdAndRoleRule)->goCheck(200);
@@ -607,7 +625,7 @@ class UserController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function managerRoleDel (Request $request)
+    public function managerRoleDel(Request $request)
     {
 
         $id = $request->input('id');
@@ -626,7 +644,7 @@ class UserController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function Administrators ()
+    public function Administrators()
     {
 
         $res = AdminRoleModel::get();
@@ -639,7 +657,7 @@ class UserController extends Controller
     }
 
     //管理员权限
-    public function managerAuth (Request $request)
+    public function managerAuth(Request $request)
     {
 
         $param = $request->all();
@@ -661,6 +679,104 @@ class UserController extends Controller
         return Common::successData($res);
     }
 
+    /**
+     * 添加供应商接口
+     * @param Request $request
+     * @return null
+     */
+    public function supplierAdd(Request $request)
+    {
 
+        (new SupplierRule)->goCheck(200);
+        $params = $request->all();
+
+        $company = htmlspecialchars(strip_tags(trim($params['company'])));
+        //角色应该唯一
+        if (SupplierModel::where('company','=',$company)->first()) {
+            throw new ParamsException([
+                'code' => 200,
+                'message' => '供应商名称已经存在'
+            ]);
+        }
+        //拼接信息
+        $data = [
+            'name' => htmlspecialchars(strip_tags(trim($params['name']))),
+            'company' => $company,
+            'mobile' => htmlspecialchars(strip_tags(trim($params['mobile']))),
+            'email' => htmlspecialchars(strip_tags(trim($params['email']))),
+            'address' => htmlspecialchars(strip_tags(trim($params['address']))),
+            'country' => htmlspecialchars(strip_tags(trim($params['country'])))
+        ];
+        //插入信息
+        $res = (new SupplierModel(($data)))->save();
+
+        if (!$res) {
+            throw new \Exception('服务器内部错误');
+        }
+        return Common::successData();
+
+    }
+
+
+    /**
+     * //修改供应商接口
+     * @param Request $request
+     * @return mixed
+     */
+    public function supplierUpdate(Request $request)
+    {
+
+        (new SupplierRule)->goCheck(200);
+
+        $params = $request->all();
+
+        $company = htmlspecialchars(strip_tags(trim($params['company'])));
+
+        //角色应该唯一
+        if (SupplierModel::where('company','=',$company)->where('id','!=',$params['id'])->first()) {
+            throw new ParamsException([
+                'code' => 200,
+                'message' => '供应商名称已经存在'
+            ]);
+        }
+        //拼接数据
+        $data = [];
+        $data = [
+            'name' => htmlspecialchars(strip_tags(trim($params['name']))),
+            'company' => $company,
+            'mobile' => htmlspecialchars(strip_tags(trim($params['mobile']))),
+            'email' => htmlspecialchars(strip_tags(trim($params['email']))),
+            'address' => htmlspecialchars(strip_tags(trim($params['address']))),
+            'country' => htmlspecialchars(strip_tags(trim($params['country'])))
+        ];
+
+        //添加用户
+        $res = SupplierModel::where('id', '=', $params['id'])->update($data);
+
+        if (!$res) {
+            throw new \Exception('服务器内部错误');
+        }
+
+        return Common::successData();
+    }
+
+    /**
+     * //删除供应商接口
+     * @param Request $request
+     * @return mixed
+     */
+    public function supplierdel(Request $request)
+    {
+
+        $id = $request->input('id');
+
+        $res = SupplierModel::where('id', '=', $id)->delete();
+
+        if (!$res) {
+            throw new \Exception('服务器内部错误');
+        }
+
+        return Common::successData();
+    }
 }
 

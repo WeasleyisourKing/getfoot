@@ -170,7 +170,7 @@ class ShopController extends Controller
     public function login ()
     {
 
-        $logo = GeneralModel::select('logo')->first();
+        $logo = GeneralModel::select('logo','title','keywords','description')->first();
 
         return Common::successData($logo);
 

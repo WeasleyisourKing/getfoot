@@ -11,8 +11,6 @@ use App\Http\Model\ProductModel;
 use App\Http\Model\GeneralModel;
 use App\Http\Model\UsersAddressModel;
 use App\Http\Model\OrderProductModel;
-use App\Http\Model\BusinessOrderProductModel;
-use App\Http\Model\BusinessOrderModel;
 use App\Http\Model\UsersInvoiceModel;
 use App\Http\Model\UsersDiscountModel;
 use App\Http\Model\OrderModel;
@@ -198,6 +196,7 @@ class NewOrderController extends Controller
 
             $status['orderPrice'] += $pStatus['totalPrice'];
             $status['totalCount'] += $pStatus['count'];
+
             $status['pStatusArray'][] = $pStatus;
 
         }
@@ -279,7 +278,6 @@ class NewOrderController extends Controller
 
         //添加收件人
         $this->addressee = $userAddress->name;
-
 
         //添加收件人电话
         $this->mobile = $userAddress->mobile;
@@ -428,20 +426,31 @@ class NewOrderController extends Controller
     {
 
         $id = $request->input('id');
+        $data['products'] = OrderProductModel::orderProduct($id);
+        $data['details'] = OrderModel::select('order_no', 'tax', 'snap_address', 'freight', 'total_price', 'status')->where('id', '=', $id)->first();
 
-        $data['products'] = BusinessOrderProductModel::orderProduct($id);
-        $data['details'] = BusinessOrderModel::select('order_no', 'tax', 'snap_address', 'freight', 'total_price', 'status')->where('id', '=', $id)->first();
+        return $data;
+
+    }
+
+
+    //获取商业用户某订单详情
+    public function getBusinessDetails (Request $request)
+    {
+
+        $id = $request->input('id');
+
+        $data['products'] = \App\Http\Model\BusinessOrderProductModel::orderProduct($id);
+        $data['details'] = \App\Http\Model\BusinessOrderModel::select('order_no', 'snap_address', 'total_price', 'status')->where('id', '=', $id)->first();
 
 //        dd($data['products']);
         return $data;
 
     }
-
     //判断某一件商品是否有货及各项属性
     //用户某件商品id 用户某件商品总数 数据库数据
     private function getProductStatus ($uPID, $uCount, $products)
     {
-
 
         //某商品详细信息
         $pStatus = [
@@ -663,11 +672,62 @@ class NewOrderController extends Controller
 
         if (!empty($status)) {
 
+            $res = UsersModel::getUserOrder($id, $status);
+        } else {
+            $res = UsersModel::getUserOrder($id);
+        }
+
+
+        if (!$res) {
+            $result = [
+                'status' => false,
+                'code' => 200,
+                'data' => '用户查询不到'
+            ];
+            $json = json_encode($result);
+
+            return "my({$json})";
+        }
+
+        if (!$res[0]['oreder_manys']) {
+            $result = [
+                'status' => false,
+                'code' => 200,
+                'data' => '用户没有下订单'
+            ];
+            $json = json_encode($result);
+
+            return "my({$json})";
+        }
+
+
+        $data = Common::screen($res[0]['oreder_manys'], ['snap_name', 'order_no', 'total_price', 'status', 'total_count', 'created_at', 'snap_img', 'id']);
+//        return $data;
+
+        return Common::successData($data, true);
+
+
+    }
+
+    //获取商业用户订单状态
+    public function orderBunsiessState (Request $request)
+    {
+
+
+        $data = (new IdRule)->goCheck(200, true);
+
+        if (!empty($data)) return $data;
+        $id = $request->input('id');
+        //$status=$request->input('status');
+        $status = $request->input('status');
+        //dd($id);
+
+        if (!empty($status)) {
+
             $res = UsersModel::getUserBusinessOrder($id, $status);
         } else {
             $res = UsersModel::getUserBusinessOrder($id);
         }
-        //dd($res);
 
         if (!$res) {
             $result = [
@@ -699,7 +759,6 @@ class NewOrderController extends Controller
 
 
     }
-
     //发送邮箱
     public function sendEmail ($email, $name, $number, $snapName, &$snapshootOrder)
     {
@@ -818,7 +877,8 @@ class NewOrderController extends Controller
 
         $res = Common::curlInfo($url);
 
-        if ($res['rCode'] == 100) {
+
+        if ($res['rCode'] == 100 && !empty($res['results'])) {
 
             $this->zax = $res['results'][0]['taxSales'];
 //            return Common::successData(['tax' => $res['results'][0]['taxSales']]);

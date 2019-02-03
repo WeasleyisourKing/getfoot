@@ -176,7 +176,15 @@ class UsersModel extends Model
         try {
              self::where('id', '=', $id)->update($data);
 
-            UsersAddressModel::where('users_id', '=', $id)->where('default', '=', 1)->update($datas);
+             if (is_null(UsersAddressModel::where('users_id','=',$id)->first())){
+                 //不存在 新建
+                 $datas['users_id'] = $id;
+                 UsersAddressModel::insert($datas);
+             } else {
+                 //存在修改
+                 UsersAddressModel::where('users_id', '=', $id)->where('default', '=', 1)->update($datas);
+             }
+
             DB::commit();
 
         } catch (\Exception $ex) {

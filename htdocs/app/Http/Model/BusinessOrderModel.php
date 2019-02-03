@@ -88,32 +88,50 @@ class BusinessOrderModel extends Model
 
     }
 
-    //写入订单和相关商品信息
+    //商业订单后台手动写入
     public static function insertOrder ($data, $datas,$arr)
     {
 
         //涉及多表 使用事务控制
         DB::beginTransaction();
         try {
-            //插入order表
-            $orderId = self::newOrder($data);
+            //插入商业订单总表
+            $orderIds = self::newOrder($data);
 
-            //插入order_product表
+            //插入插入商业订单详情表
+
+            foreach ($arr as &$p) {
+
+                $p['order_id'] = $orderIds->id;
+                $p['created_at'] = date('Y-m-d H:i:s', time());
+                $p['updated_at'] = date('Y-m-d H:i:s', time());
+
+                //写入冻结库存
+                $flight = ProductModel::find($p['product_id']);
+                $flight->frozen_stock = $flight->frozen_stock + $p['count'];
+                $flight->save();
+            }
+            (new BusinessOrderProductModel)->insert($arr);
+
+           //写入出库记录
+            $orderId = new StockOrderModel($datas);
+                $orderId->save();
 
             foreach ($arr as &$p) {
 
                 $p['order_id'] = $orderId->id;
                 $p['created_at'] = date('Y-m-d H:i:s', time());
                 $p['updated_at'] = date('Y-m-d H:i:s', time());
-            }
-            (new BusinessOrderProductModel)->insert($arr);
+                $p['status'] = $orderId->status;
 
-            StockOrderModel::insertInOrder(null, $datas, $arr);
+            }
+            (new StockOrderProductModel)->insert($arr);
+
 
             DB::commit();
 
             //返回订单数据
-            return $orderId->toArray();
+            return $orderIds->toArray();
 
         } catch (\Exception $ex) {
             DB::rollBack();
@@ -124,21 +142,23 @@ class BusinessOrderModel extends Model
 
     }
 
-    //删除订单
-    public static function delOrder ($id)
+    //删除商业订单
+    public static function delOrder ($id,$order)
     {
 
         //涉及多表 使用事务控制
         DB::beginTransaction();
         try {
 
-            self::where('id', '=', $id)
-                ->delete();
+            self::where('id', '=', $id)->delete();
+             BusinessOrderProductModel::where('order_id', '=', $id)->delete();
 
-            (new BusinessOrderProductModel)->where('order_id', '=', $id)->delete();
+            //删除手动出库订单
+            $StockID = StockOrderModel::where('pruchase_order_no',$order)->first(['id'])->id;
+            StockOrderModel::where('id', '=', $StockID)->delete();
+            StockOrderProductModel::where('order_id', '=', $StockID)->delete();
 
             DB::commit();
-            return true;
 
         } catch (\Exception $ex) {
             DB::rollBack();

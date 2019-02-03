@@ -171,7 +171,7 @@ class ProductController extends Controller
      */
     public function productList($status, $category, $brand, $limit)
     {
-dd(2);
+
         $arr = [
             'category_id' => $category,
             'brand_id' => $brand

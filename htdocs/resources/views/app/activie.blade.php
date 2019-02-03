@@ -39,13 +39,7 @@
                         		Language("{{$val->zn_name}}","{{$val->en_name}}")
                         	</script>
                         </p>
-                        <p class="text-red">
-				            @if(!empty(Auth::guard("pc")->user()))
-				            <script>
-				            	Spricedetails({{$val->distributor->level_four_price}},{{$val->distributor->level_two_price}},{{$val->distributor->level_one_price}},{{$val->distributor->level_three_price}})
-				            </script>
-				            @endif
-                        </p>
+                        <p class="text-red">${{$val->distributor->level_four_price}}</p>
                     </div>
                 @endforeach
 

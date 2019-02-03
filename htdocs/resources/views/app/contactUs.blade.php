@@ -17,7 +17,7 @@
 <div class="container p-5 mt-5">
   <div class="d-flex justify-content-center  mb-3">
     <div class="p-2 mt-5 pt-3">
-			<img class="w-50 logo img-center" src="/uploads/snackicon.png" alt="" />
+			<img class="w-50 logo img-center" src="" alt="" />
     </div>
   </div>
   <div class="d-flex justify-content-center  ">
@@ -30,12 +30,12 @@
   </div>
   <div class="d-flex justify-content-center  ">
     <div class="p-1 ">
-    		<p class="text-muted m-0"><i class="fa fa-phone text-color-1 px-2"></i>650-690-6666</p>
+    		<p class="text-muted m-0"><i class="fa fa-phone text-color-1 px-2"></i>818-477-8888</p>
     </div>
   </div>
   <div class="d-flex justify-content-center  ">
     <div class="p-1">
-    		<p class="text-muted m-0"><i class="fa fa-envelope text-color-1 px-2"></i>info@snacktalk.com</p>
+    		<p class="text-muted m-0"><i class="fa fa-envelope text-color-1 px-2"></i>help@12buy.com</p>
     </div>
   </div>
 </div>
@@ -53,12 +53,12 @@
 		$('#mobile-nav').hide();
 	});
 //	获取logo
-//  $.get('/api/home/login', {}, function (res) {
-//      if (res.status) {
-//          $('.logo').attr('src',"/"+res.data.logo);
-//
-//      }
-//  })
+    $.get('/api/home/login', {}, function (res) {
+        if (res.status) {
+            $('.logo').attr('src',"/"+res.data.logo);
+
+        }
+    })
 </script>
 
 @endsection

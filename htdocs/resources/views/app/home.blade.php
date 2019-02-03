@@ -5,7 +5,7 @@
   <div class="container bg-gradient pb-2">
     <div class="d-flex justify-content-between pt-3 align-items-center">
       <div class="col-3 px-2">
-        <img class="w-100" src="/uploads/snackicon.png" alt="logo">
+        <img class="w-100" src="http://buy.yn-pulse.com/home/img/logo.png" alt="logo">
       </div>
       <div class="col-5 pl-2 pr-0">
         <div class="input-group">
@@ -54,12 +54,12 @@
   <div class="container mb-2 pb-1">
 
     <div class="d-flex justify-content-between my-4">
-      <div><h4 class="pl-2 title-border">明星产品</h4></div>
+      <div><h4 class="pl-2 title-border">秒杀专区</h4></div>
       <div><a href="">更多 <i class="fa fa-angle-right"></i></a></div>
     </div>
 
     <div class="d-flex justify-content-between position-relative my-4">
-      <!--<p class="text-dark">距离本场结束还有</p>-->
+      <p class="text-dark">距离本场结束还有</p>
     </div>
 
     <!-- Row -->
@@ -67,7 +67,7 @@
 
       @for( $i = 0; $i < 3; $i++ )
       <div class="card shaddow-dark mb-2 mx-1 w-30 border-0">
-        <a href=""><img src="/uploads/snackicon.png" class="img-fluid card-img-top rounded-top img-bg-{{$i+1}} mb-1" alt=""></a>
+        <a href=""><img src="http://buy.yn-pulse.com/home/img/logo.png" class="img-fluid card-img-top rounded-top img-bg-{{$i+1}} mb-1" alt=""></a>
         <div class="card-body p-1">
           <small class="mt-0 d-block text-dark">商品{{$i+1}}名称</small>
           <h6 class="card-title d-inline text-red">$20.69</h6>
@@ -94,7 +94,7 @@
 
       @for( $i = 0; $i < 9; $i++ )
       <div class="card bg-color-{{$i+1}} border-0 mb-2 mx-1 w-25 mw-25 mt-5">
-        <a href=""><img src="/uploads/snackicon.png" class="img-fluid card-img-top rounded img-bg-{{$i+1}} mb-1 position-relative hot-sale-img shaddow" alt=""></a>
+        <a href=""><img src="http://buy.yn-pulse.com/home/img/logo.png" class="img-fluid card-img-top rounded img-bg-{{$i+1}} mb-1 position-relative hot-sale-img shaddow" alt=""></a>
         <div class="card-body hot-sale-card-body text-white text-center p-1">
           <small class="mt-0 d-block">商品{{$i+1}}名称</small>
           <h6 class="card-title mb-0">$44.99</h6>
@@ -119,7 +119,7 @@
 
       @for( $i = 0; $i < 6; $i++ )
       <div class="card shaddow mb-2 mx-1 border-0 w-30">
-        <a href=""><img src="/uploads/snackicon.png" class="img-fluid card-img-top rounded-top mb-1" alt=""></a>
+        <a href=""><img src="http://buy.yn-pulse.com/home/img/logo.png" class="img-fluid card-img-top rounded-top mb-1" alt=""></a>
         <div class="card-body p-1">
           <small class="mt-0 d-block text-dark">商品{{$i+1}}名称</small>
           <h6 class="card-title d-inline text-red">$33.99</h6>

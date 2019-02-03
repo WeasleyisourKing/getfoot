@@ -83,13 +83,7 @@
                 	<script type="text/javascript">
                 	Language("价格","Price")
                 </script></span>
-        <h5 class="d-inline pl-2 text-red">
-            @if(!empty(Auth::guard("pc")->user()))
-            <script>
-            	Spricedetails({{$product->distributor->level_four_price}},{{$product->distributor->level_two_price}},{{$product->distributor->level_one_price}},{{$product->distributor->level_three_price}})
-            </script>
-            @endif
-        </h5>
+        <h5 class="d-inline pl-2 text-red">${{$product->distributor->level_four_price}}</h5>
     </div>
     <div class="container">
         <div class="d-flex justify-content-between mt-4">
@@ -246,22 +240,21 @@
                 <a href="##" class="text-muted btn Collection"><i class=" ">收藏</i></a>
             </div> -->
             <div class="col-12">
-            	<script>
-            		document.write(`
                 <button id="add" type="button" class="btn btn-block btn-red btn-collection"
                         product_image="{{$product->product_image}}"
                         zn_name="{{$product->zn_name}}"
-                        price="@if(!empty(Auth::guard("pc")->user()))${Sprice1({{$product->distributor->level_four_price}},{{$product->distributor->level_two_price}},{{$product->distributor->level_one_price}},{{$product->distributor->level_three_price}})}@endif"
+                        price="{{$product->distributor->level_four_price}}"
                         onclick=""
                         shop_id="{{$product->id}}"
-                >`)
-            	</script>
-            		<i class="fa fa-shopping-cart"> 
+                ><i class="fa fa-shopping-cart"> 
                 	<script type="text/javascript">
                 	Language("加入购物车","Add to Cart")
                 </script></i></button>
 
             </div>
+            {{--<div class="col-6">--}}
+            {{--<button id="buy-now-btn" type="button" class="btn btn-block btn-red"><i class="fa fa-credit-card"> 立即购买</i></button>--}}
+            {{--</div>--}}
         </div>
 
     </div><!-- End 购物按钮 Container -->
@@ -300,9 +293,9 @@
                     <div class="row py-1">
                         <div class="col-7 align-middle">
                             <span class="pl-2 text-secondary align-middle">
-			                	<script type="text/javascript">
-			                	Language("商品数量","Quantities")
-			                </script></span>
+                	<script type="text/javascript">
+                	Language("商品数量","Quantities")
+                </script></span>
                         </div>
                         <div class="col-5">
                             <div class="input-group">
@@ -316,38 +309,26 @@
                             </div>
                         </div>
                     </div>
-                    <div class+
-                    "row">
+                    <div class="row">
                     <div class="container py-3">
-                        <span class="d-inline">
-			                	<script type="text/javascript">
-			                	Language("库存：","In Stock:")
-			                </script>
-			                <span>{{$product->stock}}</span>
-		                </span>
-		                <span>
-		                	<script type="text/javascript">
-		                	Language("（箱规：每箱{{$product->number}}）","（箱规：每箱{{$product->number}}）")
-		                </script>
-		                </span>
+                        {{--<span class="d-inline">--}}
+                	{{--<script type="text/javascript">--}}
+                	{{--Language("库存：","In Stock:")--}}
+                {{--</script><span>{{$product->stock}}</span></span>--}}
                     </div>
                 </div>
                 <div class="row">
 
                     <div class="col-12 py-2">
-                    	<script>
-                    		document.write(`<button id="add-to-cart-btn" type="button" class="btn btn-block btn-red btn-collection py-2"
+                        <button id="add-to-cart-btn" type="button" class="btn btn-block btn-red btn-collection py-2"
                                 product_image="{{$product->product_image}}"
                                 zn_name="{{$product->zn_name}}"
                                 en_name="{{$product->en_name}}"
-                                price="@if(!empty(Auth::guard("pc")->user()))${Sprice1({{$product->distributor->level_four_price}},{{$product->distributor->level_two_price}},{{$product->distributor->level_one_price}},{{$product->distributor->level_three_price}})}@endif"
+                                price="{{$product->distributor->level_four_price}}"
                                 onclick="addShopCart(this) "
                                 shop_id="{{$product->id}}"
                                 stock="{{$product->stock}}"
-                        >
-                    			`)
-                    	</script>
-                        <i class="fa fa-shopping-cart"> 
+                        ><i class="fa fa-shopping-cart"> 
                 	<script type="text/javascript">
                 	Language("确认加入购物车","Confirm Add to Cart")
                 </script></i></button>
@@ -462,7 +443,7 @@
             }
 			if(item.attributes["stock"].value<=0){
 	            swal({
-	                title:LanguageHtml("商品库存不足","Sold out"),
+	                title: LanguageHtml('商品库存不足!',"Sold Out!"),
 	                type: 'info',
 	                showConfirmButton: true,
 	            })

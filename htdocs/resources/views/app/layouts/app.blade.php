@@ -35,50 +35,7 @@
   }
  var LanguageHtml=function(one, tow){
  	return window.localStorage.getItem('lang') == null || window.localStorage.getItem('lang') == 1 ? one :  tow ;
-  }   
-var Spricedetails = function (role1, role2, role3, role4) {
-
-    var haha;
-    @if(!empty(Auth::guard("pc")->user()->role))
-        switch ({{Auth::guard("pc")->user()->role}}) {
-        case 1 :
-            haha = `$${role1}`;
-            break;
-        case 2 :
-            haha = `$${role2}`;
-            break;
-        case 3 :
-            haha = `$${role3}`;
-            break;
-        default :
-            haha = `$${role4}`;
-    }
-    document.write(haha);
-    @endif
-
-}
-
-
-var Sprice1 = function (role1, role2, role3, role4) {
-
-    var haha;
-    @if(!empty(Auth::guard("pc")->user()->role))
-        switch ({{Auth::guard("pc")->user()->role}}) {
-        case 1 :
-            haha = role1;
-            break;
-        case 2 :
-            haha = role2;
-            break;
-        case 3 :
-            haha = role3;
-            break;
-        default :
-            haha = role4;
-    }
-    return haha;
-    @endif
-}
+  }
   </script> 
   <body>
     
@@ -95,8 +52,8 @@ var Sprice1 = function (role1, role2, role3, role4) {
           <a href="{{ route('appsLogin') }}" class="btn btn-block btn-white shaddow-dark"><i class="fa fa-user-circle"></i> 
           	<script>Language("登录","log in")</script>
           </a>
-          <!--<a href="{{ route('appsRegister') }}" class="btn btn-block btn-white shaddow-dark"><i class="fa fa-user-plus"></i> 
-          	<script>Language("注册","registered")  </script></a>-->
+          <a href="{{ route('appsRegister') }}" class="btn btn-block btn-white shaddow-dark"><i class="fa fa-user-plus"></i> 
+          	<script>Language("注册","registered")  </script></a>
       </div><!-- End 移动导航 Container -->
     @else
       <div class="mobile-fix"></div>

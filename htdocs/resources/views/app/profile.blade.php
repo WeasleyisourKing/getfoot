@@ -175,13 +175,13 @@
                 	Language("浏览记录","Recently Viewed")
                 </script></small>
 		</div>
-		<!--<div class="col-4 mt-2">
+		<div class="col-4 mt-2">
 			<a href="{{route('account')}}" class="btn btn-lg btn-circle btn-white shaddow-dark"><i class="fa fa-cog"></i></a>
         	<small class="d-block py-2">
                 	<script type="text/javascript">
                 	Language("个人资料","Account Information")
                 </script></small>
-		</div>-->
+		</div>
 		<div class="col-4 mt-2">
 			<a href="{{route('password')}}" class="btn btn-lg btn-circle btn-white shaddow-dark"><i class="fa fa-unlock"></i></a>
         	<small class="d-block py-2">
@@ -189,21 +189,21 @@
                 	Language("修改密码","Change Password")
                 </script></small>
 		</div>
-		<!--<div class="col-4 mt-2" style="position: relative;">
+		<div class="col-4 mt-2" style="position: relative;">
 			<a href="/apps/users/message" class="btn btn-lg btn-circle btn-white shaddow-dark"><i class="fa fa-comment-dots"></i></a>
         	<small class="d-block py-2">
                 	<script type="text/javascript">
                 	Language("我的评论","My Reviews")
                 </script></small>
         	<div class="border-0 rounded-50 " id="see" style="position: absolute;top: 5%;right: 30%;width: 10px;height: 10px;background: red; display: none;"></div>
-		</div>-->
-		<!--<div class="col-4 mt-2">
+		</div>
+		<div class="col-4 mt-2">
 			<a href="/apps/cart/{{ Auth::guard("pc")->user()->id }}" class="btn btn-lg btn-circle btn-white shaddow-dark"><i class="fa fa-shopping-cart"></i></a>
         	<small class="d-block py-2">
                 	<script type="text/javascript">
                 	Language("购物车","Shopping Cart")
                 </script></small>
-		</div>-->
+		</div>
 
 		<div class="col-4 mt-2">
 			<!--<a href="{{ route('address') }}" class="btn btn-lg btn-circle btn-white shaddow-dark"><i class="fa fa-map-marker-alt"></i></a>-->
@@ -238,7 +238,7 @@
 	  	<a href="##" class="btn btn-lg btn-circle btn-white shaddow-dark"><i class="fa fa-receipt"></i></a>
         <small class="d-block py-2">
                 	<script type="text/javascript">
-                	Language("已完成"," ")
+                	Language("待发货","Waiting for Shipment")
                 </script></small>
 	  </div>
 
@@ -246,7 +246,7 @@
 	  	<a href="##" class="btn btn-lg btn-circle btn-white shaddow-dark"><i class="fa fa-clock"></i></a>
         <small class="d-block py-2">
                 	<script type="text/javascript">
-                	Language("已下单"," ")
+                	Language("待支付","Waiting for Payment")
                 </script></small>
 	  </div>
 
@@ -254,7 +254,7 @@
 	  	<a href="##" class="btn btn-lg btn-circle btn-white shaddow-dark"><i class="fa fa-shipping-fast"></i></a>
         <small class="d-block py-2">
                 	<script type="text/javascript">
-                	Language(" "," ")
+                	Language("待收货","Waiting for Delivered")
                 </script></small>
 	  </div>
 
@@ -262,7 +262,7 @@
 	  	<a href="##" class="btn btn-lg btn-circle btn-white shaddow-dark"><i class="fa fa-comment-dots"></i></a>
         <small class="d-block py-2">
                 	<script type="text/javascript">
-                	Language(" "," ")
+                	Language("待评论","Waiting for Reviews")
                 </script></small>
 	  </div>
 
@@ -344,7 +344,7 @@
 		$(".oderList").click(function(){
 			var aa = <?php echo Auth()->guard("pc")->user()->id ?>;
 			var That=$(".oderList").index(this);
-			var xx=LanguageHtml(["已完成","已下单"," "," "],[" "," "," "," "]);
+			var xx=LanguageHtml(["待处理","待支付","已发货","待评论"],["Waiting for Shipment","Waiting for Payment","Waiting for Delivered"," Waiting for Reviews"]);
 				$.ajax({
 					 url: '/api/order/state',
 		                method: 'get',
@@ -362,6 +362,7 @@
 					success: function(json) {
 
 						var myOder=json.data;
+						console.log(myOder)
 						if(!json.status){
 							$("#oderBox").html(LanguageHtml(`<small class="d-block py-1 text-center text-red">您没有${xx[That]}的订单</small>`,`<small class="d-block py-1 text-center text-red">No ${xx[That]} orders</small>`));
 							return
@@ -379,6 +380,7 @@
 															      </div>
 															      <div style="font-size: 13px;color: #f14067;" class="col-3">
 															      <div class="row">
+												                       <small style="color: #f14067;"links="${myOder[i].id}" class="col-12 py-2 delete text-muted">${LanguageHtml('删除订单','Delete Order')} </small>
 												                      </div>
 												                      <div class="row">
 												                       <small style="color: #f14067;" class="col-12 py-2 "> $${myOder[i].total_price} </small>
@@ -518,7 +520,7 @@
 	</script>
     <script>
     //底部导航显示当前所在页面样式
-    $("#mobile-nav a").eq(3).css({"background":"#4982A3","color":"#ffffff"})
+    $("#mobile-nav a").eq(3).css({"background":"#fdb3d3","color":"#ffffff"})
     </script>
 
 

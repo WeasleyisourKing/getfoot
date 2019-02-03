@@ -113,7 +113,7 @@
                         setTimeout(gologin,3000)
                     } else {
                         swal({
-                            title: res.message,
+                            title:res.message,
                             type: 'info',
                             showConfirmButton: true,
                         })

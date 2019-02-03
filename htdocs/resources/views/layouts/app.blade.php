@@ -19,7 +19,12 @@
     <link href="{{ asset('/css/responsive.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/core.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/icons.css') }}" rel="stylesheet">
-
+<style>
+.table-center{
+    display: table-cell;
+    vertical-align: middle;
+}
+</style>
 </head>
 <body>
 <div id="app">

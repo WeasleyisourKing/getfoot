@@ -306,7 +306,7 @@
                 	console.log(json)
                     if (!json.status) {
                         swal({
-                            title: json.data,
+                            title:json.data,
                             type: 'warning',
                             showConfirmButton: true,
 

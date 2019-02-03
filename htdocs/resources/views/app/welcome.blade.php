@@ -22,7 +22,7 @@
     <div class="container bg-gradient pb-2">
         <div class="d-flex justify-content-between pt-3 align-items-center">
             <div class="col-3 px-2">
-                <img class="w-100" src="/uploads/snackicon.png" alt="logo">
+                <img class="w-100" src="uploads/logo5.png" alt="logo">
             </div>
             <div class="col-7 pl-2 pr-0" id="seach">
                 <form action="/apps/productList" method="get">
@@ -111,7 +111,7 @@ overflow: hidden;">-->
 
             @for( $i = 0; $i < count($banner); $i++ )
                 <div class="col-12 p-0 bannerNum">
-                    <a href="https://snacktalk.com{{$banner[$i]->url}}">
+                    <a href="{{$banner[$i]->url}}">
                         <img class="w-100 h-100" src="{{$banner[$i]->img->url}}" alt=""></a>
                 </div>
             @endfor
@@ -225,7 +225,7 @@ overflow: hidden;">-->
                         <script> document.write(window.localStorage.getItem('lang') == null || window.localStorage.getItem('lang') == 1 ? " {{$modular[0]['zn_name']}} " : " {{$modular[0]['en_name']}} "); </script>
                     </h4>
                 </div>
-                <div><a href="/apps/activielist/7" class="text-muted">
+                <div><a href="/apps/activielist/2" class="text-muted">
                         <script>Language("更多", "More")</script>
                         <i class="fa fa-angle-right"></i></a></div>
             </div>
@@ -252,10 +252,7 @@ overflow: hidden;">-->
                                     <script> document.write(window.localStorage.getItem('lang') == null || window.localStorage.getItem('lang') == 1 ? " {{$modular[0]['products'][$i]['zn_name']}} " : " {{$modular[0]['products'][$i]['en_name']}} "); </script>
                                 </small>
                                 <h6 class="card-title d-inline text-red">
-                                    <script>
-                                    	Spricedetails({{$modular[0]['products'][$i]['distributor']['level_four_price']}},{{$modular[0]['products'][$i]['distributor']['level_two_price']}},{{$modular[0]['products'][$i]['distributor']['level_one_price']}},{{$modular[0]['products'][$i]['distributor']['level_three_price']}},)
-                                    </script>
-                                </h6>
+                                    ${{$modular[0]['products'][$i]['distributor']['level_four_price']}}</h6>
 
                             </div>
                         </div>
@@ -276,7 +273,7 @@ overflow: hidden;">-->
                             <script> document.write(window.localStorage.getItem('lang') == null || window.localStorage.getItem('lang') == 1 ? " {{$modular[1]['zn_name']}} " : " {{$modular[1]['en_name']}}  "); </script>
                         </h4>
                     </div>
-                    <div><a href="/apps/activielist/8" class="text-muted">
+                    <div><a href="/apps/activielist/1" class="text-muted">
                             <script>Language("更多", "More")</script>
                             <i class="fa fa-angle-right"></i></a></div>
                 </div>
@@ -296,10 +293,7 @@ overflow: hidden;">-->
                                 <script> document.write(window.localStorage.getItem('lang') == null || window.localStorage.getItem('lang') == 1 ? " {{$modular[1]['products'][$i]['zn_name']}} " : " {{$modular[1]['products'][$i]['en_name']}} "); </script>
                             </small>
                             <h6 class="card-title mb-0">
-                                    <script>
-                                    	Spricedetails({{$modular[1]['products'][$i]['distributor']['level_four_price']}},{{$modular[1]['products'][$i]['distributor']['level_two_price']}},{{$modular[1]['products'][$i]['distributor']['level_one_price']}},{{$modular[1]['products'][$i]['distributor']['level_three_price']}},)
-                                    </script>
-                            </h6>
+                                ${{$modular[1]['products'][$i]['distributor']['level_four_price']}}</h6>
 
                         </div>
                     </div>
@@ -344,10 +338,7 @@ overflow: hidden;">-->
                                             <script> document.write(window.localStorage.getItem('lang') == null || window.localStorage.getItem('lang') == 1 ? " {{$items['zn_name']}} " : " {{$items['en_name']}} "); </script>
                                         </small>
                                         <h6 class="card-title d-inline text-red">
-		                                    <script>
-		                                    	Spricedetails({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})
-		                                    </script>
-                                    </h6>
+                                            ${{$items['distributor']['level_four_price']}}</h6>
 
                                     </div>
                                 </div>
@@ -413,7 +404,7 @@ overflow: hidden;">-->
             {{--</script>--}}
             <script>
                 //底部导航显示当前所在页面样式
-                $("#mobile-nav a").eq(0).css({"background": "#4982A3", "color": "#ffffff"});
+                $("#mobile-nav a").eq(0).css({"background": "#fdb3d3", "color": "#ffffff"});
                 //解决样式bug
                 $(document).ready(function () {
 

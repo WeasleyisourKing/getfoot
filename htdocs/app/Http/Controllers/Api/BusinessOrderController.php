@@ -313,7 +313,7 @@ class BusinessOrderController extends Controller
 
         //查询商品信息
         $Products = ProductModel::with('distributor')
-            ->select(['id', 'sku', 'price', 'stock', 'zn_name', 'en_name', 'product_image', 'status', 'innersku', 'number'])
+            ->select(['id', 'sku', 'price', 'stock','frozen_stock','zn_name', 'en_name', 'product_image', 'status', 'innersku', 'number'])
             ->whereIn('id', $opIds)
             ->get()
             ->toArray();

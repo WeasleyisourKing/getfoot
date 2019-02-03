@@ -110,12 +110,14 @@ class ProductModel extends Model
     }
 //
     //实际库存
-    public function getStockAttribute()
+    public function getStockAttribute($value)
     {
         if (!empty($this->attributes['frozen_stock'])) {
 
             $nus = $this->attributes['stock'] - $this->attributes['frozen_stock'];
             return $nus < 0 ? 0 : $nus;
+        } else {
+            return $value;
         }
     }
 
@@ -126,6 +128,8 @@ class ProductModel extends Model
 
             $nus = $this->attributes['stock'] - $this->attributes['frozen_stock'];
             return $nus > 0 ? $value : '【已售罄】' . $value;
+        } else {
+            return $value;
         }
     }
 
@@ -137,6 +141,8 @@ class ProductModel extends Model
             $nus = $this->attributes['stock'] - $this->attributes['frozen_stock'];
             return $nus > 0 ? $value : '【Sold out】' . $value;
 
+        } else {
+            return $value;
         }
     }
 

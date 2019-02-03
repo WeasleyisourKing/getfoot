@@ -76,7 +76,7 @@ a:link , a:visited , a:hover , a:active {
 }
 
 .topBg{
-	background: #4982a3;
+	background: #fdb3d3;
 	width: 100%;
 	height: 80px;
 }
@@ -156,7 +156,7 @@ a:link , a:visited , a:hover , a:active {
 }
 .classify ul li{
 	width: 100%;
-	background: #4982a3 url(../img/nav-ico1.png) no-repeat center right;
+	background: #ef93c3 url(../img/nav-ico1.png) no-repeat center right;
 	color: #fff;
 	padding-left: 15%;
 	font-size:2rem;
@@ -165,8 +165,8 @@ a:link , a:visited , a:hover , a:active {
 }
 .classify ul li:hover{
 	width: 100%;
-	background: #d2e4ee url(../img/nav-ico2.png) no-repeat center right;
-	color: #4982a3;
+	background: #ffdce8 url(../img/nav-ico2.png) no-repeat center right;
+	color: #ef93c3;
 	padding-left: 15%;
 	font-size:2rem;
 	border-bottom: 1px solid #fff;
@@ -179,7 +179,7 @@ a:link , a:visited , a:hover , a:active {
 	position: absolute;
 	left: 0;
 	top:0;
- 	background: rgba(109,170,205,0.9);
+ 	background: rgba(249, 169, 211,0.9);
  	z-index: 99;
 	height: 554px;
 }
@@ -223,7 +223,7 @@ a:link , a:visited , a:hover , a:active {
 .secondBg1{
 	height: 100%;
 	width: 40%;
-	background: #4982a3;
+	background: #fdb3d3;
 }
 .secondBg2{
 	height: 100%;
@@ -274,7 +274,7 @@ a:link , a:visited , a:hover , a:active {
 	 margin-left: 3%;
 }
 .iocBg{
-	background: #82b7d7;
+	background: #fdb3d3;
 	width: 100%;
 	margin-top: 10%;
 	padding-bottom: 100px;
@@ -291,7 +291,7 @@ a:link , a:visited , a:hover , a:active {
   text-shadow: 0px 9px 12.48px rgba(78, 82, 96, 0.25);
 }
 .icoPro:hover  p{
-	color: #4982a3;
+	color: #f5538d;
 }
 .icoPro:hover  img{
   /*box-shadow: 0px 9px 12.48px rgba(78, 82, 96, 0.25);*/
@@ -379,13 +379,13 @@ a:link , a:visited , a:hover , a:active {
 	font-weight: normal;
 }
 .classIfyBg{
-	background: #e6ebf0;
+	background: #f1e6e6;
 	/*padding-bottom: 10%;*/
 	padding-bottom: 1px;
 }
 .DrinksTitle{
 	width: 23%;
-	background: #82b7d7;
+	background: #acdcf0;
 	font-size: 2.8rem;
 	line-height: 120%;
 	color: #fff;
@@ -447,7 +447,7 @@ a:link , a:visited , a:hover , a:active {
 	width: 80%;
 	margin: 0 auto;
 	color: white;
-	background: #4982a3;
+	background: #f5538e;
 	border: none;
 	border-radius: 5px;
 	line-height: 300%;
@@ -563,14 +563,14 @@ a:link , a:visited , a:hover , a:active {
 	 background:#fff;
 	 }
 .mail_but button{
-	background: #4982a3;
+	background: #e376b0;
 	border: none;
 	 border-radius: 0.8rem;
 	 color: #fff;
 	 border-radius: 8px !important;
 }
 .mail_but button:hover{
-	background: #4982a3;
+	background: #e376b0;
 	color: white;
 }
 .mail_box input{
@@ -611,7 +611,7 @@ a:link , a:visited , a:hover , a:active {
 	margin-top: 2%;
 }
 .mailBg{
-	background: #82b7d7;
+	background: #fdb3d4;
 }
 .secondBanner{
 	width: 80%;
@@ -726,14 +726,14 @@ a:link , a:visited , a:hover , a:active {
 	margin-top:-2px !important;
 }
 .allProBg{
-	background: #4a82a3;
+	background: #fdb3d3;
 }
 .allPro{
 	height: 90px;
 	padding-top: 20px;
 }
 .allClassIfy .am-dropdown button{
-	background: #1e506e;
+	background: #E376AF;
 	border-radius: 25px;
 	border: 0;
 	font-size:2rem ;
@@ -747,13 +747,13 @@ a:link , a:visited , a:hover , a:active {
 	height: 40px;
 }
 .allClassIfy .am-dropdown.am-active .am-btn-primary.am-dropdown-toggle{
-	background: #1e506e;
+	background: #E376AF;
 }
 .am-icon-caret-down:before{
 	display: none;
 }
 .allClassIfy .am-dropdown ul {
-	background: #4a82a3;
+	background: #fdb3d3;
 	border: 0;
 }
 .allClassIfy .am-dropdown-content:after{
@@ -915,15 +915,4 @@ a:link , a:visited , a:hover , a:active {
 }
 .pointer{
 	cursor: pointer;
-}
-
-.mouse-style{
-    cursor:pointer 
-}
-
-input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{
-	-webkit-appearance:textfield;
-}
-input[type="number"]{
-	-moz-appearance:textfield;
 }

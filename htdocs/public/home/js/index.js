@@ -54,7 +54,7 @@ $(document).ready(function () {
         $(".DrinksShow").css("height", $(".Drinks .am-u-sm-3").height() + "px");
     });
     //商品列表标题单双行换色
-    $(".DrinksTitle:even").css("background", "#82b7d7");
+    $(".DrinksTitle:even").css("background", "#fdb3d4");
     //收藏安心点击效果
     $(" .title img:odd").hide();
     $(" .title ").find("img").click(function () {
@@ -76,10 +76,24 @@ $(document).ready(function () {
     }).mouseleave(function () {
         $(".snacksShow").hide()
     });
-    $(".categoryTitle:odd").css("background", "#82b7d7");
-    $(".category:odd li,.category:odd").css("border-color", "#82b7d7");
-    $(".categoryNav a:odd").css("background", "#82b7d7");
+    $(".categoryTitle:odd").css("background", "#acddef");
+    $(".category:odd li,.category:odd").css("border-color", "#acddef");
+    $(".categoryNav a:odd").css("background", "#acddef");
     $(".labelbox:odd").css("background", "#ffffff");
+    //商品详情页加减按钮
+    $(".increase").click(function () {
+        var number = $(this).siblings(".productNumber").html()
+        $(this).siblings(".productNumber").html(parseInt(number) + 1)
+        $("#addCart").attr("data-number",parseInt(number) + 1)
+    });
+    $(".reduce").click(function () {
+        var number = $(this).siblings(".productNumber").html()
+        if (parseInt(number) == 1) {
+        } else {
+            $(this).siblings(".productNumber").html(parseInt(number) - 1)
+        $("#addCart").attr("data-number",parseInt(number) - 1)
+        }
+    });
     //购物车全选按钮
     $(".allTotal").data("allPlay", "false");
     $(".allTotal").click(function () {

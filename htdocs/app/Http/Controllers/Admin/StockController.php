@@ -1133,6 +1133,7 @@ class StockController extends Controller
 //        {"count":"1","product_id":"236","overdue":"2018-0-01",
 //            "postion":[{"product_id":"236","shelves_id":"1","count":"2","overdue":"2019-01-08"},
 //            {"product_id":"236","shelves_id":"2","count":"3","overdue":"2019-01-03"}]}]
+
         $params['uproducts'] = json_decode($params['uproducts'], true);
         $info = [];
 
@@ -1175,7 +1176,7 @@ class StockController extends Controller
 
         $num = StockOrderModel::where('status', '=', 2)->orderBy('created_at', 'desc')->first(['order_no']);
 
-        $Product = ProductModel::whereIn('id', array_column($params['uproducts'], 'product_id'))->get(['id', 'zn_name', 'stock'])->toArray();
+        $Product = ProductModel::whereIn('id', array_column($params['uproducts'], 'product_id'))->get(['id', 'zn_name', 'stock','frozen_stock'])->toArray();
         foreach ($Product as $val) {
             foreach ($params['uproducts'] as &$items) {
 

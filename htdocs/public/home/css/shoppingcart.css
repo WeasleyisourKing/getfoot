@@ -1,5 +1,5 @@
 .cartTitle{
-	border-bottom: 1px solid #82b7d7;
+	border-bottom: 1px solid #fdb3d3;
 	height: 68px;
 }
  .cartTitle p{
@@ -7,7 +7,7 @@
 	line-height: 68px;
 	font-size: 2rem;
 	color: #FFFFFF;
-	background: #82b7d7;
+	background: #fdb3d3;
 	text-align: center;
 }
 .cartClass li{
@@ -105,7 +105,7 @@
 .cartTj button{
 	line-height: 52px;
 	font-size: 2rem;
-	background: #4982a3;
+	background: #f14067;
 	border: 0;
 	color: #FFFFFF;
 	padding: 0 6%;
@@ -136,7 +136,7 @@
 	width: 25%;
 	line-height: 44px;
 	border: 0;
-	background: #82b7d7;
+	background: #fdb3d3;
 	margin-left: 1%;
 	color: #FFFFFF;
 }

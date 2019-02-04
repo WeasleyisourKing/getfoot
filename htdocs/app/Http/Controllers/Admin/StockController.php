@@ -1152,8 +1152,8 @@ class StockController extends Controller
                         if ($vo['count'] < $v['count']) {
                             throw new ParamsException([
                                 'code' => 200,
-                                'message' => '商品是' . ProductModel::where('id', '=', $vo['product_id'])->first(['zn_name'])->zn_name . '且货架为' . $vo['name']['name']
-                                    . '且日期是' . $vo['overdue'] . '库存为' . $vo['count'] . '，填写数量超过货架数量'
+                                'message' => '商品' . ProductModel::where('id', '=', $vo['product_id'])->first(['zn_name'])->zn_name . '货架为' . $vo['name']['name']
+                                    . '过期日期是' . $vo['overdue'] . '库存为' . $vo['count'] . '，填写数量超过货架数量'
                             ]);
                         }
                     }
@@ -1185,7 +1185,7 @@ class StockController extends Controller
                     if ($val['stock'] == 0 || $val['stock'] - $items['count'] < 0) {
                         throw new ParamsException([
                             'code' => 200,
-                            'message' => '商品' . $val['zn_name'] . '库存不足'
+                            'message' => '商品' . $val['zn_name'] . '实际库存'.$val['stock'] + $val['frozen_stock'].'冻结库存'.$val['frozen_stock'].'，库存不足'
                         ]);
                     }
 //                    $items['origin_stock'] = $val['stock'];

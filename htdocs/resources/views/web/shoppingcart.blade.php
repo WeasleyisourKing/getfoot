@@ -520,7 +520,7 @@
 				                } else {
 //				                    alert(res.message);
 						            swal({
-						                title:eval(res.message),
+						                title:res.message,
 						                type: 'warning',
 						                showConfirmButton: true,
 						

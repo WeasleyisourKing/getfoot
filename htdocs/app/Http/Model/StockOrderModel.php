@@ -489,7 +489,7 @@ class StockOrderModel extends Model
 
                     //减少对应的商品库存
                     $flight = ProductModel::find($p['product_id']);
-                    $flight->stock = $flight->stock - $p['count'];
+                    $flight->stock = $flight->stock + $flight->frozen_stock - $p['count'];
                     $flight->frozen_stock = $flight->frozen_stock - $p['count'];
                     $flight->save();
 
@@ -529,7 +529,7 @@ class StockOrderModel extends Model
                     $count = array_column($arr,'count');
                     //减少对应的商品库存
                     $flight = ProductModel::find($p['product_id']);
-                    $flight->stock = $flight->stock - $p['count'];
+                    $flight->stock = $flight->stock + $flight->frozen_stock - $p['count'];
                     $flight->frozen_stock = $flight->frozen_stock - $p['count'];
                     $flight->save();
 

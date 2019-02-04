@@ -20,7 +20,7 @@
 }
 
 .topBg{
-	background: #fdb3d3;
+	background: #4982a3;
 	width: 100%;
 	height: 80px;
 }
@@ -67,15 +67,15 @@
 .userTop{
 	width: 75%;
 	margin: 0 auto;
-	border-bottom: 1px solid #fdb3d3;
+	border-bottom: 1px solid #4982a3;
 	margin-bottom: 8%;
 }
 
 .userTop div{
 	font-size: 2rem;
-	color: #fdb3d3;
+	color: #4982a3;
 	line-height: 260%;
-	width: 50%;
+	width: 100%;
 	text-align: center;
 	border-bottom: 3px solid rgba(0,0,0,0);
 }
@@ -119,7 +119,7 @@
 }
 .register .am-btn,.signIn .am-btn{
 	width: 100%;
-	background: #fdb3d3;
+	background: #4982a3;
 	border-radius:5px;
 	font-size: 2rem;
 	line-height: 120%;
@@ -136,7 +136,7 @@
 }
 
 .bottonBg{
-	background: #e376af;
+	background: #4982a3;
 	padding-top: 2%;
 	padding-bottom: 1%;
 }
@@ -168,12 +168,12 @@
 }
 .initialCipherTop{
 	width: 80%;
-	border-bottom: 1px solid #fdb3d3;
+	border-bottom: 1px solid #4982a3;
 	margin: 0 auto;
 }
 .initialCipherTop div{
 	font-size: 2rem;
-	color: #fdb3d3;
+	color: #4982a3;
 	padding-left:20px ;
 	line-height: 300%;
 	

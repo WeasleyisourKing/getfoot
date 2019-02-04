@@ -112,7 +112,7 @@
 	margin-left: 2%;
 }
 .detailsClassBut button{
-	background: #fdb3d3;
+	background: #82b7d7;
 	font-size: 1.8rem;
 	color: #FFFFFF;
 	padding: 0 5%;
@@ -138,7 +138,7 @@
 .detailsHot{
 	font-size: 1.8rem ;
 	width: 100%;
-	background: #fdb3d3;
+	background: #82b7d7;
 	color: #FFFFFF;
 	line-height: 250%;
 	text-align: center;
@@ -146,7 +146,7 @@
 .detailsBtnBox li{
 	padding-top: 3%;
 	width: 100%;
-	border: 1px solid #fdb3d3;
+	border: 1px solid #82b7d7;
 }
 .detailsBtnBox li img{
 	width: 60%;

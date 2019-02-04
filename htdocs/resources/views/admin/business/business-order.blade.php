@@ -543,7 +543,7 @@
                                             <b>商业用户</b>：${res.data[i].distributor.level_three_price}</br>
                                             <b>零售</b>：${res.data[i].distributor.level_four_price}
                                                 </td>
-                                            <td class="exce">${res.data[i].stock + res.data[i].frozen_stock}
+                                            <td class="exce">${Number(res.data[i].stock) + Number(res.data[i].frozen_stock)}
                                                 </td>
                                                  <td class="exce">${res.data[i].frozen_stock}
                                                 </td>

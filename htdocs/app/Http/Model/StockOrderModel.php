@@ -225,7 +225,7 @@ class StockOrderModel extends Model
             //删除冻结库存
             foreach ($data as $p) {
                 $flight = ProductModel::find($p['product_id']);
-                $flight->stock = $flight->frozen_stock - $p['count'];
+                $flight->frozen_stock = $flight->frozen_stock - $p['count'];
                 $flight->save();
             }
             if (!is_null($businessID)) {

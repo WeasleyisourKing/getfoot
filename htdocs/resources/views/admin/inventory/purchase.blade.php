@@ -13,7 +13,7 @@
 
 @section('view-item-modal-content')
     <!---- 查看模态框内容 ---->
-    
+
 
 
 
@@ -128,7 +128,7 @@
                                             data-toggle="modal" data-target="#view-item-modal" data-id="{{$item->id}}"
                                             onclick="sse(this);"><i class="fa fa-eye"></i></button> -->
                                     <button class="btn-sm btn-success waves-effect waves-light edit-item-btn"
-                                            data-toggle="modal" data-target="#view-item-modal" 
+                                            data-toggle="modal" data-target="#view-item-modal"
                                             @click="sse({{$item->id}});"><i class="fa fa-eye"></i></button>
                                             <!---- End 编辑按钮 ---->
                                     <!---- 删除按钮 ---->
@@ -168,7 +168,7 @@
                     <div class="row">
 
                         <!-- 123 -->
-                        
+
                         <!---- 添加模态框内容 ---->
                         <div class="form-group col-lg-4">
                             <label for="" class="control-label">
@@ -250,9 +250,9 @@
                                             <input type="text" data-id="" name="editcount" class="form-control"  v-model="item1.count">
                                         </div>
                                         <div class="col-sm-4">
-                                            <button class="btn-sm btn-danger waves-effect waves-light delete-item-btn" 
+                                            <button class="btn-sm btn-danger waves-effect waves-light delete-item-btn"
                                             @click="delNew(index);"><i class="fa fa-trash"></i>
-                                            </button> 
+                                            </button>
                                         </div>
                                     <!-- </div> -->
                                     <!-- <div class="col-sm-4">
@@ -305,11 +305,12 @@
                                             <thead v-if="seachList.length>0?true:false">
                                                     <tr>
                                                     <th class="col-md-2 col-lg-2 exce"> 商品名称</th>
-                                                    <th class="col-md-2 col-lg-2 exce">  SKU</th>
-                                                    <th class="col-md-2 col-lg-2 exce"> 商品图片</th> 
+                                                    <th class="col-md-1 col-lg-1 exce">  SKU</th>
+                                                    <th class="col-md-2 col-lg-2 exce"> 商品图片</th>
                                                     <th class="col-md-2 col-lg-2 exce">成本价（$）</th>
-                                                    <th class="col-md-2 col-lg-2 exce"> 商品库存</th> 
-                                                    <th class="col-md-2 col-lg-2 exce">操作</th>
+                                                    <th class="col-md-2 col-lg-2 exce"> 实际库存</th>
+                                                        <th class="col-md-2 col-lg-2 exce"> 冻结库存</th>
+                                                        <th class="col-md-1 col-lg-1 exce">操作</th>
                                                     </tr>
                                             </thead>
                                             <tbody id="postContainer">
@@ -321,7 +322,8 @@
                                                                 alt="没有上传"/>
                                                 </td>
                                                 <td class="exce">@{{item.price}}</td>
-                                                <td class="exce">@{{item.stock}}</td>
+                                                <td class="exce">@{{item.stock + item.frozen_stock}}</td>
+                                                <td class="exce">@{{item.frozen_stock}}</td>
                                                 <td class="exce">
                                                     <a title="添加商品"
                                                         class="btn btn-small btn-success"
@@ -387,7 +389,7 @@
 <div class="col-sm-12" id="m649">
 
     <!-- 修改palletId -->
-    
+
     <el-dialog
   title="请输入新的pallet编号"
   :visible.sync="modal"
@@ -470,7 +472,7 @@
                             </div>
                             </div>
                         <div class="col-sm-4" v-if="abcd">
-                            <button type="button" id="start" 
+                            <button type="button" id="start"
                                     @click="addthis(item);abcd=!abcd" class="btn btn-small btn-info waves-effect pull-left" ><i class="fa "v-bind:class="{'fa-plus': true}"></i>
                             </button>
                         </div>
@@ -521,7 +523,7 @@
                                             <div class="col-sm-4">
                                                 <div class="row">
                                                 过期日期
-                                                </div> 
+                                                </div>
                                             </div>
                                             <div class="col-sm-4">
                                             操作
@@ -536,14 +538,14 @@
                         </div>
                     </div>
                     <div class="col-sm-12" v-for="item in palletList" style="display:flex;align-items: center;padding:10px 0;border:1px solid #eee;border-radius:8px;margin-top:10px">
-                        
+
                     <div class="col-sm-2" >
                     <div class="col-sm-6"> @{{item}} </div>
                     <div class="col-sm-6">
                         <span style="color:#999;cursor:pointer " @click="delPallet(item)">删除</span><br>
                     <span style="color:#999;cursor:pointer " @click="modifyPallet(item)">修改</span>
                     </div>
-                         
+
                         </div>
                         <div class="col-sm-9" >
                             <div class="col-sm-12" >
@@ -573,7 +575,7 @@
                                                     value-format="yyyy-MM-dd"
                                                     placeholder="选择日期">
                                                     </el-date-picker>
-                                                </div> 
+                                                </div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <button class="btn btn-primary waves-effect waves-ligh  btn-sm" @click="removePallet1(item1,index2)" > <i class="fa fa-minus"></i>
@@ -657,16 +659,16 @@
 
         })
         $("#Print").click(
-			function () {   
+			function () {
                 console.log(111)
-			    bdhtml=window.document.body.innerHTML;   
-			    bdhtmll=window.document.body.innerHTML;   
-			    sprnstr="<!--startprint-->";   
-			    eprnstr="<!--endprint-->";   
-			    prnhtml=bdhtml.substring(bdhtml.indexOf(sprnstr)+17);   
-			    prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr));   
-			    window.document.body.innerHTML=prnhtml;  
-			    window.print();   
+			    bdhtml=window.document.body.innerHTML;
+			    bdhtmll=window.document.body.innerHTML;
+			    sprnstr="<!--startprint-->";
+			    eprnstr="<!--endprint-->";
+			    prnhtml=bdhtml.substring(bdhtml.indexOf(sprnstr)+17);
+			    prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr));
+			    window.document.body.innerHTML=prnhtml;
+			    window.print();
 			    window.location.reload()
 			})
     </script>
@@ -1121,13 +1123,13 @@
                         "pallet_id":"",
                         "count":""
                     }
-                vm.addList[index].pallet.push(aa) 
+                vm.addList[index].pallet.push(aa)
             },
             removePallet(index,index1){
-                vm.addList[index].pallet.splice(index1,1) 
+                vm.addList[index].pallet.splice(index1,1)
             },
             delNew(index){
-                vm.addList.splice(index,1) 
+                vm.addList.splice(index,1)
             },
             addPallet1(index){
                 let aa={
@@ -1137,10 +1139,10 @@
                             number:""
                         }
                     }
-                    vm.purchase[index].pallets.push(aa) 
+                    vm.purchase[index].pallets.push(aa)
             },
             removePallet1(item,index){
-                item.pallets.splice(index,1) 
+                item.pallets.splice(index,1)
             },
             qw(){
                 var ttg=0;
@@ -1186,7 +1188,7 @@
                                 num=num+item1.count*1
                             })
                             var need_count=0
-                            
+
                             // if(item.cyl.indexOf("-")>-1){
                             //             need_count = num*1-item.cyl.substring(1,item.cyl.length)*1
                             //             console.log(11)
@@ -1256,7 +1258,7 @@
                         //         "name":{
                         //             'number':''
                         //         }
-                                
+
                         //     })
                         // })
                         vm.order_no=res.data.order_no
@@ -1267,9 +1269,9 @@
                         vm.status=res.data.status
                         vm.id=res.data.id
                         console.log(vm.purchase)
-                        
+
                     }
-                
+
                 } else {
                     alertify.alert(res.message);
                 }
@@ -1277,7 +1279,7 @@
             })
             },
             dealStock(){
-                
+
                 var ttg=0;
                 var ggt=0;
 
@@ -1313,7 +1315,7 @@
 //                arrs.push(JSON.stringify(a))
                 arrs.push(a)
                 })
-                if(ggt==ttg){ 
+                if(ggt==ttg){
                     $.post('/stock/put',{'id':vm.id,'uproducts':JSON.stringify(arrs),'_token': '{{csrf_token()}}'},(res)=>{
                     if (res.status) {
                         alertify.success('采购订单入库成功');
@@ -1327,7 +1329,7 @@
                     })
 
                 }
-               
+
             },
             abcde(){
                 if(vm.input5==""){
@@ -1359,22 +1361,22 @@
             },
             print(){
 
-			    // bdhtml=$("#xxcctty").html();   
-			    // bdhtmll=window.document.body.innerHTML;   
-			    // sprnstr="<!--startprint-->";   
-			    // eprnstr="<!--endprint-->";   
-			    // prnhtml=bdhtml.substring(bdhtml.indexOf(sprnstr)+17);   
-			    // prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr));   
-			    // $("#xxcctty").html(prnhtml);  
+			    // bdhtml=$("#xxcctty").html();
+			    // bdhtmll=window.document.body.innerHTML;
+			    // sprnstr="<!--startprint-->";
+			    // eprnstr="<!--endprint-->";
+			    // prnhtml=bdhtml.substring(bdhtml.indexOf(sprnstr)+17);
+			    // prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr));
+			    // $("#xxcctty").html(prnhtml);
                 // console.log(prnhtml)
                 // console.log($("#xxcctty").html())
                 $(".hidden_p").hide()
                 $("#view-item-modal").modal("hide")
-                $("#showPBox").html($("#view-item-modal .modal-body").html()) 
+                $("#showPBox").html($("#view-item-modal .modal-body").html())
                 // $("#showPBox .modal-dialog").width("100%")
                 // $("#showPBox .modal-dialog").css("margin-top","0")
                 // $(".modal-content").width("100%")
-			    window.print();   
+			    window.print();
 			    window.location.reload()
             },
             modifyPallet(item){
@@ -1382,7 +1384,7 @@
                 vm.modal=true;
 
                 $(".el-dialog__wrapper").css('top',$("#m649").height()*1-300+'px')
-                
+
             },
             makeOver(){
                 if(vm.palletList.indexOf(vm.newModify)>-1){

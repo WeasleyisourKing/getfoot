@@ -322,7 +322,7 @@
                                                                 alt="没有上传"/>
                                                 </td>
                                                 <td class="exce">@{{item.price}}</td>
-                                                <td class="exce">@{{Number(item.stock) + Number(item.frozen_stock}}</td>
+                                                <td class="exce">@{{Number(item.stock) + Number(item.frozen_stock)}}</td>
                                                 <td class="exce">@{{item.frozen_stock}}</td>
                                                 <td class="exce">
                                                     <a title="添加商品"

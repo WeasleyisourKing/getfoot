@@ -219,8 +219,15 @@ class StockOrderModel extends Model
             self::where('id', '=', $id)
                 ->delete();
 
+            $data = (new StockOrderProductModel)->where('order_id', '=', $id)->get();
             (new StockOrderProductModel)->where('order_id', '=', $id)->delete();
 
+            //删除冻结库存
+            foreach ($data as $p) {
+                $flight = ProductModel::find($p['product_id']);
+                $flight->stock = $flight->frozen_stock - $p['count'];
+                $flight->save();
+            }
             if (!is_null($businessID)) {
                 BusinessOrderModel::where('id', '=', $businessID)->delete();
                 BusinessOrderProductModel::where('order_id', '=', $businessID)->delete();

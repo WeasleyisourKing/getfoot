@@ -627,11 +627,12 @@
                 <thead>
                     <tr v-if="seachList.length>0?true:false">
                         <th class="col-md-2 col-lg-2 exce"> 商品名称</th>
-                        <th class="col-md-2 col-lg-2 exce">  SKU</th>
+                        <th class="col-md-1 col-lg-1 exce">  SKU</th>
                         <th class="col-md-2 col-lg-2 exce"> 商品图片</th> 
                         <th class="col-md-2 col-lg-2 exce">成本价（$）</th>
-                        <th class="col-md-2 col-lg-2 exce"> 商品库存</th> 
-                        <th class="col-md-2 col-lg-2 exce">操作</th>
+                        <th class="col-md-2 col-lg-2 exce"> 实际库存</th>
+                        <th class="col-md-2 col-lg-2 exce"> 冻结库存</th>
+                        <th class="col-md-1 col-lg-1 exce">操作</th>
                      </tr>
                 </thead>
                 
@@ -645,7 +646,8 @@
                                     alt="没有上传"/>
                     </td>
                     <td class="exce">@{{item.price}}</td>
-                    <td class="exce">@{{item.stock}}</td>
+                    <td class="exce">@{{Number(item.stock) + Number(item.frozen_stock}}</td>
+                    <td class="exce">@{{item.frozen_stock}}</td>
                     <td class="exce">
                         <a title="添加商品"
                             class="btn btn-small btn-success"

@@ -423,13 +423,16 @@ class BusinessController extends Controller
     public function shelvePosition($param)
     {
         $arr = [];
-//dd($param);
+
         foreach ($param as &$items) {
-            $data = ProductShelvesModel::where('product_id', '=', $items['product_id'])
+            $datas = ProductShelvesModel::with(['name'=>function($q){
+                $q->select('id','name');
+            }])->where('product_id', '=', $items['product_id'])
                 ->orderBy('overdue', 'asc')
                 ->orderBy('count', 'asc')
-                ->get()
-                ->toArray();
+                ->get();
+
+          $data = $datas->toArray();
 
             if (empty($data)) {
                 throw new ParamsException([
@@ -450,30 +453,76 @@ class BusinessController extends Controller
                         '共计'."\"$sum\"" .'件,库存不足;'
                 ]);
             }
+            $data = $datas->groupBy('overdue')->toArray();
+//            dd($data);
 
+            $arrs = $over = [];
+            foreach ($data as $v) {
+                if (count($v) != 1) {
+                    foreach ($v as $vo) {
+                        if (in_array($vo['shelves_id'],$arrs)) {
 
-            foreach ($data as &$v) {
-                //获取货架位置
-                foreach ($info as $va) {
-                    if ($va['id'] == $v['shelves_id']) {
-                        $v['name'] = $va['name'];
+                            //最近的商品满足不了需要的数量
+                            if ( $items['count'] - $vo['count'] > 0 ) {
+
+                                $vo['name'] = $vo['name']['name'];
+                                $arr[$items['product_id']][] = $vo;
+                                $items['count'] -= $vo['count'];
+
+                            } else {
+                                //商品大于需要的数量
+                                $vo['count'] = $items['count'];
+                                $vo['name'] = $vo['name']['name'];
+                                $arr[$items['product_id']][] = $v;
+                                break;
+                            }
+                        } else {
+                            array_push($over,$vo);
+                        }
+                    }
+                } else {
+                    //只有一个数组
+                    //最近的商品满足不了需要的数量
+                    if ( $items['count'] - $v[0]['count'] > 0 ) {
+
+                        $v[0]['name'] = $v[0]['name']['name'];
+                        $arr[$items['product_id']][] = $v[0];
+                        $items['count'] -= $v[0]['count'];
+                        array_push($arrs,$v[0]['shelves_id']);
+                    } else {
+                        //商品大于需要的数量
+                        $v[0]['count'] = $items['count'];
+                        $v[0]['name'] = $v[0]['name']['name'];
+                        $arr[$items['product_id']][] = $v[0];
+                        break;
                     }
                 }
-                //最近的商品满足不了需要的数量
-                if ( $items['count'] - $v['count'] > 0 ) {
-
-                    $arr[$items['product_id']][] = $v;
-                    $items['count'] -= $v['count'];
-
-                } else {
-                    //商品大于需要的数量
-                    $v['count'] = $items['count'];
-                    $arr[$items['product_id']][] = $v;
-                    break;
-                }
-
             }
 
+            //数量不够
+            if (array_sum(array_column($arr,'count')) != $items['count']) {
+                foreach ($over as $v) {
+                    //获取货架位置
+                    foreach ($info as $va) {
+                        if ($va['id'] == $v['shelves_id']) {
+                            $v['name'] = $va['name'];
+                        }
+                    }
+                    //最近的商品满足不了需要的数量
+                    if ( $items['count'] - $v['count'] > 0 ) {
+
+                        $arr[$items['product_id']][] = $v;
+                        $items['count'] -= $v['count'];
+
+                    } else {
+                        //商品大于需要的数量
+                        $v['count'] = $items['count'];
+                        $arr[$items['product_id']][] = $v;
+                        break;
+                    }
+
+                }
+            }
         }
 
       return $arr;
@@ -506,79 +555,6 @@ class BusinessController extends Controller
 
         return Common::successData($res);
     }
-
-//    public function exportExcel ()
-//    {
-//        $data = Db::name('use')->select();
-//        $col = ['id', 'test', 'qq', 'name', 'sex', 'age', 'number'];
-//        $tableName = '用户表';
-//        $excelName = '用户记录';
-//        return (new Excel())->exportExcel($data, $col, $tableName, $excelName);
-//    }
-
-    /**
-     * 导出xlsx xls文件
-     * @param string $data 需要导出数据
-     * @param array $colName 表格列头
-     * @param string $tableName 表名字
-     * @param string $excelName excel文件名
-     *
-     */
-//    public function exportExcel (&$data, $colName, $tableName, $excelName)
-//    {
-//
-//        //表标题
-//        $tableName = "<tr style='height:50px;border-style:none;'>
-//                        <th border=\"0\" style='height:60px;width:270px;font-size:40px;' colspan='11'>
-//                            {$tableName}
-//                        </th>
-//                    </tr>";
-//
-//        //表格列头
-//        $titleName = '';
-//        foreach ($colName as $item) {
-//            $titleName .= "<th style='width:100px;font-size:20px;'>{$item}</th>";
-//        }
-//
-//        //excel文件名
-//        $excelName = $excelName . ".xls";
-//        $this->pushExcel($data, $titleName, $tableName, $excelName);
-//    }
-
-
-    /*
-    * 处理Excel导出
-    */
-//    private function pushExcel (&$datas, &$titleName, &$title, $filename)
-//    {
-//        //日期时间函数的默认时区
-//        date_default_timezone_set('Asia/Shanghai');
-//        $str = "<html xmlns:o=\"urn:schemas-microsoft-com:
-//                office:office\"\r\nxmlns:x=\"urn:schemas-microsoft-com:office:
-//                excel\"\r\nxmlns=\"http://www.w3.org/TR/REC-html40\">\r\n<head>
-//                \r\n<meta http-equiv=Content-Type content=\"text/html; charset=utf-8\">
-//                \r\n</head>\r\n<body>";
-//
-//        $str .= '<div style="font-size:30px; text-align: center;">'.$title;
-//        $str .= "<table border=1><head>" . $titleName . "</head>";
-//
-//        foreach ($datas as $key => $rt) {
-//            $str .= "<tr style='text-align: center;font-size:25px; width: 100px; '>";
-//            foreach ($rt as $k => $v) {
-//                $str .= "<td>{$v}</td>";
-//            }
-//            $str .= "</tr>";
-//        }
-//
-//        $str .= "</table></body></html>";
-//        header("Content-Type: application/vnd.ms-excel; name='excel'");
-//        header("Content-type: application/octet-stream");
-//        header("Content-Disposition: attachment; filename=" . $filename);
-//        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-//        header("Pragma: no-cache");
-//        header("Expires: 0");
-//        exit($str);
-//    }
 
 
 }

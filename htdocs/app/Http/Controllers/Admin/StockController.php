@@ -1185,7 +1185,7 @@ class StockController extends Controller
                     if ($val['stock'] == 0 || $val['stock'] - $items['count'] < 0) {
                         throw new ParamsException([
                             'code' => 200,
-                            'message' => '商品' . $val['zn_name'] . '实际库存'.$val['stock'] + $val['frozen_stock'].'冻结库存'.$val['frozen_stock'].'，库存不足'
+                            'message' => '商品' . $val['zn_name'] . '实际库存'.$val['origin_stock'] .'冻结库存'.$val['frozen_stock'].'，库存不足'
                         ]);
                     }
 //                    $items['origin_stock'] = $val['stock'];
@@ -1522,7 +1522,7 @@ class StockController extends Controller
 
         $shelve = $params['status'] != 2 ? json_decode($info->shelve_position, true) : json_decode(\App\Http\Model\BusinessOrderModel::where('order_no', '=', $info->pruchase_order_no)->first(['shelve_position'])->shelve_position, true);
 
-        $copy = $shelve;
+
 
         //验证
         foreach ($shelve as &$item) {

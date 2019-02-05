@@ -17,6 +17,7 @@ class ProductModel extends Model
 
     protected $hidden = ['pivot'];
 
+    protected $appends = ['origin_stock'];
 
     //关联主题区和图片关系 一对一
     public function hot()
@@ -109,7 +110,7 @@ class ProductModel extends Model
         return $this->belongsTo('App\Http\Model\StockOrderProductModel', 'id', 'product_id');
     }
 //
-    //实际库存
+    //可用库存
     public function getStockAttribute($value)
     {
         if (!empty($this->attributes['frozen_stock'])) {
@@ -120,8 +121,12 @@ class ProductModel extends Model
             return $value;
         }
     }
-
     //实际库存
+    public function getoriginStockAttribute()
+    {
+        return $this->attributes['stock'];
+    }
+    //中文名称
     public function getznNameAttribute($value)
     {
         if (!empty($this->attributes['frozen_stock'])) {
@@ -133,7 +138,7 @@ class ProductModel extends Model
         }
     }
 
-    //实际库存
+    //英文名称
     public function getenNameAttribute($value)
     {
         if (!empty($this->attributes['frozen_stock'])) {

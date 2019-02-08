@@ -109,7 +109,14 @@ class ProductModel extends Model
     {
         return $this->belongsTo('App\Http\Model\StockOrderProductModel', 'id', 'product_id');
     }
-//
+
+    //实际库存
+    public function getoriginStockAttribute()
+    {
+        if (!empty($this->attributes['Stock'])) {
+            return $this->attributes['stock'];
+        }
+    }
     //可用库存
     public function getStockAttribute($value)
     {
@@ -121,11 +128,7 @@ class ProductModel extends Model
             return $value;
         }
     }
-    //实际库存
-    public function getoriginStockAttribute()
-    {
-        return $this->attributes['stock'];
-    }
+
     //中文名称
     public function getznNameAttribute($value)
     {

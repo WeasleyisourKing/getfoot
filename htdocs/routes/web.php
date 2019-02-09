@@ -323,6 +323,8 @@ Route::group(['middleware' => 'role'], function () {
         Route::get('/out', 'Admin\StockController@Stock4');
         //采购页面
         Route::get('/purchase', 'Admin\StockController@Stock5');
+        //上架页面
+        Route::get('/upper', 'Admin\StockController@upper');
 
     });
 

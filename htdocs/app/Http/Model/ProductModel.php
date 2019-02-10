@@ -147,7 +147,7 @@ class ProductModel extends Model
     //英文名称
     public function getenNameAttribute($value)
     {
-        if (!is_null($this->attributes['frozen_stock'])) {
+        if (!empty($this->attributes['frozen_stock'])) {
 
             $nus = $this->attributes['stock'] - $this->attributes['frozen_stock'];
             return $nus > 0 ? $value : '【Sold out】' . $value;

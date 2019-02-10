@@ -133,7 +133,8 @@ class ProductModel extends Model
     //中文名称
     public function getznNameAttribute($value)
     {
-//        dump(!is_null($this->attributes['frozen_stock']));
+        dump(!is_null($this->attributes['frozen_stock']));
+        dump(!empty($this->attributes['frozen_stock']));
 //dd($this);
         if (!is_null($this->attributes['frozen_stock']) || !empty($this->attributes['frozen_stock'])) {
 

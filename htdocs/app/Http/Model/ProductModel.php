@@ -121,7 +121,7 @@ class ProductModel extends Model
     //可用库存
     public function getStockAttribute($value)
     {
-        if (!empty($this->attributes['frozen_stock'])) {
+        if (!is_null($this->attributes['frozen_stock']) || !empty($this->attributes['frozen_stock'])) {
 
             $nus = $this->attributes['stock'] - $this->attributes['frozen_stock'];
             return $nus < 0 ? 0 : $nus;
@@ -133,9 +133,9 @@ class ProductModel extends Model
     //中文名称
     public function getznNameAttribute($value)
     {
-        dump(!is_null($this->attributes['frozen_stock']));
-dd($this);
-        if (!empty($this->attributes['frozen_stock'])) {
+//        dump(!is_null($this->attributes['frozen_stock']));
+//dd($this);
+        if (!is_null($this->attributes['frozen_stock']) || !empty($this->attributes['frozen_stock'])) {
 
             $nus = $this->attributes['stock'] - $this->attributes['frozen_stock'];
 

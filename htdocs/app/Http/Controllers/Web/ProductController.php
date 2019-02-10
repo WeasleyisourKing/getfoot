@@ -272,8 +272,7 @@ class ProductController extends Controller
 
             // 1 英文
             $data = ProductModel::with(['distributor', 'category'])
-                ->select(DB::raw("CASE stock - frozen_stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name'"),
-                    'id','en_name','product_image','stock','category_id','status','frozen_stock')
+                ->select('zn_name','id','en_name','product_image','stock','category_id','status','frozen_stock')
                 ->where('en_name', 'like', '%' . $search . '%')
                 ->where('status', '=', 1)
                 ->orderBy('stock', 'desc')
@@ -281,8 +280,7 @@ class ProductController extends Controller
         } else {
             // 0 中文
             $data = ProductModel::with(['distributor', 'category'])
-                ->select(DB::raw("CASE stock - frozen_stock WHEN 0 THEN CONCAT('【已售罄】',zn_name) ELSE zn_name END as 'zn_name'"),
-                    'id','en_name','product_image','stock','category_id','status','frozen_stock')
+                ->select('zn_name', 'id','en_name','product_image','stock','category_id','status','frozen_stock')
                 ->where('zn_name', 'like', '%' . $search . '%')
                 ->where('status', '=', 1)
                 ->orderBy('stock', 'desc')

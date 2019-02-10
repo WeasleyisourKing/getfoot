@@ -133,7 +133,7 @@ class ProductModel extends Model
     //中文名称
     public function getznNameAttribute($value)
     {
-
+//dd($this);
         if (isset($this->attributes['frozen_stock'])) {
 
             $nus = $this->attributes['stock'] - $this->attributes['frozen_stock'];

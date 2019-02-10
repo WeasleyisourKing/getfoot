@@ -431,7 +431,7 @@ class BusinessOrderController extends Controller
         //构造数据
         $datas = [];
         $datas = [
-            'order_no' => 'O' . substr($orderNos, 1),
+            'order_no' => 'O' . $orderNos,
             'operator' => 'Admin',
             'total_count' => $orderSnap['allCount'],
             'total_price' => $orderSnap['orderPrice'],

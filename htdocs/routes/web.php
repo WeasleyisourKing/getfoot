@@ -395,6 +395,13 @@ Route::group(['middleware' => 'role'], function () {
 
 
     });
+
+    //TODO 供货商管理页面
+    Route::group(['prefix' => '/supplier'], function () {
+        //供应商管理页面*
+        Route::get('/list', 'Admin\UserController@supplierList');
+
+    });
 });
 
 //TODO 商家订单管理接口

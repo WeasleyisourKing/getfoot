@@ -319,14 +319,14 @@ class StockController extends Controller
             }
 
         }
-
+        ShelvesModel::updateBrandInfo($params['shelve_id'], $datas);
 //        dump($data);
         if (!empty($data)) {
-
             //调拨了货架
             ProductShelvesModel::allocation($params['shelve_id'], $data);
+
         }
-        ShelvesModel::updateBrandInfo($params['shelve_id'], $datas);
+
 
 
         return Common::successData();

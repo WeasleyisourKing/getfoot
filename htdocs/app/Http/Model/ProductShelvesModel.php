@@ -77,10 +77,10 @@ class ProductShelvesModel extends Model
     {
 
         DB::beginTransaction();
-
+//dump($shelveId);
         try {
-            foreach ($arr as  &$ite) {
-
+            foreach ($arr as &$ite) {
+//dump($ite['shelves_id']);
                 $nu = self::where('shelves_id', '=', $shelveId)->where('product_id', '=', $ite['product_id'])
                     ->where('overdue', '=', $ite['overdue'])->first()->count;
 
@@ -109,7 +109,7 @@ class ProductShelvesModel extends Model
 
                     }
                 } else {
-                        //调拨全部
+                    //调拨全部
                     $col = self::where('shelves_id', '=', $ite['shelves_id'])->where('product_id', '=', $ite['product_id'])
                         ->where('overdue', '=', $ite['overdue'])->first();
 
@@ -135,11 +135,17 @@ class ProductShelvesModel extends Model
 
                     }
                 }
+                //状态改变
+                if (is_null(self::where('shelves_id', '=', $ite['shelves_id'])->first())) {
 
-
-
+                    ShelvesModel::where('id', '=', $ite['shelves_id'])->update(['status' => 2]);
+                }
             }
 
+            if (is_null(self::where('shelves_id', '=', $shelveId)->first())) {
+
+                ShelvesModel::where('id', '=', $shelveId)->update(['status' => 2]);
+            }
 
             DB::commit();
         } catch (\Exception $ex) {
@@ -148,5 +154,7 @@ class ProductShelvesModel extends Model
             throw $ex;
         }
     }
+
+
 
 }

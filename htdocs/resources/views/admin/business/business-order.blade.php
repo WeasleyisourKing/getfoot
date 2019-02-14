@@ -295,13 +295,13 @@
                                                     >
                                                         <i class="icon fa fa-file-text"> </i>
                                                     </a>
-                                                    @if($item->status != 1)
-                                                    <a title="删除" class="btn btn-small btn-danger"
-                                                       href="javascript:void(0);" data-id="{{$item->id}}"
-                                                       onclick="del(this);">
-                                                        <i class="icon fa fa-trash-o"> </i>
-                                                    </a>
-                                                    @endif
+                                                    {{--@if($item->status != 1)--}}
+                                                    {{--<a title="删除" class="btn btn-small btn-danger"--}}
+                                                       {{--href="javascript:void(0);" data-id="{{$item->id}}"--}}
+                                                       {{--onclick="del(this);">--}}
+                                                        {{--<i class="icon fa fa-trash-o"> </i>--}}
+                                                    {{--</a>--}}
+                                                    {{--@endif--}}
                                                 </td>
 
                                             </tr>

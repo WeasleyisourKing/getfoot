@@ -91,7 +91,7 @@ class BusinessController extends Controller
             foreach ($shelves as $key => $v) {
 
                 if ($key == $items['product_id']) {
-                    $items['shelves'] =  $v;
+                    $items['shelves'] = $v;
                 }
             }
         }
@@ -425,107 +425,112 @@ class BusinessController extends Controller
         $arr = [];
 
         foreach ($param as &$items) {
-            $datas = ProductShelvesModel::with(['name'=>function($q){
-                $q->select('id','name');
+            $datas = ProductShelvesModel::with(['name' => function ($q) {
+                $q->select('id', 'name');
             }])->where('product_id', '=', $items['product_id'])
                 ->orderBy('overdue', 'asc')
-                ->orderBy('count', 'asc')
+//                ->orderBy('count', 'asc')
                 ->get();
 
-          $data = $datas->toArray();
+            $data = $datas->toArray();
 
             if (empty($data)) {
                 throw new ParamsException([
                     'code' => 200,
-                    'message' => '商品'.ProductModel::where('id','=',$items['product_id'])->first(['zn_name'])->zn_name.'在货架上查询不到库存;'
+                    'message' => '商品' . ProductModel::where('id', '=', $items['product_id'])->first(['zn_name'])->zn_name . '在货架上查询不到库存;'
                 ]);
             }
 
             $arr[$items['product_id']] = [];
-            $info = ShelvesModel::whereIn('id',array_column($data,'shelves_id'))->get(['id','name'])->toArray();
+            $info = ShelvesModel::whereIn('id', array_column($data, 'shelves_id'))->get(['id', 'name'])->toArray();
 
-            if (($sum = array_sum(array_column($data,'count'))) < $items['count']) {
+            if (($sum = array_sum(array_column($data, 'count'))) < $items['count']) {
 
                 throw new ParamsException([
                     'code' => 200,
-                    'message' => '商品'.ProductModel::where('id','=',$items['product_id'])->first(['zn_name'])->zn_name.'在货架
-                    '.implode(",",array_column($info,'name')).
-                        '共计'."\"$sum\"" .'件,库存不足;'
+                    'message' => '商品' . ProductModel::where('id', '=', $items['product_id'])->first(['zn_name'])->zn_name . '在货架
+                    ' . implode(",", array_column($info, 'name')) .
+                        '共计' . "\"$sum\"" . '件,库存不足;'
                 ]);
             }
-            $data = $datas->groupBy('overdue')->toArray();
-//            dd($data);
 
-            $arrs = $over = [];
-            foreach ($data as $v) {
-                if (count($v) != 1) {
-                    foreach ($v as $vo) {
-                        if (in_array($vo['shelves_id'],$arrs)) {
+            //已货架分组 判断每个分组的总数能否完成抓货 能就选择此货架进行 不能按照日期从小到大分组进行抓货
+            $arrs = [];
+            $nus = $items['count'];
+            $hg = $this->array_group_by($data,'shelves_id');
+            foreach ($hg as $vv) {
+                if ($items['count'] <= 0)
+                    break;
+                if (array_sum(array_column($vv,'count')) > $nus) {
+                    foreach ($vv as $vo) {
+                        if ($items['count'] - $vo['count'] > 0) {
+                            $arrs[$items['product_id']][] = $vo;
+                            $items['count'] -= $vo['count'];
 
-                            //最近的商品满足不了需要的数量
-                            if ( $items['count'] - $vo['count'] > 0 ) {
-
-                                $vo['name'] = $vo['name']['name'];
-                                $arr[$items['product_id']][] = $vo;
-                                $items['count'] -= $vo['count'];
-
-                            } else {
-                                //商品大于需要的数量
-                                $vo['count'] = $items['count'];
-                                $vo['name'] = $vo['name']['name'];
-                                $arr[$items['product_id']][] = $v;
-                                break;
-                            }
                         } else {
-                            array_push($over,$vo);
+                            //商品大于需要的数量
+                            $vo['count'] = $items['count'];
+                            $items['count'] -= $vo['count'];
+                            $arrs[$items['product_id']][] = $vo;
+                            break;
                         }
-                    }
-                } else {
-                    //只有一个数组
-                    //最近的商品满足不了需要的数量
-                    if ( $items['count'] - $v[0]['count'] > 0 ) {
-
-                        $v[0]['name'] = $v[0]['name']['name'];
-                        $arr[$items['product_id']][] = $v[0];
-                        $items['count'] -= $v[0]['count'];
-                        array_push($arrs,$v[0]['shelves_id']);
-                    } else {
-                        //商品大于需要的数量
-                        $v[0]['count'] = $items['count'];
-                        $v[0]['name'] = $v[0]['name']['name'];
-                        $arr[$items['product_id']][] = $v[0];
-                        break;
                     }
                 }
             }
 
-            //数量不够
-            if (array_sum(array_column($arr,'count')) != $items['count']) {
-                foreach ($over as $v) {
-                    //获取货架位置
-                    foreach ($info as $va) {
-                        if ($va['id'] == $v['shelves_id']) {
-                            $v['name'] = $va['name'];
+            if (empty($arrs)) {
+                foreach ($data as $k => &$item) {
+
+                    $arr = $this->group($data,$item['shelves_id']);
+                    if ($items['count'] <= 0)
+                        break;
+                    foreach ($arr as $vo) {
+                        if ($items['count'] - $vo['count'] > 0) {
+                            $arrs[$items['product_id']][] = $vo;
+                            $items['count'] -= $vo['count'];
+
+                        } else {
+                            //商品大于需要的数量
+                            $vo['count'] = $items['count'];
+                            $items['count'] -= $vo['count'];
+                            $arrs[$items['product_id']][] = $vo;
+                            break;
                         }
                     }
-                    //最近的商品满足不了需要的数量
-                    if ( $items['count'] - $v['count'] > 0 ) {
-
-                        $arr[$items['product_id']][] = $v;
-                        $items['count'] -= $v['count'];
-
-                    } else {
-                        //商品大于需要的数量
-                        $v['count'] = $items['count'];
-                        $arr[$items['product_id']][] = $v;
-                        break;
-                    }
-
                 }
             }
         }
+        return $arrs;
+    }
+    public static function array_group_by($arr, $key)
+    {
+        $grouped = [];
+        foreach ($arr as $value) {
+            $grouped[$value[$key]][] = $value;
+        }
+        // Recursively build a nested grouping if more parameters are supplied
+        // Each grouped array value is grouped according to the next sequential key
+        if (func_num_args() > 2) {
+            $args = func_get_args();
+            foreach ($grouped as $key => $value) {
+                $parms = array_merge([$value], array_slice($args, 2, func_num_args()));
+                $grouped[$key] = call_user_func_array('array_group_by', $parms);
+            }
+        }
+        return $grouped;
+    }
 
-      return $arr;
+    public static function group(&$arr, $key)
+    {
+        $grouped = [];
+        foreach ($arr as $k => $value) {
+            if ($value['shelves_id'] == $key) {
+                $value['name'] = $value['name']['name'];
+                array_push($grouped,$value);
+                unset($arr[$k]);
+            }
+        }
+        return $grouped;
     }
 
     public function users(Request $request)

@@ -422,7 +422,7 @@ class BusinessController extends Controller
     //获取货架位置
     public function shelvePosition($param)
     {
-        $arr = [];
+        $res = [];
 
         foreach ($param as &$items) {
             $datas = ProductShelvesModel::with(['name' => function ($q) {
@@ -441,7 +441,7 @@ class BusinessController extends Controller
                 ]);
             }
 
-            $arr[$items['product_id']] = [];
+
             $info = ShelvesModel::whereIn('id', array_column($data, 'shelves_id'))->get(['id', 'name'])->toArray();
 
             if (($sum = array_sum(array_column($data, 'count'))) < $items['count']) {
@@ -456,22 +456,24 @@ class BusinessController extends Controller
 
             //已货架分组 判断每个分组的总数能否完成抓货 能就选择此货架进行 不能按照日期从小到大分组进行抓货
             $arrs = [];
+            $res[$items['product_id']] = [];
             $nus = $items['count'];
             $hg = $this->array_group_by($data,'shelves_id');
             foreach ($hg as $vv) {
-                if ($items['count'] <= 0)
-                    break;
-                if (array_sum(array_column($vv,'count')) > $nus) {
+
+//                if ($items['count'] <= 0)
+//                    break;
+                if (array_sum(array_column($vv,'count')) >= $nus) {
                     foreach ($vv as $vo) {
                         if ($items['count'] - $vo['count'] > 0) {
-                            $arrs[$items['product_id']][] = $vo;
+                            $res[$items['product_id']][] = $vo;
                             $items['count'] -= $vo['count'];
 
                         } else {
                             //商品大于需要的数量
                             $vo['count'] = $items['count'];
                             $items['count'] -= $vo['count'];
-                            $arrs[$items['product_id']][] = $vo;
+                            $res[$items['product_id']][] = $vo;
                             break;
                         }
                     }
@@ -486,21 +488,22 @@ class BusinessController extends Controller
                         break;
                     foreach ($arr as $vo) {
                         if ($items['count'] - $vo['count'] > 0) {
-                            $arrs[$items['product_id']][] = $vo;
+                            $res[$items['product_id']][] = $vo;
                             $items['count'] -= $vo['count'];
 
                         } else {
                             //商品大于需要的数量
                             $vo['count'] = $items['count'];
                             $items['count'] -= $vo['count'];
-                            $arrs[$items['product_id']][] = $vo;
+                            $res[$items['product_id']][] = $vo;
                             break;
                         }
                     }
                 }
             }
         }
-        return $arrs;
+
+        return $res;
     }
     public static function array_group_by($arr, $key)
     {

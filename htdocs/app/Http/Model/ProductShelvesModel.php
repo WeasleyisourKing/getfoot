@@ -19,9 +19,9 @@ class ProductShelvesModel extends Model
         return $this->belongsTo('App\Http\Model\StockOrderProductModel', 'id', 'product_id');
     }
     //
-    public function products()
+    public function prod()
     {
-        return $this->belongsTo('App\Http\Model\ProductModel','id','product_id');
+        return $this->hasOne('App\Http\Model\ProductModel','product_id','id');
     }
     //一对一 获取货架名称
     public function name()

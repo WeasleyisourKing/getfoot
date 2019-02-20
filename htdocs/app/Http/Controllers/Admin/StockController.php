@@ -212,20 +212,20 @@ class StockController extends Controller
                     unset($res[$k]);
                 }
             }
-//            dd($res);
 
         } else {
-//            dump(1);
-            $res = ShelvesModel::with(['goods' => function ($q) {
+
+            $res = ShelvesModel::where('number', 'like', '%' . $search . '%')
+            ->with(['goods' => function ($q) {
 
                 $q->select('en_name', 'zn_name', 'product_image', 'id', 'sku')->limit(3);
             }])
-                ->where('number', 'like', '%' . $search . '%')
+
                 ->get()
                 ->toArray();
         }
 
-//        dd($res);
+        dd($res);
         return view('admin.inventory.shelves',
             [
                 'res' => $res,

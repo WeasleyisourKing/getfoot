@@ -18,7 +18,11 @@ class ProductShelvesModel extends Model
     {
         return $this->belongsTo('App\Http\Model\StockOrderProductModel', 'id', 'product_id');
     }
-
+    //
+    public function products()
+    {
+        return $this->belongsTo('App\Http\Model\ProductModel', 'id', 'product_id');
+    }
     //一对一 获取货架名称
     public function name()
     {

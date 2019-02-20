@@ -215,11 +215,16 @@ class StockController extends Controller
 
         } else {
 
+//            $res = ShelvesModel::where('number', 'like', '%' . $search . '%')
+//            ->with(['goods' => function ($q) {
+//
+//                $q->select('en_name', 'zn_name', 'product_image', 'id', 'sku')->limit(3);
+//            }])
+//
+//                ->get()
+//                ->toArray();
             $res = ShelvesModel::where('number', 'like', '%' . $search . '%')
-            ->with(['goods' => function ($q) {
-
-                $q->select('en_name', 'zn_name', 'product_image', 'id', 'sku')->limit(3);
-            }])
+                ->with('shelve')
 
                 ->get()
                 ->toArray();

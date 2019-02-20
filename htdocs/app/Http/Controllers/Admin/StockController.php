@@ -214,24 +214,24 @@ class StockController extends Controller
             }
 
         } else {
-//            $res = ShelvesModel::where('number', 'like', '%' . $search . '%')
-//            ->with(['goods' => function ($q) {
-//
-//                $q->select('en_name', 'zn_name', 'product_image', 'id', 'sku')->limit(3);
-//            }])
-//
-//                ->get()
-//                ->toArray();
-//            dd($res);
             $res = ShelvesModel::where('number', 'like', '%' . $search . '%')
-                ->with(['shelve' => function($q) {
-                    $q->with(['prod' =>function($qu) {
-                        $qu->select('en_name', 'zn_name', 'product_image', 'id', 'sku');
-                    }]);
-                }])
+            ->with(['goods' => function ($q) {
+
+                $q->select('en_name', 'zn_name', 'product_image', 'id', 'sku');
+            }])
 
                 ->get()
                 ->toArray();
+//            dd($res);
+//            $res = ShelvesModel::where('number', 'like', '%' . $search . '%')
+//                ->with(['shelve' => function($q) {
+//                    $q->with(['prod' =>function($qu) {
+//                        $qu->select('en_name', 'zn_name', 'product_image', 'id', 'sku');
+//                    }]);
+//                }])
+//
+//                ->get()
+//                ->toArray();
         }
 
 //        foreach ($res as &$items) {

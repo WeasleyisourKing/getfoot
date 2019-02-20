@@ -243,6 +243,7 @@ class StockController extends Controller
                 $items['goods'][] = $arr;
 
             }
+            unset($items['shelve']);
         }
 dump($res);
         return view('admin.inventory.shelves',

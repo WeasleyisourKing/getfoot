@@ -96,7 +96,7 @@ class BusinessController extends Controller
             }
         }
 
-//        dd($ress);
+//        dump($ress);
         return view('admin.business.order-detail',
             [
                 'data' => $ress,
@@ -466,11 +466,13 @@ class BusinessController extends Controller
                 if (array_sum(array_column($vv,'count')) >= $nus) {
                     foreach ($vv as $vo) {
                         if ($items['count'] - $vo['count'] > 0) {
+                            $vo['name'] =  $vo['name']['name'];
                             $res[$items['product_id']][] = $vo;
                             $items['count'] -= $vo['count'];
 
                         } else {
                             //商品大于需要的数量
+                            $vo['name'] =  $vo['name']['name'];
                             $vo['count'] = $items['count'];
                             $items['count'] -= $vo['count'];
                             $res[$items['product_id']][] = $vo;
@@ -488,11 +490,13 @@ class BusinessController extends Controller
                         break;
                     foreach ($arr as $vo) {
                         if ($items['count'] - $vo['count'] > 0) {
+                            $vo['name'] =  $vo['name']['name'];
                             $res[$items['product_id']][] = $vo;
                             $items['count'] -= $vo['count'];
 
                         } else {
                             //商品大于需要的数量
+                            $vo['name'] =  $vo['name']['name'];
                             $vo['count'] = $items['count'];
                             $items['count'] -= $vo['count'];
                             $res[$items['product_id']][] = $vo;

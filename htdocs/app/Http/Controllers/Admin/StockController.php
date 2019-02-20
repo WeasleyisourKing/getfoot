@@ -175,7 +175,7 @@ class StockController extends Controller
         }])
             ->get();
         $shelves = ShelvesModel::get();
-        
+
         return view('admin.inventory.shelves',
             [
                 'res' => $res,
@@ -220,12 +220,12 @@ class StockController extends Controller
 
                 $q->select('en_name', 'zn_name', 'product_image', 'id', 'sku')->limit(3);
             }])
-                ->where('name', 'like', '%' . $search . '%')
+                ->where('number', 'like', '%' . $search . '%')
                 ->get()
                 ->toArray();
         }
 
-        dd($res);
+//        dd($res);
         return view('admin.inventory.shelves',
             [
                 'res' => $res,

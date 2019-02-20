@@ -146,43 +146,36 @@ class StockController extends Controller
     }
 
     //货架管理
-    public function Stock1(Request $request)
+    public function Stock1()
     {
-        if (!empty($request->input('search'))) {
-            $search = htmlspecialchars(strip_tags(trim($request->input('search'))));
+//        if (!empty($request->input('search'))) {
+//            $search = htmlspecialchars(strip_tags(trim($request->input('search'))));
+//
+//            $res = ShelvesModel::where('name', 'like', '%' . $search . '%')
+//                ->with(['goods' => function ($q) {
+//
+//                    $q->select('en_name', 'zn_name', 'product_image', 'id', 'sku')->limit(3);
+//                }])
+//
+//                ->get()
+//                ->toArray();
+//        } else {
+//            $res = ShelvesModel::with(['goods' => function ($q) {
+//
+//                $q->select('en_name', 'zn_name', 'product_image', 'id', 'sku');
+//
+//            }])
+//                ->get();
+//
+//        }
+        $res = ShelvesModel::with(['goods' => function ($q) {
 
-            $res = ShelvesModel::where('name', 'like', '%' . $search . '%')
-                ->with(['goods' => function ($q) {
+            $q->select('en_name', 'zn_name', 'product_image', 'id', 'sku');
 
-                    $q->select('en_name', 'zn_name', 'product_image', 'id', 'sku')->limit(3);
-                }])
-
-                ->get()
-                ->toArray();
-        } else {
-            $res = ShelvesModel::with(['goods' => function ($q) {
-
-                $q->select('en_name', 'zn_name', 'product_image', 'id', 'sku');
-
-            }])
-                ->get();
-
-        }
-
+        }])
+            ->get();
         $shelves = ShelvesModel::get();
-
-
-
-
-//        $res = ShelvesModel::with(['goods' => function ($q) {
-//            $q->with(['overdue' => function ($qe) {
-//                $qe->select('product_id', 'overdue')
-//                    ->where('status', '=', 1)
-//                    ->orderBy('created_at', 'desc');
-//            }, 'shelves'])->select('en_name', 'zn_name', 'stock', 'id', 'sku');
-//        }])
-//            ->where('id', '=', $id)->first();
-
+        
         return view('admin.inventory.shelves',
             [
                 'res' => $res,

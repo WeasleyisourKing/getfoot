@@ -214,7 +214,6 @@ class StockController extends Controller
             }
 
         } else {
-
 //            $res = ShelvesModel::where('number', 'like', '%' . $search . '%')
 //            ->with(['goods' => function ($q) {
 //
@@ -223,6 +222,7 @@ class StockController extends Controller
 //
 //                ->get()
 //                ->toArray();
+//            dd($res);
             $res = ShelvesModel::where('number', 'like', '%' . $search . '%')
                 ->with(['shelve' => function($q) {
                     $q->with(['products' =>function($qu) {
@@ -234,7 +234,17 @@ class StockController extends Controller
                 ->toArray();
         }
 
-        dd($res);
+        foreach ($res as &$items) {
+            $items['goods'] = [];
+            foreach ($items['shelve'] as &$v) {
+                $arr = $v['products'];
+                unset($v['products']);
+                $arr['info'] = $v;
+                $items['goods'][] = $arr;
+
+            }
+        }
+
         return view('admin.inventory.shelves',
             [
                 'res' => $res,

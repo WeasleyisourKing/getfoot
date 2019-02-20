@@ -244,7 +244,7 @@ class StockController extends Controller
 
             }
         }
-
+dump($res);
         return view('admin.inventory.shelves',
             [
                 'res' => $res,

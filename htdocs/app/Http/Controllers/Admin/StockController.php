@@ -234,17 +234,17 @@ class StockController extends Controller
                 ->toArray();
         }
 
-//        foreach ($res as &$items) {
-//            $items['goods'] = [];
-//            foreach ($items['shelve'] as &$v) {
-//                $arr = $v['products'];
-//                unset($v['products']);
-//                $arr['info'] = $v;
-//                $items['goods'][] = $arr;
-//
-//            }
+        foreach ($res as &$items) {
+            $items['goods'] = [];
+            foreach ($items['shelve'] as &$v) {
+                $arr = $v['products'];
+                unset($v['products']);
+                $arr['info'] = $v;
+                $items['goods'][] = $arr;
+
+            }
 //            unset($items['shelve']);
-//        }
+        }
 dump($res);
         return view('admin.inventory.shelves',
             [

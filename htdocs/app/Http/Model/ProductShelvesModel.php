@@ -21,7 +21,7 @@ class ProductShelvesModel extends Model
     //
     public function prod()
     {
-        return $this->hasOne('App\Http\Model\ProductModel','product_id','id');
+        return $this->hasOne('App\Http\Model\ProductModel','id','product_id');
     }
     //一对一 获取货架名称
     public function name()

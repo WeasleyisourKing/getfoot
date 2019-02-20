@@ -251,7 +251,7 @@
                         </div>
 
                         <div class="col-lg-10">
-                            <form action="/shelves/search" method="get">
+                            <form action="/stock/shelves" method="get">
                             <!-- 搜索 -->
                             <div class="input-group">
                                 <input type="text"

@@ -264,7 +264,7 @@ Route::post('/postLogin', 'Admin\LoginController@postLogin');
 //修改admin密码
 Route::post('/admin/password', 'Admin\LoginController@adminUpdate');
 
-
+Route::get('/shelves', 'Admin\StockController@Stock1');
 //TODO 仪表盘
 //后台登录处理
 Route::get('/dashboard', 'Admin\DashboardController@index');
@@ -314,7 +314,7 @@ Route::group(['middleware' => 'role'], function () {
         Route::get('/shelves/limit/{limit?}', 'Admin\StockController@stockShelves');
 
         //货架页面
-        Route::get('/shelves', 'Admin\StockController@Stock1');
+//        Route::get('/shelves', 'Admin\StockController@Stock1');
         //库存列表
         Route::get('/list', 'Admin\StockController@Stock2');
         //入库页面

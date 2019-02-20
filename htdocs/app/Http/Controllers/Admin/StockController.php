@@ -146,16 +146,32 @@ class StockController extends Controller
     }
 
     //货架管理
-    public function Stock1()
+    public function Stock1(Request $request)
     {
+        if (!empty($request->input('search'))) {
+            $search = htmlspecialchars(strip_tags(trim($request->input('search'))));
+
+            $res = ShelvesModel::where('name', 'like', '%' . $search . '%')
+                ->with(['goods' => function ($q) {
+
+                    $q->select('en_name', 'zn_name', 'product_image', 'id', 'sku')->limit(3);
+                }])
+
+                ->get()
+                ->toArray();
+        } else {
+            $res = ShelvesModel::with(['goods' => function ($q) {
+
+                $q->select('en_name', 'zn_name', 'product_image', 'id', 'sku');
+
+            }])
+                ->get();
+
+        }
+
         $shelves = ShelvesModel::get();
 
-        $res = ShelvesModel::with(['goods' => function ($q) {
 
-            $q->select('en_name', 'zn_name', 'product_image', 'id', 'sku');
-
-        }])
-            ->get();
 
 
 //        $res = ShelvesModel::with(['goods' => function ($q) {
@@ -206,7 +222,7 @@ class StockController extends Controller
 //            dd($res);
 
         } else {
-            dump(1);
+//            dump(1);
             $res = ShelvesModel::with(['goods' => function ($q) {
 
                 $q->select('en_name', 'zn_name', 'product_image', 'id', 'sku')->limit(3);

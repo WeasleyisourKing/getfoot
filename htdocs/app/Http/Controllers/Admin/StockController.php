@@ -206,6 +206,7 @@ class StockController extends Controller
 //            dd($res);
 
         } else {
+            dump(1);
             $res = ShelvesModel::with(['goods' => function ($q) {
 
                 $q->select('en_name', 'zn_name', 'product_image', 'id', 'sku')->limit(3);
@@ -215,7 +216,7 @@ class StockController extends Controller
                 ->toArray();
         }
 
-//        dd($res->toArray());
+        dd($res);
         return view('admin.inventory.shelves',
             [
                 'res' => $res,
@@ -326,8 +327,6 @@ class StockController extends Controller
             ProductShelvesModel::allocation($params['shelve_id'], $data);
 
         }
-
-
 
         return Common::successData();
     }

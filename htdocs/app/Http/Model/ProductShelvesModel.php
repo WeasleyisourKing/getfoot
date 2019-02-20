@@ -139,12 +139,16 @@ class ProductShelvesModel extends Model
                 if (is_null(self::where('shelves_id', '=', $ite['shelves_id'])->first())) {
 
                     ShelvesModel::where('id', '=', $ite['shelves_id'])->update(['status' => 2]);
+                } else {
+                    ShelvesModel::where('id', '=', $ite['shelves_id'])->update(['status' => 1]);
                 }
             }
 
             if (is_null(self::where('shelves_id', '=', $shelveId)->first())) {
 
                 ShelvesModel::where('id', '=', $shelveId)->update(['status' => 2]);
+            } else {
+                ShelvesModel::where('id', '=', $shelveId)->update(['status' => 1]);
             }
 
             DB::commit();

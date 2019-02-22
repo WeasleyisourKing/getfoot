@@ -679,7 +679,7 @@ class ProductController extends Controller
         (new ProductRule)->goCheck(200);
 
         $params = $request->all();
-
+//dd($params);
         $name = htmlspecialchars(strip_tags(trim($params['zn_name'])));
         $sku = htmlspecialchars(strip_tags(trim($params['sku'])));
         $innerSku = htmlspecialchars(strip_tags(trim($params['inner_sku'])));
@@ -749,12 +749,13 @@ class ProductController extends Controller
             'level_three_price' => $params['three_price'],
             'level_four_price' => $params['four_price']
         ];
-        if (!empty($params['shelves'])) {
-
-            $pId = ProductModel::insertProduct($data, $arr, $distributor, array_column($params['shelves'], 'shelves_id'));
-        } else {
-            $pId = ProductModel::insertProduct($data, $arr, $distributor, $shelves = null);
-        }
+        $pId = ProductModel::insertProduct($data, $arr, $distributor, $shelves = null);
+//        if (!empty($params['shelves'])) {
+//
+//            $pId = ProductModel::insertProduct($data, $arr, $distributor, array_column($params['shelves'], 'shelves_id'));
+//        } else {
+//            $pId = ProductModel::insertProduct($data, $arr, $distributor, $shelves = null);
+//        }
         //商品属性
         if (!empty($params['attribute'])) {
 

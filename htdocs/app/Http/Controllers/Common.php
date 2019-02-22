@@ -279,7 +279,6 @@ class Common
             $res['img_id'] = $obj->id;
         }
 
-
         return response()->json($res);
     }
 

@@ -14,7 +14,7 @@ return [
 
     //用户默认图片地址
 
-    'img_url' => 'https://sancktalk.com',
+    'img_url' => 'https://snacktalk.com',
 //    'img_url' => 'http://shop.buy.com/',
     //上传文件目录
     'file_path' => public_path() . '/uploads',

@@ -194,25 +194,25 @@ class StockController extends Controller
         $shelves = ShelvesModel::get();
 
         //中文
-        if (preg_match('/^[\x7f-\xff]+$/', $search)) {
-
-            $res = ShelvesModel::with(['goods' => function ($q) use ($search) {
-
-                $q->select('en_name', 'zn_name', 'product_image', 'id', 'sku')
-                    ->where('zn_name', 'like', '%' . $search . '%');
-
-            }])->get()
-                ->toArray();
-
-            //去除空数据
-            foreach ($res as $k => $items) {
-
-                if (empty($items['goods'])) {
-                    unset($res[$k]);
-                }
-            }
-
-        } else {
+//        if (preg_match('/^[\x7f-\xff]+$/', $search)) {
+//
+//            $res = ShelvesModel::with(['goods' => function ($q) use ($search) {
+//
+//                $q->select('en_name', 'zn_name', 'product_image', 'id', 'sku')
+//                    ->where('zn_name', 'like', '%' . $search . '%');
+//
+//            }])->get()
+//                ->toArray();
+//
+//            //去除空数据
+//            foreach ($res as $k => $items) {
+//
+//                if (empty($items['goods'])) {
+//                    unset($res[$k]);
+//                }
+//            }
+//
+//        } else {
             $res = ShelvesModel::where('number', 'like', '%' . $search . '%')
             ->with(['goods' => function ($q) {
 
@@ -222,7 +222,7 @@ class StockController extends Controller
                 ->get()
                 ->toArray();
 
-        }
+//        }
 
 //dd($res);
         return view('admin.inventory.shelves',

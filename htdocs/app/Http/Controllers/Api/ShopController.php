@@ -213,7 +213,7 @@ class ShopController extends Controller
 
         $data = ProductModel::with(['distributor', 'category','brand'])
             ->where('zn_name', 'like', '%' . $search . '%')
-            ->where('status', '=', 1)
+//            ->where('status', '=', 1)
             ->orderBy('created_at', 'desc')
             ->get();
 

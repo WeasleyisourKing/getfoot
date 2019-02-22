@@ -1975,7 +1975,7 @@
 
                     for (let i in res.data) {
 
-                        middle = res.data.status == 1 ? '<td class="exce"><i class="icon fa fa-2x fa-check-circle"> </i> </td>' : '<td class="exce"><i class="icon fa fa-2x fa-times-circle"> </i> </td>';
+                        middle = res.data[i].status == 1 ? '<td class="exce"><i class="icon fa fa-2x fa-check-circle"> </i> </td>' : '<td class="exce"><i class="icon fa fa-2x fa-times-circle"> </i> </td>';
                         datas += `<tr>
                         <td class="exce">
                                 <div class="checkbox checkbox-success checkbox-inline">

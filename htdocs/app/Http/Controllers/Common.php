@@ -192,18 +192,18 @@ class Common
      * @param $arr 允许的数据数组
      * @return array
      */
-    public static function paging ($res, $arr)
+    public static function paging($res)
     {
-
+//        $res = $res->toArray();
         $info = [];
-        //总页数
-        $info['total'] = $res['last_page'];
+        //总数据
+        $info['total_data'] = $res['total'];
         //当前页
-        $info['currentPage'] = $res['current_page'];
+        $info['current_page'] = $res['current_page'];
+        //总页数
+        $info['total_page'] = $res['last_page'];
         //数据
-        $info['items'] = $res['data'];
-
-        $info['items'] = self::screen($info['items'], $arr);
+        $info['data'] = $res['data'];
 
         return $info;
     }

@@ -16,7 +16,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+//第三方接口
+Route::get('/products', 'Api\ThirdController@product');
 
 //商品下订单
 Route::post('/order', 'Api\NewOrderController@placeOrder');

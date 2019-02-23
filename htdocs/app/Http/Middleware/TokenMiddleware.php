@@ -3,8 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Http\Model\UsersModel;
 use Request;
+use \App\Exceptions\TokenException;
 
 class TokenMiddleware
 {
@@ -15,6 +15,9 @@ class TokenMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
+
+    private $info = 'a5cYTRUc/pINCLo1bCAQmuli4r3OZGl7V3efH/y1irixcAcdTwQAu';
+
     public function handle($request, Closure $next)
     {
         /**
@@ -25,22 +28,12 @@ class TokenMiddleware
 
         $token = Request::header('token');
 
-        if (!$token) {
-            throw new \App\Exceptions\TokenException();
-        }
-
-        $user = new UsersModel();
-        $info = $user->where('api_token','=',$token)->first();
-
-        if (!$info) {
-            throw new \App\Exceptions\UserException([
-                'message' => '用户不存在'
+        if ($this->info != $token) {
+            throw new TokenException([
+                'message' => 'token不存在或者无效'
             ]);
-        }
-        //用户id
-        $userId = $info->id;
-        $request->attributes->add(compact('userId'));
 
+        }
 
         return $next($request);
     }

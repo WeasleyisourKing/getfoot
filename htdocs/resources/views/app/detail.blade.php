@@ -311,10 +311,10 @@
                     </div>
                     <div class="row">
                     <div class="container py-3">
-                        {{--<span class="d-inline">--}}
-                	{{--<script type="text/javascript">--}}
-                	{{--Language("库存：","In Stock:")--}}
-                {{--</script><span>{{$product->stock}}</span></span>--}}
+                        <span class="d-inline">
+                	<script type="text/javascript">
+                	Language("库存：","In Stock:")
+                </script><span>{{$product->stock}}</span></span>
                     </div>
                 </div>
                 <div class="row">

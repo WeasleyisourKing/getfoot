@@ -18,7 +18,7 @@
 
 		<!-- logo -->
 		<div class="d-flex justify-content-center pb-4">
-			<img class="w-50 h-50" src="/uploads/snackicon.png" alt="logo">
+			<img class="w-100 h-100" src="/uploads/snackicon.png" alt="logo">
 		</div><!-- logo -->
 
 		<form action="/appLogin" class="am-form" id="form-with-tooltip" method="post">

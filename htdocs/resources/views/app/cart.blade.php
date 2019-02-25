@@ -23,13 +23,13 @@
         <div class="row checkout-bar align-items-center" style="z-index: ;">
             <div class="col-3">
                 {{-- <button href="" class="btn btn-danger"><i class="fa fa-trash-alt"></i> 清空购物车</button> --}}
-                <button href="" class="btn btn-danger d-block btn-sm btn-red my-2 border-0" id="discount_btn">
+                <!-- <button href="" class="btn btn-danger d-block btn-sm btn-red my-2 border-0" id="discount_btn">
                     <small>
                         <script type="text/javascript">
                             Language("使用优惠劵", "Use Promo Code")
                         </script>
                     </small>
-                </button>
+                </button> -->
             </div>
             <div class="col-5 text-right">
                 <a class="text-dark" id="total_btn" href="##">
@@ -229,7 +229,7 @@
             }
             total = summer.toFixed(2);
             var threshold ={{$postage->threshold}};
-            var freight ={{$postage->freight}};
+            var freight =0;
             freight = total > threshold ? 0 : freight;
             if ($(".cartPro").length == 0) {
                 freight = 0;
@@ -334,7 +334,7 @@
 
             var sub = {{$postage->threshold}}-summary();
             //判断总商品价值，并给予提示
-            if (sub > 0) {
+            if (false) {
                 swal({
                     title: LanguageHtml('确认结算?', 'Confirm Check Out?'),
                     text: LanguageHtml(`您的商品总额未满${{{$postage->threshold}}}元将支付运费,还差 ${sub.toFixed(2)} 元才能免邮,确定继续结算吗?`, `$${sub.toFixed(2)} more for free shipping, continue to check out?`),

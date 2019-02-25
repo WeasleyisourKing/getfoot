@@ -431,12 +431,12 @@
 							        </div>
 								</div>
 								<div class="col-3 bg-white">
-									<div class="line-normal-wrapper clearfloat row bg-white">
+									<!-- <div class="line-normal-wrapper clearfloat row bg-white">
 							            <small class="px-2 py-3 text-muted addAddress" ><a>
                 	<script type="text/javascript">
                 	Language("修改地址","Edit Address ")
                 </script></a></small>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</div>
@@ -1208,7 +1208,7 @@ securitycode.addEventListener('focus', function () {
                 	$("#addressDetail ").html(Address.detail+" "+Address.country+" "+Address.city+" "+Address.province);
                 	//点击修改地址弹出模态框
                 	$(".addAddress").click(function(){
-                		$("#Address").modal("show");
+                		// $("#Address").modal("show");
                 	});
                 	//绑定订单和总价	
                 	var OrderId=data.details;
@@ -1218,7 +1218,8 @@ securitycode.addEventListener('focus', function () {
 
                 	$("#orderId span").html(OrderId.order_no);
                 	$("#totalPrice span").html(data.details.total_price);
-                	$(".Settlement").click(function(){
+                	$("#pp").click(function(){
+						// $(".Settlement").click(function(){
                 	//加载paypal支付按钮组件
                 		$("#pp").html(`
 															<form action="https://www.paypal.com/cgi-bin/webscr" method="post" name="paypal">

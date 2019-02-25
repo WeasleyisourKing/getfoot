@@ -1186,7 +1186,7 @@ securitycode.addEventListener('focus', function () {
 						</div>
 						<div class="col-5">
 							<span class="d-block"><p class="p-0 tow-line">${LanguageHtml(cart[i].products.zn_name,cart[i].products.en_name)}</p></span>
-							<span class="d-block"><small class="text-red cartProPrice">$ <span>${cart[i].products.distributor.level_four_price}</span></small></span>
+							<span class="d-block"><small class="text-red cartProPrice">$ <span>${Sprice1(cart[i].products.distributor.level_four_price,cart[i].products.distributor.level_two_price,cart[i].products.distributor.level_one_price,cart[i].products.distributor.level_three_price)}</span></small></span>
 						</div>
 						<div class="col-4 p-0 d-flex align-items-end">
 							<div class="input-group">

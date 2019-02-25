@@ -41,7 +41,7 @@
                         </p>
                         <p class="text-red">
                         <script>
-                                                Sprice({{$val['distributor']['level_four_price']}},{{$val['distributor']['level_two_price']}},{{$val['distributor']['level_one_price']}},{{$val['distributor']['level_three_price']}});
+                                                Spricedetails({{$val['distributor']['level_four_price']}},{{$val['distributor']['level_two_price']}},{{$val['distributor']['level_one_price']}},{{$val['distributor']['level_three_price']}});
                                             </script>
                         </p>
                     </div>

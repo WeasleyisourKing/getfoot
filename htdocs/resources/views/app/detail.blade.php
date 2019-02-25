@@ -86,7 +86,7 @@
         <h5 class="d-inline pl-2 text-red">
         
         <script>
-            Sprice({{$product['distributor']['level_four_price']}},{{$product['distributor']['level_two_price']}},{{$product['distributor']['level_one_price']}},{{$product['distributor']['level_three_price']}})
+            Spricedetails({{$product['distributor']['level_four_price']}},{{$product['distributor']['level_two_price']}},{{$product['distributor']['level_one_price']}},{{$product['distributor']['level_three_price']}})
         </script>
         </h5>
     </div>

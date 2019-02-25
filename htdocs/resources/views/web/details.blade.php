@@ -42,7 +42,7 @@
                     <span>
                         @if(!empty(Auth::guard("pc")->user()))
                             <script>
-                                Spricedetails({{$product->distributor->level_four_price}},{{$product->distributor->level_two_price}},{{$product->distributor->level_one_price}},{{$product->distributor->level_three_price}});
+                                Sprice({{$product->distributor->level_four_price}},{{$product->distributor->level_two_price}},{{$product->distributor->level_one_price}},{{$product->distributor->level_three_price}});
                             </script>
                         @endif
                     </span></p>

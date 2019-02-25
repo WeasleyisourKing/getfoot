@@ -81,7 +81,7 @@
                         Language("（库存{{$product->stock}}{{$product->zn_number}}）", "（In Stock{{$product->stock}}{{$product->en_number}}）")
                     </script>
                     <script>
-                        Language("（箱规：每箱{{$product->number}}{{$product->zn_number}}）", "（箱规：每箱{{$product->number}}{{$product->en_number}}）")
+                        Language("（箱规：每箱{{$product->number}}{{$product->zn_number}}）", "（Box gauge{{$product->number}}{{$product->en_number}}）")
                     </script>
                 </div>
             </div>

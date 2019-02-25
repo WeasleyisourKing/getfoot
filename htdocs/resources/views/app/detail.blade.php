@@ -296,13 +296,13 @@
                 <!-- 数量 container -->
                 <div class="container py-3">
                     <div class="row py-1">
-                        <div class="col-7 align-middle">
+                        <div class="col-6 align-middle">
                             <span class="pl-2 text-secondary align-middle">
                 	<script type="text/javascript">
-                	Language("商品数量","Quantities")
+                	Language("数量","Quantities")
                 </script></span>
                         </div>
-                        <div class="col-5">
+                        <div class="col-6">
                             <div class="input-group">
                                 <div id="minus-btn" class="input-group-prepend">
                                     <button class="btn btn-sm btn-light border"><i class="fa fa-minus"></i></button>
@@ -320,7 +320,17 @@
                 	<script type="text/javascript">
                 	Language("库存：","In Stock:")
                 </script><span>{{$product->stock}}</span></span>
+                        {{--<span class="d-inline">--}}
+                	{{--<script type="text/javascript">--}}
+                	{{--Language("箱规：","Box gauge:")--}}
+                {{--</script><span>{{$product->number}}{{$product->zn_number}}</span></span>--}}
                     </div>
+                        <div class="container py-3">
+                                  <span class="d-inline">
+                	<script type="text/javascript">
+                	 Language("箱规：{{$product->number}}{{$product->zn_number}}", "Box gauge：{{$product->number}}{{$product->en_number}}")</script>
+                {{--</script><span>{{$product->number}}{{$product->zn_number}}</span></span>--}}
+                        </div>
                 </div>
                 <div class="row">
 

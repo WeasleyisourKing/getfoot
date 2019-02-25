@@ -16,7 +16,7 @@
 
 		<!-- logo -->
 		<div class="d-flex justify-content-center pb-4">
-			<img class="w-50 h-50" src="/{{$logo}}" alt="logo">
+			<img class="w-50 h-50" src="/uploads/snackicon.png" alt="logo">
 		</div><!-- logo -->
 
 		<!-- 昵称 -->

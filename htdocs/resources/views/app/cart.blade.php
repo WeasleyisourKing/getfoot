@@ -383,7 +383,7 @@
                         };
                         jqAjax(
                             "post",
-                            "/api/order",
+                            "/api/business/order",
                             {
                                 'products': JSON.stringify(data),
                                 'userId':{{Auth()->guard('pc')->user()->id}},

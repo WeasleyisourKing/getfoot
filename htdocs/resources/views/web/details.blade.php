@@ -43,25 +43,6 @@
                         @if(!empty(Auth::guard("pc")->user()))
                             <script>
                                 Spricedetails({{$product->distributor->level_four_price}},{{$product->distributor->level_two_price}},{{$product->distributor->level_one_price}},{{$product->distributor->level_three_price}});
-
-        var haha;
-        @if(!empty(Auth::guard("pc")->user()->role))
-            switch ({{Auth::guard("pc")->user()->role}}) {
-            case 1 :
-                haha = `$${role1}`;
-                break;
-            case 2 :
-                haha = `$${role2}`;
-                break;
-            case 3 :
-                haha = `$${role3}`;
-                break;
-            default :
-                haha = `$${role4}`;
-        }
-        console.log(haha)
-        document.write(haha);
-        @endif
                             </script>
                         @endif
                     </span></p>

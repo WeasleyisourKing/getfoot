@@ -138,12 +138,12 @@
 <!--新增地址-->
                             <div class="form-group container mb-0" style="margin-top: 10%;">
                                 <div class="col-md-8 offset-md-4" style="width: 80%;margin: 0 auto;">
-                                    <a href="/apps/add/address"><button type="submit" class="btn btn-block btn-red">
+                                    <!-- <a href="/apps/add/address"><button type="submit" class="btn btn-block btn-red">
                                     	
                 	<script type="text/javascript">
                 	Language("新增地址","New Address ")
                 </script>
-                                    </button></a>
+                                    </button></a> -->
                                 </div>
                             </div>
 <!--新增地址-->

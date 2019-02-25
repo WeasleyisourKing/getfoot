@@ -83,7 +83,12 @@
                 	<script type="text/javascript">
                 	Language("价格","Price")
                 </script></span>
-        <h5 class="d-inline pl-2 text-red">${{$product->distributor->level_four_price}}</h5>
+        <h5 class="d-inline pl-2 text-red">${{$product->distributor->level_four_price}}
+        
+        <script>
+                                                Sprice({{$product['distributor']['level_four_price']}},{{$product['distributor']['level_two_price']}},{{$product['distributor']['level_one_price']}},{{$product['distributor']['level_three_price']}});
+                                            </script>
+        </h5>
     </div>
     <div class="container">
         <div class="d-flex justify-content-between mt-4">

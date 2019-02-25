@@ -115,7 +115,7 @@
             default :
                 haha = `$${role4}`;
         }
-        document.write(haha);
+        return haha
         @endif
 
     }

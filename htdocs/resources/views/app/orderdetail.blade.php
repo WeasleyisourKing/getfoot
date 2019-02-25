@@ -1163,7 +1163,7 @@ securitycode.addEventListener('focus', function () {
 	//获取订单id
 	var Http=Http.split("?id=");
 	$.ajax({
-		        url: '/api/users/order/details',
+		        url: '/api/business/order/details',
                 method: 'get',
                 //async: false,
                 //dataType: "jsonp",
@@ -1208,7 +1208,7 @@ securitycode.addEventListener('focus', function () {
                 	$("#addressDetail ").html(Address.detail+" "+Address.country+" "+Address.city+" "+Address.province);
                 	//点击修改地址弹出模态框
                 	$(".addAddress").click(function(){
-                		// $("#Address").modal("show");
+                		$("#Address").modal("show");
                 	});
                 	//绑定订单和总价	
                 	var OrderId=data.details;

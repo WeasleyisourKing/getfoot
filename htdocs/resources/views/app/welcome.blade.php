@@ -253,7 +253,7 @@ overflow: hidden;">-->
                                 </small>
                                 <h6 class="card-title d-inline text-red">
                                     <script>
-                                        Spricedetails($modular[0]['products'][$i]['distributor']['level_four_price'],$modular[0]['products'][$i]['distributor']['level_two_price'],$modular[0]['products'][$i]['distributor']['level_one_price'],$modular[0]['products'][$i]['distributor']['level_three_price'])
+                                        Spricedetails({{$modular[0]['products'][$i]['distributor']['level_four_price']}},{{$modular[0]['products'][$i]['distributor']['level_two_price']}},{{$modular[0]['products'][$i]['distributor']['level_one_price']}},{{$modular[0]['products'][$i]['distributor']['level_three_price']}})
                                     </script>
                                     </h6>
 
@@ -297,7 +297,7 @@ overflow: hidden;">-->
                             </small>
                             <h6 class="card-title mb-0">
                                     <script>
-                                        Spricedetails($modular[1]['products'][$i]['distributor']['level_four_price'],$modular[1]['products'][$i]['distributor']['level_two_price'],$modular[1]['products'][$i]['distributor']['level_one_price'],$modular[1]['products'][$i]['distributor']['level_three_price'])
+                                        Spricedetails({{$modular[1]['products'][$i]['distributor']['level_four_price']}},{{$modular[1]['products'][$i]['distributor']['level_two_price']}},{{$modular[1]['products'][$i]['distributor']['level_one_price']}},{{$modular[1]['products'][$i]['distributor']['level_three_price']}})
                                     </script>
                             </h6>
 
@@ -345,7 +345,7 @@ overflow: hidden;">-->
                                         </small>
                                         <h6 class="card-title d-inline text-red">
                                     <script>
-                                        Spricedetails($items['distributor']['level_four_price'],$items['distributor']['level_two_price'],$items['distributor']['level_one_price'],$items['distributor']['level_three_price'],)
+                                        Spricedetails({{$items['distributor']['level_four_price']}},{{$items['distributor']['level_two_price']}},{{$items['distributor']['level_one_price']}},{{$items['distributor']['level_three_price']}})
                                     </script>
                                             </h6>
 

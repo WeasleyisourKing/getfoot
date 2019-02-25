@@ -102,12 +102,12 @@
                 	Language("忘记密码","Forgot Password ")
                 </script></a>
 			</div>
-			<div class="d-flex">
-				<a href="{{ route('appsRegister') }}" class="text-muted">
-                	<script type="text/javascript">
-                	Language("点我注册","Register")
-                </script></a>
-			</div>
+			{{--<div class="d-flex">--}}
+				{{--<a href="{{ route('appsRegister') }}" class="text-muted">--}}
+                	{{--<script type="text/javascript">--}}
+                	{{--Language("点我注册","Register")--}}
+                {{--</script></a>--}}
+			{{--</div>--}}
 		</div><!-- 链接 -->
 
 	</div>

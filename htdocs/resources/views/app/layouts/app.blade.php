@@ -113,11 +113,26 @@
       <div class="mobile-fix-unauth"></div>
       <!-- 移动导航 Container -->
       <div id="mobile-nav" class="container bg-white fixed-bottom CTA-container py-2">
-          <a href="{{ route('appsLogin') }}" class="btn btn-block btn-white shaddow-dark"><i class="fa fa-user-circle"></i> 
-          	<script>Language("登录","log in")</script>
-          </a>
-          <!-- <a href="{{ route('appsRegister') }}" class="btn btn-block btn-white shaddow-dark"><i class="fa fa-user-plus"></i> 
-          	<script>Language("注册","registered")  </script></a> -->
+          {{--<a href="{{ route('appsLogin') }}" class="btn btn-block btn-white shaddow-dark"><i class="fa fa-user-circle"></i> --}}
+          	{{--<script>Language("登录","log in")</script>--}}
+          {{--</a>--}}
+        {{--<a href="{{ route('appsLogin') }}"--}}
+        <button type="submit" class="btn bg-pink text-white btn-block rounded-50" id="clause_btn1">
+          <script type="text/javascript">
+              Language("登录","Log In ")
+          </script></button>
+        <script>
+          $('#clause_btn1').click(function(){
+              window.location.href = "{{ route('appsLogin') }}";
+          })
+        </script>
+        {{--</a>--}}
+        {{--<a href="{{ route('appsLogin') }}"  class="btn btn-block btn-white shaddow-dark rounded-50"><i class="fa fa-user-circle"></i>--}}
+          {{--<script>Language("登录","log in")</script>--}}
+        {{--</a>--}}
+
+           {{--<a href="{{ route('appsRegister') }}" class="btn btn-block btn-white shaddow-dark"><i class="fa fa-user-plus"></i>--}}
+          	{{--<script>Language("注册","registered")  </script></a>--}}
       </div><!-- End 移动导航 Container -->
     @else
       <div class="mobile-fix"></div>

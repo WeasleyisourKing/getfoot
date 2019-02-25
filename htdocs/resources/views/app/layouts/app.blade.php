@@ -74,6 +74,7 @@
             default :
                 haha = `$${role4}`;
         }
+        console.log(haha)
         document.write(haha);
         @endif
 

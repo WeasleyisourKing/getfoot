@@ -228,7 +228,8 @@ class BusinessController extends Controller
             if ($item['status'] != 1) {
                 throw new ParamsException([
                     'message' => $item['zn_name'] . '商品已经下架',
-                    'errorCode' => 7001
+                    'errorCode' => 7001,
+                    'code' => 200
                 ]);
             }
         }
@@ -486,17 +487,19 @@ class BusinessController extends Controller
                 foreach ($data as $k => &$item) {
 
                     $arr = $this->group($data,$item['shelves_id']);
+
                     if ($items['count'] <= 0)
                         break;
                     foreach ($arr as $vo) {
+//                        dd($arr);
                         if ($items['count'] - $vo['count'] > 0) {
-                            $vo['name'] =  $vo['name']['name'];
+//                            $vo['name'] =  $vo['name']['name'];
                             $res[$items['product_id']][] = $vo;
                             $items['count'] -= $vo['count'];
 
                         } else {
                             //商品大于需要的数量
-                            $vo['name'] =  $vo['name']['name'];
+//                            $vo['name'] =  $vo['name']['name'];
                             $vo['count'] = $items['count'];
                             $items['count'] -= $vo['count'];
                             $res[$items['product_id']][] = $vo;
@@ -506,7 +509,7 @@ class BusinessController extends Controller
                 }
             }
         }
-
+//        dd($res);
         return $res;
     }
     public static function array_group_by($arr, $key)

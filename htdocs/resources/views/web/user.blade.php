@@ -128,6 +128,17 @@ var LanguageHtml=function(one, tow){
                                 </span>
                             </div>
                         @endif
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                {{--<div class="checkbox checkbox-primary">--}}
+                                    <input id="checkbox-signup" type="checkbox">
+                                    <label for="checkbox-signup" style="font-size: 14px;color: rgb(153, 153, 153);">
+                                        记住我
+                                    </label>
+                                {{--</div>--}}
+
+                            </div>
+                        </div>
                         <button class="am-btn am-btn-secondary" type="submit">
                             <script>
                                 Language("用户登录","User Log In")
@@ -149,71 +160,7 @@ var LanguageHtml=function(one, tow){
                 </form>
 
             </div>
-			<!--用户注册输入框-->
-            <!--<div class="register UserTog" style="display: none;">
-                {{--<form action="" class="am-form" id="form-with-tooltip">--}}
-                <fieldset>
-                    <div class="am-form-group clearfloat">
-                        <div class="float_left">
-                            <img src="home/img/reg1.png" alt=""/>
-                        </div>
-                        <script>
-                            Language(`<input class="float_left" type="text" id="name" minlength="1"
-                               placeholder="请输入昵称" required/>`,`<input class="float_left" type="text" id="name" minlength="1"
-                               placeholder="Enter Nickname" required/>`)
-                        </script>  
-                    </div>
-                    <div class="am-form-group clearfloat">
-                        <div class="float_left">
-                            <img src="home/img/reg2.png" alt=""/>
-                        </div>
-                        <script>
-                            Language(`<input class="float_left" type="email" id="email"data-validation-message="自定义提示信息：输入地球上的电子邮箱" placeholder="请输入邮箱" required/>`,
-                            `<input class="float_left" type="email" id="email" data-validation-message="Custom prompt message: enter E-mail address on earth" placeholder="Enter Email" required/>`)
-                        </script> 
-                    </div>
 
-                    <div class="am-form-group clearfloat">
-                        <div class="float_left">
-                            <img src="home/img/reg3.png" alt=""/>
-                        </div>
-                        <script>
-                            Language(`<input class="float_left" type="password" id="password" placeholder="请输入密码"
-                               required/>`,`<input class="float_left" type="password" id="password" placeholder="Enter Password "
-                               required/>`)
-                        </script> 
-                    </div>
-                    <div class="am-form-group clearfloat">
-                        <div class="float_left">
-                            <img src="home/img/reg3.png" alt=""/>
-                        </div>
-                        <script>
-                            Language(`<input class="float_left" type="password" id="password1" placeholder="请再次输入您的密码"
-                               data-equal-to="#doc-vld-pwd-1" required/>`,`<input class="float_left" type="password" id="password1" placeholder="Please Re-enter Password"
-                               data-equal-to="#doc-vld-pwd-1" required/>`)
-                        </script> 
-                    </div>
-
-                    <label class="am-checkbox-inline">
-                        <input type="checkbox" value="" checked="checked" id="checkbox" name="docVlCb"/>
-                        <script>
-                            Language("同意接收促销和优惠","Terms of Use & Subscribe for Promotion Emails")
-                        </script>
-                    </label>
-                    <br/>
-                    <button class="am-btn am-btn-secondary" id="sa-save">
-                        <script>
-                            Language("用户注册","Registration")
-                        </script>
-                    </button>
-                    <div class="toggleSingIn pointer">
-                        <script>
-                            Language("已有账号？立即登入","Already Have An Account? Log In")
-                        </script>
-                    </div>
-                </fieldset>
-                {{--</form>--}}
-            </div>-->
         </div>
         <!--登录&注册end-->
         

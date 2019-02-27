@@ -34,25 +34,29 @@
                     Language("{{$product->zn_name}}", "{{$product->en_name}}")
                 </script>
             </p>
-            <div class="detailsAll clearfloat">
-                {{--<p class="float_left">--}}
-                    {{--<script>--}}
-                        {{--Language("价格", "Price")--}}
-                    {{--</script>--}}
-                    {{--<span>--}}
-                        {{--@if(!empty(Auth::guard("pc")->user()))--}}
-                            {{--<script>--}}
-                                {{--Sprice1({{$product->distributor->level_four_price}},{{$product->distributor->level_two_price}},{{$product->distributor->level_one_price}},{{$product->distributor->level_three_price}});--}}
-                            {{--</script>--}}
-                        {{--@endif--}}
-                    {{--</span></p>--}}
-                <div class="float_right">
+            <div class="detailsClass clearfloat">
+
+
+                <div class="float_left">
                     <script>
                         Language("品牌：", "Brand:")
                     </script>
-                                                        <script>
-                                                            Language("{{!empty($product->brand) ? $product->brand->zn_name : '暂未归属任何品牌'}}","{{!empty($product->brand) ? $product->brand->en_name : 'No Brand Matched '}}")
-                                                        </script></div>
+                </div>
+                <ul class="float_left">
+                    <li>
+                        <script>
+                            Language("{{!empty($product->brand) ? $product->brand->zn_name : '暂未归属任何品牌'}}","{{!empty($product->brand) ? $product->brand->en_name : 'No Brand Matched '}}")
+                        </script>
+                    </li>
+                </ul>
+                {{--<div class="float_left">--}}
+                    {{--<script>--}}
+                        {{--Language("品牌：", "Brand:")--}}
+                    {{--</script>--}}
+                    {{--<script>--}}
+                    {{--Language("{{!empty($product->brand) ? $product->brand->zn_name : '暂未归属任何品牌'}}","{{!empty($product->brand) ? $product->brand->en_name : 'No Brand Matched '}}")--}}
+                   {{--</script>--}}
+                {{--</div>--}}
             </div>
             <div class="detailsClass clearfloat">
                 <div class="float_left">

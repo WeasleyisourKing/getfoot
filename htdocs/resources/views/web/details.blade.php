@@ -92,6 +92,7 @@
                 <button class="float_left "id="increase">＋</button>
                 <input type="text" id="prdoctNumbers" value="1" class="float_left productNumber" style=" width: 50px;text-align: center;line-height: 29px;">
                 <button class="float_left"id="reduce">－</button>
+                @if(!empty(Auth::guard("pc")->user()))
                 <div class="float_left">&nbsp;
                     <script>
                         Language("（库存{{$product->stock}}{{$product->zn_number}}）", "（In Stock{{$product->stock}}{{$product->en_number}}）")
@@ -100,6 +101,7 @@
                         Language("（箱规：每箱{{$product->number}}{{$product->zn_number}}）", "（Box gauge{{$product->number}}{{$product->en_number}}）")
                     </script>
                 </div>
+                @endif
             </div>
             <div class="detailsClassBut">
                 {{--<button>立即购买</button>--}}

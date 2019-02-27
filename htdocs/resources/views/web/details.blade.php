@@ -67,6 +67,22 @@
                 </script></li>
                 </ul>
             </div>
+            <div class="detailsClass clearfloat">
+                @if(!empty(Auth::guard("pc")->user()))
+                    <div class="float_left">
+                        <script>
+                            Language(" 价格：", "price:")
+                        </script>
+                    </div>
+                    <ul class="float_left">
+                        <li>
+                            <script>
+                                Sprice({{$product['distributor']['level_four_price']}},{{$product['distributor']['level_two_price']}},{{$product['distributor']['level_one_price']}},{{$product['distributor']['level_three_price']}});
+                            </script></li>
+                    </ul>
+
+                @endif
+            </div>
             <div class="detailsNumber clearfloat ">
                 <p class="float_left">
                     <script>

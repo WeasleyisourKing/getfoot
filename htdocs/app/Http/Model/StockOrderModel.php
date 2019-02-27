@@ -550,7 +550,8 @@ class StockOrderModel extends Model
                 }
             }
             //减少相应货架
-//            dump($businessPosition);
+//            dd($businessPosition);
+
             foreach ($businessPosition as $val) {
                 foreach ($val as $v) {
                     $object = ProductShelvesModel::where('product_id', '=', $v['product_id'])
@@ -582,7 +583,16 @@ class StockOrderModel extends Model
                             ->delete();
 
                     }
+
+                    //状态改变
+                    if (is_null(ProductShelvesModel::where('shelves_id', '=', $v['shelves_id'])->first())) {
+
+                        ShelvesModel::where('id', '=', $v['shelves_id'])->update(['status' => 2]);
+                    } else {
+                        ShelvesModel::where('id', '=', $v['shelves_id'])->update(['status' => 1]);
+                    }
                 }
+
             }
 
             DB::commit();

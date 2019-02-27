@@ -35,17 +35,17 @@
                 </script>
             </p>
             <div class="detailsAll clearfloat">
-                <p class="float_left">
-                    <script>
-                        Language("价格", "Price")
-                    </script>
-                    <span>
-                        @if(!empty(Auth::guard("pc")->user()))
-                            <script>
-                                Sprice1({{$product->distributor->level_four_price}},{{$product->distributor->level_two_price}},{{$product->distributor->level_one_price}},{{$product->distributor->level_three_price}});
-                            </script>
-                        @endif
-                    </span></p>
+                {{--<p class="float_left">--}}
+                    {{--<script>--}}
+                        {{--Language("价格", "Price")--}}
+                    {{--</script>--}}
+                    {{--<span>--}}
+                        {{--@if(!empty(Auth::guard("pc")->user()))--}}
+                            {{--<script>--}}
+                                {{--Sprice1({{$product->distributor->level_four_price}},{{$product->distributor->level_two_price}},{{$product->distributor->level_one_price}},{{$product->distributor->level_three_price}});--}}
+                            {{--</script>--}}
+                        {{--@endif--}}
+                    {{--</span></p>--}}
                 <div class="float_right">
                     <script>
                         Language("品牌：", "Brand:")

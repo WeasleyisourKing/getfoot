@@ -965,12 +965,46 @@ class StockController extends Controller
 
         $params = $request->all();
 
+
+//        foreach ($params['uproducts'] as  $items) {
+//
+//            if(!empty($items['overdue']))
+//                throw new ParamsException([
+//                    'code' => 200,
+//                    'message' => '商品过期时间未填写'
+//                ]);
+//        }
+
+        //如果金额空 自动计算
+        if (empty($params['price'])) {
+
+            $price = 0;
+            $set = ProductModel::whereIn('id', array_column($params['products'], 'product_id'))->get(['id', 'price'])->toArray();
+
+            foreach ($set as $item) {
+                foreach ($params['uproducts'] as &$val) {
+                    if(empty($val['overdue']))
+                        throw new ParamsException([
+                            'code' => 200,
+                            'message' => '商品过期时间未填写'
+                        ]);
+                    if ($item['id'] == $val['product_id']) {
+                        $val['single_price'] = $item['price'];
+                        $val['total_price'] = $val['count'] * $item['price'];
+                        $price += $val['count'] * $item['price'];
+                    }
+                }
+            }
+            $params['price'] = $price;
+        }
 //        [{"count":2,"shelve":[{"shelve_id":"13","overdue":"2018-01-21","count":1},{"shelve_id":"12","overdue":"2018-01-21","count":1}], "product_id":236},
 //        {"count":4,"shelve":[{"shelve_id":"14","overdue":"2018-01-22","count":1},{"shelve_id":"13","overdue":"2018-01-22","count":3}],  "product_id":146}]
 //        $params['uproducts'] = json_decode($params['uproducts'], true);
 
-//dd($params['uproducts']);
+
         $num = StockOrderModel::where('status', '=', 1)->orderBy('created_at', 'desc')->first(['order_no']);
+
+
 
         $orderNo = Common::makeOrderNo(is_null($num) ? 'A2018101800001' : $num->order_no);
         //构造数据
@@ -982,11 +1016,13 @@ class StockController extends Controller
             'pruchase_order_no' => htmlspecialchars(strip_tags(trim($params['orderId']))),
             'remark' => htmlspecialchars(strip_tags(trim($params['remark']))),
 //            'snapshot' => json_encode($params['uproducts']),
+            'shelve_position' => json_encode($params['uproducts']),
             'status' => 1,
             'type' => 2,
+            'total_price' => $params['price'],
             'return' => $params['inStock']
         ];
-
+//dd($params);
         //创建手动订单
         $res = StockOrderModel::createHandOrder($data, $params['uproducts']);
 
@@ -1450,24 +1486,24 @@ class StockController extends Controller
                 'message' => '此订单已经处理 不能重复处理'
             ]);
         }
-        if ($params['status'] != 1) {
-            //update in stock
-
-            $set = ProductModel::whereIn('id', array_column($params['products'], 'product_id'))->get(['id', 'price', 'stock'])->toArray();
-
-
-            foreach ($set as $items) {
-                foreach ($params['uproducts'] as &$val) {
-                    if ($items['id'] == $val['product_id']) {
-                        $val['origin_stock'] = $items['stock'];
-                    }
-                }
-            }
-
-            StockOrderModel::check($params['id'], $params['uproducts'], 2, $params['num']);
-
-
-        } else {
+//        if ($params['status'] != 1) {
+//            //update in stock
+//
+//            $set = ProductModel::whereIn('id', array_column($params['products'], 'product_id'))->get(['id', 'price', 'stock'])->toArray();
+//
+//
+//            foreach ($set as $items) {
+//                foreach ($params['uproducts'] as &$val) {
+//                    if ($items['id'] == $val['product_id']) {
+//                        $val['origin_stock'] = $items['stock'];
+//                    }
+//                }
+//            }
+//
+//            StockOrderModel::check($params['id'], $params['uproducts'], 2, $params['num']);
+//
+//
+//        } else {
 
             //入库确定
             $data = StockOrderProductModel::where('order_id', '=', $params['id'])->get(['product_id', 'count'])->toArray();
@@ -1482,9 +1518,11 @@ class StockController extends Controller
                     }
                 }
             }
-            StockOrderModel::check($params['id'], $data, 1);
+//            dd($data);
+        StockOrderModel::updateInState($params['id'],$data);
+//            StockOrderModel::check($params['id'], $data, 1);
 
-        }
+//        }
         return Common::successData();
     }
 

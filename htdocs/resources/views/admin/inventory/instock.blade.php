@@ -467,6 +467,7 @@
                     window.objs.push({
                         'product_id': $(this).attr('data-id'),
                         'overdue': $(this).parent().next().find('input').val(),
+                        'shelves_id':$('#eselectshelve'+$(this).attr('data-id')).val(),
                         "count": $(this).val()
                     });
                     i += Number($(this).val());
@@ -486,8 +487,8 @@
                 '_token': '{{csrf_token()}}'
             };
 
-            if (window.eseshelve.length > 0)
-                datas.shelves = window.eseshelve;
+//            if (window.eseshelve.length > 0)
+//                datas.shelves = window.eseshelve;
             $.post('/enter/stock/deal/order', datas, function (res) {
                 if (res.status) {
                     alertify.success('创建入库订单成功');
@@ -835,7 +836,7 @@
                                                     </span>
                                                     <span style="width: 30%;" class="input-group-btn">
                                            <input class="form-control datepicker" data-date-format="yyyy-mm-dd"
-                                                  placeholder="批次过期时间 选填"  type="text">
+                                                  placeholder="批次过期时间 必填"  type="text">
                                                     </span>
                                                     <span style="padding: 10px; " class="input-group-btn ">
                                                         <button class="btn-sm btn-danger waves-effect waves-light delete-item-btn DeleteThis " data-id="${$(event).attr('data-id')}" onclick="Delete1(this)"><i class="fa fa-trash"></i>
@@ -844,10 +845,8 @@
 
                         </div>
 
-                    <ul id="eselectshelve${$(event).attr('data-id')}" style="display:flex; display: -webkit-flex; flex-wrap:wrap; ">
-                        ${$(event).attr('data-shelve')}
-                      </ul>
-                       <select class="form-control" data-id='${$(event).attr('data-id')}'  onchange="eshelves(this)" >
+
+                       <select id="eselectshelve${$(event).attr('data-id')}" class="form-control" data-id='${$(event).attr('data-id')}'  >
                         ${window.dta}
                        </select> </div>
 
@@ -869,14 +868,10 @@
                                 <input name="productNumber" data-id="${$(event).attr('data-id')}"  class="form-control"
                                         placeholder="数量"  type="text">
                             </span>
-                            <span style="width: 24%;" class="input-group-btn">
-                                <select class="form-control selectpicker" data-id='${$(event).attr('data-id')}'  onchange="eshelves(this)" >
-                                    ${window.dta}
-                                </select>
-                            </span>
+
                             <span style="width: 24%;" class="input-group-btn">
                                 <input class="form-control datepicker" data-date-format="yyyy-mm-dd"
-                                        placeholder="批次过期时间 选填"  type="text">
+                                        placeholder="批次过期时间 必填"  type="text">
                             </span>
                             <span style="padding: 10px; " class="input-group-btn  ">
                                 <button class="btn-sm btn-danger waves-effect waves-light delete-item-btn DeleteThis" data-id="${$(event).attr('data-id')}" onclick="Delete1(this)" ><i class="fa fa-trash"></i>
@@ -884,16 +879,16 @@
                             </span>    
 
                         </div>
-                            <ul id="eselectshelve${$(event).attr('data-id')}" style="display:flex; display: -webkit-flex; flex-wrap:wrap; ">
-                      ${$(event).attr('data-shelve')}
-                      </ul>
-                       <select class="form-control selectpicker" data-id='${$(event).attr('data-id')}'  onchange="eshelves(this)" >
+
+                       <select id="eselectshelve${$(event).attr('data-id')}" class="form-control selectpicker" data-id='${$(event).attr('data-id')}'   >
                         ${window.dta}
                        </select>
                     </div>`);
 
                 window.arr.push($(event).attr('data-id'));
-
+//            <ul id="eselectshelve${$(event).attr('data-id')}" style="display:flex; display: -webkit-flex; flex-wrap:wrap; ">
+//                    ${$(event).attr('data-shelve')}
+//                    </ul>
 
             }
 

@@ -510,7 +510,7 @@
             alertify.confirm("确认删除吗？", function (e) {
                 if (e) {
 
-                    $.get('/enter/stock/order/del', {'id': $(event).attr('data-id')}, function (res) {
+                    $.get('/in/stock/order/del', {'id': $(event).attr('data-id')}, function (res) {
 
                         if (res.status) {
                             alertify.success("删除成功");

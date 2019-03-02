@@ -820,6 +820,7 @@
 	});
 //	订单数据绑定
 	$("#oderNav li").click(function(){
+		$("##oderDetail").hide()
 		$("#allOrderHtml").html("")
 		var That=$(this).index();
 		if(That==5){

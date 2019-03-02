@@ -433,9 +433,9 @@
                 event.preventDefault();
             }
 
-            if ($(this).val() == "") {
-                $(this).val(0);
-            }
+            // if ($(this).val() == "") {
+            //     $(this).val(0);
+            // }
             cartNumber()
         }
         //购物车数量

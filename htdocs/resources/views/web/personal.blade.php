@@ -974,7 +974,7 @@
 									<div class="am-u-sm-3 myOderDetailText">
 										<p>数量：${products[i].count}
 											<br>
-											<span>单价：$${Spricedetails(products[i].products.distributor.level_four_price,products[i].products.distributor.level_two_price,products[i].products.distributor.level_one_price,products[i].products.distributor.level_three_price)}</span>
+											<span>单价：$${Sprice1(products[i].products.distributor.level_four_price,products[i].products.distributor.level_two_price,products[i].products.distributor.level_one_price,products[i].products.distributor.level_three_price)}</span>
 											<br>
 											<span>状态：${LanguageHtml('待支付','Waiting for payment')}</span>
 										</p>

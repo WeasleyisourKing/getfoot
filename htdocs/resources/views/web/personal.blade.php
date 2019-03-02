@@ -862,7 +862,7 @@
 											<div class="oderPro_2"> <span>0</span></div>
 											<div class="oderPro_2">$ <span>${allOrder[i].total_price}</span></div>
 											<div class="oderPro_2 oderPro_2_but">
-												<div class="but1" style="cursor:pointer;display :${(allOrder[i].status)=='2'?'auto':'none'}" onclick="comment(${allOrder[i].id})">${LanguageHtml("查看订单","view order")}</div>
+												<div class="but1" style="cursor:pointer;" onclick="comment(${allOrder[i].id})">${LanguageHtml("查看订单","view order")}</div>
 											</div>
 										</div>
 										<div class="clearfloat oderPro_2_time">
@@ -974,7 +974,7 @@
 									<div class="am-u-sm-3 myOderDetailText">
 										<p>数量：${products[i].count}
 											<br>
-											<span>单价：$${Spricedetails1(products[i].products.distributor.level_four_price,products[i].products.distributor.level_two_price,products[i].products.distributor.level_one_price,products[i].products.distributor.level_three_price)}</span>
+											<span>单价：$${Spricedetails(products[i].products.distributor.level_four_price,products[i].products.distributor.level_two_price,products[i].products.distributor.level_one_price,products[i].products.distributor.level_three_price)}</span>
 											<br>
 											<span>状态：${LanguageHtml('待支付','Waiting for payment')}</span>
 										</p>

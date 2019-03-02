@@ -1101,6 +1101,7 @@
 							</div>
 						`
 					}
+					console.log(projectlist)
 					document.querySelector("#oderDetail").innerHTML = `<div class="Title clearfloat">
 								<!-- <img class="float_left" src="home/img/user_2.png" alt="" /> -->
                         <p class="float_left">订单详情</p>
@@ -1138,7 +1139,7 @@
                         </p>
                         </div>-->
                         </div>`;
-				
+					console.log($("#oderDetail").html())
                     document.querySelector("#oderNav").style.display = 'none';
                     document.querySelector("#oderPro").style.display = 'none';
                     document.querySelector("#oderDetail").style.display = 'block';

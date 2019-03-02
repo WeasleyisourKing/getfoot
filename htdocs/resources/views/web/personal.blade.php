@@ -1064,41 +1064,28 @@
                     }
 					var projectlist = '';
 					var comment = '';
-					for(let i = 0; i < res.data.manys.length; i++ ){
+					for(let i = 0; i < res.data.products.length; i++ ){
 						projectlist += `
 						<div class="myOder">
 								<div class="myOderDetail clearfloat">
 									<div class="am-u-sm-2 myOderDetailImg">
 										<div>
-											<img src="${res.data.manys[i].product_image}" alt="#">
+											<img src="${res.products[i].product_image}" alt="#">
 										</div>
 									</div>
 									<div class="am-u-sm-8">
-										<p>${LanguageHtml(res.data.manys[i].zn_name,res.data.manys[i].en_name)}</p>
+										<p>${LanguageHtml(res.products[i].zn_name,res.products[i].en_name)}</p>
 									</div>
 									<div class="am-u-sm-2 myOderDetailText">
-										<p>${res.data.id}
+										<p>${res.details.order_no}
 											<br>
-											<span>${res.data.manys[i].count}</span>
+											<span>${res.products[i].count}</span>
 											<br>
 											<span> 待评论</span>
 										</p>
 									</div>
 								</div>
 							</div>	
-							<div class="commentdata" order_id="${res.data.id}" productId="${res.data.manys[i].id}" >
-							<div >
-								<textarea class="comments"></textarea>
-								<div id="oderBox" class="texti" style="padding: 0;" >
-									<span>★</span>
-									<span>★</span>
-									<span>★</span>
-									<span>★</span>
-									<span>★</span>
-												
-								</div>
-								<p class="comment-btn"><button class="btn">评价</button></div></p>
-							</div>
 						`
 					}
 					console.log(projectlist)

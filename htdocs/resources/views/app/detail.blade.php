@@ -423,8 +423,8 @@
                 event.preventDefault();
             }
 
-            if ($(this).val() == 0) {
-                $(this).val(1);
+            if ($(this).val() == "") {
+                $(this).val(0);
             }
         }
         //购物车数量

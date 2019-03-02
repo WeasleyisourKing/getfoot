@@ -844,7 +844,7 @@
 	                			$("#allOrderHtml").html(LanguageHtml("没有此类订单","No Result"));
 	                			return false;
 	                		}
-							console.log(res)
+							// console.log(res)
 	                	//有订单数据  循环绑定
                         for(let i = 0; i < allOrder.length; i++){
                             document.querySelector("#allOrderHtml").innerHTML += `
@@ -1463,7 +1463,7 @@
                 id: {{Auth()->guard("pc")->user()->id}}
             },
             success:function (res) {
-            	console.log(res)
+            	// console.log(res)
             	for (let i in res.data) {
             		$("#myOderStatus span").eq(i).html(res.data[i].count)
             	}

@@ -847,7 +847,6 @@
 							console.log(res)
 	                	//有订单数据  循环绑定
                         for(let i = 0; i < allOrder.length; i++){
-	                		    console.log(allOrder);
                             document.querySelector("#allOrderHtml").innerHTML += `
 							<div class="oderPro_2_box">
 										<div class=" clearfloat">
@@ -863,7 +862,7 @@
 											<div class="oderPro_2"> <span>0</span></div>
 											<div class="oderPro_2">$ <span>${allOrder[i].total_price}</span></div>
 											<div class="oderPro_2 oderPro_2_but">
-												<div class="but1" style="cursor:pointer;" onclick="comment(${allOrder[i].id})">${LanguageHtml("查看订单","view order")}</div>
+												<div class="but1" style="cursor:pointer;display :${(allOrder[i].status)=='2'?'auto':'none'}" onclick="comment(${allOrder[i].id})">${LanguageHtml("查看订单","view order")}</div>
 											</div>
 										</div>
 										<div class="clearfloat oderPro_2_time">

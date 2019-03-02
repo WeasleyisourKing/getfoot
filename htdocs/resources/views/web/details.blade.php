@@ -34,25 +34,29 @@
                     Language("{{$product->zn_name}}", "{{$product->en_name}}")
                 </script>
             </p>
-            <div class="detailsAll clearfloat">
-                <p class="float_left">
-                    <script>
-                        Language("价格", "Price")
-                    </script>
-                    <span>
-                        @if(!empty(Auth::guard("pc")->user()))
-                            <script>
-                                Sprice1({{$product->distributor->level_four_price}},{{$product->distributor->level_two_price}},{{$product->distributor->level_one_price}},{{$product->distributor->level_three_price}});
-                            </script>
-                        @endif
-                    </span></p>
-                <div class="float_right">
+            <div class="detailsClass clearfloat">
+
+
+                <div class="float_left">
                     <script>
                         Language("品牌：", "Brand:")
                     </script>
-                                                        <script>
-                                                            Language("{{!empty($product->brand) ? $product->brand->zn_name : '暂未归属任何品牌'}}","{{!empty($product->brand) ? $product->brand->en_name : 'No Brand Matched '}}")
-                                                        </script></div>
+                </div>
+                <ul class="float_left">
+                    <li>
+                        <script>
+                            Language("{{!empty($product->brand) ? $product->brand->zn_name : '暂未归属任何品牌'}}","{{!empty($product->brand) ? $product->brand->en_name : 'No Brand Matched '}}")
+                        </script>
+                    </li>
+                </ul>
+                {{--<div class="float_left">--}}
+                    {{--<script>--}}
+                        {{--Language("品牌：", "Brand:")--}}
+                    {{--</script>--}}
+                    {{--<script>--}}
+                    {{--Language("{{!empty($product->brand) ? $product->brand->zn_name : '暂未归属任何品牌'}}","{{!empty($product->brand) ? $product->brand->en_name : 'No Brand Matched '}}")--}}
+                   {{--</script>--}}
+                {{--</div>--}}
             </div>
             <div class="detailsClass clearfloat">
                 <div class="float_left">
@@ -67,6 +71,22 @@
                 </script></li>
                 </ul>
             </div>
+            <div class="detailsClass clearfloat">
+                @if(!empty(Auth::guard("pc")->user()))
+                    <div class="float_left">
+                        <script>
+                            Language(" 价格：", "price:")
+                        </script>
+                    </div>
+                    <ul class="float_left">
+                        <li>
+                            <script>
+                                Sprice({{$product['distributor']['level_four_price']}},{{$product['distributor']['level_two_price']}},{{$product['distributor']['level_one_price']}},{{$product['distributor']['level_three_price']}});
+                            </script></li>
+                    </ul>
+
+                @endif
+            </div>
             <div class="detailsNumber clearfloat ">
                 <p class="float_left">
                     <script>
@@ -76,14 +96,16 @@
                 <button class="float_left "id="increase">＋</button>
                 <input type="text" id="prdoctNumbers" value="1" class="float_left productNumber" style=" width: 50px;text-align: center;line-height: 29px;">
                 <button class="float_left"id="reduce">－</button>
+                @if(!empty(Auth::guard("pc")->user()))
                 <div class="float_left">&nbsp;
                     <script>
                         Language("（库存{{$product->stock}}{{$product->zn_number}}）", "（In Stock{{$product->stock}}{{$product->en_number}}）")
                     </script>
                     <script>
-                        Language("（箱规：每箱{{$product->number}}{{$product->zn_number}}）", "（箱规：每箱{{$product->number}}{{$product->en_number}}）")
+                        Language("（箱规：每箱{{$product->number}}{{$product->zn_number}}）", "（Box gauge{{$product->number}}{{$product->en_number}}）")
                     </script>
                 </div>
+                @endif
             </div>
             <div class="detailsClassBut">
                 {{--<button>立即购买</button>--}}

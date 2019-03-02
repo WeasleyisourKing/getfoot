@@ -163,7 +163,7 @@
                         <div class="hidden-print">
                             <div class="pull-right">
                                 {{--@if ($status != 1)--}}
-                                <a id="daochu" class="btn btn-inverse waves-effect waves-light"><i
+                                <a id="daochu1" class="btn btn-inverse waves-effect waves-light"><i
                                             class="fa fa-print"></i></a>
                                 {{--@else--}}
                                 {{--<a id="invoice" class="btn btn-success waves-effect waves-light"><i--}}
@@ -457,23 +457,29 @@
     </div>
 
     <script>
-                var html = "<html><head><meta charset='utf-8' /></head><body>" + document.getElementById("biaoge").outerHTML + "</body></html>";
-                // 实例化一个Blob对象，其构造函数的第一个参数是包含文件内容的数组，第二个参数是包含文件类型属性的对象
-                var blob = new Blob([html], { type: "application/vnd.ms-excel" });
-                var a = document.getElementById("excel-packing");
-                // 利用URL.createObjectURL()方法为a元素生成blob URL
-                a.href = URL.createObjectURL(blob);
-                // 设置文件名
-                a.download = "packing.xls";
+        $("#excel-packing").click(
+            function () {
+        var html = "<html><head><meta charset='utf-8' /></head><body>" + document.getElementById("biaoge").outerHTML + "</body></html>";
+        // 实例化一个Blob对象，其构造函数的第一个参数是包含文件内容的数组，第二个参数是包含文件类型属性的对象
+        var blob = new Blob([html], { type: "application/vnd.ms-excel" });
+        var a = document.getElementById("excel-packing");
+        // 利用URL.createObjectURL()方法为a元素生成blob URL
+        a.href = URL.createObjectURL(blob);
+        // 设置文件名
+        a.download = "packing.xls";
+        })
 
-                var html = "<html><head><meta charset='utf-8' /></head><body>" + document.getElementById("biaoge").outerHTML + "</body></html>";
-                // 实例化一个Blob对象，其构造函数的第一个参数是包含文件内容的数组，第二个参数是包含文件类型属性的对象
-                var blob = new Blob([html], { type: "application/vnd.ms-excel" });
-                var a = document.getElementById("excel-invoice");
-                // 利用URL.createObjectURL()方法为a元素生成blob URL
-                a.href = URL.createObjectURL(blob);
-                // 设置文件名
-                a.download = "invoice.xls";
+        $("#excel-invoice").click(
+            function () {
+        var html = "<html><head><meta charset='utf-8' /></head><body>" + document.getElementById("biaoge").outerHTML + "</body></html>";
+        // 实例化一个Blob对象，其构造函数的第一个参数是包含文件内容的数组，第二个参数是包含文件类型属性的对象
+        var blob = new Blob([html], { type: "application/vnd.ms-excel" });
+        var a = document.getElementById("excel-invoice");
+        // 利用URL.createObjectURL()方法为a元素生成blob URL
+        a.href = URL.createObjectURL(blob);
+        // 设置文件名
+        a.download = "invoice.xls";
+        })
         $("#invoice").click(
             function () {
                 // $(".panel-body").eq(0).hide();
@@ -505,7 +511,7 @@
                 window.print();
                 window.location.reload()
             })
-        $("#daochu").click(
+        $("#daochu1").click(
             function () {
                 $(".panel-body").eq(1).hide();
                 document.title = "Snack Talk";

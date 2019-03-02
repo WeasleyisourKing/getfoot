@@ -383,6 +383,7 @@ class StockOrderModel extends Model
                 $p['created_at'] = date('Y-m-d H:i:s', time());
                 $p['updated_at'] = date('Y-m-d H:i:s', time());
                 $p['status'] = $orderId->status;
+                unset($p['shelves_id']);
 
             }
             (new StockOrderProductModel)->insert($arr);
@@ -550,7 +551,8 @@ class StockOrderModel extends Model
                 }
             }
             //减少相应货架
-//            dump($businessPosition);
+//            dd($businessPosition);
+
             foreach ($businessPosition as $val) {
                 foreach ($val as $v) {
                     $object = ProductShelvesModel::where('product_id', '=', $v['product_id'])
@@ -582,7 +584,99 @@ class StockOrderModel extends Model
                             ->delete();
 
                     }
+
+                    //状态改变
+                    if (is_null(ProductShelvesModel::where('shelves_id', '=', $v['shelves_id'])->first())) {
+
+                        ShelvesModel::where('id', '=', $v['shelves_id'])->update(['status' => 2]);
+                    } else {
+                        ShelvesModel::where('id', '=', $v['shelves_id'])->update(['status' => 1]);
+                    }
                 }
+
+            }
+
+            DB::commit();
+
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            //记录日志
+            throw $ex;
+        }
+
+    }
+
+    //入库手动确认
+    public static function updateInState($id, $arr)
+    {
+
+        //涉及多表 使用事务控制
+        DB::beginTransaction();
+        try {
+            $info = self::find($id);
+            //修改出库表总量和状态
+            self::where('id', '=', $id)->update([
+                'state' => 2
+            ]);
+
+                //不是商业订单
+                $businessPosition = json_decode($info->shelve_position, true);
+
+                foreach ($arr as &$p) {
+
+//                    $count = array_column($arr,'count');
+                    //减少对应的商品库存
+                    $flight = ProductModel::find($p['product_id']);
+                    $flight->stock = $flight->origin_stock + $p['count'];
+                    $flight->save();
+
+                    //修改详细库存量
+                    StockOrderProductModel::where('order_id', '=', $id)
+                        ->where('product_id', '=', $p['product_id'])
+                        ->update([
+                            'count' => $p['count'],
+                            'origin_stock' => $p['origin_stock']
+                        ]);
+                }
+
+            //减少相应货架
+//            dd($businessPosition);
+
+            foreach ($businessPosition as $v) {
+//                foreach ($val as $v) {
+                    $object = ProductShelvesModel::where('product_id', '=', $v['product_id'])
+                        ->where('shelves_id', '=', $v['shelves_id'])
+                        ->where('overdue', '=', $v['overdue'])
+                        ->first();
+                    if (is_null($object)) {
+                        //不存在
+                        ProductShelvesModel::insert([
+                            'product_id' =>  $v['product_id'],
+                            'shelves_id' =>  $v['shelves_id'],
+                            'count' =>  $v['count'],
+                            'overdue' =>  $v['overdue']
+                        ]);
+                    } else {
+                        //存在相加
+                        ProductShelvesModel::where('product_id', '=', $v['product_id'])
+                            ->where('shelves_id', '=', $v['shelves_id'])
+                            ->where('overdue', '=', $v['overdue'])
+                            ->where('count', '=', $object->count)
+                            ->update([
+                                'count' => $object->count + $v['count']
+                            ]);
+                    }
+
+                    //状态改变
+                ShelvesModel::where('id', '=', $v['shelves_id'])->update(['status' => 2]);
+//                    if (is_null(ProductShelvesModel::where('shelves_id', '=', $v['shelves_id'])->first())) {
+//
+//                        ShelvesModel::where('id', '=', $v['shelves_id'])->update(['status' => 2]);
+//                    } else {
+//                        ShelvesModel::where('id', '=', $v['shelves_id'])->update(['status' => 1]);
+//                    }
+//                }
+
             }
 
             DB::commit();

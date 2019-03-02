@@ -184,7 +184,7 @@
 
             @if (!empty(Auth::guard("pc")->user()->name))
                 <li class="float_right">
-                    <a href="/personal"><p class="float_left"> Hi，{{Auth::guard("pc")->user()->name}}</p></a>
+                    <a href="/personal"><p class="float_left"> Hi，{{strlen(Auth::guard("pc")->user()->name) > 5 ? substr(Auth::guard("pc")->user()->name,0,5) . '...'  : Auth::guard("pc")->user()->name }}</p></a>
                     <a class="exit float_left" href="{{ route('logout') }}"
                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                         <p>

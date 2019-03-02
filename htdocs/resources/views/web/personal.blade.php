@@ -986,7 +986,8 @@
 							</div>
 						`
 					}
-					document.querySelector("#oderDetail").innerHTML = `<div class="Title clearfloat">
+					document.querySelector("#oderDetail").innerHTML=
+					$("#oderDetail").html(` <div class="Title clearfloat">
 								<!-- <img class="float_left" src="home/img/user_2.png" alt="" /> -->
                         <p class="float_left">${LanguageHtml("订单详情"," Order Details")}</p>
                         </div>
@@ -1023,7 +1024,7 @@
                         <span>${orderdetails.mobile}</span>
                         </p>
                         </div>
-                        </div>`;
+                        </div>`)
 					$(".personalPro").eq(2).children().hide();
                     document.querySelector("#oderDetail").style.display = 'block';
                     //五星评论js

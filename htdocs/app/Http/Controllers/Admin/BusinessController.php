@@ -456,15 +456,18 @@ class BusinessController extends Controller
             }
 
             //已货架分组 判断每个分组的总数能否完成抓货 能就选择此货架进行 不能按照日期从小到大分组进行抓货
-            $arrs = [];
+
             $res[$items['product_id']] = [];
             $nus = $items['count'];
+
             $hg = $this->array_group_by($data,'shelves_id');
+
             foreach ($hg as $vv) {
 
-//                if ($items['count'] <= 0)
-//                    break;
+                if ($items['count'] <= 0)
+                    break;
                 if (array_sum(array_column($vv,'count')) >= $nus) {
+
                     foreach ($vv as $vo) {
                         if ($items['count'] - $vo['count'] > 0) {
                             $vo['name'] =  $vo['name']['name'];
@@ -483,7 +486,7 @@ class BusinessController extends Controller
                 }
             }
 
-            if (empty($arrs)) {
+            if (empty($res[$items['product_id']])) {
                 foreach ($data as $k => &$item) {
 
                     $arr = $this->group($data,$item['shelves_id']);
@@ -509,7 +512,7 @@ class BusinessController extends Controller
                 }
             }
         }
-//        dd($res);
+
         return $res;
     }
     public static function array_group_by($arr, $key)

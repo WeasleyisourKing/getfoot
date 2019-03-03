@@ -820,6 +820,7 @@
 	});
 //	订单数据绑定
 	$("#oderNav li").click(function(){
+		$("#oderDetail").hide()
 		$("#allOrderHtml").html("")
 		var That=$(this).index();
 		if(That==5){
@@ -844,7 +845,7 @@
 	                			$("#allOrderHtml").html(LanguageHtml("没有此类订单","No Result"));
 	                			return false;
 	                		}
-							console.log(res)
+							// console.log(res)
 	                	//有订单数据  循环绑定
                         for(let i = 0; i < allOrder.length; i++){
                             document.querySelector("#allOrderHtml").innerHTML += `
@@ -974,7 +975,7 @@
 									<div class="am-u-sm-3 myOderDetailText">
 										<p>数量：${products[i].count}
 											<br>
-											<span>单价：$${Spricedetails(products[i].products.distributor.level_four_price,products[i].products.distributor.level_two_price,products[i].products.distributor.level_one_price,products[i].products.distributor.level_three_price)}</span>
+											<span>单价：$${Sprice1(products[i].products.distributor.level_four_price,products[i].products.distributor.level_two_price,products[i].products.distributor.level_one_price,products[i].products.distributor.level_three_price)}</span>
 											<br>
 											<span>状态：${LanguageHtml('待支付','Waiting for payment')}</span>
 										</p>
@@ -986,7 +987,9 @@
 							</div>
 						`
 					}
-					document.querySelector("#oderDetail").innerHTML = `<div class="Title clearfloat">
+					// console.log(projectlist)
+					// document.querySelector("#oderDetail").innerHTML=
+					$("#oderDetail").html(` <div class="Title clearfloat">
 								<!-- <img class="float_left" src="home/img/user_2.png" alt="" /> -->
                         <p class="float_left">${LanguageHtml("订单详情"," Order Details")}</p>
                         </div>
@@ -1023,7 +1026,8 @@
                         <span>${orderdetails.mobile}</span>
                         </p>
                         </div>
-                        </div>`;
+                        </div>`)
+						// console.log($("#"))
 					$(".personalPro").eq(2).children().hide();
                     document.querySelector("#oderDetail").style.display = 'block';
                     //五星评论js
@@ -1100,6 +1104,7 @@
 							</div>
 						`
 					}
+					console.log(projectlist)
 					document.querySelector("#oderDetail").innerHTML = `<div class="Title clearfloat">
 								<!-- <img class="float_left" src="home/img/user_2.png" alt="" /> -->
                         <p class="float_left">订单详情</p>
@@ -1137,7 +1142,7 @@
                         </p>
                         </div>-->
                         </div>`;
-				
+					console.log($("#oderDetail").html())
                     document.querySelector("#oderNav").style.display = 'none';
                     document.querySelector("#oderPro").style.display = 'none';
                     document.querySelector("#oderDetail").style.display = 'block';
@@ -1462,7 +1467,7 @@
                 id: {{Auth()->guard("pc")->user()->id}}
             },
             success:function (res) {
-            	console.log(res)
+            	// console.log(res)
             	for (let i in res.data) {
             		$("#myOderStatus span").eq(i).html(res.data[i].count)
             	}

@@ -238,7 +238,7 @@
 	  	<a href="##" class="btn btn-lg btn-circle btn-white shaddow-dark"><i class="fa fa-receipt"></i></a>
         <small class="d-block py-2">
                 	<script type="text/javascript">
-                	Language("已完成","Waiting for Shipment")
+                	Language("已下单","Waiting for Payment")
                 </script></small>
 	  </div>
 
@@ -246,7 +246,7 @@
 	  	<a href="##" class="btn btn-lg btn-circle btn-white shaddow-dark"><i class="fa fa-clock"></i></a>
         <small class="d-block py-2">
                 	<script type="text/javascript">
-                	Language("已下单","Waiting for Payment")
+                	Language("已完成","Waiting for Shipment")
                 </script></small>
 	  </div>
 
@@ -410,7 +410,9 @@
 												                       <small style="color: #f14067;" links="${myOder[i].id}" class="col-12 py-2 delete text-muted"> </small>
 												                      </div>
 												                      <div class="row">
-												                       <small style="color: #f14067;" class="col-12 py-2 "> $${myOder[i].total_price} </small>
+																	  	<p class="class="col-12 py-2 "style="font-size:8px">
+																		  $${myOder[i].total_price}
+																		  </p>
 												                      </div>
 															      </div>
 														      </div>

@@ -339,14 +339,13 @@
 							</li>
 							<li  class="mouse-style">
 								<script>
-
-									Language("已完成","Completed")
+									Language("已下单","Unpaid")
 								</script>
 								<span></span>
 							</li>
 							<li class="mouse-style">
 								<script>
-									Language("已下单","Unpaid")
+									Language("已完成","Completed")
 								</script>
 								<span></span>
 							</li>
@@ -1020,7 +1019,10 @@
                         <span>${orderdetails.name}</span>
                         </p>
                         <p>${LanguageHtml('地址','Address')}：
-                        <span>${orderdetails.province}</span>
+                        <span>
+						
+						{{$user['detail']}}  {{$user['country']}}  {{$user['city']}}  {{$user['province']}}
+						</span>
                         </p>
                         <p>${LanguageHtml('联系电话','Phone Number')}：
                         <span>${orderdetails.mobile}</span>

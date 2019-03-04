@@ -344,7 +344,7 @@
 		$(".oderList").click(function(){
 			var aa = <?php echo Auth()->guard("pc")->user()->id ?>;
 			var That=$(".oderList").index(this);
-			var xx=LanguageHtml(["已完成","已下单","已发货","待评论"],["Waiting for Shipment","Waiting for Payment","Waiting for Delivered"," Waiting for Reviews"]);
+			var xx=LanguageHtml(["已下单","已完成","已发货","待评论"],["Waiting for Shipment","Waiting for Payment","Waiting for Delivered"," Waiting for Reviews"]);
 				$.ajax({
 					 url: '/api/order/bunsiess/state',
 		                method: 'get',

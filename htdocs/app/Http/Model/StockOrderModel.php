@@ -209,6 +209,29 @@ class StockOrderModel extends Model
     }
 
     //删除入库订单
+    public static function delInOrder($id)
+    {
+
+        //涉及多表 使用事务控制
+        DB::beginTransaction();
+        try {
+
+            self::where('id', '=', $id)
+                ->delete();
+
+            (new StockOrderProductModel)->where('order_id', '=', $id)->delete();
+
+            DB::commit();
+
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            //记录日志
+            throw $ex;
+        }
+
+    }
+
+    //删除入库订单
     public static function delOrder($id, $businessID = null)
     {
 

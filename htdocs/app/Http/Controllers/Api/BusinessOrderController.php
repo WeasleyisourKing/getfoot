@@ -623,14 +623,17 @@ class BusinessOrderController extends Controller
     //获取货架位置
     public function shelvePosition($param)
     {
-        $arr = [];
+        $res = $postion = [];
 
         foreach ($param as &$items) {
-            $data = ProductShelvesModel::where('product_id', '=', $items['product_id'])
+            $datas = ProductShelvesModel::with(['name' => function ($q) {
+                $q->select('id', 'name');
+            }])->where('product_id', '=', $items['product_id'])
                 ->orderBy('overdue', 'asc')
-                ->orderBy('count', 'asc')
-                ->get()
-                ->toArray();
+//                ->orderBy('count', 'asc')
+                ->get();
+
+            $data = $datas->toArray();
 
             if (empty($data)) {
                 throw new ParamsException([
@@ -638,7 +641,8 @@ class BusinessOrderController extends Controller
                     'message' => '商品' . ProductModel::where('id', '=', $items['product_id'])->first(['zn_name'])->zn_name . '在货架上查询不到库存;'
                 ]);
             }
-            $arr[$items['product_id']] = [];
+
+
             $info = ShelvesModel::whereIn('id', array_column($data, 'shelves_id'))->get(['id', 'name'])->toArray();
 
             if (($sum = array_sum(array_column($data, 'count'))) < $items['count']) {
@@ -651,31 +655,123 @@ class BusinessOrderController extends Controller
                 ]);
             }
 
+            //已货架分组 判断每个分组的总数能否完成抓货 能就选择此货架进行 不能按照日期从小到大分组进行抓货
+            $res[$items['product_id']] = [];
+            $nus = $items['count'];
 
-            foreach ($data as &$v) {
-                //获取货架位置
-                foreach ($info as $va) {
-                    if ($va['id'] == $v['shelves_id']) {
-                        $v['name'] = $va['name'];
+            //第一件抓取了货
+            if (!empty($postion)) {
+                foreach ($postion as $vs) {
+
+                    $arr = $this->group($data,$vs);
+                    foreach ($arr as $k => $vo) {
+                        array_push($postion,$vo['shelves_id']);
+//                        dd($arr);
+                        if ($items['count'] - $vo['count'] > 0) {
+//                            $vo['name'] =  $vo['name']['name'];
+                            $res[$items['product_id']][] = $vo;
+                            $items['count'] -= $vo['count'];
+                            unset($arr[$k]);
+                        } else {
+                            //商品大于需要的数量
+//                            $vo['name'] =  $vo['name']['name'];
+                            $vo['count'] = $items['count'];
+                            $items['count'] -= $vo['count'];
+                            $res[$items['product_id']][] = $vo;
+                            break;
+                        }
                     }
                 }
-                //最近的商品满足不了需要的数量
-                if ($items['count'] - $v['count'] > 0) {
-
-                    $arr[$items['product_id']][] = $v;
-                    $items['count'] -= $v['count'];
-
-                } else {
-                    //商品大于需要的数量
-                    $v['count'] = $items['count'];
-                    $arr[$items['product_id']][] = $v;
-                    break;
-                }
-
             }
 
+            $hg = $this->array_group_by($data,'shelves_id');
+            foreach ($hg as $vv) {
+
+                if ($items['count'] <= 0)
+                    break;
+
+                if (array_sum(array_column($vv,'count')) >= $nus) {
+
+                    array_push($postion,$vv[0]['shelves_id']);
+                    foreach ($vv as $vo) {
+                        if ($items['count'] - $vo['count'] > 0) {
+                            $vo['name'] =  $vo['name']['name'];
+                            $res[$items['product_id']][] = $vo;
+                            $items['count'] -= $vo['count'];
+
+                        } else {
+                            //商品大于需要的数量
+                            $vo['name'] =  $vo['name']['name'];
+                            $vo['count'] = $items['count'];
+                            $items['count'] -= $vo['count'];
+                            $res[$items['product_id']][] = $vo;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (empty($res[$items['product_id']])) {
+                foreach ($data as $k => &$item) {
+
+                    //转化了name
+                    $arr = $this->group($data,$item['shelves_id']);
+                    if ($items['count'] <= 0)
+                        break;
+                    foreach ($arr as $vo) {
+                        array_push($postion,$vo['shelves_id']);
+//                        dd($arr);
+                        if ($items['count'] - $vo['count'] > 0) {
+//                            $vo['name'] =  $vo['name']['name'];
+                            $res[$items['product_id']][] = $vo;
+                            $items['count'] -= $vo['count'];
+
+                        } else {
+                            //商品大于需要的数量
+//                            $vo['name'] =  $vo['name']['name'];
+                            $vo['count'] = $items['count'];
+                            $items['count'] -= $vo['count'];
+                            $res[$items['product_id']][] = $vo;
+                            break;
+                        }
+                    }
+                }
+            }
+            $postion = array_unique($postion);
         }
-        return $arr;
+
+        return $res;
+    }
+
+    public static function array_group_by($arr, $key)
+    {
+        $grouped = [];
+        foreach ($arr as $value) {
+            $grouped[$value[$key]][] = $value;
+        }
+        // Recursively build a nested grouping if more parameters are supplied
+        // Each grouped array value is grouped according to the next sequential key
+        if (func_num_args() > 2) {
+            $args = func_get_args();
+            foreach ($grouped as $key => $value) {
+                $parms = array_merge([$value], array_slice($args, 2, func_num_args()));
+                $grouped[$key] = call_user_func_array('array_group_by', $parms);
+            }
+        }
+        return $grouped;
+    }
+
+    public static function group(&$arr, $key)
+    {
+        $grouped = [];
+        foreach ($arr as $k => $value) {
+            if ($value['shelves_id'] == $key) {
+                $value['name'] = $value['name']['name'];
+                array_push($grouped,$value);
+                unset($arr[$k]);
+            }
+        }
+        return $grouped;
     }
 
 }

@@ -604,8 +604,10 @@ Route::get('/select/shelves', 'Admin\StockController@selectShelves');
 Route::post('/stock/out/confirm', 'Admin\StockController@stockOutConfirm');
 //入库下订单接口
 Route::post('/enter/stock/deal/order', 'Admin\StockController@enterPlaceOrder');
-//删除入库订单接口*
+//删除出库订单接口*
 Route::get('/enter/stock/order/del', 'Admin\StockController@enterOrderDel');
+//删除入库订单接口*
+Route::get('/in/stock/order/del', 'Admin\StockController@enterInOrderDel');
 //批量删除入库订单接口*
 Route::get('/enter/stock/Batch/del', 'Admin\StockController@enterOrderBatchDel');
 //获取入库某订单详情接口*

@@ -1120,6 +1120,30 @@ class StockController extends Controller
      * @param Request $request
      * @return mixed
      */
+    public function enterInOrderDel(Request $request)
+    {
+
+        $id = $request->input('id');
+
+        $object = StockOrderModel::find($id);
+
+        if ($object->state != 1) {
+            throw new ParamsException([
+                'code' => 200,
+                'message' => '入库状态为已完成，不能删除'
+            ]);
+        }
+
+        StockOrderModel::delInOrder($id);
+   
+        return Common::successData();
+    }
+
+    /**
+     * //删除订单接口
+     * @param Request $request
+     * @return mixed
+     */
     public function enterOrderBatchDel(Request $request)
     {
         $arr = $request->input('arr');

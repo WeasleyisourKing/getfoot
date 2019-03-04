@@ -1177,7 +1177,7 @@ securitycode.addEventListener('focus', function () {
                 //jsonpCallback: "my",
                 success: function (data) {
                 	//订单所有商品
-					$("#checkOut").html(data.details.status=="1"?LanguageHtml("已下单","Waiting for Payment"):LanguageHtml("已完成","Completed Order"))
+					$("#checkOut").html(data.details.status!="1"?LanguageHtml("已下单","Waiting for Payment"):LanguageHtml("已完成","Completed Order"))
                 	var cart=data.products;
         			var cartText=""
 					for(var i=0;i<cart.length;i++){

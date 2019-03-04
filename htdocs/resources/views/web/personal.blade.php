@@ -339,13 +339,13 @@
 							</li>
 							<li  class="mouse-style">
 								<script>
-									Language("已下单","Unpaid")
+                                    Language("已完成","Completed")
 								</script>
 								<span></span>
 							</li>
 							<li class="mouse-style">
 								<script>
-									Language("已完成","Completed")
+                                    Language("已下单","Unpaid")
 								</script>
 								<span></span>
 							</li>
@@ -826,7 +826,7 @@
 			$("#allOrderHtml").html(LanguageHtml("没有此类订单","No Result"));
 			return ;
 		}
-		var orderState=LanguageHtml(["","已下单","已完成", " "," "],["","Waiting for Payment","Completed Order", " "," "]);
+		var orderState=LanguageHtml(["","已完成","已下单", " "," "],["","Waiting for Payment","Completed Order", " "," "]);
 		var orderStateId=[""," 1", " 2","3"," 4"];
 		$.ajax({
                 url: "/api/order/bunsiess/state",
@@ -860,7 +860,7 @@
 											<div class="oderPro_2">&nbsp;  <span>&nbsp;</span></div>
 											<div class="oderPro_2">${allOrder[i].total_count}</div>
 											<div class="oderPro_2"> <span>0</span></div>
-											<div class="oderPro_2">$ <span>${allOrder[i].total_price}</span></div>
+											<div class="oderPro_2">$<span>${allOrder[i].total_price}</span></div>
 											<div class="oderPro_2 oderPro_2_but">
 												<div class="but1" style="cursor:pointer;" onclick="comment(${allOrder[i].id})">${LanguageHtml("查看订单","view order")}</div>
 											</div>
@@ -976,7 +976,7 @@
 											<br>
 											<span>单价：$${Sprice1(products[i].products.distributor.level_four_price,products[i].products.distributor.level_two_price,products[i].products.distributor.level_one_price,products[i].products.distributor.level_three_price)}</span>
 											<br>
-											<span>状态：${res.details.status=="1"?LanguageHtml("已下单","Waiting for Payment"):LanguageHtml("已完成","Completed Order")}</span>
+											<span>状态：${res.details.status!="1"?LanguageHtml("已下单","Waiting for Payment"):LanguageHtml("已完成","Completed Order")}</span>
 										</p>
 									</div>
 								</div>
@@ -995,7 +995,7 @@
                         <div class="information clearfloat myOderTop" style="magin-top:20px !important;">
                         <div class="text clearfloat " style="border-bottom: 1px solid #cfcfcf; width:100%;" >
                         <p class="am-u-sm-5">${LanguageHtml("订单号","Order Number")}：<span>${res.details.order_no}</span></p>
-                        <p class="am-u-sm-7">${LanguageHtml("订单状态"," Order Status")}：<span>${res.details.status=="1"?LanguageHtml("已下单","Waiting for Payment"):LanguageHtml("已完成","Completed Order")}</span></p>
+                        <p class="am-u-sm-7">${LanguageHtml("订单状态"," Order Status")}：<span>${res.details.status!="1"?LanguageHtml("已下单","Waiting for Payment"):LanguageHtml("已完成","Completed Order")}</span></p>
                         <!--<p class="am-u-sm-4">浏览时间:<span></span></p>-->
                         </div>
                         <div class="text " style="width:100%;">

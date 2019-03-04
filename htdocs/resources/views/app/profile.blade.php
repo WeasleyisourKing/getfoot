@@ -238,7 +238,7 @@
 	  	<a href="##" class="btn btn-lg btn-circle btn-white shaddow-dark"><i class="fa fa-receipt"></i></a>
         <small class="d-block py-2">
                 	<script type="text/javascript">
-                	Language("已下单","Waiting for Payment")
+                        Language("已完成","Waiting for Shipment")
                 </script></small>
 	  </div>
 
@@ -246,7 +246,8 @@
 	  	<a href="##" class="btn btn-lg btn-circle btn-white shaddow-dark"><i class="fa fa-clock"></i></a>
         <small class="d-block py-2">
                 	<script type="text/javascript">
-                	Language("已完成","Waiting for Shipment")
+                        Language("已下单","Waiting for Payment")
+
                 </script></small>
 	  </div>
 
@@ -344,7 +345,7 @@
 		$(".oderList").click(function(){
 			var aa = <?php echo Auth()->guard("pc")->user()->id ?>;
 			var That=$(".oderList").index(this);
-			var xx=LanguageHtml(["已下单","已完成","已发货","待评论"],["Waiting for Shipment","Waiting for Payment","Waiting for Delivered"," Waiting for Reviews"]);
+			var xx=LanguageHtml(["已完成","已下单","已发货","待评论"],["Waiting for Shipment","Waiting for Payment","Waiting for Delivered"," Waiting for Reviews"]);
 				$.ajax({
 					 url: '/api/order/bunsiess/state',
 		                method: 'get',
@@ -380,10 +381,10 @@
 															      </div>
 															      <div style="font-size: 13px;color: #f14067;" class="col-3">
 															      <div class="row">
-												                       <small style="color: #f14067;"links="${myOder[i].id}" class="col-12 py-2 delete text-muted">${LanguageHtml('删除订单','Delete Order')} </small>
+												                       <!--<small style="color: #f14067;"links="${myOder[i].id}" class="col-12 py-2 delete text-muted">${LanguageHtml('删除订单','Delete Order')} </small>-->
 												                      </div>
 												                      <div class="row">
-												                       <small style="color: #f14067;" class="col-12 py-2 "> $${myOder[i].total_price} </small>
+												                       <small style="color: #f14067;padding: 0px;" class="col-12 py-2"> $${myOder[i].total_price} </small>
 												                      </div>
 															      </div>
 														      </div>
@@ -407,7 +408,7 @@
 															      </div>
 															      <div style="font-size: 13px;color: #f14067;" class="col-3">
 																      <div class="row">
-												                       <small style="color: #f14067;" links="${myOder[i].id}" class="col-12 py-2 delete text-muted"> </small>
+												                       <small style="color: #f14067; " links="${myOder[i].id}" class="col-12 py-2 delete text-muted"> </small>
 												                      </div>
 												                      <div class="row">
 																	  	<p class="class="col-12 py-2 "style="font-size:8px">
@@ -436,7 +437,7 @@
 																      <small style="color: #adadad" class="col-12">共${myOder[i].total_count}件商品</small>
 															      </div>
 															      <div style="font-size: 13px;color: #f14067;" class="col-3">
-																       <small style="color: #f14067;" class="col-12 py-2 "> $${myOder[i].total_price} </small>
+																       <small style="color: #f14067;padding: 0px;" class="col-12 py-2 "> $${myOder[i].total_price} </small>
 															      </div>
 														      </div>
 														      <div class="row "style="padding:0 5%;margin:0; border-top: 1px solid #E3E3E3;line-height: 200%;">

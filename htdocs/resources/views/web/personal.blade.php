@@ -827,7 +827,7 @@
 			$("#allOrderHtml").html(LanguageHtml("没有此类订单","No Result"));
 			return ;
 		}
-		var orderState=LanguageHtml(["","已完成","已下单", " "," "],["","Unshipped","Unpaid", " "," "]);
+		var orderState=LanguageHtml(["","已下单","已完成", " "," "],["","Waiting for Payment","Completed Order", " "," "]);
 		var orderStateId=[""," 1", " 2","3"," 4"];
 		$.ajax({
                 url: "/api/order/bunsiess/state",
@@ -977,7 +977,7 @@
 											<br>
 											<span>单价：$${Sprice1(products[i].products.distributor.level_four_price,products[i].products.distributor.level_two_price,products[i].products.distributor.level_one_price,products[i].products.distributor.level_three_price)}</span>
 											<br>
-											<span>状态：${LanguageHtml('待支付','Waiting for payment')}</span>
+											<span>状态：${res.details.status=="1"?LanguageHtml("已下单","Waiting for Payment"):LanguageHtml("已完成","Completed Order")}</span>
 										</p>
 									</div>
 								</div>
@@ -996,7 +996,7 @@
                         <div class="information clearfloat myOderTop" style="magin-top:20px !important;">
                         <div class="text clearfloat " style="border-bottom: 1px solid #cfcfcf; width:100%;" >
                         <p class="am-u-sm-5">${LanguageHtml("订单号","Order Number")}：<span>${res.details.order_no}</span></p>
-                        <p class="am-u-sm-7">${LanguageHtml("订单状态"," Order Status")}：<span>${LanguageHtml("已下单","Waiting for Payment")}</span></p>
+                        <p class="am-u-sm-7">${LanguageHtml("订单状态"," Order Status")}：<span>${res.details.status=="1"?LanguageHtml("已下单","Waiting for Payment"):LanguageHtml("已完成","Completed Order")}</span></p>
                         <!--<p class="am-u-sm-4">浏览时间:<span></span></p>-->
                         </div>
                         <div class="text " style="width:100%;">

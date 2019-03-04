@@ -384,7 +384,9 @@
 												                       <!--<small style="color: #f14067;"links="${myOder[i].id}" class="col-12 py-2 delete text-muted">${LanguageHtml('删除订单','Delete Order')} </small>-->
 												                      </div>
 												                      <div class="row">
+
 												                       <small style="color: #f14067;padding: 0px;" class="col-12 py-2"> $${myOder[i].total_price} </small>
+
 												                      </div>
 															      </div>
 														      </div>

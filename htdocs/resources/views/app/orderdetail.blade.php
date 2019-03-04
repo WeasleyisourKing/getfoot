@@ -447,7 +447,7 @@
         <div class="col-3 pl-5">
         </div>
         <div class="col-5 text-right">
-        	<a class="text-dark" id="total_btn"ef="##">
+        	<a class="text-dark" id=""ef="##">
         		<i class="fa fa-angle-up"></i>
 	        	<small id="orderId">
                 	<script type="text/javascript">

@@ -457,10 +457,11 @@
 	        </a>
         </div>
         <div class="col-4 h-100 w-100">
-        	<button class="btn btn-red rounded-0 btn-check-out Settlement"></i> 
-                	<script type="text/javascript">
+        	<button class="btn btn-red rounded-0 btn-check-out Settlement" id="checkOut"></i> 
+                	<!-- <script type="text/javascript">
                 	Language("结算","Check out")
-                </script></button>
+                </script> -->
+				</button>
 
 
         </div>
@@ -1176,6 +1177,7 @@ securitycode.addEventListener('focus', function () {
                 //jsonpCallback: "my",
                 success: function (data) {
                 	//订单所有商品
+					$("#checkOut").html(data.details.status=="1"?LanguageHtml("已下单","Waiting for Payment"):LanguageHtml("已完成","Completed Order"))
                 	var cart=data.products;
         			var cartText=""
 					for(var i=0;i<cart.length;i++){

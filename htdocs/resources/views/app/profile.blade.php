@@ -436,7 +436,7 @@
 																      <small style="color: #adadad" class="col-12">共${myOder[i].total_count}件商品</small>
 															      </div>
 															      <div style="font-size: 13px;color: #f14067;" class="col-3">
-																       <small style="color: #f14067;" class="col-12 py-2 "><br /><br /> $${myOder[i].total_price} </small>
+																       <small style="color: #f14067;" class="col-12 py-2 "> $${myOder[i].total_price} </small>
 															      </div>
 														      </div>
 														      <div class="row "style="padding:0 5%;margin:0; border-top: 1px solid #E3E3E3;line-height: 200%;">

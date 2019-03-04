@@ -425,6 +425,7 @@
 						}else{
 							for(i=0;i<myOder.length;i++){
 													myOderText+=`
+														<a href="/apps/order/details?id=${myOder[i].id}" class="text-dark link">
 														<div class="container" style="padding: 5% 0 2% 0;">
 														    <div class="row "style="padding:0 8%; margin:0;">
 															    <div class="col-3" w-100 h-100><img class="img-responsive w-100 " src="${myOder[i].snap_img}" /></div>
@@ -441,7 +442,7 @@
 															      <small style="" class="col-3">${xx[That]}</small>
 														     </div>
 													    </div>
-														<div class="line"style="width: 100%;height: 5px;background: #E3E3E3;"></div>`
+														<div class="line"style="width: 100%;height: 5px;background: #E3E3E3;"></div></a>`
 											};
 
 						}

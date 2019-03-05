@@ -286,10 +286,10 @@
                             <div class="col-sm-4 text-center">
                                 <h6>商品名称</h6>
                             </div>
-                            <div class="col-sm-2 text-center">
-                                <h6>数量</h6>
+                            <div class="col-sm-3 text-center">
+                                <h6>可调/冻结数量</h6>
                             </div>
-                            <div class="col-sm-4 text-center">
+                            <div class="col-sm-3 text-center">
                                 <h6>日期</h6>
                             </div>
                         </div>
@@ -311,10 +311,10 @@
                                 text-overflow:ellipsis;"
                                 >{{$v['zn_name']}}</h6>
                             </div>
-                            <div class="col-sm-2  text-center">
-                                <h6>{{$v['info']['count']}}</h6>
+                            <div class="col-sm-3  text-center">
+                                <h6>{{$v['info']['count']}}/{{$v['info']['frozen_count']}}</h6>
                             </div>
-                            <div class="col-sm-4  text-center">
+                            <div class="col-sm-3  text-center">
                                 <h6>{{$v['info']['overdue']}}</h6>
                             </div>
                                 </div>
@@ -454,7 +454,7 @@
                             <div class="col-sm-2">商品名称</div>
                             <div class="col-sm-1">图片</div>
                             <div class="col-sm-2">sku</div>
-                            <div class="col-sm-1">数量</div>
+                            <div class="col-sm-1">可调/冻结数量</div>
                             <div class="col-sm-2">过期日期</div>
                             <div class="col-sm-4">调拨</div>
                         </div>
@@ -469,7 +469,7 @@
                                 <img v-bind:src="item.product_image" alt="" class="img-thumbnail">
                             </div>
                             <div class="col-sm-2">@{{item.sku}}</div>
-                            <div class="col-sm-1">@{{item.info.count}}</div>
+                            <div class="col-sm-1">@{{item.info.count}} / @{{item.info.frozen_count}}</div>
                             <div class="col-sm-2">@{{item.info.overdue}}</div>
                             <div class="col-sm-4">
                                 <div class="row " style="padding:3px 0">

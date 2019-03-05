@@ -11,18 +11,43 @@ class ProductShelvesModel extends Model
 
     protected $guarded = [];
 
+    protected $appends = ['origin_count'];
+
     public $timestamps = false;
+
+    //实际库存
+    public function getoriginCountAttribute()
+    {
+        if (isset($this->attributes['count'])) {
+            return $this->attributes['count'];
+        }
+
+    }
+
+    //可用库存
+    public function getCountAttribute($value)
+    {
+        if (isset($this->attributes['frozen_count'])) {
+
+            $nus = $this->attributes['count'] - $this->attributes['frozen_count'];
+            return $nus < 0 ? 0 : $nus;
+        } else {
+            return $value;
+        }
+    }
 
     //关联商品和分类关系 一对一
     public function product()
     {
         return $this->belongsTo('App\Http\Model\StockOrderProductModel', 'id', 'product_id');
     }
+
     //
     public function prod()
     {
-        return $this->hasOne('App\Http\Model\ProductModel','id','product_id');
+        return $this->hasOne('App\Http\Model\ProductModel', 'id', 'product_id');
     }
+
     //一对一 获取货架名称
     public function name()
     {
@@ -76,7 +101,7 @@ class ProductShelvesModel extends Model
 
     }
 
-    //调拨商品
+    //调拨商品 原货架
     public static function allocation($shelveId, $arr)
     {
 
@@ -85,28 +110,26 @@ class ProductShelvesModel extends Model
         try {
             foreach ($arr as &$ite) {
 //dump($ite['shelves_id']);
+                //原货架
                 $nu = self::where('shelves_id', '=', $shelveId)->where('product_id', '=', $ite['product_id'])
-                    ->where('overdue', '=', $ite['overdue'])->first()->count;
+                    ->where('overdue', '=', $ite['overdue'])->first();
 
-                $mid = $nu - $ite['count'];
+                $mid = $nu->origin_count - $ite['count'];
                 if ($mid != 0) {
 
                     //调拨一部分
                     self::where('shelves_id', '=', $shelveId)->where('product_id', '=', $ite['product_id'])
-                        ->update(['count' => $mid]);
+                        ->where('overdue', '=', $ite['overdue'])->update(['count' => $mid]);
 
+                    //目标货架
                     $col = self::where('shelves_id', '=', $ite['shelves_id'])->where('product_id', '=', $ite['product_id'])
                         ->where('overdue', '=', $ite['overdue'])->first();
 
+                    //目标货架存在
                     if (!is_null($col)) {
-
-                        //转入货架有此商品 相加  从新添加
-                        $ite['count'] += $col->count;
-
+                        //转入货架有此商品 相加 修改
                         self::where('shelves_id', '=', $ite['shelves_id'])->where('product_id', '=', $ite['product_id'])
-                            ->where('overdue', '=', $ite['overdue'])->delete();
-                        self::insert($ite);
-
+                            ->where('overdue', '=', $ite['overdue'])->update(['count' => ($col->origin_count + $ite['count'])]);
                     } else {
                         //转入货架没此商品 直接添加
                         self::insert($ite);
@@ -114,27 +137,31 @@ class ProductShelvesModel extends Model
                     }
                 } else {
                     //调拨全部
+
+                    if ($nu->frozen_count <= 0) {
+                        //没有冻结库存 可以删除
+                        self::where('shelves_id', '=', $shelveId)->where('product_id', '=', $ite['product_id'])
+                            ->where('overdue', '=', $ite['overdue'])->delete();
+                    } else {
+                        //有冻结库存 修改数量
+                        self::where('shelves_id', '=', $shelveId)->where('product_id', '=', $ite['product_id'])
+                            ->where('overdue', '=', $ite['overdue'])->update(['count' => ($nu->origin_count - $ite['count'])]);
+                    }
+
+                    //目标货架
                     $col = self::where('shelves_id', '=', $ite['shelves_id'])->where('product_id', '=', $ite['product_id'])
                         ->where('overdue', '=', $ite['overdue'])->first();
 
+                    //目标货架存在
                     if (!is_null($col)) {
 
-                        //转入货架有此商品 相加 并删除转入货架和原货架 从新添加
-                        $ite['count'] += $col->count;
-
+                        //转入货架有此商品 相加 修改
                         self::where('shelves_id', '=', $ite['shelves_id'])->where('product_id', '=', $ite['product_id'])
-                            ->where('overdue', '=', $ite['overdue'])->delete();
-                        self::where('shelves_id', '=', $shelveId)->where('product_id', '=', $ite['product_id'])
-                            ->where('overdue', '=', $ite['overdue'])->delete();
-
-                        self::insert($ite);
+                            ->where('overdue', '=', $ite['overdue'])->update(['count' => ($col->origin_count + $ite['count'])]);
 
                     } else {
 
                         //转入货架没此商品 直接添加 转入货架减少数量
-//
-                        self::where('shelves_id', '=', $shelveId)->where('product_id', '=', $ite['product_id'])
-                            ->where('overdue', '=', $ite['overdue'])->delete();
                         self::insert($ite);
 
                     }
@@ -162,7 +189,6 @@ class ProductShelvesModel extends Model
             throw $ex;
         }
     }
-
 
 
 }

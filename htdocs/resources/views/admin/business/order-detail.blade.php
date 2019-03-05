@@ -89,7 +89,7 @@
                                             {{--
                                             <p class="m-t-10"><strong>订单状态: </strong> <span class="label label-pink">Pending</span></p> --}}
                                             <p style="text-align: right;" class="m-t-10">
-                                                <strong>采购人: </strong>{{$address['user']}}<br>
+                                                {{--<strong>采购人: </strong>{{$address['user']}}<br>--}}
                                                 <strong>订单编号:</strong> {{$data['order_no']}}</p>
                                         </th>
                                     </div>
@@ -190,7 +190,9 @@
                                     <tr style="font-size: 18px;">
                                         <th colspan="4">PackingList</th>
 
-                                        <th colspan="5" align="right" style=" vertical-align: middle;">
+                                        <th colspan="5" align="right"
+                                            {{--style=" vertical-align: middle;--}}
+                                            ">
                                             <p style="text-align: right;">
                                                 <!-- Order # <br> -->
                                                 <strong>Snack Talk</strong>
@@ -211,8 +213,8 @@
                                             <div class="pull-left">
                                                 <th colspan="1" align="left">
                                                     <address>
-
                                                         <strong>SnackTalk</strong><br>
+                                                        <br>
                                                         4961 Santa Anita<br>
                                                         Ave unit i<br>
                                                         Temple city, CA 91780<br>
@@ -225,6 +227,7 @@
                                                 <th colspan="2" align="left">
                                                     <address>
                                                         Ship To Address</br>
+                                                        <strong>{{$address['user']}}</strong><br>
                                                         <strong>{{$address['name']}}</strong><br>
                                                         {{$address['country']}}<br>
                                                         {{$address['detail']}}<br>
@@ -235,7 +238,9 @@
                                                 </th>
                                             </div>
                                             <div class="pull-right ">
-                                                <th colspan="2" align="right" style=" vertical-align: middle;">
+                                                <th colspan="2" align="right"
+                                                    {{--style=" vertical-align: middle;"--}}
+                                                >
                                                     <p style="text-align: right;"><strong>create
                                                             date: </strong> {{$data['created_at']}}</p>
                                                     <p style="text-align: right;" class="m-t-10">
@@ -324,7 +329,9 @@
                             <tr style="font-size: 18px;">
                                 <th colspan="4">Invoice</th>
 
-                                <th colspan="5" align="right" style=" vertical-align: middle;">
+                                <th colspan="5" align="right"
+                                    {{--style=" vertical-align: middle;"--}}
+                                >
                                     <p style="text-align: right;">
                                         <!-- Order # <br> -->
                                         <strong>Snack Talk</strong>
@@ -347,6 +354,7 @@
                                             <address>
 
                                                 <strong>SnackTalk</strong><br>
+                                                <br>
                                                 4961 Santa Anita<br>
                                                 Ave unit i<br>
                                                 Temple city, CA 91780<br>
@@ -359,6 +367,7 @@
                                         <th colspan="2" align="left">
                                             <address>
                                                 Ship To Address</br>
+                                                <strong>{{$address['user']}}</strong><br>
                                                 <strong>{{$address['name']}}</strong><br>
                                                 {{$address['country']}}<br>
                                                 {{$address['detail']}}<br>
@@ -368,7 +377,9 @@
                                         </th>
                                     </div>
                                     <div class="pull-right ">
-                                        <th colspan="2" align="right" style=" vertical-align: middle;">
+                                        <th colspan="2" align="right"
+                                            {{--style=" vertical-align: middle;"--}}
+                                        >
                                             <p style="text-align: right;"><strong>create
                                                     date: </strong> {{$data['created_at']}}
                                             </p>

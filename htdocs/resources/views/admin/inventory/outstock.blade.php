@@ -1200,9 +1200,7 @@
                     }
                     if (res.data.state != 1) {
                         $('#bsure').hide();
-                    } else {
-                        $('#bsure').show();
-                    }
+                    } else {}
                     $('#bsure').attr('data-id', res.data.id);
                     $('#bsure').attr('data-status', 2);
                     alertify.success('获取成功');

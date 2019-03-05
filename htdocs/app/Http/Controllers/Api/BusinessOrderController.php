@@ -626,6 +626,7 @@ class BusinessOrderController extends Controller
         $res = $postion = [];
 
         foreach ($param as &$items) {
+
             $datas = ProductShelvesModel::with(['name' => function ($q) {
                 $q->select('id', 'name');
             }])->where('product_id', '=', $items['product_id'])
@@ -658,12 +659,13 @@ class BusinessOrderController extends Controller
             //已货架分组 判断每个分组的总数能否完成抓货 能就选择此货架进行 不能按照日期从小到大分组进行抓货
             $res[$items['product_id']] = [];
             $nus = $items['count'];
-
+            $postion = [3,1];
             //第一件抓取了货
             if (!empty($postion)) {
                 foreach ($postion as $vs) {
 
                     $arr = $this->group($data,$vs);
+
                     foreach ($arr as $k => $vo) {
                         array_push($postion,$vo['shelves_id']);
 //                        dd($arr);
@@ -685,14 +687,15 @@ class BusinessOrderController extends Controller
             }
 
             $hg = $this->array_group_by($data,'shelves_id');
-            foreach ($hg as $vv) {
 
+            foreach ($hg as $vv) {
                 if ($items['count'] <= 0)
                     break;
 
-                if (array_sum(array_column($vv,'count')) >= $nus) {
+                if (array_sum(array_column($vv,'count')) >= $items['count']) {
 
                     array_push($postion,$vv[0]['shelves_id']);
+
                     foreach ($vv as $vo) {
                         if ($items['count'] - $vo['count'] > 0) {
                             $vo['name'] =  $vo['name']['name'];
@@ -738,6 +741,14 @@ class BusinessOrderController extends Controller
                 }
             }
             $postion = array_unique($postion);
+
+//            //写入冻结库存
+            foreach ($res[$items['product_id']] as $ii) {
+                ProductShelvesModel::where('product_id', '=', $ii['product_id'])
+                    ->where('shelves_id', '=', $ii['shelves_id'])
+                    ->where('overdue', '=', $ii['overdue'])
+                    ->increment('frozen_count', $ii['count']);
+            }
         }
 
         return $res;

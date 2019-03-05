@@ -24,7 +24,7 @@ class ShelvesModel extends Model
         return $this->belongsToMany('App\Http\Model\ProductModel', 'product_shelves',
             'shelves_id', 'product_id')
             ->as('info')
-            ->withPivot('count','overdue','product_id','shelves_id');
+            ->withPivot('count','overdue','product_id','shelves_id','frozen_count');
 
     }
     // 一对多

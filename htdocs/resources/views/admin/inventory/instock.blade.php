@@ -149,7 +149,7 @@
             备注
         </label>
 
-        <textarea class="form-control" id="eremark" cols="30" rows="4" readonly="readonly"></textarea>
+        <textarea class="form-control" id="eremark" cols="30" rows="4" ></textarea>
     </div>
     <!---- 商品列表 ---->
     <div class="col-lg-12">
@@ -161,12 +161,13 @@
                 <table class="table ">
                     <thead>
                     <tr>
-                        <th>商品图片</th>
-                        <th>SKU</th>
-                        <th>商品名称</th>
-                        <th>变更数量（+）</th>
-                        <th>实时库存</th>
-                        <th>过期时间</th>
+                        <th class="col-sm-2 text-center">商品图片</th>
+                        <th class="col-sm-2 text-center">SKU</th>
+                        <th class="col-sm-4 text-center">商品名称</th>
+                        <th class="col-sm-2 text-center">变更数量（-）</th>
+                        <th class="col-sm-1 text-center">实时库存</th>
+                        <th class="col-sm-1 text-center">过期时间</th>
+
                     </tr>
                     </thead>
 
@@ -370,9 +371,9 @@
                     {{--<button type="button" id="not" onclick="dealStock(this);" data-status="2"--}}
                             {{--style="display: none;" class="btn btn-danger waves-effect pull-left">修改入库信息--}}
                     {{--</button>--}}
-                    <button type="button" id="start" data-status="1"
-                            style="display: none;" class="btn btn-small btn-info waves-effect pull-left"><i class="fa fa-unlock-alt"></i>
-                    </button>
+                    {{--<button type="button" id="start" data-status="1"--}}
+                            {{--style="display: none;" class="btn btn-small btn-info waves-effect pull-left"><i class="fa fa-unlock-alt"></i>--}}
+                    {{--</button>--}}
                     <a href="##" id="Print" class="btn btn-inverse waves-effect waves-light"><i class="fa fa-print"></i></a>
                     <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
                 </div>
@@ -563,21 +564,34 @@
                         return;
                     } else {
                         var datas = '';
+//                        for (let i in res.data.purchase) {
+//
+//                            var dates = res.data.purchase[i].overdue == null ? `<input class="form-control datepickers"  data-date-format="yyyy-mm-dd"
+//                                 value="" name="editdate" readonly="readonly" type="text">`: `<input class="form-control datepickers" data-date-format="yyyy-mm-dd"
+//                              name="editdate" value="${res.data.purchase[i].overdue}"  type="text">`;
+//                            datas += `<tr>
+//                                <td><img height="60px; align=" middle" src="${res.data.purchase[i].products.product_image}" alt="没有上传"></td>
+//                                <td >${res.data.purchase[i].products.sku}</td>
+//                                <td>${res.data.purchase[i].products.zn_name}${res.data.purchase[i].products.en_name}</td>
+//                                  <td><input type="text" data-id="${res.data.purchase[i].products.id}" name="editcount" class="form-control"  value="${res.data.purchase[i].count}"></td>
+//                                 <td><p class="text-center "style="padding-top:5px">${res.data.purchase[i].products.stock}</p></td>
+//                               <td>${dates}</td>
+//                            </tr>
+//
+//                `;
+//                        }
                         for (let i in res.data.purchase) {
 
-                            var dates = res.data.purchase[i].overdue == null ? `<input class="form-control datepickers"  data-date-format="yyyy-mm-dd"
-                                 value="" name="editdate" readonly="readonly" type="text">`: `<input class="form-control datepickers" data-date-format="yyyy-mm-dd"
-                              name="editdate" value="${res.data.purchase[i].overdue}" readonly="readonly"  type="text">`;
+                            var dates = res.data.purchase[i].overdue == null ? '' : `${res.data.purchase[i].overdue}`;
                             datas += `<tr>
                                 <td><img height="60px; align=" middle" src="${res.data.purchase[i].products.product_image}" alt="没有上传"></td>
-                                <td >${res.data.purchase[i].products.sku}</td>
+                                <td class="text-center">${res.data.purchase[i].products.sku}</td>
                                 <td>${res.data.purchase[i].products.zn_name}${res.data.purchase[i].products.en_name}</td>
-                                  <td><input type="text" data-id="${res.data.purchase[i].products.id}" name="editcount" class="form-control" readonly="readonly" value="${res.data.purchase[i].count}"></td>
-                                 <td><p class="text-center "style="padding-top:5px">${res.data.purchase[i].products.stock}</p></td>
+                              <td><p class="text-center">${res.data.purchase[i].count}</p><input type="hidden" data-id="${res.data.purchase[i].products.id}" name="editcount" class="form-control" readonly="readonly" value="${res.data.purchase[i].count}"></td>
+                                 <td><p class="text-center">${res.data.purchase[i].products.stock}</p></td>
                                <td>${dates}</td>
-                            </tr>
+                            </tr>`;
 
-                `;
                         }
 
                     }
@@ -665,19 +679,16 @@
                         var datas = '<thead>' +
                             ' <tr>' +
                             ' <th class="col-md-2 col-lg-2 exce"> 商品名称</th>' +
-                            ' <th class="col-md-2 col-lg-2 exce">  SKU</th>' +
+                            ' <th class="col-md-1 col-lg-1 exce">  SKU</th>' +
                             '<th class="col-md-2 col-lg-2 exce"> 商品图片</th> ' +
                             '<th class="col-md-2 col-lg-2 exce">成本价（$）</th>' +
-                            '<th class="col-md-2 col-lg-2 exce"> 商品库存</th> ' +
-                            '<th class="col-md-2 col-lg-2 exce">操作</th>' +
+                            '<th class="col-md-2 col-lg-2 exce"> 实际库存</th> ' +
+                            '<th class="col-md-2 col-lg-2 exce"> 冻结库存</th> ' +
+                            '<th class="col-md-1 col-lg-1 exce">操作</th>' +
                             ' </tr>' +
                             ' </thead><tbody id="postContainer">';
 
                         for (let i in res.data) {
-                            var mm = '';
-                            for (let j in res.data[i].shelves) {
-                                mm +=res.data[i].shelves[j].name+ '，';
-                            }
 
                             datas += `<tr>
                                      <td class="exce">${res.data[i].zn_name}<br/>${res.data[i].en_name}</td>
@@ -688,11 +699,10 @@
                                                 </td>
                                          <td class="exce">${res.data[i].price}
                                                 </td>
-                                                   <td class="exce">${res.data[i].stock}</td>
+                                                   <td class="exce">${res.data[i].stock + res.data[i].frozen_stock}</td>
+                                                    <td class="exce">${res.data[i].frozen_stock}</td>
                                            <td class="exce">
                         <a title="添加商品" data-id="${res.data[i].id}" data-name="${res.data[i].zn_name}（${res.data[i].en_name}）"
-                        data-shelve="${mm}"
-
                                                        class="btn btn-small btn-success"
                                                        href="javascript:void (0);"
                                                        onclick="funOrder(this)">

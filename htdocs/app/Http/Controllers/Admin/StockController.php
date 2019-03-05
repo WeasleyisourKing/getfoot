@@ -134,7 +134,7 @@ class StockController extends Controller
         } else {
 //            'shelves'
             $res = ProductModel::with('distributor')
-                ->select('id', 'product_image', 'sku', 'en_name','frozen_stock', 'zn_name', 'stock', 'price', 'innersku', 'number')
+                ->select('id', 'product_image', 'sku', 'en_name', 'frozen_stock', 'zn_name', 'stock', 'price', 'innersku', 'number')
                 ->where('en_name', 'like', '%' . $data . '%')
                 ->orderBy('created_at', 'desc')
                 ->get();
@@ -176,6 +176,19 @@ class StockController extends Controller
             ->get();
         $shelves = ShelvesModel::get();
 
+        $res = $res->toArray();
+
+        //冻结库存
+        foreach ($res as $k => &$items) {
+            foreach ($items['goods'] as $k => &$v) {
+//                $v['info']['origin_count'] = $v['info']['count'];
+                $v['info']['count'] -= $v['info']['frozen_count'];
+//                if ($v['info']['count'] <= 0) {
+//                    unset($items['goods'][$k]);
+//                }
+            }
+        }
+
         return view('admin.inventory.shelves',
             [
                 'res' => $res,
@@ -213,14 +226,13 @@ class StockController extends Controller
 //            }
 //
 //        } else {
-            $res = ShelvesModel::where('number', 'like', '%' . $search . '%')
+        $res = ShelvesModel::where('number', 'like', '%' . $search . '%')
             ->with(['goods' => function ($q) {
 
                 $q->select('en_name', 'zn_name', 'product_image', 'id', 'sku');
             }])
-
-                ->get()
-                ->toArray();
+            ->get()
+            ->toArray();
 
 //        }
 
@@ -243,6 +255,18 @@ class StockController extends Controller
             $q->select('en_name', 'zn_name', 'product_image', 'id', 'sku');
 
         }])->where('id', '=', $id)->first();
+
+        //冻结库存
+        $res = $res->toArray();
+
+            foreach ($res['goods'] as $k => &$v) {
+//                $v['info']['origin_count'] = $v['info']['count'];
+                $v['info']['count'] -= $v['info']['frozen_count'];
+//                if ($v['info']['count'] <= 0) {
+//                    unset($res['goods'][$k]);
+//                }
+            }
+
 //        $res = ShelvesModel::with(['goods' => function ($q) {
 //            $q->with(['overdue' => function ($qe) {
 //                $qe->select('product_id', 'overdue')
@@ -307,6 +331,12 @@ class StockController extends Controller
 
                 }
 
+                if ($total <= 0) {
+                    throw new ParamsException([
+                        'code' => 200,
+                        'message' => '该货架不可再调拨或者输入负数'
+                    ]);
+                }
                 if ($items['total_count'] < $total) {
 
                     throw new ParamsException([
@@ -328,6 +358,7 @@ class StockController extends Controller
             }
 
         }
+
         ShelvesModel::updateBrandInfo($params['shelve_id'], $datas);
 //        dump($data);
         if (!empty($data)) {
@@ -983,7 +1014,7 @@ class StockController extends Controller
 
             foreach ($set as $item) {
                 foreach ($params['uproducts'] as &$val) {
-                    if(empty($val['overdue']))
+                    if (empty($val['overdue']))
                         throw new ParamsException([
                             'code' => 200,
                             'message' => '商品过期时间未填写'
@@ -1003,7 +1034,6 @@ class StockController extends Controller
 
 
         $num = StockOrderModel::where('status', '=', 1)->orderBy('created_at', 'desc')->first(['order_no']);
-
 
 
         $orderNo = Common::makeOrderNo(is_null($num) ? 'A2018101800001' : $num->order_no);
@@ -1108,7 +1138,7 @@ class StockController extends Controller
             StockOrderModel::delOrder($id, $obj->id);
         } else {
 
-            StockOrderModel::delOrder($id);
+            StockOrderModel::delOrder($id,null,json_decode($object->shelve_position,true));
         }
 
 
@@ -1135,7 +1165,7 @@ class StockController extends Controller
         }
 
         StockOrderModel::delInOrder($id);
-   
+
         return Common::successData();
     }
 
@@ -1243,7 +1273,7 @@ class StockController extends Controller
 
         $num = StockOrderModel::where('status', '=', 2)->orderBy('created_at', 'desc')->first(['order_no']);
 
-        $Product = ProductModel::whereIn('id', array_column($params['uproducts'], 'product_id'))->get(['id', 'zn_name', 'stock','frozen_stock'])->toArray();
+        $Product = ProductModel::whereIn('id', array_column($params['uproducts'], 'product_id'))->get(['id', 'zn_name', 'stock', 'frozen_stock'])->toArray();
         foreach ($Product as $val) {
             foreach ($params['uproducts'] as &$items) {
 
@@ -1252,7 +1282,7 @@ class StockController extends Controller
                     if ($val['stock'] == 0 || $val['stock'] - $items['count'] < 0) {
                         throw new ParamsException([
                             'code' => 200,
-                            'message' => '商品' . $val['zn_name'] . '实际库存'.$val['origin_stock'] .'冻结库存'.$val['frozen_stock'].'，库存不足'
+                            'message' => '商品' . $val['zn_name'] . '实际库存' . $val['origin_stock'] . '冻结库存' . $val['frozen_stock'] . '，库存不足'
                         ]);
                     }
 //                    $items['origin_stock'] = $val['stock'];
@@ -1278,7 +1308,7 @@ class StockController extends Controller
         ];
 
 
-        StockOrderModel::handOutOrder($data, $params['uproducts']);
+        StockOrderModel::handOutOrder($data, $params['uproducts'],$info);
 
         return Common::successData();
 
@@ -1529,21 +1559,21 @@ class StockController extends Controller
 //
 //        } else {
 
-            //入库确定
-            $data = StockOrderProductModel::where('order_id', '=', $params['id'])->get(['product_id', 'count'])->toArray();
-            $Product = ProductModel::whereIn('id', array_column($data, 'product_id'))->get(['id', 'stock'])->toArray();
+        //入库确定
+        $data = StockOrderProductModel::where('order_id', '=', $params['id'])->get(['product_id', 'count'])->toArray();
+        $Product = ProductModel::whereIn('id', array_column($data, 'product_id'))->get(['id', 'stock'])->toArray();
 
-            foreach ($Product as $val) {
-                foreach ($data as &$items) {
-                    if ($val['id'] == $items['product_id']) {
+        foreach ($Product as $val) {
+            foreach ($data as &$items) {
+                if ($val['id'] == $items['product_id']) {
 
-                        $items['origin_stock'] = $val['stock'];
+                    $items['origin_stock'] = $val['stock'];
 
-                    }
                 }
             }
+        }
 //            dd($data);
-        StockOrderModel::updateInState($params['id'],$data);
+        StockOrderModel::updateInState($params['id'], $data);
 //            StockOrderModel::check($params['id'], $data, 1);
 
 //        }
@@ -1592,7 +1622,6 @@ class StockController extends Controller
         $shelve = $params['status'] != 2 ? json_decode($info->shelve_position, true) : json_decode(\App\Http\Model\BusinessOrderModel::where('order_no', '=', $info->pruchase_order_no)->first(['shelve_position'])->shelve_position, true);
 
 
-
         //验证
         foreach ($shelve as &$item) {
 
@@ -1605,11 +1634,11 @@ class StockController extends Controller
                     if ($vo['overdue'] == $v['overdue'] && $vo['shelves_id'] == $v['shelves_id']) {
 
                         unset($item[$k]);
-                        if ($vo['count'] < $v['count']) {
+                        if ($vo['origin_count'] < $v['count']) {
                             throw new ParamsException([
                                 'code' => 200,
                                 'message' => '商品是' . ProductModel::where('id', '=', $vo['product_id'])->first(['zn_name'])->zn_name . '且货架为' . $v['name']
-                                    . '且日期是' . $vo['overdue'] . '库存为' . $vo['count'] . '，出库数量超过货架数量'
+                                    . '且日期是' . $vo['overdue'] . '库存为' . $vo['origin_count'] . '，出库数量超过货架数量'
                             ]);
                         }
                     }

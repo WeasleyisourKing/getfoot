@@ -231,8 +231,8 @@ class StockOrderModel extends Model
 
     }
 
-    //删除入库订单
-    public static function delOrder($id, $businessID = null)
+    //删除出库订单
+    public static function delOrder($id, $businessID = null,$shelve = null)
     {
 
         //涉及多表 使用事务控制
@@ -252,10 +252,23 @@ class StockOrderModel extends Model
                 $flight->save();
             }
             if (!is_null($businessID)) {
+                $datas = json_decode(BusinessOrderModel::find($businessID)->shelve_position,true);
+
                 BusinessOrderModel::where('id', '=', $businessID)->delete();
                 BusinessOrderProductModel::where('order_id', '=', $businessID)->delete();
+            } else {
+                $datas = $shelve;
             }
 
+            //删除冻结库存
+            foreach ($datas as $item) {
+                foreach ($item as $ii) {
+                    ProductShelvesModel::where('product_id', '=', $ii['product_id'])
+                        ->where('shelves_id', '=', $ii['shelves_id'])
+                        ->where('overdue', '=', $ii['overdue'])
+                        ->decrement('frozen_count', $ii['count']);
+                }
+            }
             DB::commit();
 
         } catch (\Exception $ex) {
@@ -459,7 +472,7 @@ class StockOrderModel extends Model
 
 
     //创建手动出库记录
-    public static function handOutOrder($data, $arr)
+    public static function handOutOrder($data, $arr,$info)
     {
         DB::beginTransaction();
         try {
@@ -483,6 +496,15 @@ class StockOrderModel extends Model
             //手动出库详情表写入
             (new StockOrderProductModel)->insert($arr);
 
+            //写入冻结库存
+            foreach ($info as $item) {
+                foreach ($item as $ii) {
+                    ProductShelvesModel::where('product_id', '=', $ii['product_id'])
+                        ->where('shelves_id', '=', $ii['shelves_id'])
+                        ->where('overdue', '=', $ii['overdue'])
+                        ->increment('frozen_count', $ii['count']);
+                }
+            }
             DB::commit();
 
 
@@ -574,7 +596,7 @@ class StockOrderModel extends Model
                 }
             }
             //减少相应货架
-//            dd($businessPosition);
+
 
             foreach ($businessPosition as $val) {
                 foreach ($val as $v) {
@@ -590,20 +612,21 @@ class StockOrderModel extends Model
                                 . '且日期是' . $v['overdue'] . '的货架没有' . ProductModel::where('id', '=', $v['product_id'])->first(['zn_name'])->zn_name . '商品'
                         ]);
                     }
-                    $numc = $object->count - $v['count'];
+                    $numc = $object->origin_count - $v['count'];
                     if ($numc > 0) {
                         ProductShelvesModel::where('product_id', '=', $v['product_id'])
                             ->where('shelves_id', '=', $v['shelves_id'])
                             ->where('overdue', '=', $v['overdue'])
-                            ->where('count', '=', $object->count)
+                            ->where('count', '=', $object->origin_count)
                             ->update([
-                                'count' => $numc
+                                'count' => $numc,
+                                'frozen_count' => $object->frozen_count - $v['count']
                             ]);
                     } elseif ($numc == 0) {
                         ProductShelvesModel::where('product_id', '=', $v['product_id'])
                             ->where('shelves_id', '=', $v['shelves_id'])
                             ->where('overdue', '=', $v['overdue'])
-                            ->where('count', '=', $object->count)
+                            ->where('count', '=', $object->origin_count)
                             ->delete();
 
                     }
@@ -671,6 +694,7 @@ class StockOrderModel extends Model
                         ->where('shelves_id', '=', $v['shelves_id'])
                         ->where('overdue', '=', $v['overdue'])
                         ->first();
+
                     if (is_null($object)) {
                         //不存在
                         ProductShelvesModel::insert([
@@ -684,9 +708,9 @@ class StockOrderModel extends Model
                         ProductShelvesModel::where('product_id', '=', $v['product_id'])
                             ->where('shelves_id', '=', $v['shelves_id'])
                             ->where('overdue', '=', $v['overdue'])
-                            ->where('count', '=', $object->count)
+                            ->where('count', '=', $object->origin_count)
                             ->update([
-                                'count' => $object->count + $v['count']
+                                'count' => $object->origin_count + $v['count']
                             ]);
                     }
 

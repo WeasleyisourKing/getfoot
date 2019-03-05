@@ -133,7 +133,7 @@ class ProductModel extends Model
     //中文名称
     public function getznNameAttribute($value)
     {
-//dd($this);
+
         if (isset($this->attributes['frozen_stock'])) {
 
             $nus = $this->attributes['stock'] - $this->attributes['frozen_stock'];
@@ -215,15 +215,19 @@ class ProductModel extends Model
     //获取商品列表
     public static function getProductList($status, $arr, $limit)
     {
-        return self::with(['category', 'brand', 'distributor', 'date' => function ($q) {
-            $q->with(['info' => function ($qu) {
-                $qu->select('id', 'order_no');
-            }])->select('product_id', 'order_id', 'overdue')
-                ->where('status', '=', 1)
-                ->orderBy('created_at', 'desc');
-        }])
+        return self::with(['category', 'brand', 'distributor'
+//            'date' => function ($q) {
+//            $q->with(['info' => function ($qu) {
+//                $qu->select('id', 'order_no');
+//            }])->select('product_id', 'order_id', 'overdue')
+//                ->where('status', '=', 1)
+//                ->orderBy('created_at', 'desc');
+//        }
+        ])
             ->select('id', 'sku', 'zn_name', 'price', 'en_name', 'product_image', 'stock',
-                'innersku', 'status', 'summary', 'number', 'zn_number', 'en_number', 'weight', 'zn_weight', 'en_weight', 'net_weight', 'zn_net_weight', 'en_net_weight', 'created_at', 'category_id', 'brand_id', 'term', 'created_at')->where($arr)
+                'innersku', 'status', 'summary', 'number', 'zn_number', 'en_number', 'weight', 'zn_weight', 'en_weight', 'net_weight',
+                'zn_net_weight', 'en_net_weight', 'created_at', 'category_id', 'brand_id', 'term', 'created_at')
+            ->where($arr)
             ->where('status', '=', $status)
             ->orderBy('created_at', 'desc')
             ->paginate($limit);
@@ -279,7 +283,9 @@ class ProductModel extends Model
     {
         return self::with(['shelves', 'attr' => function ($query) {
             $query->with('attrValue');
-        }])
+        }])->select('id', 'sku', 'zn_name', 'price', 'en_name', 'product_image', 'stock',
+            'innersku', 'status', 'summary', 'number', 'zn_number', 'en_number', 'weight', 'zn_weight', 'en_weight', 'net_weight',
+            'zn_net_weight', 'en_net_weight', 'created_at', 'category_id', 'brand_id', 'term', 'created_at')
             ->where('id', '=', $id)
             ->first();
     }

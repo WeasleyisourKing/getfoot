@@ -191,6 +191,7 @@ class ProductController extends Controller
             //获取全部数据
             $res = ProductModel::getProductAll($arr, $limit);
         }
+//        dump(3);
 //dd($res->toArray());
         //获取商品列表
         //获取商品分类列表
@@ -647,8 +648,8 @@ class ProductController extends Controller
 
 
         } else {
-
-            $shelves = !empty($params['shelves']) ? array_column($params['shelves'], 'shelves_id') : null;
+            $shelves = null;
+//            $shelves = !empty($params['shelves']) ? array_column($params['shelves'], 'shelves_id') : null;
             ProductModel::updateProductInfo($params['id'], $data, $distributor, $shelves);
 
         }

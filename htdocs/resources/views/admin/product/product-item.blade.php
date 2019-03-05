@@ -117,20 +117,20 @@
                             <text style="font-weight: 400;" id="psummary"></text>
                         </label>
                 </div>
-                <div class="form-group" style="width:300px;margin-bottom: 20px;">
-                    <label class="control-label">批次：<span style="color:red;"></span></label>
-                    <select class="form-control" id="datede" onchange="funci(this);">
+                {{--<div class="form-group" style="width:300px;margin-bottom: 20px;">--}}
+                    {{--<label class="control-label">批次：<span style="color:red;"></span></label>--}}
+                    {{--<select class="form-control" id="datede" onchange="funci(this);">--}}
                             {{--<option value="1">1</option>--}}
                             {{--<option value="2">2</option>--}}
                             {{--<option value="3">3</option>--}}
                             {{--<option value="4">4</option>--}}
                             {{--<option value="5">5</option>--}}
-                        </select>
-                    <label class="control-label">过期时间：
+                        {{--</select>--}}
+                    {{--<label class="control-label">过期时间：--}}
 
-                            <text style="font-weight: 400;" id="datedeText"></text>
-                        </label>
-                </div>
+                            {{--<text style="font-weight: 400;" id="datedeText"></text>--}}
+                        {{--</label>--}}
+                {{--</div>--}}
             </div>
 
         </div>
@@ -217,25 +217,25 @@
                                     @endforeach
                                 </select>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label">商品所属货架</label>
-                            <ul id="selectshelve" style="display:flex; display: -webkit-flex; flex-wrap:wrap; ">
-                            </ul>
-                            <select class="form-control" id="shelves">
-                                    <option selected="selected" id="shelves1" value="">请选择商品所属货架</option>
-                                    @foreach ($shelves as $items)
-                                        @if ($items->status == 1)
-                                            <option style="color: red;" value="{{$items->id}}">{{$items->name}}
-                                                （{{ $items->number }}）【已满】
-                                            </option>
-                                        @else
-                                            <option value="{{$items->id}}">{{$items->name}}
-                                                （{{ $items->number }}）
-                                            </option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                        </div>
+                        {{--<div class="form-group">--}}
+                            {{--<label class="control-label">商品所属货架</label>--}}
+                            {{--<ul id="selectshelve" style="display:flex; display: -webkit-flex; flex-wrap:wrap; ">--}}
+                            {{--</ul>--}}
+                            {{--<select class="form-control" id="shelves">--}}
+                                    {{--<option selected="selected" id="shelves1" value="">请选择商品所属货架</option>--}}
+                                    {{--@foreach ($shelves as $items)--}}
+                                        {{--@if ($items->status == 1)--}}
+                                            {{--<option style="color: red;" value="{{$items->id}}">{{$items->name}}--}}
+                                                {{--（{{ $items->number }}）【已满】--}}
+                                            {{--</option>--}}
+                                        {{--@else--}}
+                                            {{--<option value="{{$items->id}}">{{$items->name}}--}}
+                                                {{--（{{ $items->number }}）--}}
+                                            {{--</option>--}}
+                                        {{--@endif--}}
+                                    {{--@endforeach--}}
+                                {{--</select>--}}
+                        {{--</div>--}}
                         <div class="form-group">
                             <label class="control-label">商品是否上架<span class="red">＊</span></label>
                             <select class="form-control" id="stat">
@@ -516,15 +516,15 @@
 
                                 </select>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label">商品所属货架</label>
-                            <ul id="eselectshelve" style="display:flex; display: -webkit-flex; flex-wrap:wrap; ">
+                        {{--<div class="form-group">--}}
+                            {{--<label class="control-label">商品所属货架</label>--}}
+                            {{--<ul id="eselectshelve" style="display:flex; display: -webkit-flex; flex-wrap:wrap; ">--}}
 
-                            </ul>
-                            <select class="form-control" id="eshelves">
+                            {{--</ul>--}}
+                            {{--<select class="form-control" id="eshelves">--}}
 
-                                </select>
-                        </div>
+                                {{--</select>--}}
+                        {{--</div>--}}
                         <div class="form-group">
                             <label class="control-label" for="esku">SKU<span
                                             class="red">＊</span></label>
@@ -1010,23 +1010,23 @@
         $('#pcreated_at').text($(event).attr('data-created_at'));
         $('#pcompany').text($(event).attr('data-company'));
 
-        var dates = '',
-            dd = JSON.parse($(event).attr('data-date'));
+        var dates = '';
+//            dd = JSON.parse($(event).attr('data-date'));
 
-        if (dd > 0) {
-
-            for (let i in dd) {
-                var mid = dd[i].overdue != null ? dd[i].overdue : '未填写';
-                dates += `<option value="${mid}">${dd[i].info.order_no}</option>`;
-            }
-
-            $('#datede').html(dates);
-            $('#datedeText').html(dd[0].overdue != null ? dd[0].overdue : '未填写');
-
-        } else {
-            $('#datede').html('');
-            $('#datedeText').text('');
-        }
+//        if (dd > 0) {
+//
+//            for (let i in dd) {
+//                var mid = dd[i].overdue != null ? dd[i].overdue : '未填写';
+//                dates += `<option value="${mid}">${dd[i].info.order_no}</option>`;
+//            }
+//
+//            $('#datede').html(dates);
+//            $('#datedeText').html(dd[0].overdue != null ? dd[0].overdue : '未填写');
+//
+//        } else {
+//            $('#datede').html('');
+//            $('#datedeText').text('');
+//        }
 
 
         //            $('#pnet_weight').text($(event).attr('data-netWeight'));

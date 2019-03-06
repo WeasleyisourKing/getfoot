@@ -36,8 +36,11 @@ class ThirdController extends Controller
 
         $result = ProductModel::with(['distributor' => function ($q) {
             $q->select('product_id',DB::raw('level_one_price as agent,level_four_price as retail'));
+        },'category' => function($qu) {
+        $qu->select('id','zn_name');
         }])
-            ->select('id', 'en_name', 'zn_name', 'sku', DB::raw('innersku as inner_sku'), 'product_image', 'stock')
+            ->select('id', 'en_name', 'zn_name', 'sku', DB::raw('innersku as inner_sku'), 'product_image',
+                'stock','summary','zn_number','number','weight','zn_weight','category_id','zn_describe')
             ->where('status', '=', 1)
             ->paginate($params['limit'], ['*'], '', $params['page']);
 
@@ -46,6 +49,9 @@ class ThirdController extends Controller
 
         foreach ($result['data'] as &$items) {
             $items['product_image'] = $url.$items['product_image'];
+            $items['category_name'] = $items['category']['zn_name'];
+            unset($items['category_id']);
+            unset($items['category']);
             unset($items['origin_stock']);
             unset($items['distributor']['product_id']);
         }

@@ -59,6 +59,7 @@
                                     <div class="pull-left">
                                         <th colspan="2" align="left">
                                             <address>
+                                                From<br>
                                                 <strong>SnackTalk</strong><br>
                                                 4961 Santa Anita<br>
                                                 Ave unit i<br>
@@ -71,14 +72,16 @@
                                     <div class="pull-left">
                                         <th colspan="4" align="left">
                                             <address>
+                                                To</br>
+                                                <strong>{{$address['user']}}</strong><br>
+                                                <br><br><br><br><br>
+                                                {{--Ship To Address</br>--}}
 
-                                                Ship To Address</br>
-
-                                                <strong>{{$address['name']}}</strong><br>
-                                                {{$address['country']}}<br>
-                                                {{$address['detail']}}<br>
-                                                {{$address['city']}}, {{$address['province']}} {{$address['zip']}}<br>
-                                                {{$address['mobile']}}
+                                                {{--<strong>{{$address['name']}}</strong><br>--}}
+                                                {{--{{$address['country']}}<br>--}}
+                                                {{--{{$address['detail']}}<br>--}}
+                                                {{--{{$address['city']}}, {{$address['province']}} {{$address['zip']}}<br>--}}
+                                                {{--{{$address['mobile']}}--}}
                                             </address>
                                         </th>
                                     </div>
@@ -213,8 +216,8 @@
                                             <div class="pull-left">
                                                 <th colspan="1" align="left">
                                                     <address>
+                                                        From<br>
                                                         <strong>SnackTalk</strong><br>
-                                                        <br>
                                                         4961 Santa Anita<br>
                                                         Ave unit i<br>
                                                         Temple city, CA 91780<br>
@@ -226,7 +229,7 @@
                                             <div class="pull-left">
                                                 <th colspan="2" align="left">
                                                     <address>
-                                                        Ship To Address</br>
+                                                        To</br>
                                                         <strong>{{$address['user']}}</strong><br>
                                                         <strong>{{$address['name']}}</strong><br>
                                                         {{$address['country']}}<br>
@@ -267,9 +270,11 @@
 
                                 <th>SKU</th>
                                 <th>Product Name</th>
-                                <th>Rate</th>
-                                <th>Quantity</th>
-                                <th>Amount</th>
+                                <th></th>
+                                {{--<th>Rate</th>--}}
+                                <th class="text-center">Quantity</th>
+                                <th></th>
+                                {{--<th>Amount</th>--}}
                             </tr>
                             @foreach ($data['purchase'] as $key => $item)
                                 <tr>
@@ -279,24 +284,26 @@
                                         {{ $item['products']['sku'] }}
                                     </td>
                                     <td>{{ $item['products']['zn_name'] }} </br>{{$item['products']['en_name']}}</td>
-                                    <td>{{ $item['single_price'] }}</td>
-                                    <td>{{ $item['count'] }}</td>
-                                    <td>{{ $item['total_price'] }}</td>
+                                    <td></td>
+                                    {{--<td>{{ $item['single_price'] }}</td>--}}
+                                    <td class="text-center">{{ $item['count'] }}</td>
+                                    <td></td>
+                                    {{--<td>{{ $item['total_price'] }}</td>--}}
                                 </tr>
                             @endforeach
                             </tbody>
                     </div>
                     <tfoot>
                     <tr>
-                        <td colspan="3">Pallets Out:</td>
-                        <td colspan="3">SIGN:</td>
+                        <td style="line-height: 60px;" colspan="3">Pallets Out:</td>
+                        <td style="line-height: 60px;" colspan="3">SIGN:</td>
                     </tr>
-                    <tr>
-                        <td colspan="6" align="right "
-                            style="font-weight: bold; font-size: 24px; line-height: 100px;">
-                            <p style="text-align: right;">Total: {{$data['total_price']}}</p>
-                        </td>
-                    </tr>
+                    {{--<tr>--}}
+                        {{--<td colspan="6" align="right "--}}
+                            {{--style="font-weight: bold; font-size: 24px; line-height: 100px;">--}}
+                            {{--<p style="text-align: right;">Total: {{$data['total_price']}}</p>--}}
+                        {{--</td>--}}
+                    {{--</tr>--}}
                     <tr>
                         <td colspan="6" align="center ">
                             <p style="text-align: center;">Make all checks payable to Snack Talk Inc. Thank you for
@@ -352,9 +359,8 @@
                                     <div class="pull-left">
                                         <th colspan="1" align="left">
                                             <address>
-
+                                                From<br>
                                                 <strong>SnackTalk</strong><br>
-                                                <br>
                                                 4961 Santa Anita<br>
                                                 Ave unit i<br>
                                                 Temple city, CA 91780<br>
@@ -366,7 +372,7 @@
                                     <div class="pull-left">
                                         <th colspan="2" align="left">
                                             <address>
-                                                Ship To Address</br>
+                                                To</br>
                                                 <strong>{{$address['user']}}</strong><br>
                                                 <strong>{{$address['name']}}</strong><br>
                                                 {{$address['country']}}<br>
@@ -409,8 +415,8 @@
                         <th>SKU</th>
                         <th>Product Name</th>
                         <th>Rate</th>
-                        <th>Quantity</th>
-                        <th>Amount</th>
+                        <th class="text-center">Quantity</th>
+                        <th class="text-center">Amount</th>
                     </tr>
                     @foreach ($data['purchase'] as $key => $item)
                         <tr>
@@ -418,8 +424,8 @@
                             <td>{{ $item['products']['sku'] }}</td>
                             <td>{{ $item['products']['zn_name'] }} </br> {{$item['products']['en_name']}}</td>
                             <td>{{ $item['single_price'] }}</td>
-                            <td>{{ $item['count'] }}</td>
-                            <td>{{ $item['total_price'] }}</td>
+                            <td class="text-center">{{ $item['count'] }}</td>
+                            <td class="text-center">{{ $item['total_price'] }}</td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -428,8 +434,8 @@
     </div>
     <tfoot>
     <tr>
-        <td colspan="3">Pallets Out:</td>
-        <td colspan="3">SIGN:</td>
+        <td style="line-height: 60px;" colspan="3">Pallets Out:</td>
+        <td style="line-height: 60px;" colspan="3">SIGN:</td>
     </tr>
     <tr>
         <td colspan="6" align="right "

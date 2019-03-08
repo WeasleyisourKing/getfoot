@@ -117,6 +117,11 @@
                             <text style="font-weight: 400;" id="psummary"></text>
                         </label>
                 </div>
+                <div class="form-group">
+                    <label>所属货架 :
+                        <text style="font-weight: 400;" id="pshelves"></text>
+                    </label>
+                </div>
                 {{--<div class="form-group" style="width:300px;margin-bottom: 20px;">--}}
                     {{--<label class="control-label">批次：<span style="color:red;"></span></label>--}}
                     {{--<select class="form-control" id="datede" onchange="funci(this);">--}}
@@ -939,7 +944,9 @@
                                                     data-threeprice="{{ empty($item->distributor->level_three_price) ? 0:  $item->distributor->level_three_price}}" data-fourprice="{{ empty($item->distributor->level_four_price) ? 0:  $item->distributor->level_four_price}}"
                                                     data-term="{{$item->term}}" data-stock="{{ $item->stock }}" data-status="{{ $item->status }}" data-summary="{{ $item->summary }}" data-created_at="{{ $item->created_at }}" data-category="{{ $item->category->zn_name }}（{{ $item->category->en_name }}）"
                                                     data-brand="{{ $item->brand->zn_name }}（{{ $item->brand->en_name }}）" data-number="每箱数量{{$item->number}}" data-company="{{ $item->zn_number }}（{{ $item->en_number }}）" data-weight="{{$item->weight}} {{ $item->zn_weight }}（{{ $item->en_weight }}）"
-                                                    data-date="{{$item->date}}" {{--data-netWeight="{{$item->net_weight}} 克（g）" --}} {{-- data-attr="{{$item->attr}} " --}}>
+                                                    data-shelves="{{ $item->shelve }}"
+                                                        {{--data-date="{{$item->date}}" --}}
+                                                        {{--data-netWeight="{{$item->net_weight}} 克（g）" --}} {{-- data-attr="{{$item->attr}} " --}}>
                                                     <i class="fa fa-external-link"> </i>
                                                 </a>
                                                 <a title="修改信息" onclick="edit(this);" class="btn btn-small btn-info" data-id="{{$item->id}}" href="javascript:void(0);">
@@ -1010,7 +1017,16 @@
         $('#pcreated_at').text($(event).attr('data-created_at'));
         $('#pcompany').text($(event).attr('data-company'));
 
+//        pshelves
         var dates = '';
+        dd = JSON.parse($(event).attr('data-shelves'));
+
+        for (let i in dd) {
+            dates += dd[i].name.name+',';
+        }
+        dates = dates.substr(0,dates.length-1);
+
+        $('#pshelves').text(dates);
 //            dd = JSON.parse($(event).attr('data-date'));
 
 //        if (dd > 0) {

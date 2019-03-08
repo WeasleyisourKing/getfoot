@@ -26,6 +26,12 @@ class ProductModel extends Model
         return $this->belongsTo('App\Http\Model\FineProductModel', 'id', 'product_id');
     }
 
+    //关联商品和分类关系 一对多
+    public function shelve()
+    {
+
+        return $this->hasMany('App\Http\Model\ProductShelvesModel', 'product_id', 'id');
+    }
     //关联主题区和图片关系 一对一
 //    public function shelves()
 //    {
@@ -215,7 +221,9 @@ class ProductModel extends Model
     //获取商品列表
     public static function getProductList($status, $arr, $limit)
     {
-        return self::with(['category', 'brand', 'distributor'
+        return self::with(['category', 'brand', 'distributor','shelve' => function($q) {
+            $q->select('shelves_id','product_id')->with('name');
+        }
 //            'date' => function ($q) {
 //            $q->with(['info' => function ($qu) {
 //                $qu->select('id', 'order_no');
@@ -237,14 +245,18 @@ class ProductModel extends Model
     //获取全部商品列表
     public static function getProductAll($arr, $limit)
     {
-        return self::with(['category', 'brand', 'distributor', 'date' => function ($q) {
-            $q->with(['info' => function ($qu) {
-                $qu->select('id', 'order_no');
-            }])->select('product_id', 'order_id', 'overdue')
-                ->where('status', '=', 1)
-                ->orderBy('created_at', 'desc');
-
-        }])
+        return self::with(['category', 'brand', 'distributor','shelve' => function($q) {
+            $q->select('shelves_id','product_id')->with('name');
+        }
+//            'date' => function ($q) {
+//            $q->with(['info' => function ($qu) {
+//                $qu->select('id', 'order_no');
+//            }])->select('product_id', 'order_id', 'overdue')
+//                ->where('status', '=', 1)
+//                ->orderBy('created_at', 'desc');
+//
+//        }
+        ])
             ->select('id', 'sku', 'zn_name', 'price', 'en_name', 'product_image', 'stock',
                 'innersku', 'status', 'summary', 'number', 'zn_number', 'en_number', 'weight', 'zn_weight', 'en_weight', 'net_weight', 'zn_net_weight', 'en_net_weight', 'created_at', 'category_id', 'brand_id', 'term', 'created_at')
             ->where($arr)

@@ -699,7 +699,7 @@
                                                 </td>
                                          <td class="exce">${res.data[i].price}
                                                 </td>
-                                                   <td class="exce">${res.data[i].stock + res.data[i].frozen_stock}</td>
+                                                   <td class="exce">${res.data[i].origin_stock}</td>
                                                     <td class="exce">${res.data[i].frozen_stock}</td>
                                            <td class="exce">
                         <a title="添加商品" data-id="${res.data[i].id}" data-name="${res.data[i].zn_name}（${res.data[i].en_name}）"

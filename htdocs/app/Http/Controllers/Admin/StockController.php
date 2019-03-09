@@ -1653,7 +1653,7 @@ class StockController extends Controller
                 }
             }
         }
-
+dd(34);
         StockOrderModel::updatestate($params['id'], $params['uproducts'], $params['num'], $params['status']);
 
         return Common::successData();

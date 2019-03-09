@@ -641,7 +641,7 @@ class StockOrderModel extends Model
                 }
 
             }
-            dd(34);
+
             DB::commit();
 
         } catch (\Exception $ex) {

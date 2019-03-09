@@ -77,7 +77,7 @@ class ProductShelvesModel extends Model
 
                 $flight = ProductModel::find($p['product_id']);
 
-                $flight->stock = $flight->stock + $p['count'];
+                $flight->stock = $flight->origin_stock + $p['count'];
                 $flight->save();
             }
             (new StockOrderProductModel)->insert($data);

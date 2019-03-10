@@ -631,7 +631,7 @@ class BusinessOrderController extends Controller
                 $q->select('id', 'name');
             }])->where('product_id', '=', $items['product_id'])
                 ->orderBy('overdue', 'asc')
-//                ->orderBy('count', 'asc')
+                ->orderBy('count', 'asc')
                 ->get();
 
             $data = $datas->toArray();
@@ -655,94 +655,29 @@ class BusinessOrderController extends Controller
                         '共计' . "\"$sum\"" . '件,库存不足;'
                 ]);
             }
-
-            //已货架分组 判断每个分组的总数能否完成抓货 能就选择此货架进行 不能按照日期从小到大分组进行抓货
+//dd($data);
             $res[$items['product_id']] = [];
-            $nus = $items['count'];
-            $postion = [3,1];
-            //第一件抓取了货
-            if (!empty($postion)) {
-                foreach ($postion as $vs) {
 
-                    $arr = $this->group($data,$vs);
+            foreach ($data as &$vo) {
 
-                    foreach ($arr as $k => $vo) {
-                        array_push($postion,$vo['shelves_id']);
-//                        dd($arr);
-                        if ($items['count'] - $vo['count'] > 0) {
-//                            $vo['name'] =  $vo['name']['name'];
-                            $res[$items['product_id']][] = $vo;
-                            $items['count'] -= $vo['count'];
-                            unset($arr[$k]);
-                        } else {
-                            //商品大于需要的数量
-//                            $vo['name'] =  $vo['name']['name'];
-                            $vo['count'] = $items['count'];
-                            $items['count'] -= $vo['count'];
-                            $res[$items['product_id']][] = $vo;
-                            break;
-                        }
-                    }
-                }
-            }
+                if ($items['count'] <= 0) break;
 
-            $hg = $this->array_group_by($data,'shelves_id');
+                if ($items['count'] - $vo['count'] > 0) {
+                    $vo['name'] = $vo['name']['name'];
+                    $res[$items['product_id']][] = $vo;
+                    $items['count'] -= $vo['count'];
 
-            foreach ($hg as $vv) {
-                if ($items['count'] <= 0)
+                } else {
+                    //商品大于需要的数量
+                    $vo['name'] = $vo['name']['name'];
+                    $vo['count'] = $items['count'];
+                    $items['count'] -= $vo['count'];
+                    $res[$items['product_id']][] = $vo;
                     break;
-
-                if (array_sum(array_column($vv,'count')) >= $items['count']) {
-
-                    array_push($postion,$vv[0]['shelves_id']);
-
-                    foreach ($vv as $vo) {
-                        if ($items['count'] - $vo['count'] > 0) {
-                            $vo['name'] =  $vo['name']['name'];
-                            $res[$items['product_id']][] = $vo;
-                            $items['count'] -= $vo['count'];
-
-                        } else {
-                            //商品大于需要的数量
-                            $vo['name'] =  $vo['name']['name'];
-                            $vo['count'] = $items['count'];
-                            $items['count'] -= $vo['count'];
-                            $res[$items['product_id']][] = $vo;
-                            break;
-                        }
-                    }
                 }
             }
 
-            if (empty($res[$items['product_id']])) {
-                foreach ($data as $k => &$item) {
-
-                    //转化了name
-                    $arr = $this->group($data,$item['shelves_id']);
-                    if ($items['count'] <= 0)
-                        break;
-                    foreach ($arr as $vo) {
-                        array_push($postion,$vo['shelves_id']);
-//                        dd($arr);
-                        if ($items['count'] - $vo['count'] > 0) {
-//                            $vo['name'] =  $vo['name']['name'];
-                            $res[$items['product_id']][] = $vo;
-                            $items['count'] -= $vo['count'];
-
-                        } else {
-                            //商品大于需要的数量
-//                            $vo['name'] =  $vo['name']['name'];
-                            $vo['count'] = $items['count'];
-                            $items['count'] -= $vo['count'];
-                            $res[$items['product_id']][] = $vo;
-                            break;
-                        }
-                    }
-                }
-            }
-            $postion = array_unique($postion);
-
-//            //写入冻结库存
+            //写入冻结库存
             foreach ($res[$items['product_id']] as $ii) {
                 ProductShelvesModel::where('product_id', '=', $ii['product_id'])
                     ->where('shelves_id', '=', $ii['shelves_id'])
@@ -750,7 +685,7 @@ class BusinessOrderController extends Controller
                     ->increment('frozen_count', $ii['count']);
             }
         }
-
+//        dd($res);
         return $res;
     }
 

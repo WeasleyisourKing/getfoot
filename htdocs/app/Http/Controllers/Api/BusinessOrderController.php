@@ -677,13 +677,13 @@ class BusinessOrderController extends Controller
                 }
             }
 
-            //写入冻结库存
-            foreach ($res[$items['product_id']] as $ii) {
-                ProductShelvesModel::where('product_id', '=', $ii['product_id'])
-                    ->where('shelves_id', '=', $ii['shelves_id'])
-                    ->where('overdue', '=', $ii['overdue'])
-                    ->increment('frozen_count', $ii['count']);
-            }
+//            //写入冻结库存
+//            foreach ($res[$items['product_id']] as $ii) {
+//                ProductShelvesModel::where('product_id', '=', $ii['product_id'])
+//                    ->where('shelves_id', '=', $ii['shelves_id'])
+//                    ->where('overdue', '=', $ii['overdue'])
+//                    ->increment('frozen_count', $ii['count']);
+//            }
         }
 //        dd($res);
         return $res;

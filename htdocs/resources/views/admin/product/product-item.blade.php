@@ -1016,7 +1016,7 @@
         $('#pterm').text($(event).attr('data-term'));
         $('#pcreated_at').text($(event).attr('data-created_at'));
         $('#pcompany').text($(event).attr('data-company'));
-
+        console.log($(event).attr('data-shelves'));
 //        pshelves
         var dates = '';
         dd = JSON.parse($(event).attr('data-shelves'));
@@ -1990,7 +1990,7 @@
                         middle = '';
 
                     for (let i in res.data) {
-
+console.log(res.data[i]);
                         middle = res.data[i].status == 1 ? '<td class="exce"><i class="icon fa fa-2x fa-check-circle"> </i> </td>' : '<td class="exce"><i class="icon fa fa-2x fa-times-circle"> </i> </td>';
                         datas += `<tr>
                         <td class="exce">
@@ -2034,6 +2034,7 @@
                             data-number="每箱数量${res.data[i].number}"
                             data-company="${res.data[i].zn_number}（${res.data[i].en_number}）"
                             data-weight=${res.data[i].weight}${res.data[i].zn_weight}（${res.data[i].en_weight}）"
+                            data-shelves='${ JSON.stringify(res.data[i].shelve) }'
                                     {{--data-netWeight="{{$item->net_weight}} 克（g）"--}}
                                         {{--  data-attr="{{$item->attr}} "--}}
                                     >

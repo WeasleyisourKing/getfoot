@@ -14,50 +14,50 @@ class BusinessOrderModel extends Model
 
     //多对多 从表 中间表 主表外键 从表外键
     //订单和商品
-    public function manys ()
+    public function manys()
     {
         return $this->belongsToMany('App\Http\Model\ProductModel', 'business_order_product', 'order_id', 'product_id')->withPivot('count', 'status');
     }
 
     //关联商品和分销商关系 一对一
-    public function distributor ()
+    public function distributor()
     {
 
         return $this->belongsTo('App\Http\Model\DistributorModel', 'product_id', 'product_id');
     }
 
     //关联商品和分销商关系 一对一
-    public function discounts ()
+    public function discounts()
     {
 
         return $this->belongsTo('App\Http\Model\UsersDiscountModel', 'discount_id', 'id');
     }
 
     //关联商品和分类关系 一对多
-    public function purchase ()
+    public function purchase()
     {
 
         return $this->hasMany('App\Http\Model\BusinessOrderProductModel', 'order_id', 'id');
     }
 
     //获取订单产品
-    public static function getProducts ($id)
+    public static function getProducts($id)
     {
         return self::with(['manys' => function ($query) {
             $query->with('distributor')
                 ->select('zn_name',
-                    'id','en_name','product_image','stock','count')
+                    'id', 'en_name', 'product_image', 'stock', 'count')
 //                ->select('id', 'zn_name', 'product_image','count')
                 ->wherePivot('status', '=', 2);
         }])
             ->where('id', '=', $id)
-            ->select('id','order_no')
+            ->select('id', 'order_no')
             ->first();
 
     }
 
     //生成预定单
-    public static function newOrder ($arr)
+    public static function newOrder($arr)
     {
         $obj = new self($arr);
         $obj->save();
@@ -66,9 +66,9 @@ class BusinessOrderModel extends Model
     }
 
     //获取订单列表
-    public static function getOrderList ($status, $limit)
+    public static function getOrderList($status, $limit)
     {
-        return self::select('id', 'order_no', 'total_price', 'snap_img', 'total_count', 'created_at', 'snap_name','status',
+        return self::select('id', 'order_no', 'total_price', 'snap_img', 'total_count', 'created_at', 'snap_name', 'status',
             DB::raw("(CASE status WHEN '1' THEN '已完成' WHEN '2' THEN '已下单' END) as state"))
             ->whereIn('status', $status)
             ->orderBy('created_at', 'desc')
@@ -77,10 +77,10 @@ class BusinessOrderModel extends Model
     }
 
     //获取订单商品
-    public static function getOrderProduct ($id)
+    public static function getOrderProduct($id)
     {
 
-        return self::with(['discounts' => function($query) {
+        return self::with(['discounts' => function ($query) {
             $query->with('discount');
         }])->where('id', '=', $id)
             ->first()
@@ -89,7 +89,7 @@ class BusinessOrderModel extends Model
     }
 
     //商业订单后台手动写入
-    public static function insertOrder ($data, $datas,$arr)
+    public static function insertOrder($data, $datas, $arr)
     {
 
         //涉及多表 使用事务控制
@@ -110,12 +110,25 @@ class BusinessOrderModel extends Model
                 $flight = ProductModel::find($p['product_id']);
                 $flight->frozen_stock = $flight->frozen_stock + $p['count'];
                 $flight->save();
+
             }
             (new BusinessOrderProductModel)->insert($arr);
 
-           //写入出库记录
+            $das = json_decode($data['shelve_position'], true);
+
+            foreach ($das as $val) {
+                foreach ($val as $ii) {
+//                    dd($ii);
+                    ProductShelvesModel::where('product_id', '=', $ii['product_id'])
+                        ->where('shelves_id', '=', $ii['shelves_id'])
+                        ->where('overdue', '=', $ii['overdue'])
+                        ->increment('frozen_count', $ii['count']);
+                }
+            }
+
+            //写入出库记录
             $orderId = new StockOrderModel($datas);
-                $orderId->save();
+            $orderId->save();
 
             foreach ($arr as &$p) {
 
@@ -143,7 +156,7 @@ class BusinessOrderModel extends Model
     }
 
     //删除商业订单
-    public static function delOrder ($id,$order)
+    public static function delOrder($id, $order)
     {
 
         //涉及多表 使用事务控制
@@ -151,10 +164,10 @@ class BusinessOrderModel extends Model
         try {
 
             self::where('id', '=', $id)->delete();
-             BusinessOrderProductModel::where('order_id', '=', $id)->delete();
+            BusinessOrderProductModel::where('order_id', '=', $id)->delete();
 
             //删除手动出库订单
-            $StockID = StockOrderModel::where('pruchase_order_no',$order)->first(['id'])->id;
+            $StockID = StockOrderModel::where('pruchase_order_no', $order)->first(['id'])->id;
             StockOrderModel::where('id', '=', $StockID)->delete();
             StockOrderProductModel::where('order_id', '=', $StockID)->delete();
 
@@ -169,7 +182,7 @@ class BusinessOrderModel extends Model
     }
 
     //获取未处理订单
-    public static function countNUm ()
+    public static function countNUm()
     {
         return self::where('status', '=', 1)
             ->where('handle_status', '=', 2)
@@ -177,7 +190,7 @@ class BusinessOrderModel extends Model
     }
 
     //获取订单数据
-    public static function catchOrder ()
+    public static function catchOrder()
     {
 
 //        return $obj = self::where('status', '=', 1)
@@ -203,7 +216,7 @@ class BusinessOrderModel extends Model
     }
 
     //修改状态
-    public static function updateStatus ($id, $data)
+    public static function updateStatus($id, $data)
     {
 
         return self::where('id', '=', $id)
@@ -211,7 +224,7 @@ class BusinessOrderModel extends Model
     }
 
     //生成预定单
-    public static function getOrderInfo ($id)
+    public static function getOrderInfo($id)
     {
         return self::select('id', 'total_price', 'status')
             ->where('order_no', '=', $id)

@@ -29,7 +29,7 @@ class ShopController extends Controller
      * @param Request $request
      * @return null
      */
-    public function categoryList ()
+    public function categoryList()
     {
 
         //获取商品分类列表
@@ -46,7 +46,7 @@ class ShopController extends Controller
     }
 
     //递归
-    public function getTree ($data, $pId, $level = 0)
+    public function getTree($data, $pId, $level = 0)
     {
 
         $tree = [];
@@ -67,7 +67,7 @@ class ShopController extends Controller
      * @param Request $request
      * @return null
      */
-    public function categoryProductList (Request $request)
+    public function categoryProductList(Request $request)
     {
 
         (new IdRule)->goCheck();
@@ -93,7 +93,7 @@ class ShopController extends Controller
      * @param Request $request
      * @return null
      */
-    public function shopList (Request $request)
+    public function shopList(Request $request)
     {
 
         (new IdRule)->goCheck();
@@ -119,7 +119,7 @@ class ShopController extends Controller
      * @param Request $request
      * @return null
      */
-    public function homePage ()
+    public function homePage()
     {
 
         //获取商品分类列表
@@ -144,7 +144,7 @@ class ShopController extends Controller
      * @param Request $request
      * @return null
      */
-    public function shopMessage (Request $request)
+    public function shopMessage(Request $request)
     {
 
         (new IdRule)->goCheck();
@@ -167,10 +167,10 @@ class ShopController extends Controller
     }
 
     //获取login图标接口
-    public function login ()
+    public function login()
     {
 
-        $logo = GeneralModel::select('logo','title','keywords','description')->first();
+        $logo = GeneralModel::select('logo', 'title', 'keywords', 'description')->first();
 
         return Common::successData($logo);
 
@@ -178,14 +178,14 @@ class ShopController extends Controller
 
 
     //查看折扣码接口
-    public function discountUse (Request $request)
+    public function discountUse(Request $request)
     {
 
         (new CodeInfoRule)->goCheck(200);
 
         $code = $request->input('code');
 
-        $res = UsersDiscountModel::with(['discount' => function($query) {
+        $res = UsersDiscountModel::with(['discount' => function ($query) {
             $query->where('status', '=', 1);
         }])->where('code', '=', $code)->first();
 
@@ -197,7 +197,7 @@ class ShopController extends Controller
             ]);
         }
 
-        return Common::successData(['name' => $res->discount->zn_name,'rcent' => $res->discount->rcent,'type' => $res->discount->type]);
+        return Common::successData(['name' => $res->discount->zn_name, 'rcent' => $res->discount->rcent, 'type' => $res->discount->type]);
 
     }
 
@@ -206,12 +206,14 @@ class ShopController extends Controller
      * @param int $id 用户id
      * @return mixed
      */
-    public function productSearch (Request $request)
+    public function productSearch(Request $request)
     {
         $search = htmlspecialchars(strip_tags(trim($request->input('search'))));
 
 
-        $data = ProductModel::with(['distributor', 'category','brand'])
+        $data = ProductModel::with(['distributor', 'category', 'brand', 'shelve' => function ($q) {
+            $q->select('shelves_id', 'product_id')->with('name');
+        }])
             ->where('zn_name', 'like', '%' . $search . '%')
 //            ->where('status', '=', 1)
             ->orderBy('created_at', 'desc')
@@ -222,7 +224,7 @@ class ShopController extends Controller
     }
 
     //税金接口
-    public function tax ($zip,$city)
+    public function tax($zip, $city)
     {
 
         if (empty(htmlspecialchars(strip_tags(trim($zip))))) {
@@ -243,7 +245,7 @@ class ShopController extends Controller
 
         $url = sprintf(config('custom.tax_url'),
             config('custom.tax_key'),
-            $zip,$city
+            $zip, $city
         );
 
         $res = Common::curlInfo($url);

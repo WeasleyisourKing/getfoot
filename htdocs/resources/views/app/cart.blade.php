@@ -15,7 +15,7 @@
     </div>
 
     <div class="top-fix"></div>
-    <div class="container main-container cartBox " style="height: auto;">
+    <div class="container cartBox " style="height: auto;padding-bottom: 100px;">
     </div>
 
     <!-- 结算 Container -->

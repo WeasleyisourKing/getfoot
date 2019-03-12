@@ -416,7 +416,7 @@
 
 	<div class="top-fix"></div>
 
-	<div class="container main-container cartBox " style="padding-bottom: 100px;">
+	<div class="container  cartBox " style="padding-bottom: 100px;">
 		<!-- shangpin -->
 						<div class="row border-bottom bg-white pt-2 pl-3 bg-white"style="padding: 0;"><p class="text-muted my-0 pb-1">
                 	<script type="text/javascript">

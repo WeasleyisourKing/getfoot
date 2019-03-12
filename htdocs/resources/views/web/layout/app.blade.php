@@ -145,7 +145,7 @@
 <body>
 <div class="topBg">
     <div class="maxCentr topBox clearfloat">
-        <div class=" topLanguage float_left" id="LanguageToggle">
+        <div class=" topLanguage float_left" style="cursor: pointer;" id="LanguageToggle">
 
             <script>
                 Language("English", "Chinese")

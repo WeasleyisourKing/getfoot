@@ -177,6 +177,7 @@
 
         //加载购物车
         var cart = JSON.parse(localStorage.getItem("shopcart"));
+		console.log(cart);
         if ($.isEmptyObject(cart)) {
 //		if(cart.length?cart.length:0){
             //购物车为空

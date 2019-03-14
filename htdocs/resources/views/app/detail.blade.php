@@ -248,7 +248,7 @@
                 <button id="add" type="button" class="btn btn-block btn-red btn-collection"
                         product_image="{{$product->product_image}}"
                         zn_name="{{$product->zn_name}}"
-                        price="{{$product->distributor->level_four_price}}"
+                        price=""
                         onclick=""
                         shop_id="{{$product->id}}"
                 ><i class="fa fa-shopping-cart"> 
@@ -335,11 +335,12 @@
                 <div class="row">
 
                     <div class="col-12 py-2">
+
                         <button id="add-to-cart-btn" type="button" class="btn btn-block btn-red btn-collection py-2"
                                 product_image="{{$product->product_image}}"
                                 zn_name="{{$product->zn_name}}"
                                 en_name="{{$product->en_name}}"
-                                price="{{$product->distributor->level_four_price}}"
+                                price=''
                                 onclick="addShopCart(this) "
                                 shop_id="{{$product->id}}"
                                 stock="{{$product->stock}}"
@@ -355,7 +356,13 @@
     </div>
     </div>
     <div id="pp" style="display: none;"></div>
-
+    <script>
+        $(document).ready(function() {
+            var ssd = Sprice1({{$product['distributor']['level_four_price']}},{{$product['distributor']['level_two_price']}},{{$product['distributor']['level_one_price']}},{{$product['distributor']['level_three_price']}})
+            $('#add-to-cart-btn').attr('price', ssd);
+            $('#add').attr('price', ssd);
+        })
+    </script>
     <script>
         $("#add").click(function () {
             $("#showx").modal('show');

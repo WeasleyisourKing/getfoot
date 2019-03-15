@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/check',  'Api\ThirdController@check');
 
 //第三方接口
 Route::group(['middleware' => 'token'], function () {

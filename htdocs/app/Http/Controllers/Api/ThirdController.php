@@ -8,6 +8,7 @@ use App\Exceptions\ParamsException;
 use App\Http\Controllers\Common;
 use App\Rules\PagesRule;
 use App\Http\Model\ProductModel;
+use App\Http\Model\ProductShelvesModel;
 use Illuminate\Support\Facades\DB;
 
 
@@ -58,8 +59,18 @@ class ThirdController extends Controller
 
         return Common::successData(Common::paging($result));
 
-
     }
+    public function check(Request $request)
+    {
+        $ee = ProductModel::where('status','=',1)->get();
+        foreach ($ee as $items) {
+           $data = ProductShelvesModel::where('product_id','=',$items->id)->get()->toarray();
+            if ($ee->stock != array_sum(array_column($data,'count'))) {
+                dump($items->id);
+                dd($data);
 
+            }
+        }
+    }
 
 }

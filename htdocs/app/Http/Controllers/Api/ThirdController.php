@@ -67,6 +67,8 @@ class ThirdController extends Controller
            $data = ProductShelvesModel::where('product_id','=',$items->id)->get()->toarray();
             if ($items->stock != array_sum(array_column($data,'count'))) {
                 dump($items->id);
+                dump($items->stock);
+                dump(array_sum(array_column($data,'count')));
                 dd($data);
 
             }

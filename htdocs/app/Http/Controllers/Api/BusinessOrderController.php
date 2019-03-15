@@ -655,12 +655,14 @@ class BusinessOrderController extends Controller
                         '共计' . "\"$sum\"" . '件,库存不足;'
                 ]);
             }
-//dd($data);
+
             $res[$items['product_id']] = [];
 
             foreach ($data as &$vo) {
 
                 if ($items['count'] <= 0) break;
+
+                if ($vo['count'] == 0) continue;
 
                 if ($items['count'] - $vo['count'] > 0) {
                     $vo['name'] = $vo['name']['name'];

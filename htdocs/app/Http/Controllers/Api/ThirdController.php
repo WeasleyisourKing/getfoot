@@ -65,10 +65,10 @@ class ThirdController extends Controller
         $ee = ProductModel::where('status','=',1)->get();
         foreach ($ee as $items) {
            $data = ProductShelvesModel::where('product_id','=',$items->id)->get()->toarray();
-            if ($items->stock != array_sum(array_column($data,'count'))) {
+            if ($items->origin_stock != array_sum(array_column($data,'origin_count'))) {
                 dump($items->id);
                 dump($items->stock);
-                dump(array_sum(array_column($data,'count')));
+                dump(array_sum(array_column($data,'origin_count')));
                 dd($data);
 
             }

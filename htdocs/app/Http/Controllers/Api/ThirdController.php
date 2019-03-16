@@ -62,20 +62,17 @@ class ThirdController extends Controller
     }
     public function check(Request $request)
     {
-        $ee = ProductModel::where('status','=',1)->where('id','=',445)->get();
-        $data = ProductShelvesModel::where('product_id','=',445)->get()->toarray();
-        dump($ee->toArray());
-        dd($data);
+        $ee = ProductModel::where('status','=',1)->get();
         foreach ($ee as $items) {
-           $data = ProductShelvesModel::where('product_id','=',445)->get()->toarray();
-           dd($data);
-            if ($items->origin_stock != array_sum(array_column($data,'origin_count'))) {
-                dump($items->id);
-                dump($items->stock);
-                dump(array_sum(array_column($data,'origin_count')));
-                dd($data);
+           $data = ProductShelvesModel::where('product_id','=',$items->id)->get()->toarray();
 
+                dump('商品id：'.$data->id);
+                dump('商品库存：'.$data->stock);
+                dump('商品货架库存：'.array_sum(array_column($data,'count')));
+            if ($items->stock != array_sum(array_column($data,'count'))) {
+                dump('商品库存与货架对应情况：NO');
             }
+            dump('商品库存与货架对应情况：NO');
         }
     }
 

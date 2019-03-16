@@ -62,9 +62,11 @@ class ThirdController extends Controller
     }
     public function check(Request $request)
     {
-        $ee = ProductModel::where('status','=',1)->get();
+        $ee = ProductModel::where('status','=',1)->where('id','=',445)->get();
+        dump($ee->toArray());
         foreach ($ee as $items) {
-           $data = ProductShelvesModel::where('product_id','=',$items->id)->get()->toarray();
+           $data = ProductShelvesModel::where('product_id','=',445)->get()->toarray();
+           dd($data);
             if ($items->origin_stock != array_sum(array_column($data,'origin_count'))) {
                 dump($items->id);
                 dump($items->stock);

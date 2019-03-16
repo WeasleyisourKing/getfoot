@@ -62,7 +62,7 @@ class ThirdController extends Controller
     }
     public function check(Request $request)
     {
-        $ee = ProductModel::where('status','=',1)->get();
+        $ee = ProductModel::where('status','=',2)->get();
         foreach ($ee as $items) {
            $data = ProductShelvesModel::where('product_id','=',$items->id)->get()->toarray();
 
@@ -71,7 +71,6 @@ class ThirdController extends Controller
                 dump('商品货架库存：'.array_sum(array_column($data,'count')));
             if ($items->stock != array_sum(array_column($data,'count'))) {
                 dump('商品库存与货架对应情况：NO');
-                dd(34);
             }
             dump('商品库存与货架对应情况：OK');
         }

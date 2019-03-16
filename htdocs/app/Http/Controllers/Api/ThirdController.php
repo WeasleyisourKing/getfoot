@@ -71,8 +71,10 @@ class ThirdController extends Controller
                 dump('商品货架库存：'.array_sum(array_column($data,'count')));
             if ($items->stock != array_sum(array_column($data,'count'))) {
                 dump('商品库存与货架对应情况：NO');
+            } else {
+                dump('商品库存与货架对应情况：OK');
             }
-            dump('商品库存与货架对应情况：OK');
+
         }
     }
 

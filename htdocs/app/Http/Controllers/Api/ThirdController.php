@@ -63,7 +63,9 @@ class ThirdController extends Controller
     public function check(Request $request)
     {
         $ee = ProductModel::where('status','=',1)->where('id','=',445)->get();
+        $data = ProductShelvesModel::where('product_id','=',445)->get()->toarray();
         dump($ee->toArray());
+        dd($data);
         foreach ($ee as $items) {
            $data = ProductShelvesModel::where('product_id','=',445)->get()->toarray();
            dd($data);

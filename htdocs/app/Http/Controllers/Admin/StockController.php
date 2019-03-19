@@ -427,7 +427,7 @@ class StockController extends Controller
     {
         $res = PurchaseOrderModel::orderBy('order_no', 'desc')->get();
         $shelves = ShelvesModel::get();
-        $supplier = SupplierModel::get();
+        $supplier = SupplierModel::where('del_status','=',1)->get();
 //        dd($res->toArray());
         $auth = array_column(PrivilegeRoleModel::where('privilege_id', '=', 36)
             ->get(['role_id'])

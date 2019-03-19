@@ -84,7 +84,7 @@ class UserController extends Controller
     public function supplierList()
     {
 
-        $res = SupplierModel::get();
+        $res = SupplierModel::where('del_status','=',1)->get();
 
         return view('admin.supplier.supplier-user', [
             'data' => $res
@@ -770,7 +770,7 @@ class UserController extends Controller
 
         $id = $request->input('id');
 
-        $res = SupplierModel::where('id', '=', $id)->delete();
+        $res = SupplierModel::where('id', '=', $id)->update(['del_status' => 2]);
 
         if (!$res) {
             throw new \Exception('服务器内部错误');

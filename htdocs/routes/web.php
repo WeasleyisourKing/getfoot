@@ -417,6 +417,13 @@ Route::group(['middleware' => 'role'], function () {
     });
 });
 
+//TODO 供货商管理接口
+//供货商添加接口
+Route::post('/supplier/add', 'Admin\UserController@supplierAdd');
+//供货商修改接口
+Route::post('/supplier/update', 'Admin\UserController@supplierUpdate');
+//供货商修改接口
+Route::get('/supplier/del', 'Admin\UserController@supplierdel');
 //TODO 商家订单管理接口
 //删除接口
 Route::get('/business/order/del', 'Admin\BusinessController@orderDel');

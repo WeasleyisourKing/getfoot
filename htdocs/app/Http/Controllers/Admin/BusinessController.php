@@ -397,7 +397,7 @@ class BusinessController extends Controller
         $datas = [];
         $datas = [
             'order_no' => 'O' . $orderNos,
-            'operator' => 'admin',
+//            'operator' => 'admin',
             'total_count' => $orderSnap['allCount'],
             'total_price' => $orderSnap['orderPrice'],
             'pruchase_order_no' => 'ST' . $orderNo,

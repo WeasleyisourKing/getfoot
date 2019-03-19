@@ -203,7 +203,7 @@
                 <li class="float_right"><a href="/users">
                         <p>
                             <script>
-                                Language("注册/登录", "Registered/Log In")
+                                Language("登录", "Log In")
                             </script>
                         </p>
                     </a></li>

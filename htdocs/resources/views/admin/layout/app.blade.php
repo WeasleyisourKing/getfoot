@@ -6,7 +6,7 @@
 
     <link rel="shortcut icon" href="/uploads/12buy.ico">
 
-    <title>12buy商城管理系统</title>
+    <title>SnackTalk商城管理系统</title>
 
     <style>
 
@@ -115,7 +115,7 @@
             <div class="text-center">
                 <a href="/dashboard" class="logo">
                     <i class="md md-dashboard"></i>
-                    <span>12Buy</span>
+                    <span>SnackTalk</span>
                 </a>
             </div>
         </div>

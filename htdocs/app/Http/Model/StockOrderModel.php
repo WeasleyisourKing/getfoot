@@ -527,6 +527,7 @@ class StockOrderModel extends Model
             //修改出库表总量和状态
             self::where('id', '=', $id)->update([
                 'state' => 2,
+                'operator' =>Auth()->user()->username,
                 'total_count' => $num
             ]);
             //如果是商业订单 修改数量 状态 相应货架减少

@@ -402,6 +402,19 @@ Route::group(['middleware' => 'role'], function () {
         Route::get('/list', 'Admin\UserController@supplierList');
 
     });
+
+    //TODO 统计页面
+    Route::group(['prefix' => '/statistic'], function () {
+        //商品销售统计*
+        Route::get('/product', 'Admin\StatisticController@product');
+        //订单统计*
+        Route::get('/order', 'Admin\StatisticController@order');
+        //财务统计*
+        Route::get('/finance', 'Admin\StatisticController@finance');
+        //用户统计*
+        Route::get('/user', 'Admin\StatisticController@user');
+
+    });
 });
 
 //TODO 商家订单管理接口

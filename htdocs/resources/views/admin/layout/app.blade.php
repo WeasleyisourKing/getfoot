@@ -47,7 +47,7 @@
     <link href="{{ asset('lib/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}"
           rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-
+    <link href="{{ asset('/css/icons.css') }}" rel="stylesheet">
     <!-- Javascript Lib -->
     <script src="{{ asset('js/vue.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('lib/js/jquery.min.js') }}" type="text/javascript"></script>
@@ -260,7 +260,8 @@
             if (!is_null($role)) {
                 $role = $role->toArray();
 
-                $all = PrivilegeModel::whereBetween('id',[1,6])->get()->toArray();
+                $all = PrivilegeModel::whereIn('id',[1,2,3,4,5,6,41])->get()->toArray();
+
                 $role = Common::getTree(array_merge($all,$role['auth']), 0);
             } else {
                 $role = [];

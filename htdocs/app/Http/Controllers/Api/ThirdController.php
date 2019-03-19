@@ -66,13 +66,14 @@ class ThirdController extends Controller
         foreach ($ee as $items) {
            $data = ProductShelvesModel::where('product_id','=',$items->id)->get()->toarray();
 
-                dump('商品id：'.$items->id);
-                dump('商品库存：'.$items->stock);
-                dump('商品货架库存：'.array_sum(array_column($data,'count')));
+//                dump('商品id：'.$items->id);
+//                dump('商品库存：'.$items->stock);
+//                dump('商品货架库存：'.array_sum(array_column($data,'count')));
             if ($items->stock != array_sum(array_column($data,'count'))) {
                 dd('商品库存与货架对应情况：NO');
+//                dump('商品库存与货架对应情况：NO');
             } else {
-                dump('商品库存与货架对应情况：OK');
+//                dump('商品库存与货架对应情况：OK');
             }
 
         }

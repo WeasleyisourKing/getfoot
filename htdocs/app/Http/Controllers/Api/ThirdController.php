@@ -70,10 +70,10 @@ class ThirdController extends Controller
         $data = QaqModel::first(['qaq'])->qaq;
 
         $data = json_decode($data,true);
-
+        dd($data);
         $ee = ProductModel::where('status', '=', 1)->get()->toArray();
         DB::transaction(function () use ($data,$ee) {
-            dd($data);
+           
             foreach ($data as $v) {
 
                 foreach ($ee as $items) {

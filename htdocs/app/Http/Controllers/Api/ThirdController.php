@@ -60,7 +60,7 @@ class ThirdController extends Controller
     {
 
         //恢复描述
-//        $data = ProductModel::whereBetween('id', [240, 440])
+//        $data = ProductModel::whereBetween('id', [400, 500])
 //            ->get(['id', 'en_describe', 'zn_describe'])->toArray();
 //        $r = QaqModel::where('id',1)->update(['qaq' => json_encode($data)]);
 //      dd($r);
@@ -68,17 +68,13 @@ class ThirdController extends Controller
         $data = QaqModel::first(['qaq'])->qaq;
         $data = json_decode($data,true);
         $ee = ProductModel::where('status', '=', 1)->get()->toArray();
-        DB::transaction(function () use ($data,$ee) {
+        DB::transaction(function () use ($data) {
 
             foreach ($data as $v) {
-                foreach ($ee as $items) {
-                    if ($v['id'] == $items['id']) {
                         ProductModel::where('id', $v['id'])->update([
                             'en_describe' => $v['en_describe'],
                             'zn_describe' => $v['zn_describe']
                         ]);
-                    }
-                }
             }
         });
       dd('Success');

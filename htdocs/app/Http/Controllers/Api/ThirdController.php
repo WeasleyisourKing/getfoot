@@ -70,12 +70,11 @@ class ThirdController extends Controller
         $data = QaqModel::first(['qaq'])->qaq;
 
         $data = json_decode($data,true);
-        dd($data);
+
         $ee = ProductModel::where('status', '=', 1)->get()->toArray();
         DB::transaction(function () use ($data,$ee) {
-           
-            foreach ($data as $v) {
 
+            foreach ($data as $v) {
                 foreach ($ee as $items) {
                     if ($v['id'] == $items['id']) {
                         ProductModel::where('id', $v['id'])->update([

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Http\Controllers\Api;
 
@@ -11,14 +11,9 @@ use App\Http\Model\ProductModel;
 use App\Http\Model\ProductShelvesModel;
 use Illuminate\Support\Facades\DB;
 
-
+use App\Http\Model\QaqModel;
 class ThirdController extends Controller
 {
-
-    //分单位
-    protected $membershipPrice;
-
-    protected $body;
 
     /**
      * 商品第三方接口
@@ -36,12 +31,12 @@ class ThirdController extends Controller
         $params['page'] = !empty($params['page']) ? $params['page'] : 1;
 
         $result = ProductModel::with(['distributor' => function ($q) {
-            $q->select('product_id',DB::raw('level_one_price as agent,level_four_price as retail'));
-        },'category' => function($qu) {
-        $qu->select('id','zn_name');
+            $q->select('product_id', DB::raw('level_one_price as agent,level_four_price as retail'));
+        }, 'category' => function ($qu) {
+            $qu->select('id', 'zn_name');
         }])
             ->select('id', 'en_name', 'zn_name', 'sku', DB::raw('innersku as inner_sku'), 'product_image',
-                'stock','summary','zn_number','number','weight','zn_weight','category_id','zn_describe')
+                'stock', 'summary', 'zn_number', 'number', 'weight', 'zn_weight', 'category_id', 'zn_describe')
             ->where('status', '=', 1)
             ->paginate($params['limit'], ['*'], '', $params['page']);
 
@@ -49,7 +44,7 @@ class ThirdController extends Controller
         $url = config('custom.img_url');
 
         foreach ($result['data'] as &$items) {
-            $items['product_image'] = $url.$items['product_image'];
+            $items['product_image'] = $url . $items['product_image'];
             $items['category_name'] = $items['category']['zn_name'];
             unset($items['category_id']);
             unset($items['category']);
@@ -60,16 +55,42 @@ class ThirdController extends Controller
         return Common::successData(Common::paging($result));
 
     }
+
     public function check(Request $request)
     {
-        $ee = ProductModel::where('status','=',1)->get();
+
+//        $data = ProductModel::whereBetween('id', [87, 187])
+//            ->get(['id', 'en_describe', 'zn_describe'])->toArray();
+//        $data = json_encode($data);
+//        $r = QaqModel::where('id',1)->update(['qaq' => $data]);
+//
+//      dd($r);
+
+
+        $data = QaqModel::first(['qaq'])->qaq;
+        $ee = ProductModel::where('status', '=', 1)->get()->toArray();
+
+      foreach (json_decode($data,true) as $v) {
+
+          foreach ($ee as $items) {
+              if ($v['id'] == $items['id']) {
+                  ProductModel::where('id',$v['id'])->update([
+                      'en_describe' => $v['en_describe'],
+                      'zn_describe' => $v['zn_describe']
+                  ]);
+              }
+          }
+      }
+
+      dd(234);
+        $ee = ProductModel::where('status', '=', 1)->get();
         foreach ($ee as $items) {
-           $data = ProductShelvesModel::where('product_id','=',$items->id)->get()->toarray();
+            $data = ProductShelvesModel::where('product_id', '=', $items->id)->get()->toarray();
 
 //                dump('商品id：'.$items->id);
 //                dump('商品库存：'.$items->stock);
 //                dump('商品货架库存：'.array_sum(array_column($data,'count')));
-            if ($items->stock != array_sum(array_column($data,'count'))) {
+            if ($items->stock != array_sum(array_column($data, 'count'))) {
                 dd('商品库存与货架对应情况：NO');
 //                dump('商品库存与货架对应情况：NO');
             } else {

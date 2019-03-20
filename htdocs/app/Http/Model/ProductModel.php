@@ -297,7 +297,7 @@ class ProductModel extends Model
             $query->with('attrValue');
         }])->select('id', 'sku', 'zn_name', 'price', 'en_name', 'product_image', 'stock',
             'innersku', 'status', 'summary', 'number', 'zn_number', 'en_number', 'weight', 'zn_weight', 'en_weight', 'net_weight',
-            'zn_net_weight', 'en_net_weight', 'created_at', 'category_id', 'brand_id', 'term', 'created_at')
+            'zn_net_weight', 'en_net_weight', 'created_at', 'category_id', 'brand_id', 'term', 'created_at','en_describe','zn_describe')
             ->where('id', '=', $id)
             ->first();
     }

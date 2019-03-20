@@ -59,18 +59,14 @@ class ThirdController extends Controller
     public function check(Request $request)
     {
 
-//        $data = ProductModel::whereBetween('id', [87, 200])
+        //恢复描述
+//        $data = ProductModel::whereBetween('id', [240, 440])
 //            ->get(['id', 'en_describe', 'zn_describe'])->toArray();
-//
 //        $r = QaqModel::where('id',1)->update(['qaq' => json_encode($data)]);
-
 //      dd($r);
 
-
         $data = QaqModel::first(['qaq'])->qaq;
-
         $data = json_decode($data,true);
-
         $ee = ProductModel::where('status', '=', 1)->get()->toArray();
         DB::transaction(function () use ($data,$ee) {
 
@@ -85,7 +81,8 @@ class ThirdController extends Controller
                 }
             }
         });
-      dd(234);
+      dd('Success');
+
         $ee = ProductModel::where('status', '=', 1)->get();
         foreach ($ee as $items) {
             $data = ProductShelvesModel::where('product_id', '=', $items->id)->get()->toarray();

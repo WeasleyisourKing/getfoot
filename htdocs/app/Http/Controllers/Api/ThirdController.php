@@ -61,15 +61,15 @@ class ThirdController extends Controller
 
 //        $data = ProductModel::whereBetween('id', [87, 187])
 //            ->get(['id', 'en_describe', 'zn_describe'])->toArray();
-//        $data = json_encode($data);
-//        $r = QaqModel::where('id',1)->update(['qaq' => $data]);
+//
+//        $r = QaqModel::where('id',1)->update(['qaq' => json_encode($data)]);
 //
 //      dd($r);
 
 
-        $data = QaqModel::where('id',1)->first(['qaq'])->qaq;
-//        dd($data);
-        dd(json_decode($data,true));
+        $data = QaqModel::first(['qaq']);
+//        dd($data->qaq);
+//        dd(json_decode($data->qaq));
         $ee = ProductModel::where('status', '=', 1)->get()->toArray();
         DB::transaction(function () use ($data) {
             foreach (json_decode($data, true) as $v) {

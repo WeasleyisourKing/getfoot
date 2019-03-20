@@ -70,19 +70,19 @@ class ThirdController extends Controller
         $data = QaqModel::where('id',1)->first(['qaq'])->qaq;
         dd(json_decode($data,true));
         $ee = ProductModel::where('status', '=', 1)->get()->toArray();
+        DB::transaction(function () use ($data) {
+            foreach (json_decode($data, true) as $v) {
 
-      foreach (json_decode($data,true) as $v) {
-
-          foreach ($ee as $items) {
-              if ($v['id'] == $items['id']) {
-                  ProductModel::where('id',$v['id'])->update([
-                      'en_describe' => $v['en_describe'],
-                      'zn_describe' => $v['zn_describe']
-                  ]);
-              }
-          }
-      }
-
+                foreach ($ee as $items) {
+                    if ($v['id'] == $items['id']) {
+                        ProductModel::where('id', $v['id'])->update([
+                            'en_describe' => $v['en_describe'],
+                            'zn_describe' => $v['zn_describe']
+                        ]);
+                    }
+                }
+            }
+        });
       dd(234);
         $ee = ProductModel::where('status', '=', 1)->get();
         foreach ($ee as $items) {

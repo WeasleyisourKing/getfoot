@@ -59,25 +59,24 @@ class ThirdController extends Controller
     public function check(Request $request)
     {
 
-        //恢复描述
-//        $data = ProductModel::whereBetween('id', [400, 500])
+        //恢复描述字段
+//        $data = ProductModel::whereBetween('id', [687, 813])
 //            ->get(['id', 'en_describe', 'zn_describe'])->toArray();
 //        $r = QaqModel::where('id',1)->update(['qaq' => json_encode($data)]);
 //      dd($r);
-
-        $data = QaqModel::first(['qaq'])->qaq;
-        $data = json_decode($data,true);
-        $ee = ProductModel::where('status', '=', 1)->get()->toArray();
-        DB::transaction(function () use ($data) {
-
-            foreach ($data as $v) {
-                        ProductModel::where('id', $v['id'])->update([
-                            'en_describe' => $v['en_describe'],
-                            'zn_describe' => $v['zn_describe']
-                        ]);
-            }
-        });
-      dd('Success');
+//
+//        $data = QaqModel::first(['qaq'])->qaq;
+//        $data = json_decode($data,true);
+//        DB::transaction(function () use ($data) {
+//
+//            foreach ($data as $v) {
+//                        ProductModel::where('id', $v['id'])->update([
+//                            'en_describe' => $v['en_describe'],
+//                            'zn_describe' => $v['zn_describe']
+//                        ]);
+//            }
+//        });
+//      dd('Success');
 
         $ee = ProductModel::where('status', '=', 1)->get();
         foreach ($ee as $items) {

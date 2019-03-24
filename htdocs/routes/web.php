@@ -406,7 +406,7 @@ Route::group(['middleware' => 'role'], function () {
     //TODO 统计页面
     Route::group(['prefix' => '/statistic'], function () {
         //商品销售统计*
-        Route::get('/product', 'Admin\StatisticController@product');
+        Route::get('/product/count', 'Admin\StatisticController@product');
         //订单统计*
         Route::get('/order', 'Admin\StatisticController@order');
         //财务统计*
@@ -416,6 +416,8 @@ Route::group(['middleware' => 'role'], function () {
 
     });
 });
+//单商品销售统计*
+Route::get('/single/product', 'Admin\StatisticController@singleProduct');
 
 //TODO 供货商管理接口
 //供货商添加接口

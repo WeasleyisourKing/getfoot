@@ -34,7 +34,7 @@
     <link href="{{ asset('lib/css/fileinput.min.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/css/jedate.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/css/sweetalert.css') }}" rel="stylesheet">
-
+    <link href="{{ asset('lib/css/jedate.css') }}" rel="stylesheet">
     <!-- Styles -->
     <link href="{{ asset('/css/pages.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/components.css') }}" rel="stylesheet">
@@ -61,7 +61,7 @@
     <script src="{{ asset('lib/js/sweetalert.min.js') }}"></script>
     <script src="{{ asset('lib/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
     <script src="{{ asset('js/element.js') }}" type="text/javascript"></script>
-
+    <script src="{{ asset('js/echarts.js') }}" type="text/javascript"></script>
 {{--<script src="{{ asset('/js/detect.js') }}"></script>--}}
 {{--<script src="{{ asset('/js/fastclick.js') }}"></script>--}}
 {{--<script src="{{ asset('/js/jquery.slimscroll.js') }}"></script>--}}

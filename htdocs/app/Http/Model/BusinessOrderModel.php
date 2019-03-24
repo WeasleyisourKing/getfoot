@@ -11,6 +11,12 @@ class BusinessOrderModel extends Model
 
     protected $guarded = [];
 
+    //实际库存
+    public function getSnapAddressAttribute($val)
+    {
+        return json_decode($val,true);
+
+    }
 
     //多对多 从表 中间表 主表外键 从表外键
     //订单和商品

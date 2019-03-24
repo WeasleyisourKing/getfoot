@@ -19,11 +19,11 @@
 
         <!---- 搜索及按钮功能区域 ---->
         <!-- 搜索 -->
-        <form class="form-horizontal" id="form" role="form" action="/statistic/product/count" method="get">
+        <form class="form-horizontal" id="form" role="form" action="/single/product" method="get">
             <div class="panel">
                 <div class="panel-body">
                     <!-- 搜索 -->
-                    <div class="row">
+                    <div class="row ">
                         <div class="col-sm-3 ">
                             <h3>B2B</h3>
                         </div>
@@ -32,11 +32,11 @@
                         <div class="col-sm-6 ">
                             <div style="float: right;">
                                 <div class="btn-group" style="padding: 10px;">
-                                    <input id="indate1" name="date[front]" type="text" class="form-control"
+                                    <input id="indate1" name="front" type="text" class="form-control"
                                            placeholder="请选择查询开始日期" readonly>
                                 </div>
                                 <div class="btn-group" style="padding: 10px;">
-                                    <input id="indate2" name="date[after]"  type="text" class="form-control"
+                                    <input id="indate2" name="after" type="text" class="form-control"
                                            placeholder="请选择查询结束日期" readonly>
                                 </div>
 
@@ -47,20 +47,7 @@
                     <!-- 搜索 -->
                     <div class="row">
                         <div class="col-sm-5">
-                            <div class="btn-group">
-                                <select id="one" name="cat[one]" class="form-control">
-                                    <option selected="selected"  value="0">一级分类</option>
-                                    @foreach ($category as $items)
-                                    <option value ="{{$items['id']}}">{{$items['zn_name']}}</option>
-                                    @endforeach
-                                    </select>
-                            </div>
-                            <div class="btn-group"  style="padding-left:10px; ">
-                                <select id="two" name="cat[two]" class="form-control">
-                                    <option value='0'>二级分类</option>
-                                </select>
 
-                            </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="input-group">
@@ -81,49 +68,84 @@
 
             </div>
         </form>
-        <div class="row">
-            <!---- 货架列表 ---->
-        @foreach($data as $key => $item)
-        <!---- 货架 ---->
-            <div class="col-sm-6 panel_box" style="height: 280px;">
-                <div class="panel">
-                    <div class="panel-body">
 
-                        <div class="row" style="height:220px;">
-                            <div class="col-sm-4 text-center">
-                                <a href="/single/product?front={{$dateFront}}&after={{$dateaFter}}&search={{$item->products['zn_name']}}">QAQ</a>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">单品销售详情</h3>
+                    {{--<div class="panel">--}}
+                </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-5 text-center">
+                                <p>sdfsd</p>
                                 {{--<div class="exce" style="height:200px;" ><img height="100px; align=" middle "--}}
-                                    {{--src="{{ $item->products['product_image'] }}" alt="没有上传"/>--}}
+                                {{--src="{{ $item->products['product_image'] }}" alt="没有上传"/>--}}
                                 {{--</div>--}}
                             </div>
-                            <div class="col-sm-8" style="padding-top: 40px;" >
+                            <div class="col-sm-7" style="padding-top: 10px;">
 
-                                <div >
-                                    <h4>{{$item->products['zn_name']}}</h4>
+                                <div>
+
+                                    <h4>
+                                        中文名称：{{ is_null($data['products']['zn_name']) ? '无数据' : $data['products']['zn_name']}}</h4>
 
                                 </div>
-                                <div >
-                                    <h4>{{$item->products['en_name']}}</h4>
+                                <div>
+                                    <h4>
+                                        英文名称：{{ is_null($data['products']['en_name']) ? '无数据':$data['products']['en_name']}}</h4>
                                 </div>
-                                <div >
-                                    <h4>商品销量：{{$item->count}}</h4>
+                                <div>
+                                    <h4>商品销量：{{  is_null($data['count']) ? '无数据':$data['count']}}</h4>
                                 </div>
-                                <div >
-                                    <h4>销量排名：{{($page-1) * 8 + $key + 1}}</h4>
+                                <div>
+                                    <h4>销量排名：{{ is_null($data['rank']) ? '无数据':$data['rank']}}</h4>
                                 </div>
                             </div>
                         </div>
 
+                </div>
 
-                    </div>
-                </div><!---- End 货架 ---->
             </div>
-                @endforeach
+            <div class="panel panel-default">
+                {{--<div class="panel-heading">--}}
+                <div class="panel">
+                <div class="panel-body">
+                    <div class="row">
 
-            <div id="qqo" style="clear: both;text-align: center;">
-                {{ $data->links() }}
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th class="col-md-3 col-lg-3 exce"> 序号</th>
+                                <th class="col-md-3 col-lg-3 exce"> 商家名称</th>
+                                <th class="col-md-3 col-lg-3 exce" class="td-actions"> 订购次数</th>
+                                <th class="col-md-3 col-lg-3 exce" class="td-actions"> 订购总量</th>
+                            </tr>
+                            </thead>
+
+                            <tbody id="postContainer">
+                            @if (!is_null($arr))
+
+                                @foreach ($arr as $key => $item)
+                                    <tr>
+                                        <td class="exce">{{ $loop->iteration }}</td>
+                                        <td class="exce">{{ $key }}</td>
+                                        <td class="exce">{{ count($item) }}</td>
+                                        <td class="exce">{{ $item['count'] }}</td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                            </tbody>
+                        </table>
+                    </div>
+                    @if (is_null($arr))
+                        <div class="col-md-12" style="text-align: center;">暂时没有数据</div>
+                    @endif
+                </div>
+                {{--</div>--}}
+                </div>
             </div>
         </div>
+
 
         <script>
 
@@ -147,27 +169,6 @@
 
             })
 
-            $('#one').on("click", function() {
-                var data = @json($category);
-                $info = "<option value='0'>二级分类</option>";
-                if ($(this).val() != 0) {
-                    for (let i in data) {
-                        if ($(this).val() == data[i].id) {
-                            if (data[i].pid.length == 0) {
-                                $info = "<option value='0'>二级分类不存在</option>";
-                            } else {
-                                $info = "<option value='0'>二级全部分类</option>";
-                                for (let j in data[i].pid) {
-                                    $info += `<option value=${data[i].pid[j].id}>${data[i].pid[j].zn_name}</option>`;
-                                }
-                            }
-
-                        }
-                    }
-                }
-                $('#two').html($info);
-            })
-
             $(document).ready(function () {
                 document.onkeyup = function (e) {
                     var code = e.keyCode || e.charCode;
@@ -177,15 +178,15 @@
                 }
             });
 
-            var url = document.location.toString();
-            var arrUrl = url.split("?");
-            var para = arrUrl[1];
-            para = para.substr(7);
-
-            $('#qqo').find('li').each(function(){
-
-               var t = $(this).find('a').attr('href',$(this).find('a').attr('href')+'&'+para);
-            })
+            //            var url = document.location.toString();
+            //            var arrUrl = url.split("?");
+            //            var para = arrUrl[1];
+            //            para = para.substr(7);
+            //
+            //            $('#qqo').find('li').each(function(){
+            //
+            //               var t = $(this).find('a').attr('href',$(this).find('a').attr('href')+'&'+para);
+            //            })
 
 
         </script>

@@ -10,6 +10,7 @@ class BusinessOrderProductModel extends Model
 
     protected $guarded = [];
 
+
     public static function orderProduct ($id)
     {
         return $data = BusinessOrderProductModel::with(['products'=>function($query){
@@ -18,6 +19,11 @@ class BusinessOrderProductModel extends Model
             ->select('product_id','count')
             ->where('order_id','=',$id)
             ->get();
+    }
+
+    public function business ()
+    {
+        return $this->hasMany('App\Http\Model\BusinessOrderModel', 'id', 'order_id');
     }
 
     public function products ()

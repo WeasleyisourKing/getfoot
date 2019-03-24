@@ -35,6 +35,11 @@ class RoleMiddleware
 
         $current = explode('/',\Request::getRequestUri());
 
+       if (strpos($current[count($current) -1],"?")) {
+           $current[count($current) -1 ] = substr($current[count($current) -1],0,strpos($current[count($current) -1],"?"));
+       }
+
+//        dd($current);
         $currents = '';
             if (count($current) > 3) {
                 $currents = '/'.$current[1].'/'.$current[2].'/'.$current[3];

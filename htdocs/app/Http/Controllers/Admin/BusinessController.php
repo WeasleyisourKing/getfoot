@@ -82,7 +82,7 @@ class BusinessController extends Controller
             ->toArray();
 
         //数据太大 防止内存溢出
-        $address = json_decode($ress['snap_address'], true);
+        $address = $ress['snap_address'];
 
         $shelves = json_decode($ress['shelve_position'], true);
         unset($ress['shelve_position']);

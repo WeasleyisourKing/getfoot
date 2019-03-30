@@ -26,6 +26,14 @@ class BusinessOrderModel extends Model
     }
 
     //关联商品和分销商关系 一对一
+    public function user()
+    {
+
+        return $this->belongsTo('App\Http\Model\UsersModel', 'users_id', 'id');
+    }
+
+
+    //关联商品和分销商关系 一对一
     public function distributor()
     {
 

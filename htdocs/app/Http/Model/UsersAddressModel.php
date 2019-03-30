@@ -12,6 +12,12 @@ class UsersAddressModel extends Model
     //黑名单
     protected $guarded = [];
 
+    //关联主题区和图片关系 一对一
+    public function user()
+    {
+
+        return $this->belongsTo('App\Http\Model\UsersModel', 'users_id', 'id');
+    }
 
     //查询用户地址
     public static function getUserAddress ($id)

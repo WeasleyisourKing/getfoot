@@ -418,7 +418,16 @@ Route::group(['middleware' => 'role'], function () {
 });
 //单商品销售统计*
 Route::get('/single/product', 'Admin\StatisticController@singleProduct');
-
+//订单列表*
+Route::get('/single/order', 'Admin\StatisticController@orderList');
+//某订单详情*
+Route::get('/single/order/details', 'Admin\StatisticController@orderListDetails');
+//获取二级下商品列表
+Route::get('/two/product/list/{id}','Admin\StatisticController@twoList');
+//销售利润比
+Route::get('/pro/info/{id}','Admin\StatisticController@proInfo');
+//商品统计对比
+Route::get('/pro/total/{bin}/two/{cat}','Admin\StatisticController@proTotal');
 //TODO 供货商管理接口
 //供货商添加接口
 Route::post('/supplier/add', 'Admin\UserController@supplierAdd');

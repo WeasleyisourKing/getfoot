@@ -139,6 +139,7 @@ class BusinessController extends Controller
         (new AddressRule)->goCheck(200);
 
         $params = $request->all();
+        dd($params);
         $uProducts = $params['uproducts'];
 
         //删除其他剩下地址
@@ -365,7 +366,7 @@ class BusinessController extends Controller
 //        $this->addressInfo['email'] = '暂未填写';
         //添加下单
         $this->addressInfo['user'] = Auth::user()->username;
-
+dd($this->addressInfo);
         return $this->addressInfo;
     }
 

@@ -77,10 +77,10 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-5 text-center">
-                                <p>sdfsd</p>
-                                {{--<div class="exce" style="height:200px;" ><img height="100px; align=" middle "--}}
-                                {{--src="{{ $item->products['product_image'] }}" alt="没有上传"/>--}}
-                                {{--</div>--}}
+                                {{--<p>sdfsd</p>--}}
+                                <div class="exce" style="height:200px;" ><img height="100px; align=" middle "
+                                src="{{ $data['products']['product_image'] }}" alt="没有上传"/>
+                                </div>
                             </div>
                             <div class="col-sm-7" style="padding-top: 10px;">
 

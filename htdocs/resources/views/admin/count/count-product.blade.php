@@ -91,10 +91,12 @@
 
                         <div class="row" style="height:220px;">
                             <div class="col-sm-4 text-center">
-                                <a href="/single/product?front={{$dateFront}}&after={{$dateaFter}}&search={{$item->products['zn_name']}}">QAQ</a>
-                                {{--<div class="exce" style="height:200px;" ><img height="100px; align=" middle "--}}
-                                    {{--src="{{ $item->products['product_image'] }}" alt="没有上传"/>--}}
-                                {{--</div>--}}
+
+                                <a href="/single/product?front={{$dateFront}}&after={{$dateaFter}}&search={{$item->products['zn_name']}}">
+                                    <div class="exce" style="height:200px;" ><img height="100px; align=" middle "
+                                    src="{{ $item->products['product_image'] }}" alt="没有上传"/>
+                                </div>
+                                </a>
                             </div>
                             <div class="col-sm-8" style="padding-top: 40px;" >
 

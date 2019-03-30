@@ -519,7 +519,7 @@
 
                     option.series[0].name = $('#pro').find("option:selected").text();
                     option.series[0].data = JSON.parse(res.data.value);
-                    option.legend.data = JSON.parse(dd);
+
 
                     myChartss.setOption(option, true);
                 } else {

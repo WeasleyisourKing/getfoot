@@ -93,7 +93,7 @@
                             <div class="col-sm-4 text-center">
 
                                 <a href="/single/product?front={{$dateFront}}&after={{$dateaFter}}&search={{$item->products['zn_name']}}">
-                                    <div class="exce text-center" style="height:200px;" ><img height="100px; align=" middle "
+                                    <div class="exce text-center" style="height:200px;" ><img align=" middle "
                                     src="{{ $item->products['product_image'] }}" alt="没有上传"/>
                                 </div>
                                 </a>

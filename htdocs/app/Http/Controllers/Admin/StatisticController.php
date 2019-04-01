@@ -603,7 +603,7 @@ class StatisticController extends Controller
     //用户统计
     public function user()
     {
-dd(343);
+
         $binUser = round((UsersModel::where('role', '!=', 1)
                     ->count() / UsersModel::count()) * 100, 2);
 
@@ -626,7 +626,7 @@ dd(343);
             ->whereRaw('year(created_at) =' . date('Y'))
             ->groupBy('time')
             ->get()
-            ->toArray();
+            ->toSql();
         dump(314);
         dd($line);
         $date = [$date . '-01', $date . '-02', $date . '-03', $date . '-04', $date . '-05', $date . '-06',

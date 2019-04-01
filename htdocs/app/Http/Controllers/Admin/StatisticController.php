@@ -625,7 +625,7 @@ class StatisticController extends Controller
             ->where('role', '!=', 1)
             ->whereRaw('year(created_at) =' . date('Y'))
             ->groupBy('time')
-            ->get()
+//            ->get()
             ->toSql();
         dump(314);
         dd($line);

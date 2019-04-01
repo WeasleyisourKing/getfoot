@@ -603,7 +603,7 @@ class StatisticController extends Controller
     //用户统计
     public function user()
     {
-
+dd(343);
         $binUser = round((UsersModel::where('role', '!=', 1)
                     ->count() / UsersModel::count()) * 100, 2);
 

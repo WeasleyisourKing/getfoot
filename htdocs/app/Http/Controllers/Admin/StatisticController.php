@@ -627,7 +627,7 @@ class StatisticController extends Controller
             ->groupBy('time')
             ->get()
             ->toArray();
-        dump(34);
+        dump(314);
         dd($line);
         $date = [$date . '-01', $date . '-02', $date . '-03', $date . '-04', $date . '-05', $date . '-06',
             $date . '-07', $date . '-08', $date . '-09', $date . '-10', $date . '-11', $date . '-12'];

@@ -76,11 +76,11 @@
 
                                 @foreach ($data as $key => $item)
                                     <tr>
-                                        <td class="exce">{{ $item->products->zn_name }}</td>
+                                        <td class="exce">{{ !empty($item->products->zn_name) ? $item->products->zn_name : "已删除商品" }}</td>
                                         <td class="exce"><img height="100px; align=" middle "
-                                            src="{{ $item->products->product_image }}" alt="没有上传"/>
+                                            src="{{ !empty($item->products->product_image) ? $item->products->product_image : '' }}" alt=""/>
                                         </td>
-                                        <td class="exce">{{ $item->products->sku }}</td>
+                                        <td class="exce">{{ !empty($item->products->sku ) ? $item->products->sku : "已删除商品" }}</td>
                                         <td class="exce">{{ $item->single_price }}</td>
                                         <td class="exce">{{ $item->count }}</td>
                                         <td class="exce">{{ $item->total_price }}</td>

@@ -341,7 +341,7 @@
             </div>
             <div class="Drinks clearfloat">
                 <div class="DrinksMore" style="position: absolute;top: -42px;right: 17px;font-size: 50px;">
-                    <p data-router="/categorys/detail/99"
+                    <p data-router="/categorys/detail/{{$categorys[0]['id']}}"
                        style="cursor: pointer;font-size: 20px;font-weight: bold;color: #666;">MORE</p>
                 </div>
                 @php
@@ -404,7 +404,7 @@
             </div>
             <div class="Drinks clearfloat">
                 <div class="DrinksMore" style="position: absolute;top: -42px;right: 17px;font-size: 50px;">
-                    <p data-router="/categorys/detail/99"
+                    <p data-router="/categorys/detail/{{$categorys[1]['id']}}"
                        style="cursor: pointer;font-size: 20px;font-weight: bold;color: #666;">MORE</p>
                 </div>
                 @php
@@ -466,7 +466,7 @@
             </div>
             <div class="Drinks clearfloat">
                 <div class="DrinksMore" style="position: absolute;top: -42px;right: 17px;font-size: 50px;">
-                    <p data-router="/categorys/detail/99"
+                    <p data-router="/categorys/detail/{{$categorys[2]['id']}}"
                        style="cursor: pointer;font-size: 20px;font-weight: bold;color: #666;">MORE</p>
                 </div>
                 @php
@@ -529,7 +529,7 @@
             </div>
             <div class="Drinks clearfloat">
                 <div class="DrinksMore" style="position: absolute;top: -42px;right: 17px;font-size: 50px;">
-                    <p data-router="/categorys/detail/99"
+                    <p data-router="/categorys/detail/{{$categorys[3]['id']}}"
                        style="cursor: pointer;font-size: 20px;font-weight: bold;color: #666;">MORE</p>
                 </div>
                 @php
@@ -590,7 +590,7 @@
             </div>
             <div class="Drinks clearfloat">
                 <div class="DrinksMore" style="position: absolute;top: -42px;right: 17px;font-size: 50px;">
-                    <p data-router="/categorys/detail/99"
+                    <p data-router="/categorys/detail/{{$categorys[4]['id']}}"
                        style="cursor: pointer;font-size: 20px;font-weight: bold;color: #666;">MORE</p>
                 </div>
                 @php

@@ -225,7 +225,7 @@ overflow: hidden;">-->
                         <script> document.write(window.localStorage.getItem('lang') == null || window.localStorage.getItem('lang') == 1 ? " {{$modular[0]['zn_name']}} " : " {{$modular[0]['en_name']}} "); </script>
                     </h4>
                 </div>
-                <div><a href="/apps/activielist/2" class="text-muted">
+                <div><a href="/apps/activielist/7" class="text-muted">
                         <script>Language("更多", "More")</script>
                         <i class="fa fa-angle-right"></i></a></div>
             </div>
@@ -276,7 +276,7 @@ overflow: hidden;">-->
                             <script> document.write(window.localStorage.getItem('lang') == null || window.localStorage.getItem('lang') == 1 ? " {{$modular[1]['zn_name']}} " : " {{$modular[1]['en_name']}}  "); </script>
                         </h4>
                     </div>
-                    <div><a href="/apps/activielist/1" class="text-muted">
+                    <div><a href="/apps/activielist/8" class="text-muted">
                             <script>Language("更多", "More")</script>
                             <i class="fa fa-angle-right"></i></a></div>
                 </div>

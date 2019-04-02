@@ -933,7 +933,7 @@
 					var orderstatus=LanguageHtml(["","待发货","已下单", "待收货"," 已完成"],["","Wait for Shipment","Waiting for Payment", "Waiting to Delivered"," Completed Order"]);
 					var projectlist = '';
 					var comment = '';
-					var orderdetails = JSON.parse(res.details.snap_address)
+					var orderdetails = res.details.snap_address
 					switch(res.details.status){
 						case '2': orderstatus = LanguageHtml("待发货","Wait for Shipment");
 							break;

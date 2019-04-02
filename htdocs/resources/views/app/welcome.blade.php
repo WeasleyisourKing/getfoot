@@ -215,7 +215,47 @@ overflow: hidden;">-->
             </div>
         </div><!-- End Icon Nav Container -->
 
+        <!-- 热销 Container -->
+        <div class="container mb-2 px-0">
 
+            <div class="container">
+                <div class="d-flex justify-content-between mt-4">
+                    <div>
+                        <h4 class="pl-2 title-border">
+                            <script> document.write(window.localStorage.getItem('lang') == null || window.localStorage.getItem('lang') == 1 ? " {{$modular[1]['zn_name']}} " : " {{$modular[1]['en_name']}}  "); </script>
+                        </h4>
+                    </div>
+                    <div><a href="/apps/activielist/8" class="text-muted">
+                            <script>Language("更多", "More")</script>
+                            <i class="fa fa-angle-right"></i></a></div>
+                </div>
+            </div>
+
+            <!-- Flex container(scrolling wrapper) -->
+            <div class="d-flex flex-row scrolling-wrapper-flexbox">
+
+                @for( $i = 0; $i < count($modular[1]['products']); $i++ )
+                    <div class="card bg-color-{{$i%3+1}} border-0 mb-2 mx-1 w-25 mw-25 mt-5">
+                        <a href="/apps/product/{{$modular[1]['products'][$i]['id']}}"><img
+                                    src="{{$modular[1]['products'][$i]['product_image']}}"
+                                    class="img-fluid card-img-top rounded img-bg-{{$i+1}} mb-1 position-relative hot-sale-img shaddow"
+                                    alt=""></a>
+                        <div class="card-body hot-sale-card-body text-white text-center p-1">
+                            <small class="mt-0 d-block">
+                                <script> document.write(window.localStorage.getItem('lang') == null || window.localStorage.getItem('lang') == 1 ? " {{$modular[1]['products'][$i]['zn_name']}} " : " {{$modular[1]['products'][$i]['en_name']}} "); </script>
+                            </small>
+                            <h6 class="card-title mb-0">
+                                <script>
+                                    Spricedetails({{$modular[1]['products'][$i]['distributor']['level_four_price']}},{{$modular[1]['products'][$i]['distributor']['level_two_price']}},{{$modular[1]['products'][$i]['distributor']['level_one_price']}},{{$modular[1]['products'][$i]['distributor']['level_three_price']}})
+                                </script>
+                            </h6>
+
+                        </div>
+                    </div>
+                @endfor
+
+            </div><!-- Flex container(scrolling wrapper) -->
+        </div><!-- End 热销 container -->
         <!-- 秒杀 Container -->
         <div class="container mb-2 pb-1">
 
@@ -265,48 +305,6 @@ overflow: hidden;">-->
             </div><!-- Row -->
         </div><!-- End 秒杀 container -->
 
-
-        <!-- 热销 Container -->
-        <div class="container mb-2 px-0">
-
-            <div class="container">
-                <div class="d-flex justify-content-between mt-4">
-                    <div>
-                        <h4 class="pl-2 title-border">
-                            <script> document.write(window.localStorage.getItem('lang') == null || window.localStorage.getItem('lang') == 1 ? " {{$modular[1]['zn_name']}} " : " {{$modular[1]['en_name']}}  "); </script>
-                        </h4>
-                    </div>
-                    <div><a href="/apps/activielist/8" class="text-muted">
-                            <script>Language("更多", "More")</script>
-                            <i class="fa fa-angle-right"></i></a></div>
-                </div>
-            </div>
-
-            <!-- Flex container(scrolling wrapper) -->
-            <div class="d-flex flex-row scrolling-wrapper-flexbox">
-
-                @for( $i = 0; $i < count($modular[1]['products']); $i++ )
-                    <div class="card bg-color-{{$i%3+1}} border-0 mb-2 mx-1 w-25 mw-25 mt-5">
-                        <a href="/apps/product/{{$modular[1]['products'][$i]['id']}}"><img
-                                    src="{{$modular[1]['products'][$i]['product_image']}}"
-                                    class="img-fluid card-img-top rounded img-bg-{{$i+1}} mb-1 position-relative hot-sale-img shaddow"
-                                    alt=""></a>
-                        <div class="card-body hot-sale-card-body text-white text-center p-1">
-                            <small class="mt-0 d-block">
-                                <script> document.write(window.localStorage.getItem('lang') == null || window.localStorage.getItem('lang') == 1 ? " {{$modular[1]['products'][$i]['zn_name']}} " : " {{$modular[1]['products'][$i]['en_name']}} "); </script>
-                            </small>
-                            <h6 class="card-title mb-0">
-                                    <script>
-                                        Spricedetails({{$modular[1]['products'][$i]['distributor']['level_four_price']}},{{$modular[1]['products'][$i]['distributor']['level_two_price']}},{{$modular[1]['products'][$i]['distributor']['level_one_price']}},{{$modular[1]['products'][$i]['distributor']['level_three_price']}})
-                                    </script>
-                            </h6>
-
-                        </div>
-                    </div>
-                @endfor
-
-            </div><!-- Flex container(scrolling wrapper) -->
-        </div><!-- End 热销 container -->
 
         <!-- 分类商品 Container -->
 

@@ -439,8 +439,8 @@
         }
     })
     //跳转地址
-    $(".DrinksPro,.secondBannerPro,.btoNavPro,.snacksPro,.categoryHotPro ,.categoryTitle,.DrinksTitle p,.DrinksMore p,.classify li,#buttonpay").css("cursor", "pointer")
-    $(".DrinksPro,.secondBannerPro,.btoNavPro,.snacksPro,.categoryHotPro,.categoryTitle,.DrinksTitle p,.DrinksMore p,.classify li,#buttonpay").click(function () {
+    $(".linkUp,.DrinksPro,.secondBannerPro,.btoNavPro,.snacksPro,.categoryHotPro ,.categoryTitle,.DrinksTitle p,.DrinksMore p,.classify li,#buttonpay").css("cursor", "pointer")
+    $(".linkUp,.DrinksPro,.secondBannerPro,.btoNavPro,.snacksPro,.categoryHotPro,.categoryTitle,.DrinksTitle p,.DrinksMore p,.classify li,#buttonpay").click(function () {
         var Router = $(this).attr("data-router");
         window.location.href = Router;
     })

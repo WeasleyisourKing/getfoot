@@ -259,7 +259,8 @@
         </div>
         <div class="hotPro clearfloat">
             <ul>
-                <li class="hotPro1"><a
+                <li class="hotPro1"
+                onclick="window.location.href={{!empty($hotImg[0]['url']) ? $hotImg[0]['url'] : ''}}"><a
                             onclick="window.location.href={{!empty($hotImg[0]['url']) ? $hotImg[0]['url'] : ''}}"><img
                                 src="{{!empty($hotImg[0]['img']) ? $hotImg[0]['img'] : '' }}"
                                 alt=""/></a></li>

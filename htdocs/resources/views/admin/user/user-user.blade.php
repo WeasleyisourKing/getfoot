@@ -444,9 +444,9 @@
                         <div class="panel-body">
                             <div class="form-group">
                                 <ul id="myTab" class="nav nav-tabs navtab-bg ">
-                                    <li class="active">
-                                        <a href="#ordinary" data-toggle="tab">普通用户</a>
-                                    </li>
+                                    {{--<li class="active">--}}
+                                        {{--<a href="#ordinary" data-toggle="tab">普通用户</a>--}}
+                                    {{--</li>--}}
 
                                     <li>
                                         <a href="#business" data-toggle="tab">商业用户</a>
@@ -455,9 +455,9 @@
                                 </ul>
 
                                 <div id="myTabContent" class="tab-content">
-                                    <div class="tab-pane fade in active" id="ordinary">
+                                    {{--<div class="tab-pane fade in active" id="ordinary">--}}
 
-                                        <div class="row">
+                                        {{--<div class="row">--}}
 
                                             {{--<div class="btn-group col-md-2">--}}
                                             {{--<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"--}}
@@ -469,26 +469,26 @@
                                             {{--<li><a id="select20" href="">20条</a></li>--}}
                                             {{--</ul>--}}
                                             {{--</div>--}}
-                                            <div class="col-md-8"></div>
+                                            {{--<div class="col-md-8"></div>--}}
 
-                                        </div>
+                                        {{--</div>--}}
 
-                                        <div class="row m-t-10">
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                        {{--<div class="row m-t-10">--}}
+                                            {{--<div class="col-md-12 col-sm-12 col-xs-12">--}}
                                                 {{--<table class="table table-bordered">--}}
-                                                <table class="table table-bordered table-striped display"
-                                                       id="datatable-buttons">
-                                                    <thead>
-                                                    <tr>
-                                                        <th class="col-md-2 col-lg-2 exce"> 名称</th>
-                                                        <th class="col-md-1 col-lg-1 exce"> 性别</th>
-                                                        <th class="col-md-2 col-lg-2 exce"> 头像</th>
-                                                        <th class="col-md-2 col-lg-2 exce"> 注册时间</th>
-                                                        <th class="col-md-2 col-lg-2 exce"> 邮箱</th>
+                                                {{--<table class="table table-bordered table-striped display"--}}
+                                                       {{--id="datatable-buttons">--}}
+                                                    {{--<thead>--}}
+                                                    {{--<tr>--}}
+                                                        {{--<th class="col-md-2 col-lg-2 exce"> 名称</th>--}}
+                                                        {{--<th class="col-md-1 col-lg-1 exce"> 性别</th>--}}
+                                                        {{--<th class="col-md-2 col-lg-2 exce"> 头像</th>--}}
+                                                        {{--<th class="col-md-2 col-lg-2 exce"> 注册时间</th>--}}
+                                                        {{--<th class="col-md-2 col-lg-2 exce"> 邮箱</th>--}}
                                                         {{--<th class="col-md-1 col-lg-1 exce"> 积分</th>--}}
 
-                                                        <th class="col-md-1 col-lg-1 exce">
-                                                            全部状态
+                                                        {{--<th class="col-md-1 col-lg-1 exce">--}}
+                                                            {{--全部状态--}}
                                                             {{--<div class="btn-group ">--}}
                                                             {{--<button type="button"--}}
                                                             {{--class="btn btn-default dropdown-toggle waves-effect"--}}
@@ -502,33 +502,33 @@
 
                                                             {{--</ul>--}}
                                                             {{--</div>--}}
-                                                        </th>
-                                                        <th class="col-md-2 col-lg-2 exce"> 操作</th>
-                                                    </tr>
-                                                    </thead>
+                                                        {{--</th>--}}
+                                                        {{--<th class="col-md-2 col-lg-2 exce"> 操作</th>--}}
+                                                    {{--</tr>--}}
+                                                    {{--</thead>--}}
 
-                                                    <tbody id="postContainer">
-                                                    @foreach ($data as $item)
-                                                        <tr>
+                                                    {{--<tbody id="postContainer">--}}
+                                                    {{--@foreach ($data as $item)--}}
+                                                        {{--<tr>--}}
 
-                                                            <td class="exce">{{ $item->name }}</td>
-                                                            <td class="exce">{{$item->sex}}</td>
-                                                            <td class="exce"><img height="100px; align=" middle"
-                                                                src="{{ $item->avatar }}"
-                                                                alt="没有上传"/>
-                                                            </td>
-                                                            <td class="exce">{{ $item->created_at }}</td>
-                                                            <td class="exce">{{ $item->email }}</td>
+                                                            {{--<td class="exce">{{ $item->name }}</td>--}}
+                                                            {{--<td class="exce">{{$item->sex}}</td>--}}
+                                                            {{--<td class="exce"><img height="100px; align=" middle"--}}
+                                                                {{--src="{{ $item->avatar }}"--}}
+                                                                {{--alt="没有上传"/>--}}
+                                                            {{--</td>--}}
+                                                            {{--<td class="exce">{{ $item->created_at }}</td>--}}
+                                                            {{--<td class="exce">{{ $item->email }}</td>--}}
                                                             {{--<td class="exce">{{ $item->integral }}</td>--}}
-                                                            @if ($item->status != 1)
-                                                                <td class="exce">不激活</td>
+                                                            {{--@if ($item->status != 1)--}}
+                                                                {{--<td class="exce">不激活</td>--}}
                                                                 {{--<td class="exce"><i class="icon fa fa-2x fa-times-circle"> </i></td>--}}
-                                                            @else
+                                                            {{--@else--}}
                                                                 {{--<td class="exce"><i class="icon fa fa-2x fa-check-circle"> </i></td>--}}
-                                                                <td class="exce">激活</td>
-                                                            @endif
+                                                                {{--<td class="exce">激活</td>--}}
+                                                            {{--@endif--}}
 
-                                                            <td class="exce">
+                                                            {{--<td class="exce">--}}
 
                                                                 {{--<a title="查看用户订单" data-id="{{$item->id}}"--}}
                                                                    {{--data-name="{{$item->name}}"--}}
@@ -537,56 +537,56 @@
                                                                    {{--onclick="funOrder(this)">--}}
                                                                     {{--<i class="icon fa fa-shopping-basket"> </i>--}}
                                                                 {{--</a>--}}
-                                                                <a title="查看用户地址" data-id="{{$item->id}}"
-                                                                   data-name="{{$item->name}}"
-                                                                   class="btn btn-small btn-success"
-                                                                   href="javascript:void (0);"
-                                                                   onclick="funAddress(this)">
-                                                                    <i class="icon fa fa-bars"> </i>
-                                                                </a>
-                                                                <a title="修改" href="javascript:void(0); "
-                                                                   class="btn btn-small btn-info"
-                                                                   data-id="{{$item->id}}"
-                                                                   data-name="{{$item->name}}"
-                                                                   data-sex="{{$item->sex}}"
-                                                                   data-avatar="{{$item->avatar}}"
-                                                                   data-email="{{$item->email}}"
-                                                                   data-integral="{{$item->integral}}"
-                                                                   data-role="{{$item->role}}"
+                                                                {{--<a title="查看用户地址" data-id="{{$item->id}}"--}}
+                                                                   {{--data-name="{{$item->name}}"--}}
+                                                                   {{--class="btn btn-small btn-success"--}}
+                                                                   {{--href="javascript:void (0);"--}}
+                                                                   {{--onclick="funAddress(this)">--}}
+                                                                    {{--<i class="icon fa fa-bars"> </i>--}}
+                                                                {{--</a>--}}
+                                                                {{--<a title="修改" href="javascript:void(0); "--}}
+                                                                   {{--class="btn btn-small btn-info"--}}
+                                                                   {{--data-id="{{$item->id}}"--}}
+                                                                   {{--data-name="{{$item->name}}"--}}
+                                                                   {{--data-sex="{{$item->sex}}"--}}
+                                                                   {{--data-avatar="{{$item->avatar}}"--}}
+                                                                   {{--data-email="{{$item->email}}"--}}
+                                                                   {{--data-integral="{{$item->integral}}"--}}
+                                                                   {{--data-role="{{$item->role}}"--}}
 
                                                                    {{--{{dd($item->manys)}}--}}
-                                                                   data-enames="{{!empty($item->manys[0]->name) ? $item->manys[0]->name  :'' }}"
-                                                                   data-emobile="{{!empty($item->manys[0]->mobile ) ? $item->manys[0]->mobile :'' }}"
-                                                                   data-eprovince="{{!empty($item->manys[0]->province)? $item->manys[0]->province:'' }}"
-                                                                   data-ecity="{{!empty($item->manys[0]->city )? $item->manys[0]->city:'' }}"
-                                                                   data-ecountry="{{!empty($item->manys[0]->country )? $item->manys[0]->country:'' }}"
-                                                                   data-edetail="{{!empty($item->manys[0]->detail )?$item->manys[0]->detail :'' }}"
-                                                                   data-ezip="{{!empty($item->manys[0]->zip )?$item->manys[0]->zip:'' }}"
-                                                                   onclick="edit(this);">
-                                                                    <i class="icon fa fa-pencil"> </i>
-                                                                </a>
-                                                                <a title="删除" class="btn btn-small btn-danger"
-                                                                   href="javascript:void(0);" data-id="{{$item->id}}"
-                                                                   onclick="del(this);">
-                                                                    <i class="icon fa fa-trash-o"> </i>
-                                                                </a>
+                                                                   {{--data-enames="{{!empty($item->manys[0]->name) ? $item->manys[0]->name  :'' }}"--}}
+                                                                   {{--data-emobile="{{!empty($item->manys[0]->mobile ) ? $item->manys[0]->mobile :'' }}"--}}
+                                                                   {{--data-eprovince="{{!empty($item->manys[0]->province)? $item->manys[0]->province:'' }}"--}}
+                                                                   {{--data-ecity="{{!empty($item->manys[0]->city )? $item->manys[0]->city:'' }}"--}}
+                                                                   {{--data-ecountry="{{!empty($item->manys[0]->country )? $item->manys[0]->country:'' }}"--}}
+                                                                   {{--data-edetail="{{!empty($item->manys[0]->detail )?$item->manys[0]->detail :'' }}"--}}
+                                                                   {{--data-ezip="{{!empty($item->manys[0]->zip )?$item->manys[0]->zip:'' }}"--}}
+                                                                   {{--onclick="edit(this);">--}}
+                                                                    {{--<i class="icon fa fa-pencil"> </i>--}}
+                                                                {{--</a>--}}
+                                                                {{--<a title="删除" class="btn btn-small btn-danger"--}}
+                                                                   {{--href="javascript:void(0);" data-id="{{$item->id}}"--}}
+                                                                   {{--onclick="del(this);">--}}
+                                                                    {{--<i class="icon fa fa-trash-o"> </i>--}}
+                                                                {{--</a>--}}
 
-                                                            </td>
+                                                            {{--</td>--}}
 
-                                                        </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                </table>
+                                                        {{--</tr>--}}
+                                                    {{--@endforeach--}}
+                                                    {{--</tbody>--}}
+                                                {{--</table>--}}
                                                 {{--<div style="clear: both;text-align: center;">--}}
                                                 {{--{{ $data->links() }}--}}
                                                 {{--</div>--}}
 
-                                            </div>
-                                            @if(!$data->count())
-                                                <div class="col-md-12" style="text-align: center;">暂时没有数据</div>
-                                            @endif
-                                        </div>
-                                    </div>
+                                            {{--</div>--}}
+                                            {{--@if(!$data->count())--}}
+                                                {{--<div class="col-md-12" style="text-align: center;">暂时没有数据</div>--}}
+                                            {{--@endif--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
                                     <div class="tab-pane fade " id="business">
                                         <div class="row">
 

@@ -268,6 +268,12 @@
             }
 
             ?>
+            <?php
+                foreach ($role as $key => $item){
+                    echo $item ;
+                }
+
+            ?>
             <script>
                 console.log(<?php printf(json_encode($role)) ?>)
 

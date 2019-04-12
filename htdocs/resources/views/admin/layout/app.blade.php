@@ -275,32 +275,33 @@
                         console.log(<?php echo json_encode($role) ?>)
                     </script>
                     @foreach($role as $key => $item)
-                        @if (!empty($item['pid']))
-                            <li class="has_sub">
-                                <a id="select{{$item['id']}}" href="#" class="waves-effect waves-light "><i class="{{$item['icon']}}"></i>
-                                    <span>{{$item['name']}}</span>
-                                    <span class="pull-right"><i id="select{{$item['id']}}i" class="md md-add"></i></span></a>
-                                <ul id="select{{$item['id']}}ul" class="list-unstyled">
-                                    @foreach($item['pid'] as $items)
-                                        <li><a href="{{$items['origin_route']}}">{{$items['name']}}</a></li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                            @else
-                            @if (is_null($item['origin_route']))
-
-                               <?php continue; ?>
-                                @else
-                                <li>
-                                    <a id="select{{$item['id']}}" href="{{$item['origin_route']}}" class="waves-effect waves-light "><i class="{{$item['icon']}}"></i>
+                        @if($item['id'] != 7 || $item['id'] != 6)
+                            @if (!empty($item['pid']))
+                                <li class="has_sub">
+                                    <a id="select{{$item['id']}}" href="#" class="waves-effect waves-light "><i class="{{$item['icon']}}"></i>
                                         <span>{{$item['name']}}</span>
-                                    </a>
+                                        <span class="pull-right"><i id="select{{$item['id']}}i" class="md md-add"></i></span></a>
+                                    <ul id="select{{$item['id']}}ul" class="list-unstyled">
+                                        @foreach($item['pid'] as $items)
+                                            <li><a href="{{$items['origin_route']}}">{{$items['name']}}</a></li>
+                                        @endforeach
+                                    </ul>
                                 </li>
-                            @endif
+                                @else
+                                @if (is_null($item['origin_route']))
 
-                            @endif
+                                   <?php continue; ?>
+                                    @else
+                                    <li>
+                                        <a id="select{{$item['id']}}" href="{{$item['origin_route']}}" class="waves-effect waves-light "><i class="{{$item['icon']}}"></i>
+                                            <span>{{$item['name']}}</span>
+                                        </a>
+                                    </li>
+                                @endif
 
+                                @endif
 
+                        @endif
                      @endforeach
 
                         {{--<li>--}}

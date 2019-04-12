@@ -81,6 +81,9 @@
                                             <div style="border:1px solid #ccc; height: 150px;padding:10px 10px 10px 10px;overflow-y: auto;" >
 
                                                 @foreach($params as $items)
+                                                    <script>
+                                                        console.log(<?php echo $item?>)
+                                                    </script>
                                                     <div style=" float: left;width:450px;line-height:30px;">{{$items['zn']}} : {{$items['val']}}</div>
                                                     @endforeach
                                             </div>

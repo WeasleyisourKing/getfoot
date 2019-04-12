@@ -448,7 +448,7 @@
                                         {{--<a href="#ordinary" data-toggle="tab">普通用户</a>--}}
                                     {{--</li>--}}
 
-                                    <li>
+                                    <li class="active">
                                         <a href="#business" data-toggle="tab">商业用户</a>
                                     </li>
 
@@ -587,7 +587,7 @@
                                             {{--@endif--}}
                                         {{--</div>--}}
                                     {{--</div>--}}
-                                    <div class="tab-pane fade " id="business">
+                                    <div class="tab-pane fade in active" id="business">
                                         <div class="row">
 
                                             {{--<div class="btn-group col-md-2">--}}

@@ -270,7 +270,7 @@
             ?>
             <?php
                 foreach ($role as $key => $item){
-                    echo $item ;
+                    echo json_encode($item) ;
                 }
 
             ?>

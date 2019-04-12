@@ -453,7 +453,7 @@
 <script>
     TableManageButtons.init();
     console.log(1)
-    console.log(<?php $role ?>)
+    console.log( $role )
 </script>
 <script>
     $("#bulk-btn").click(function () {

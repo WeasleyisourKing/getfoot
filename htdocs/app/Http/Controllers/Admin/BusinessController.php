@@ -367,7 +367,7 @@ class BusinessController extends Controller
 //        $this->addressInfo['email'] = '暂未填写';
         //添加下单
         $this->addressInfo['user'] = Auth::user()->username;
-dd($this->addressInfo);
+
         return $this->addressInfo;
     }
 

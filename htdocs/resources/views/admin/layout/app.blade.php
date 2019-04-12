@@ -267,18 +267,18 @@
                 $role = [];
             }
 
-
             ?>
+            <script>
+                console.log(<?php printf(json_encode($role)) ?>)
+
+            </script>
             <div id="sidebar-menu">
                 <ul>
                     <script>
 
                     </script>
                     @foreach($role as $key => $item)
-                        <script>
-                            console.log(<?php printf(json_encode($item)) ?>)
 
-                        </script>
                         @if($item['id'] != 7 && $item['id'] != 6)
                             @if (!empty($item['pid']))
                                 <li class="has_sub">

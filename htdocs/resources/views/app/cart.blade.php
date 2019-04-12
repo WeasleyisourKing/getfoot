@@ -143,6 +143,7 @@
 //		优惠名
 		var concessionalName=null;
 		
+        var getStatus=true
 		$("#query").click(function(){
 		var concessionFun=function(data){
              	if(data.status){
@@ -314,7 +315,11 @@
         //结算点击
 
         $(".Settlement").click(function () {
-
+            if(getStatus){
+                getStatus=!getStatus
+            }else{
+                return
+            }
             if ($.isEmptyObject(cart)) {
                 swal({
                     title: LanguageHtml("您还没有添加商品", " No Items Added"),
@@ -368,7 +373,7 @@
                                 localStorage.removeItem("order_no");
                                 localStorage.removeItem("shopcart");
                             } else {
-
+                                getStatus=!getStatus
                                 if (res.error_code == 6001) {
 
                                     goAddAddress(res.message)
@@ -419,6 +424,7 @@
 //                          }
 //                      });
                     } else {
+                        getStatus=!getStatus
                         swal({
                             title: res.message,
                             type: 'info',

@@ -46,9 +46,9 @@
 
                                 <option id="shop2" value="2">商品下单（用户接收）</option>
 
-                                <option id="shop3" value="3">商品发货</option>
+                                {{--<option id="shop3" value="3">商品发货</option>--}}
 
-                                <option id="shop4" value="4">商品到货</option>
+                                {{--<option id="shop4" value="4">商品到货</option>--}}
 
                                 <option id="shop5" value="5">商品下单（商家接收）</option>
 

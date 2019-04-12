@@ -271,6 +271,9 @@
             ?>
             <div id="sidebar-menu">
                 <ul>
+                    <script>
+                        console.log(<?php echo $role ?>)
+                    </script>
                     @foreach($role as $key => $item)
                         @if (!empty($item['pid']))
                             <li class="has_sub">

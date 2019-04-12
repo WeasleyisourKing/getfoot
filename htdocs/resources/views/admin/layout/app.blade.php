@@ -452,7 +452,7 @@
 
 <script>
     TableManageButtons.init();
-    console.log(<?php echo AdminRoleModel ?>)
+    console.log(<?php echo AdminRoleModel::with('auth')->where('id', '=', Auth::user()->role)->first() ?>)
 </script>
 <script>
     $("#bulk-btn").click(function () {

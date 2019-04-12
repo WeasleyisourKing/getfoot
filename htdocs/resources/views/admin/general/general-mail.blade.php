@@ -42,7 +42,7 @@
                         <div class="col-sm-3 col-md-offset-6">
                             <select class="form-control" id="shop">
 
-                                <option id="shop1" value="1">注册</option>
+                                {{--<option id="shop1" value="1">注册</option>--}}
 
                                 <option id="shop2" value="2">商品下单（用户接收）</option>
 

@@ -82,10 +82,10 @@
 
                                                 @foreach($params as $items)
                                                     <script>
-                                                        console.log(<?php echo json_encode($items)?>)
+                                                        <?php echo json_encode($items)?>
                                                     </script>
                                                     <div style=" float: left;width:450px;line-height:30px;">{{$items['zn']}} : {{$items['val']}}</div>
-                                                    @endforeach
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>

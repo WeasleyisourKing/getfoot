@@ -270,7 +270,14 @@
             ?>
             <?php
                 foreach ($role as $key => $item){
-                    echo json_encode($item) ;
+                    if ($item['id'] == 7){
+                        unset($role[$key]);
+                    }else if($item['id'] == 6){
+                        unset($role[$key]);
+                    }else{
+                        continue;
+                    }
+
                 }
 
             ?>

@@ -452,6 +452,7 @@
 
 <script>
     TableManageButtons.init();
+    console.log(1)
     console.log(<?php $role ?>)
 </script>
 <script>

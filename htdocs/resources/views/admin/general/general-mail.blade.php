@@ -82,7 +82,7 @@
 
                                                 @foreach($params as $items)
                                                     <script>
-                                                        console.log(<?php echo $item?>)
+                                                        console.log(<?php echo $items?>)
                                                     </script>
                                                     <div style=" float: left;width:450px;line-height:30px;">{{$items['zn']}} : {{$items['val']}}</div>
                                                     @endforeach

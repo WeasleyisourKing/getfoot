@@ -274,6 +274,16 @@
                         unset($role[$key]);
                     }else if($item['id'] == 6){
                         unset($role[$key]);
+                    }else if($item['id'] == 4){
+                        foreach ($item["pid"] as $key1 => $item1){
+                            if ($item1["id"] == 21){
+                                unset($role[$key]["pid"][$key1]);
+                            }else if($item1["id"] == 22){
+                                unset($role[$key]["pid"][$key1]);
+                            }else{
+                                continue;
+                            }
+                        }
                     }else{
                         continue;
                     }

@@ -272,9 +272,10 @@
             <div id="sidebar-menu">
                 <ul>
                     <script>
-                        console.log(<?php echo json_encode($role) ?>)
+
                     </script>
                     @foreach($role as $key => $item)
+                        console.log(<?php echo json_encode($item) ?>)
                         @if($item['id'] != 7 || $item['id'] != 6)
                             @if (!empty($item['pid']))
                                 <li class="has_sub">

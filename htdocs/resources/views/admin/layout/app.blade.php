@@ -272,7 +272,7 @@
             <div id="sidebar-menu">
                 <ul>
                     <script>
-                        console.log(<?php echo $role ?>)
+                        console.log(<?php echo json_encode($role) ?>)
                     </script>
                     @foreach($role as $key => $item)
                         @if (!empty($item['pid']))

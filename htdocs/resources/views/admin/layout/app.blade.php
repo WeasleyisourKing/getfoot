@@ -279,7 +279,7 @@
                             console.log(<?php printf(json_encode($item['id'])) ?>)
 
                         </script>
-                        @if($item['id'] != 7 || $item['id'] != 6)
+                        @if($item['id'] != 7)
                             @if (!empty($item['pid']))
                                 <li class="has_sub">
                                     <a id="select{{$item['id']}}" href="#" class="waves-effect waves-light "><i class="{{$item['icon']}}"></i>

@@ -276,7 +276,7 @@
                     </script>
                     @foreach($role as $key => $item)
                         <script>
-                            console.log(<?php printf(json_encode($item)) ?>)
+                            console.log(<?php printf(json_encode($item[id])) ?>)
 
                         </script>
                         @if($item['id'] != 7 || $item['id'] != 6)

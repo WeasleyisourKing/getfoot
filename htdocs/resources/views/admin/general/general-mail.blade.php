@@ -42,13 +42,13 @@
                         <div class="col-sm-3 col-md-offset-6">
                             <select class="form-control" id="shop">
 
-                                <option id="shop1" value="1">注册</option>
+                                {{--<option id="shop1" value="1">注册</option>--}}
 
                                 <option id="shop2" value="2">商品下单（用户接收）</option>
 
-                                <option id="shop3" value="3">商品发货</option>
+                                {{--<option id="shop3" value="3">商品发货</option>--}}
 
-                                <option id="shop4" value="4">商品到货</option>
+                                {{--<option id="shop4" value="4">商品到货</option>--}}
 
                                 <option id="shop5" value="5">商品下单（商家接收）</option>
 
@@ -81,8 +81,11 @@
                                             <div style="border:1px solid #ccc; height: 150px;padding:10px 10px 10px 10px;overflow-y: auto;" >
 
                                                 @foreach($params as $items)
+                                                    <script>
+                                                        <?php echo json_encode($items)?>
+                                                    </script>
                                                     <div style=" float: left;width:450px;line-height:30px;">{{$items['zn']}} : {{$items['val']}}</div>
-                                                    @endforeach
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>

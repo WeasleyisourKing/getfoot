@@ -537,15 +537,15 @@
                         <li class="active">
                             <a href="#activite" data-toggle="tab">添加活动</a>
                         </li>
-                        <li>
-                            <a href="#Sowing" data-toggle="tab">app首页轮播图</a>
-                        </li>
-                        <li>
-                            <a href="#pcSowing" data-toggle="tab">pc首页轮播图</a>
-                        </li>
-                        <li>
-                            <a href="#theme" data-toggle="tab">活动列表</a>
-                        </li>
+                        {{--<li>--}}
+                            {{--<a href="#Sowing" data-toggle="tab">app首页轮播图</a>--}}
+                        {{--</li>--}}
+                        {{--<li>--}}
+                            {{--<a href="#pcSowing" data-toggle="tab">pc首页轮播图</a>--}}
+                        {{--</li>--}}
+                        {{--<li>--}}
+                            {{--<a href="#theme" data-toggle="tab">活动列表</a>--}}
+                        {{--</li>--}}
                         <li>
                             <a href="#STactivite" data-toggle="tab">ST-活动列表</a>
                         </li>

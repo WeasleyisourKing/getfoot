@@ -236,7 +236,7 @@
                             <a href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                <i class="md md-settings-power"></i> 注销
+                                <i class="md md-settings-power"></i> 注销1
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
@@ -267,37 +267,68 @@
                 $role = [];
             }
 
+            ?>
+            <?php
+                foreach ($role as $key => $item){
+                    if ($item['id'] == 7){
+                        unset($role[$key]);
+                    }else if($item['id'] == 6){
+                        unset($role[$key]);
+                    }else if($item['id'] == 4){
+                        foreach ($item["pid"] as $key1 => $item1){
+                            if ($item1["id"] == 21){
+                                unset($role[$key]["pid"][$key1]);
+                            }else if($item1["id"] == 22){
+                                unset($role[$key]["pid"][$key1]);
+                            }else{
+                                continue;
+                            }
+                        }
+                    }else{
+                        continue;
+                    }
+
+                }
 
             ?>
+            <script>
+                console.log(<?php printf(json_encode($role)) ?>)
+
+            </script>
             <div id="sidebar-menu">
                 <ul>
+                    <script>
+
+                    </script>
                     @foreach($role as $key => $item)
-                        @if (!empty($item['pid']))
-                            <li class="has_sub">
-                                <a id="select{{$item['id']}}" href="#" class="waves-effect waves-light "><i class="{{$item['icon']}}"></i>
-                                    <span>{{$item['name']}}</span>
-                                    <span class="pull-right"><i id="select{{$item['id']}}i" class="md md-add"></i></span></a>
-                                <ul id="select{{$item['id']}}ul" class="list-unstyled">
-                                    @foreach($item['pid'] as $items)
-                                        <li><a href="{{$items['origin_route']}}">{{$items['name']}}</a></li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                            @else
-                            @if (is_null($item['origin_route']))
 
-                               <?php continue; ?>
-                                @else
-                                <li>
-                                    <a id="select{{$item['id']}}" href="{{$item['origin_route']}}" class="waves-effect waves-light "><i class="{{$item['icon']}}"></i>
+                        @if($item['id'] != 7 && $item['id'] != 6)
+                            @if (!empty($item['pid']))
+                                <li class="has_sub">
+                                    <a id="select{{$item['id']}}" href="#" class="waves-effect waves-light "><i class="{{$item['icon']}}"></i>
                                         <span>{{$item['name']}}</span>
-                                    </a>
+                                        <span class="pull-right"><i id="select{{$item['id']}}i" class="md md-add"></i></span></a>
+                                    <ul id="select{{$item['id']}}ul" class="list-unstyled">
+                                        @foreach($item['pid'] as $items)
+                                            <li><a href="{{$items['origin_route']}}">{{$items['name']}}</a></li>
+                                        @endforeach
+                                    </ul>
                                 </li>
-                            @endif
+                                @else
+                                @if (is_null($item['origin_route']))
 
-                            @endif
+                                   <?php continue; ?>
+                                    @else
+                                    <li>
+                                        <a id="select{{$item['id']}}" href="{{$item['origin_route']}}" class="waves-effect waves-light "><i class="{{$item['icon']}}"></i>
+                                            <span>{{$item['name']}}</span>
+                                        </a>
+                                    </li>
+                                @endif
 
+                                @endif
 
+                        @endif
                      @endforeach
 
                         {{--<li>--}}
@@ -452,6 +483,7 @@
 
 <script>
     TableManageButtons.init();
+    console.log(<?php echo AdminRoleModel::with('auth')->where('id', '=', Auth::user()->role)->first() ?>)
 </script>
 <script>
     $("#bulk-btn").click(function () {
